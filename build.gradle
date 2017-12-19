@@ -1,0 +1,19 @@
+group 'stexfires'
+version '0.1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+javadoc.options.addStringOption("charset", "UTF-8")
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "stexfires:stexfires:0.1.0"
+}
