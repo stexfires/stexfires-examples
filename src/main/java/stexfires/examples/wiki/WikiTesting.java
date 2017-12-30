@@ -5,7 +5,7 @@ import stexfires.core.mapper.NewValuesMapper;
 import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.to.ToSingleMapper;
 import stexfires.core.record.ValueRecord;
-import stexfires.io.RecordFiles;
+import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedProducer;
@@ -57,7 +57,7 @@ public final class WikiTesting {
         RecordMapper<Record, Record> mapper = NewValuesMapper.applyFunctions(r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
                 r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "") + "]" + "(" + r.getValueAt(1) + ")");
 
-        RecordFiles.convert(producer, mapper, consumer);
+        RecordIOStreams.convert(producer, mapper, consumer);
     }
 
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
@@ -68,7 +68,7 @@ public final class WikiTesting {
         RecordMapper<Record, ValueRecord> mapper = NewValuesMapper.applyFunctions(r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
                 .andThen(new ToSingleMapper<>(0));
 
-        RecordFiles.convert(producer, mapper, consumer);
+        RecordIOStreams.convert(producer, mapper, consumer);
     }
 
     public static void main(String[] args) {
