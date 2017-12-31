@@ -11,8 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ExamplesBooleanSupplier {
-
+public final class ExamplesBooleanSupplier {
 
     private static void printStream(String title, Stream<Boolean> stream) {
         System.out.println(title);

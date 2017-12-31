@@ -4,7 +4,7 @@ import stexfires.util.Strings;
 
 import java.util.stream.Stream;
 
-public class ExamplesStrings {
+public final class ExamplesStrings {
 
     private static void showStringsList() {
         System.out.println("-showStringsList---");
@@ -48,6 +48,7 @@ public class ExamplesStrings {
         System.out.println(Strings.collect(Strings.concat(Stream.of("a", "b"), Stream.of("c", "d"))));
 
     }
+
     private static void showStringsCollect() {
         System.out.println("-showStringsCollect---");
 

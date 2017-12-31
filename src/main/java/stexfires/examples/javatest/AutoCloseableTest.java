@@ -1,7 +1,7 @@
 package stexfires.examples.javatest;
 
 
-public class AutoCloseableTest {
+public final class AutoCloseableTest {
 
     private static class TestClose implements AutoCloseable {
 
