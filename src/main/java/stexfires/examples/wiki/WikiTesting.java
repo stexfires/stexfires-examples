@@ -17,13 +17,23 @@ import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings("MagicNumber")
 public final class WikiTesting {
+
+    public static final String RESOURCE_PATH = "stexfires/examples/wiki/";
+
+    private WikiTesting() {
+    }
 
     private static SimpleDelimitedFileSpec createProducerFileSpec() {
         List<SimpleDelimitedFieldSpec> fieldSpecsProducer = new ArrayList<>();
@@ -54,7 +64,8 @@ public final class WikiTesting {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
 
-        RecordMapper<Record, Record> mapper = NewValuesMapper.applyFunctions(r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
+        RecordMapper<Record, Record> mapper = NewValuesMapper.applyFunctions(
+                r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
                 r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "") + "]" + "(" + r.getValueAt(1) + ")");
 
         RecordIOStreams.convert(producer, mapper, consumer);
@@ -65,8 +76,9 @@ public final class WikiTesting {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
 
-        RecordMapper<Record, ValueRecord> mapper = NewValuesMapper.applyFunctions(r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
-                .andThen(new ToSingleMapper<>(0));
+        RecordMapper<Record, ValueRecord> mapper = NewValuesMapper.applyFunctions(
+                r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
+                                                                  .andThen(new ToSingleMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
@@ -78,8 +90,8 @@ public final class WikiTesting {
         }
 
         List<String> resources = new ArrayList<>();
-        resources.add("stexfires/examples/wiki/Wiki_Testing_JUnit5.txt");
-        resources.add("stexfires/examples/wiki/Wiki_Testing_Other.txt");
+        resources.add(RESOURCE_PATH + "Wiki_Testing_JUnit5.txt");
+        resources.add(RESOURCE_PATH + "Wiki_Testing_Other.txt");
 
         List<String> headers = new ArrayList<>();
         headers.add("## JUnit 5 ##");
@@ -100,7 +112,7 @@ public final class WikiTesting {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Cannot generate file! " + e.getMessage());
         }
 
         // Markdown List
@@ -116,7 +128,7 @@ public final class WikiTesting {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Cannot generate file! " + e.getMessage());
         }
     }
 
