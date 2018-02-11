@@ -3,10 +3,14 @@ package stexfires.examples.util;
 import stexfires.util.NumberUnaryOperatorType;
 import stexfires.util.StringUnaryOperatorType;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ExamplesUnaryOperatorTypes {
+
+    private ExamplesUnaryOperatorTypes() {
+    }
 
     private static void showNumberUnaryOperatorType() {
         System.out.println("-showNumberUnaryOperatorType---");
@@ -15,6 +19,10 @@ public final class ExamplesUnaryOperatorTypes {
             for (int i = -2; i < 5; i++) {
                 System.out.println(type.name() + " (" + i + ") ? " + type.operate(i));
             }
+
+            System.out.println(type.name() + " (BigInteger.ZERO)   ? " + type.operate(BigInteger.ZERO));
+            System.out.println(type.name() + " (BigInteger.ONE)    ? " + type.operate(BigInteger.ONE));
+            System.out.println(type.name() + " (BigInteger.TEN)    ? " + type.operate(BigInteger.TEN));
         }
     }
 
@@ -28,6 +36,7 @@ public final class ExamplesUnaryOperatorTypes {
         values.add("A");
         values.add("A1");
         values.add(" a ");
+        values.add(" A ");
         values.add("Hello world");
         values.add("1");
         values.add("€");

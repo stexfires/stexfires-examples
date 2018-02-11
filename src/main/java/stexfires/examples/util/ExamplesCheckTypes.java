@@ -3,10 +3,14 @@ package stexfires.examples.util;
 import stexfires.util.NumberCheckType;
 import stexfires.util.StringCheckType;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ExamplesCheckTypes {
+
+    private ExamplesCheckTypes() {
+    }
 
     private static void showNumberCheckType() {
         System.out.println("-showNumberCheckType---");
@@ -15,10 +19,16 @@ public final class ExamplesCheckTypes {
             for (int i = -2; i < 5; i++) {
                 System.out.println(type.name() + " (" + i + ") ? " + type.check(i));
             }
-            System.out.println(type.name() + " (" + Integer.MAX_VALUE + ") ? " + type.check(Integer.MAX_VALUE));
-            System.out.println(type.name() + " (" + Integer.MIN_VALUE + ") ? " + type.check(Integer.MIN_VALUE));
-            System.out.println(type.name() + " (" + Long.MAX_VALUE + "L) ? " + type.check(Long.MAX_VALUE));
-            System.out.println(type.name() + " (" + Long.MIN_VALUE + "L) ? " + type.check(Long.MIN_VALUE));
+
+            System.out.println(type.name() + " (Integer.MIN_VALUE) ? " + type.check(Integer.MIN_VALUE));
+            System.out.println(type.name() + " (Integer.MAX_VALUE) ? " + type.check(Integer.MAX_VALUE));
+
+            System.out.println(type.name() + " (Long.MIN_VALUE)    ? " + type.check(Long.MIN_VALUE));
+            System.out.println(type.name() + " (Long.MAX_VALUE)    ? " + type.check(Long.MAX_VALUE));
+
+            System.out.println(type.name() + " (BigInteger.ZERO)   ? " + type.check(BigInteger.ZERO));
+            System.out.println(type.name() + " (BigInteger.ONE)    ? " + type.check(BigInteger.ONE));
+            System.out.println(type.name() + " (BigInteger.TEN)    ? " + type.check(BigInteger.TEN));
         }
     }
 
@@ -32,6 +42,7 @@ public final class ExamplesCheckTypes {
         values.add("A");
         values.add("A1");
         values.add(" a ");
+        values.add(" A ");
         values.add("Hello world");
         values.add("1");
         values.add("€");

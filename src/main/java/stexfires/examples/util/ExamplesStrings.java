@@ -6,6 +6,9 @@ import java.util.stream.Stream;
 
 public final class ExamplesStrings {
 
+    private ExamplesStrings() {
+    }
+
     private static void showStringsList() {
         System.out.println("-showStringsList---");
 

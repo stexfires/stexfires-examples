@@ -8,6 +8,9 @@ import java.util.List;
 
 public final class ExamplesComparisonTypes {
 
+    private ExamplesComparisonTypes() {
+    }
+
     private static void showNumberComparisonType() {
         System.out.println("-showNumberComparisonType---");
 
@@ -22,10 +25,9 @@ public final class ExamplesComparisonTypes {
                     }
                     System.out.println(type.name() + " (" + i + ", " + j + ") ? " + result);
                 }
-                System.out.println(type.name() + " (" + i + ", " + Integer.MAX_VALUE + ") ? " + type.compare(i, Integer.MAX_VALUE));
-                System.out.println(type.name() + " (" + i + ", " + Integer.MIN_VALUE + ") ? " + type.compare(i, Integer.MIN_VALUE));
-                System.out.println(type.name() + " (" + i + ", " + Long.MAX_VALUE + "L) ? " + type.compare((long) i, Long.MAX_VALUE));
-                System.out.println(type.name() + " (" + i + ", " + Long.MIN_VALUE + "L) ? " + type.compare((long) i, Long.MIN_VALUE));
+
+                System.out.println(type.name() + " (" + i + ",  Integer.MIN_VALUE) ? " + type.compare(i, Integer.MIN_VALUE));
+                System.out.println(type.name() + " (" + i + ",  Integer.MAX_VALUE) ? " + type.compare(i, Integer.MAX_VALUE));
             }
         }
     }
@@ -40,6 +42,7 @@ public final class ExamplesComparisonTypes {
         values.add("A");
         values.add("A1");
         values.add(" a ");
+        values.add(" A ");
         values.add("Hello world");
         values.add("1");
         values.add("€");
@@ -55,6 +58,7 @@ public final class ExamplesComparisonTypes {
             for (String value1 : values) {
                 for (String value2 : values) {
                     if (value2 == null) {
+                        // Compare value must not be 'null'
                         continue;
                     }
                     Boolean result = null;
@@ -63,7 +67,7 @@ public final class ExamplesComparisonTypes {
                     } catch (Exception e) {
                         System.out.print("Exception: " + e.getMessage() + " : ");
                     }
-                    System.out.println(type.name() + " (" + value1 + ", " + value2 + ") ? " + result);
+                    System.out.println(type.name() + " ('" + value1 + "', '" + value2 + "') ? '" + result + "'");
                 }
             }
         }
