@@ -5,6 +5,7 @@ import stexfires.core.RecordStreams;
 import stexfires.core.consumer.NullConsumer;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.logger.AppendableLogger;
+import stexfires.core.logger.CollectionLogger;
 import stexfires.core.logger.ConditionalLogger;
 import stexfires.core.logger.DispatcherLogger;
 import stexfires.core.logger.LimitedLogger;
@@ -15,10 +16,12 @@ import stexfires.core.logger.SystemErrLogger;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.message.SizeMessage;
 import stexfires.core.record.EmptyRecord;
+import stexfires.core.record.KeyRecord;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.PairRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
+import stexfires.core.record.ValueRecord;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+@SuppressWarnings("MagicNumber")
 public final class ExamplesLogger {
 
     private ExamplesLogger() {
@@ -42,9 +46,37 @@ public final class ExamplesLogger {
         );
     }
 
+    private static Stream<SingleRecord> generateStreamSingleRecord() {
+        return Stream.of(
+                new SingleRecord("value1"),
+                new SingleRecord(null, 2L, "value2"),
+                new SingleRecord("category", 3L, "value3")
+        );
+    }
+
+    private static Stream<KeyValueRecord> generateStreamKeyValueRecord() {
+        return Stream.of(
+                new KeyValueRecord("key1", "value1"),
+                new KeyValueRecord(null, 2L, "key2", "value2"),
+                new KeyValueRecord("category", 3L, "key3", "value3")
+        );
+    }
+
     private static void showLogger(String title, RecordLogger<Record> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStream(), recordLogger)
+                     .forEachOrdered(new NullConsumer<>().asConsumer());
+    }
+
+    private static void showLoggerSingleRecord(String title, RecordLogger<SingleRecord> recordLogger) {
+        System.out.println("--" + title);
+        RecordStreams.log(generateStreamSingleRecord(), recordLogger)
+                     .forEachOrdered(new NullConsumer<>().asConsumer());
+    }
+
+    private static void showLoggerKeyValueRecord(String title, RecordLogger<KeyValueRecord> recordLogger) {
+        System.out.println("--" + title);
+        RecordStreams.log(generateStreamKeyValueRecord(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
@@ -56,6 +88,11 @@ public final class ExamplesLogger {
                 new AppendableLogger<>(builder, new SizeMessage<>()));
         System.out.println(builder.toString());
 
+        StringBuffer buffer = new StringBuffer(10);
+        showLogger("constructor StringBuffer",
+                new AppendableLogger<>(buffer, new SizeMessage<>()));
+        System.out.println(buffer.toString());
+
         try {
             try (StringWriter writer = new StringWriter(10)) {
                 showLogger("constructor StringWriter",
@@ -65,6 +102,25 @@ public final class ExamplesLogger {
         } catch (IOException e) {
             System.out.println("IOException " + e.getMessage());
         }
+    }
+
+    private static void showCollectionLogger() {
+        System.out.println("-showCollectionLogger---");
+
+        List<String> constructor = new ArrayList<>();
+        showLogger("constructor",
+                new CollectionLogger<>(constructor, Record::toString));
+        System.out.println(constructor);
+
+        List<String> values = new ArrayList<>();
+        showLoggerSingleRecord("constructor values",
+                new CollectionLogger<>(values, ValueRecord::getValueOfValueField));
+        System.out.println(values);
+
+        List<String> keys = new ArrayList<>();
+        showLoggerKeyValueRecord("constructor keys",
+                new CollectionLogger<>(keys, KeyRecord::getValueOfKeyField));
+        System.out.println(keys);
     }
 
     private static void showConditionalLogger() {
@@ -121,14 +177,17 @@ public final class ExamplesLogger {
     private static void showPrintStreamLogger() {
         System.out.println("-showPrintStreamLogger---");
 
-        showLogger("constructor",
+        showLogger("constructor false",
+                new PrintStreamLogger<>(System.out, new SizeMessage<>(), false));
+        System.out.println();
+        showLogger("constructor true",
                 new PrintStreamLogger<>(System.out, new SizeMessage<>()));
     }
 
     private static void showRecordLogger() {
         System.out.println("-showRecordLogger---");
 
-        showLogger("concat 2\"",
+        showLogger("concat 2",
                 RecordLogger.concat(new SystemOutLogger<>(), new NullLogger<>()));
         showLogger("concat 3",
                 RecordLogger.concat(new SystemOutLogger<>(), new NullLogger<>(), new SystemOutLogger<>()));
@@ -156,6 +215,7 @@ public final class ExamplesLogger {
 
     public static void main(String[] args) {
         showAppendableLogger();
+        showCollectionLogger();
         showConditionalLogger();
         showDispatcherLogger();
         showLimitedLogger();
