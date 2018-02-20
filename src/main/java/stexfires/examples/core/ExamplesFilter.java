@@ -38,7 +38,7 @@ public final class ExamplesFilter {
     private static Stream<Record> generateStream() {
         return Stream.of(
                 new SingleRecord("category", 0L, "A"),
-                new SingleRecord("category", 1L, "B"),
+                new SingleRecord("category", 1L, ""),
                 new SingleRecord("", 2L, "C"),
                 new SingleRecord("Category", 3L, "D"),
                 new SingleRecord(null, 4L, "E"),
@@ -52,268 +52,172 @@ public final class ExamplesFilter {
         );
     }
 
+    private static void showFilter(String title, RecordFilter<Record> recordFilter) {
+        System.out.println("--" + title);
+        RecordStreams.printLines(RecordStreams.filter(generateStream(), recordFilter));
+    }
+
     private static void showCategoryFilter() {
         System.out.println("-showCategoryFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new CategoryFilter<>(Objects::isNull)));
-
-        System.out.println("compare");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.compare(StringComparisonType.ENDS_WITH, "y")));
-
-        System.out.println("check");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.check(StringCheckType.EMPTY)));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.equalTo("category")));
-
-        System.out.println("isNotNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.isNotNull()));
-
-        System.out.println("isNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.isNull()));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.containedIn(Strings.list("category", "Category"))));
-
-        System.out.println("containedIn Array");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                CategoryFilter.containedIn("category", "Category")));
+        showFilter("constructor",
+                new CategoryFilter<>(Objects::isNull));
+        showFilter("compare",
+                CategoryFilter.compare(StringComparisonType.ENDS_WITH, "y"));
+        showFilter("check",
+                CategoryFilter.check(StringCheckType.EMPTY));
+        showFilter("equalTo",
+                CategoryFilter.equalTo("category"));
+        showFilter("isNotNull",
+                CategoryFilter.isNotNull());
+        showFilter("isNull",
+                CategoryFilter.isNull());
+        showFilter("containedIn Collection",
+                CategoryFilter.containedIn(Strings.list("category", "Category")));
+        showFilter("containedIn Array",
+                CategoryFilter.containedIn("category", "Category"));
     }
 
     private static void showClassFilter() {
         System.out.println("-showClassFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new ClassFilter<>(clazz -> !EmptyRecord.class.equals(clazz))));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ClassFilter.equalTo(PairRecord.class)));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ClassFilter.containedIn(Collections.singletonList(PairRecord.class))));
+        showFilter("constructor",
+                new ClassFilter<>(clazz -> !EmptyRecord.class.equals(clazz)));
+        showFilter("equalTo",
+                ClassFilter.equalTo(PairRecord.class));
+        showFilter("containedIn Collection",
+                ClassFilter.containedIn(Collections.singletonList(PairRecord.class)));
     }
 
     private static void showConstantFilter() {
         System.out.println("-showConstantFilter---");
 
-        System.out.println("constructor true");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new ConstantFilter<>(true)));
-
-        System.out.println("constructor false");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new ConstantFilter<>(false)));
+        showFilter("constructor true",
+                new ConstantFilter<>(true));
+        showFilter("constructor false",
+                new ConstantFilter<>(false));
     }
 
     private static void showIsValidIndexFilter() {
         System.out.println("-showIsValidIndexFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new IsValidIndexFilter<>(1)));
+        showFilter("constructor",
+                new IsValidIndexFilter<>(1));
     }
 
     private static void showMessageFilter() {
         System.out.println("-showMessageFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new MessageFilter<>(new CategoryMessage<>(""), Predicate.isEqual("c"))));
+        CategoryMessage<Record> message = new CategoryMessage<>("");
+        CategoryMessage<Record> messageNull = new CategoryMessage<>();
 
-        System.out.println("compare");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.compare(new CategoryMessage<>(""), StringComparisonType.EQUALS_IGNORE_CASE, "category")));
-
-        System.out.println("check");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.check(new CategoryMessage<>(""), StringCheckType.EMPTY)));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.equalTo(new CategoryMessage<>(""), "c")));
-
-        System.out.println("isNotNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.isNotNull(new CategoryMessage<>())));
-
-        System.out.println("isNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.isNull(new CategoryMessage<>())));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.containedIn(new CategoryMessage<>(""), Strings.list("c"))));
-
-        System.out.println("containedIn Array");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                MessageFilter.containedIn(new CategoryMessage<>(""), "c", "")));
+        showFilter("constructor",
+                new MessageFilter<>(message, Predicate.isEqual("c")));
+        showFilter("compare",
+                MessageFilter.compare(message, StringComparisonType.EQUALS_IGNORE_CASE, "category"));
+        showFilter("check",
+                MessageFilter.check(message, StringCheckType.EMPTY));
+        showFilter("equalTo",
+                MessageFilter.equalTo(message, "c"));
+        showFilter("isNotNull",
+                MessageFilter.isNotNull(messageNull));
+        showFilter("isNull",
+                MessageFilter.isNull(messageNull));
+        showFilter("containedIn Collection",
+                MessageFilter.containedIn(message, Strings.list("c")));
+        showFilter("containedIn Array",
+                MessageFilter.containedIn(message, "c", ""));
     }
 
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
-        RecordFilter<Record> recordFilter = ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8));
-
-        System.out.println("concatAnd");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class),
-                        SizeFilter.equalTo(8))));
-
-        System.out.println("concatOr");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class),
-                        ClassFilter.equalTo(KeyValueRecord.class))));
-
-        System.out.println("and");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8))));
-
-        System.out.println("negate");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.equalTo(1).negate()));
-
-        System.out.println("or");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class))));
+        showFilter("concatAnd",
+                RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class), SizeFilter.equalTo(8)));
+        showFilter("concatOr",
+                RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
+        showFilter("and",
+                ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8)));
+        showFilter("negate",
+                SizeFilter.equalTo(1).negate());
+        showFilter("or",
+                ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
     }
 
     private static void showRecordIdFilter() {
         System.out.println("-showRecordIdFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new RecordIdFilter<>(value -> value == 1L)));
-
-        System.out.println("compare");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.compare(NumberComparisonType.GREATER_THAN, 2L)));
-
-        System.out.println("check");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.check(NumberCheckType.EVEN)));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.equalTo(1L)));
-
-        System.out.println("isNotNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.isNotNull()));
-
-        System.out.println("isNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.isNull()));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.containedIn(Collections.singletonList(4L))));
-
-        System.out.println("containedIn Array");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.containedIn(2L, 4L)));
-
-        System.out.println("between");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                RecordIdFilter.between(3L, 5L)));
+        showFilter("constructor",
+                new RecordIdFilter<>(value -> value == 1L));
+        showFilter("compare",
+                RecordIdFilter.compare(NumberComparisonType.GREATER_THAN, 2L));
+        showFilter("check",
+                RecordIdFilter.check(NumberCheckType.EVEN));
+        showFilter("equalTo",
+                RecordIdFilter.equalTo(1L));
+        showFilter("isNotNull",
+                RecordIdFilter.isNotNull());
+        showFilter("isNull",
+                RecordIdFilter.isNull());
+        showFilter("containedIn Collection",
+                RecordIdFilter.containedIn(Collections.singletonList(4L)));
+        showFilter("containedIn Array",
+                RecordIdFilter.containedIn(2L, 4L));
+        showFilter("between",
+                RecordIdFilter.between(3L, 5L));
     }
 
     private static void showSizeFilter() {
         System.out.println("-showSizeFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new SizeFilter<>(value -> value == 0)));
-
-        System.out.println("compare");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.compare(NumberComparisonType.GREATER_THAN, 2)));
-
-        System.out.println("check");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.check(NumberCheckType.ODD)));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.equalTo(1)));
-
-        System.out.println("isEmpty");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.isEmpty()));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.containedIn(Collections.singletonList(Integer.valueOf(2)))));
-
-        System.out.println("containedIn Array");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.containedIn(Integer.valueOf(8), null, 2)));
-
-        System.out.println("between");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SizeFilter.between(2, 9)));
+        showFilter("constructor",
+                new SizeFilter<>(value -> value == 0));
+        showFilter("compare",
+                SizeFilter.compare(NumberComparisonType.GREATER_THAN, 2));
+        showFilter("check",
+                SizeFilter.check(NumberCheckType.ODD));
+        showFilter("equalTo",
+                SizeFilter.equalTo(1));
+        showFilter("isEmpty",
+                SizeFilter.isEmpty());
+        showFilter("containedIn Collection",
+                SizeFilter.containedIn(Collections.singletonList(Integer.valueOf(2))));
+        showFilter("containedIn Array",
+                SizeFilter.containedIn(Integer.valueOf(8), null, 2));
+        showFilter("between",
+                SizeFilter.between(2, 9));
     }
 
     private static void showSupplierFilter() {
         System.out.println("-showSupplierFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new SupplierFilter<>(() -> false)));
-
-        System.out.println("booleanSupplier");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SupplierFilter.booleanSupplier(() -> true)));
-
-        System.out.println("random");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SupplierFilter.random(50)));
-
-        System.out.println("pattern");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                SupplierFilter.pattern(true, false, false)));
+        showFilter("constructor",
+                new SupplierFilter<>(() -> false));
+        showFilter("booleanSupplier",
+                SupplierFilter.booleanSupplier(() -> true));
+        showFilter("random",
+                SupplierFilter.random(50));
+        showFilter("pattern",
+                SupplierFilter.pattern(true, false, false));
     }
 
     private static void showValueFilter() {
         System.out.println("-showValueFilter---");
 
-        System.out.println("constructor");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                new ValueFilter<>(1, true, value -> false)));
-
-        System.out.println("compare");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t")));
-
-        System.out.println("check");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.check(0, StringCheckType.EMPTY)));
-
-        System.out.println("equalTo");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.equalTo(0, "S")));
-
-        System.out.println("isNotNull");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.isNotNull(2)));
-
-        System.out.println("containedIn Collection");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.containedIn(0, Strings.list("A", "B"))));
-
-        System.out.println("containedIn Array");
-        RecordStreams.printLines(RecordStreams.filter(generateStream(),
-                ValueFilter.containedIn(0, "C", "D")));
+        showFilter("constructor",
+                new ValueFilter<>(1, true, value -> false));
+        showFilter("compare",
+                ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
+        showFilter("check",
+                ValueFilter.check(0, StringCheckType.EMPTY));
+        showFilter("equalTo",
+                ValueFilter.equalTo(0, "S"));
+        showFilter("isNotNull",
+                ValueFilter.isNotNull(2));
+        showFilter("containedIn Collection",
+                ValueFilter.containedIn(0, Strings.list("A", "B")));
+        showFilter("containedIn Array",
+                ValueFilter.containedIn(0, "C", "D"));
     }
 
     public static void main(String[] args) {
