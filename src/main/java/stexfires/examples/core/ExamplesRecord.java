@@ -6,6 +6,7 @@ import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.PairRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
+import stexfires.util.Strings;
 
 public final class ExamplesRecord {
 
@@ -55,6 +56,15 @@ public final class ExamplesRecord {
         System.out.println("-showStandardRecord---");
 
         showRecord(new StandardRecord());
+
+        showRecord(new StandardRecord(Strings.list("value1", "value2", "value3")));
+        showRecord(new StandardRecord("category", Strings.list("value1", "value2", "value3")));
+        showRecord(new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3")));
+
+        showRecord(new StandardRecord(Strings.stream("value1", "value2", "value3")));
+        showRecord(new StandardRecord("category", Strings.stream("value1", "value2", "value3")));
+        showRecord(new StandardRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
+
         showRecord(new StandardRecord("value1", "value2", "value3"));
         showRecord(new StandardRecord("category", 0L, "value1", "value2", "value3"));
     }
