@@ -1,6 +1,5 @@
 package stexfires.examples.javatest;
 
-
 @SuppressWarnings("UnnecessaryLocalVariable")
 public final class AutoCloseableTest {
 
@@ -78,6 +77,7 @@ public final class AutoCloseableTest {
             if (ex) throw new RuntimeException("constructor");
         }
 
+        @SuppressWarnings("MethodMayBeStatic")
         void test(boolean ex) {
             System.out.println("test " + ex);
             if (ex) throw new RuntimeException("test");
