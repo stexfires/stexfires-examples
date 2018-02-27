@@ -19,11 +19,11 @@ public final class ExamplesBooleanSupplier {
 
     private static void printStream(String title, Stream<Boolean> stream) {
         System.out.println(title);
-        stream.limit(10).forEachOrdered(System.out::println);
+        stream.limit(10L).forEachOrdered(System.out::println);
     }
 
     private static void showSwitchingBooleanSupplier() {
-        System.out.println("-show SwitchingBooleanSupplier---");
+        System.out.println("-showSwitchingBooleanSupplier---");
 
         printStream("Switching: onlyOnce at index 3",
                 Stream.generate(
@@ -43,7 +43,7 @@ public final class ExamplesBooleanSupplier {
     }
 
     private static void showRandomBooleanSupplier() {
-        System.out.println("-show RandomBooleanSupplier---");
+        System.out.println("-showRandomBooleanSupplier---");
 
         printStream("Random: 100%",
                 Stream.generate(
@@ -67,12 +67,12 @@ public final class ExamplesBooleanSupplier {
 
         System.out.println("Random: 50% 100000");
         System.out.println(Stream.generate(new RandomBooleanSupplier(50))
-                                 .limit(100000)
+                                 .limit(100000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
     }
 
     private static void showRepeatingPatternBooleanSupplier() {
-        System.out.println("-show RepeatingPatternBooleanSupplier---");
+        System.out.println("-showRepeatingPatternBooleanSupplier---");
 
         printStream("Pattern: true, true, false",
                 Stream.generate(
