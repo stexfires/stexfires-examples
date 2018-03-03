@@ -1,8 +1,8 @@
 package stexfires.examples.wiki;
 
 import stexfires.core.Record;
-import stexfires.core.mapper.NewValuesMapper;
 import stexfires.core.mapper.RecordMapper;
+import stexfires.core.mapper.ValuesMapper;
 import stexfires.core.mapper.to.ToSingleMapper;
 import stexfires.core.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
@@ -64,7 +64,7 @@ public final class WikiTesting {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
 
-        RecordMapper<Record, Record> mapper = NewValuesMapper.applyFunctions(
+        RecordMapper<Record, Record> mapper = ValuesMapper.applyFunctions(
                 r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
                 r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "") + "]" + "(" + r.getValueAt(1) + ")");
 
@@ -76,9 +76,9 @@ public final class WikiTesting {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
 
-        RecordMapper<Record, ValueRecord> mapper = NewValuesMapper.applyFunctions(
+        RecordMapper<Record, ValueRecord> mapper = ValuesMapper.applyFunctions(
                 r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
-                                                                  .andThen(new ToSingleMapper<>(0));
+                                                               .andThen(new ToSingleMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
