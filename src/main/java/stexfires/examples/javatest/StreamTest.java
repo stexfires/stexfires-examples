@@ -1,6 +1,13 @@
 package stexfires.examples.javatest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Spliterator;
 import java.util.SplittableRandom;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -114,6 +121,123 @@ public final class StreamTest {
               .forEachOrdered(System.out::println);
     }
 
+    @SuppressWarnings("StandardVariableNames")
+    private static void showModification() {
+        System.out.println("-showModification---");
+        String a = "a";
+        String b = "b";
+        String c = "c";
+        String[] array = new String[]{a, b};
+
+        List<String> list1 = new ArrayList<>(1);
+        list1.add(a);
+
+        // create streams
+        Stream<String> listStream = list1.stream();
+        Stream<String> arrayStream1 = Arrays.stream(array);
+        Stream<String> arrayStream2 = Stream.of(array);
+
+        // modify streams
+        list1.add(c);
+        array[1] = c;
+
+        // print streams
+        System.out.print("Modified list stream:    ");
+        listStream.forEachOrdered(System.out::print);
+        System.out.println();
+        System.out.print("Modified array stream 1: ");
+        arrayStream1.forEachOrdered(System.out::print);
+        System.out.println();
+        System.out.print("Modified array stream 2: ");
+        arrayStream2.forEachOrdered(System.out::print);
+        System.out.println();
+    }
+
+    private static void showCharacteristics() {
+        System.out.println("-showCharacteristics---");
+        String a = "a";
+        String b = "b";
+
+        // List
+        List<String> list1 = new ArrayList<>(1);
+        list1.add(a);
+        Stream<String> streamList1 = list1.stream();
+        Stream<String> streamList2 = Collections.unmodifiableList(new ArrayList<>(list1)).stream();
+
+        // Single
+        Stream<String> streamSingle1 = Stream.of(a);
+
+        // Array
+        String[] array = new String[]{a, b};
+        Stream<String> streamArray1 = Arrays.stream(array);
+        Stream<String> streamArray2 = Stream.of(a, b);
+        Stream<String> streamArray3 = Stream.of(array);
+        Stream<String> streamArray4 = Stream.of();
+
+        // Empty
+        Stream<String> streamEmpty1 = Stream.empty();
+
+        // Spliterator
+        Spliterator<String> spList1 = streamList1.spliterator();
+        Spliterator<String> spList2 = streamList2.spliterator();
+
+        Spliterator<String> spSingle1 = streamSingle1.spliterator();
+
+        Spliterator<String> spArray1 = streamArray1.spliterator();
+        Spliterator<String> spArray2 = streamArray2.spliterator();
+        Spliterator<String> spArray3 = streamArray3.spliterator();
+        Spliterator<String> spArray4 = streamArray4.spliterator();
+
+        Spliterator<String> spEmpty1 = streamEmpty1.spliterator();
+
+        Map<String, Spliterator<String>> spliterators = new TreeMap<>();
+        spliterators.put("spList1  ", spList1);
+        spliterators.put("spList2  ", spList2);
+        spliterators.put("spSingle1", spSingle1);
+        spliterators.put("spArray1 ", spArray1);
+        spliterators.put("spArray2 ", spArray2);
+        spliterators.put("spArray3 ", spArray3);
+        spliterators.put("spArray4 ", spArray4);
+        spliterators.put("spEmpty1 ", spEmpty1);
+
+        System.out.println("Spliterator Overview");
+        System.out.println("spList1   " + spList1.characteristics() + " " + spList1.estimateSize() + " " + spList1.getExactSizeIfKnown() + " " + spList1);
+        System.out.println("spList2   " + spList2.characteristics() + " " + spList2.estimateSize() + " " + spList2.getExactSizeIfKnown() + " " + spList2);
+        System.out.println("spSingle1 " + spSingle1.characteristics() + " " + spSingle1.estimateSize() + " " + spSingle1.getExactSizeIfKnown() + " " + spSingle1);
+        System.out.println("spArray1  " + spArray1.characteristics() + " " + spArray1.estimateSize() + " " + spArray1.getExactSizeIfKnown() + " " + spArray1);
+        System.out.println("spArray2  " + spArray2.characteristics() + " " + spArray2.estimateSize() + " " + spArray2.getExactSizeIfKnown() + " " + spArray2);
+        System.out.println("spArray3  " + spArray3.characteristics() + " " + spArray3.estimateSize() + " " + spArray3.getExactSizeIfKnown() + " " + spArray3);
+        System.out.println("spArray4  " + spArray4.characteristics() + " " + spArray4.estimateSize() + " " + spArray4.getExactSizeIfKnown() + " " + spArray4);
+        System.out.println("spEmpty1  " + spEmpty1.characteristics() + " " + spEmpty1.estimateSize() + " " + spEmpty1.getExactSizeIfKnown() + " " + spEmpty1);
+
+        System.out.println();
+
+        System.out.println("Spliterator Characteristics");
+        System.out.println("CONCURRENT");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.CONCURRENT)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("DISTINCT");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.DISTINCT)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("IMMUTABLE");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.IMMUTABLE)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("NONNULL");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.NONNULL)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("ORDERED");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.ORDERED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("SIZED");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.SIZED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("SORTED");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.SORTED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+
+        System.out.println("SUBSIZED");
+        spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.SUBSIZED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
+    }
+
     public static void main(String[] args) {
         showIntStreamRange();
         showStreamIterate();
@@ -126,6 +250,8 @@ public final class StreamTest {
         showReduce();
         showSplittableRandom();
         showConcat();
+        showModification();
+        showCharacteristics();
     }
 
 }
