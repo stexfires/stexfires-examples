@@ -96,15 +96,10 @@ public final class ExamplesConsumer {
                 new AppendableConsumer<>(buffer, new SizeMessage<>()));
         System.out.println(buffer.toString());
 
-        try {
-            try (StringWriter writer = new StringWriter(10)) {
-                showConsumer("constructor StringWriter",
-                        new AppendableConsumer<>(writer, new SizeMessage<>()));
-                System.out.println(writer.toString());
-            }
-        } catch (IOException e) {
-            System.out.println("IOException " + e.getMessage());
-        }
+        StringWriter writer = new StringWriter(10);
+        showConsumer("constructor StringWriter",
+                new AppendableConsumer<>(writer, new SizeMessage<>()));
+        System.out.println(writer.toString());
     }
 
     private static void showCollectionConsumer() {
@@ -208,11 +203,10 @@ public final class ExamplesConsumer {
     private static void showStringWriterConsumer() {
         System.out.println("-showStringWriterConsumer---");
 
-        try (StringWriterConsumer<Record> consumer = new StringWriterConsumer<>(new SizeMessage<>())) {
-            showConsumer("constructor",
-                    consumer);
-            System.out.println(consumer.getString());
-        }
+        StringWriterConsumer<Record> consumer = new StringWriterConsumer<>(new SizeMessage<>());
+        showConsumer("constructor",
+                consumer);
+        System.out.println(consumer.getString());
     }
 
     private static void showWriterConsumer() {
@@ -232,19 +226,30 @@ public final class ExamplesConsumer {
     private static void showSystemOutConsumer() {
         System.out.println("-showSystemOutConsumer---");
 
+        showConsumer("constructor",
+                new SystemOutConsumer<>());
         showConsumer("constructor prefix",
                 new SystemOutConsumer<>("--"));
         showConsumer("constructor SizeMessage",
                 new SystemOutConsumer<>(new SizeMessage<>()));
+        showConsumer("constructor SizeMessage false",
+                new SystemOutConsumer<>(new SizeMessage<>(), false));
+        System.out.println();
     }
 
     private static void showSystemErrConsumer() {
         System.out.println("-showSystemErrConsumer---");
 
+
+        showConsumer("constructor",
+                new SystemErrConsumer<>());
         showConsumer("constructor prefix",
                 new SystemErrConsumer<>("--"));
         showConsumer("constructor SizeMessage",
                 new SystemErrConsumer<>(new SizeMessage<>()));
+        showConsumer("constructor SizeMessage false",
+                new SystemErrConsumer<>(new SizeMessage<>(), false));
+        System.err.println();
     }
 
     public static void main(String[] args) {

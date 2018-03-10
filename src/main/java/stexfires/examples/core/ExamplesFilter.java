@@ -7,6 +7,7 @@ import stexfires.core.filter.ClassFilter;
 import stexfires.core.filter.ConstantFilter;
 import stexfires.core.filter.IsValidIndexFilter;
 import stexfires.core.filter.MessageFilter;
+import stexfires.core.filter.NotNullFilter;
 import stexfires.core.filter.RecordFilter;
 import stexfires.core.filter.RecordIdFilter;
 import stexfires.core.filter.SizeFilter;
@@ -129,6 +130,13 @@ public final class ExamplesFilter {
                 MessageFilter.containedIn(message, "c", ""));
     }
 
+    private static void showNotNullFilter() {
+        System.out.println("-showNotNullFilter---");
+
+        showFilter("constructor",
+                new NotNullFilter<>());
+    }
+
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
@@ -204,20 +212,38 @@ public final class ExamplesFilter {
     private static void showValueFilter() {
         System.out.println("-showValueFilter---");
 
-        showFilter("constructor",
+        showFilter("constructor index",
+                new ValueFilter<>(0, "A"::equals));
+        showFilter("constructor index null",
                 new ValueFilter<>(1, true, value -> false));
-        showFilter("compare",
+        showFilter("constructor function",
+                new ValueFilter<>(Record::getLastField, "A"::equals));
+        showFilter("constructor function null",
+                new ValueFilter<>(record -> record.getFieldAt(1), false, "t"::equals));
+        showFilter("compare index",
                 ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
-        showFilter("check",
+        showFilter("compare function",
+                ValueFilter.compare(Record::getLastField, StringComparisonType.EQUALS, "d"));
+        showFilter("check index",
                 ValueFilter.check(0, StringCheckType.EMPTY));
-        showFilter("equalTo",
+        showFilter("check function",
+                ValueFilter.check(Record::getLastField, StringCheckType.EMPTY));
+        showFilter("equalTo index",
                 ValueFilter.equalTo(0, "S"));
-        showFilter("isNotNull",
+        showFilter("equalTo function",
+                ValueFilter.equalTo(Record::getLastField, "d"));
+        showFilter("isNotNull index",
                 ValueFilter.isNotNull(2));
-        showFilter("containedIn Collection",
+        showFilter("isNotNull function",
+                ValueFilter.isNotNull(Record::getLastField));
+        showFilter("containedIn index Collection",
                 ValueFilter.containedIn(0, Strings.list("A", "B")));
-        showFilter("containedIn Array",
+        showFilter("containedIn function Collection",
+                ValueFilter.containedIn(Record::getLastField, Strings.list("A", "d")));
+        showFilter("containedIn index Array",
                 ValueFilter.containedIn(0, "C", "D"));
+        showFilter("containedIn function Array",
+                ValueFilter.containedIn(Record::getLastField, "A", "d"));
     }
 
     public static void main(String[] args) {
@@ -226,6 +252,7 @@ public final class ExamplesFilter {
         showConstantFilter();
         showIsValidIndexFilter();
         showMessageFilter();
+        showNotNullFilter();
         showRecordFilter();
         showRecordIdFilter();
         showSizeFilter();

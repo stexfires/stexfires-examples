@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -67,6 +68,7 @@ public final class ExamplesFieldValueMapper {
     private static void showConstantFieldValueMapper() {
         System.out.println("-showConstantFieldValueMapper---");
 
+        showMapper("constructor", new ConstantFieldValueMapper());
         showMapper("constructor constant", new ConstantFieldValueMapper("constant"));
     }
 
@@ -85,6 +87,11 @@ public final class ExamplesFieldValueMapper {
 
     private static void showIndexedFieldValueMapper() {
         System.out.println("-showIndexedFieldValueMapper---");
+
+        showMapper("constructor", new IndexedFieldValueMapper(
+                i -> i == 1 ? Optional.of(new ConstantFieldValueMapper("index 1")) : Optional.empty(),
+                new ConstantFieldValueMapper("else")
+        ));
 
         showMapper("byArray", IndexedFieldValueMapper.byArray(
                 new AddPrefixFieldValueMapper("Index-0: "),

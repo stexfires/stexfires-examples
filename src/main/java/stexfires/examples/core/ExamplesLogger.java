@@ -198,19 +198,29 @@ public final class ExamplesLogger {
     private static void showSystemOutLogger() {
         System.out.println("-showSystemOutLogger---");
 
+        showLogger("constructor",
+                new SystemOutLogger<>());
         showLogger("constructor prefix",
                 new SystemOutLogger<>("--"));
         showLogger("constructor SizeMessage",
                 new SystemOutLogger<>(new SizeMessage<>()));
+        showLogger("constructor SizeMessage false",
+                new SystemOutLogger<>(new SizeMessage<>(), false));
+        System.out.println();
     }
 
     private static void showSystemErrLogger() {
         System.out.println("-showSystemErrLogger---");
 
+        showLogger("constructor",
+                new SystemErrLogger<>());
         showLogger("constructor prefix",
                 new SystemErrLogger<>("--"));
         showLogger("constructor SizeMessage",
                 new SystemErrLogger<>(new SizeMessage<>()));
+        showLogger("constructor SizeMessage false",
+                new SystemErrLogger<>(new SizeMessage<>(), false));
+        System.err.println();
     }
 
     public static void main(String[] args) {

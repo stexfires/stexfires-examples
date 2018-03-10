@@ -3,6 +3,7 @@ package stexfires.examples.core;
 import stexfires.core.Record;
 import stexfires.core.RecordStreams;
 import stexfires.core.filter.ClassFilter;
+import stexfires.core.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.core.message.CategoryMessage;
 import stexfires.core.message.ClassNameMessage;
 import stexfires.core.message.CompareMessageBuilder;
@@ -134,6 +135,8 @@ public final class ExamplesMessage {
     private static void showJoinedValuesMessage() {
         System.out.println("-showJoinedValuesMessage---");
 
+        showMessage("constructor",
+                new JoinedValuesMessage<>());
         showMessage("constructor delimiter",
                 new JoinedValuesMessage<>(""));
     }
@@ -142,6 +145,7 @@ public final class ExamplesMessage {
         System.out.println("-showNullSafeMessage---");
 
         System.out.println(new NullSafeMessage<>(new ToStringMessage<>()).createMessage(null));
+        System.out.println(new NullSafeMessage<>(new ToStringMessage<>(), "<NULL>").createMessage(null));
     }
 
     private static void showRecordIdMessage() {
@@ -177,6 +181,8 @@ public final class ExamplesMessage {
     private static void showSupplierMessage() {
         System.out.println("-showSupplierMessage---");
 
+        showMessage("constructor",
+                new SupplierMessage<>(() -> "message"));
         showMessage("localTime",
                 SupplierMessage.localTime());
         showMessage("threadName",
@@ -195,14 +201,26 @@ public final class ExamplesMessage {
     private static void showValueMessage() {
         System.out.println("-showValueMessage---");
 
-        showMessage("constructor",
+        showMessage("constructor index",
                 new ValueMessage<>(1));
-        showMessage("constructor nullFieldMessage",
+        showMessage("constructor index nullFieldMessage",
                 new ValueMessage<>(1, "<NULL>"));
-        showMessageSingleRecord("value",
-                ValueMessage.value());
+        showMessage("constructor index nullFieldMessage fieldValueMapper",
+                new ValueMessage<>(1, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
+        showMessage("constructor function",
+                new ValueMessage<>(Record::getLastField));
+        showMessage("constructor function nullFieldMessage",
+                new ValueMessage<>(Record::getLastField, "<NULL>"));
+        showMessage("constructor function nullFieldMessage fieldValueMapper",
+                new ValueMessage<>(Record::getLastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
         showMessageKeyValueRecord("key",
                 ValueMessage.key());
+        showMessageKeyValueRecord("keyField",
+                ValueMessage.keyField(new AddPrefixFieldValueMapper("new key: ")));
+        showMessageSingleRecord("value",
+                ValueMessage.value());
+        showMessageSingleRecord("valueField",
+                ValueMessage.valueField(new AddPrefixFieldValueMapper("new value: ")));
     }
 
     public static void main(String[] args) {
