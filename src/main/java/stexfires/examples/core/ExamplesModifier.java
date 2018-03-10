@@ -347,11 +347,18 @@ public final class ExamplesModifier {
     private static void showRecordStreamModifier() {
         System.out.println("-showRecordStreamModifier---");
 
-        showModifierSingleRecord("concat",
+        showModifierSingleRecord("concat 2",
                 RecordStreamModifier.concat(
                         new FilterModifier<>(CategoryFilter.equalTo("C1")),
                         new DistinctModifier<>(new CategoryMessage<>())));
-
+        showModifierSingleRecord("concat 3",
+                RecordStreamModifier.concat(
+                        new FilterModifier<>(CategoryFilter.equalTo("C1")),
+                        new IdentityModifier<>(),
+                        new SkipLimitModifier<>(1L, 1L)));
+        showModifierSingleRecord("compose",
+                new DistinctModifier<SingleRecord>(new CategoryMessage<>())
+                        .compose(new FilterModifier<>(CategoryFilter.equalTo("C1"))));
         showModifierSingleRecord("andThen",
                 new FilterModifier<SingleRecord>(CategoryFilter.equalTo("C1"))
                         .andThen(new DistinctModifier<>(new CategoryMessage<>())));
