@@ -2,6 +2,7 @@ package stexfires.examples.core;
 
 import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.filter.CategoryFilter;
@@ -40,7 +41,6 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static stexfires.core.comparator.RecordComparators.NULLS;
 import static stexfires.core.modifier.GroupModifier.*;
 import static stexfires.util.NumberComparisonType.LESS_THAN;
 
@@ -381,7 +381,7 @@ public final class ExamplesModifier {
         showModifierSingleRecord("constructor category",
                 new SortModifier<>(RecordComparators.category()));
         showModifierSingleRecord("constructor valueField",
-                new SortModifier<>(RecordComparators.valueField(Comparator.naturalOrder(), NULLS.FIRST)));
+                new SortModifier<>(RecordComparators.valueOfValueField(Comparator.naturalOrder(), NULLS.FIRST)));
     }
 
     private static void showUnaryGroupModifier() {
