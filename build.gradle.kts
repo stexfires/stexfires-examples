@@ -2,7 +2,7 @@ group = "stexfires"
 version = "0.1.0"
 
 plugins {
-    `java`
+    java
     `project-report`
 }
 
@@ -11,7 +11,7 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 val sharedManifest = the<JavaPluginConvention>().manifest {
