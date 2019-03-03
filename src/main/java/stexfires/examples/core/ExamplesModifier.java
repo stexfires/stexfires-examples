@@ -8,35 +8,14 @@ import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.mapper.to.ToPairMapper;
-import stexfires.core.message.CategoryMessage;
-import stexfires.core.message.CompareMessageBuilder;
-import stexfires.core.message.JoinedValuesMessage;
-import stexfires.core.message.RecordIdMessage;
-import stexfires.core.message.ShortMessage;
-import stexfires.core.message.ValueMessage;
-import stexfires.core.modifier.DistinctModifier;
-import stexfires.core.modifier.FilterModifier;
-import stexfires.core.modifier.GroupModifier;
-import stexfires.core.modifier.IdentityModifier;
-import stexfires.core.modifier.LogFilterModifier;
-import stexfires.core.modifier.LogModifier;
-import stexfires.core.modifier.MapModifier;
-import stexfires.core.modifier.PivotModifier;
-import stexfires.core.modifier.RecordStreamModifier;
-import stexfires.core.modifier.SkipLimitModifier;
-import stexfires.core.modifier.SortModifier;
-import stexfires.core.modifier.UnaryGroupModifier;
-import stexfires.core.modifier.UnpivotModifier;
+import stexfires.core.message.*;
+import stexfires.core.modifier.*;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
 import stexfires.core.record.ValueRecord;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -379,7 +358,7 @@ public final class ExamplesModifier {
         System.out.println("-showSortModifier---");
 
         showModifierSingleRecord("constructor category",
-                new SortModifier<>(RecordComparators.category()));
+                new SortModifier<>(RecordComparators.category(Comparator.naturalOrder(), NULLS.FIRST)));
         showModifierSingleRecord("constructor valueField",
                 new SortModifier<>(RecordComparators.valueOfValueField(Comparator.naturalOrder(), NULLS.FIRST)));
     }
@@ -394,23 +373,23 @@ public final class ExamplesModifier {
                 UnaryGroupModifier.last(Record::getCategory));
 
         showUnaryGroup("min recordId",
-                UnaryGroupModifier.min(Record::getCategory, RecordComparators.recordId()));
+                UnaryGroupModifier.min(Record::getCategory, RecordComparators.recordId(NULLS.FIRST)));
 
         showUnaryGroup("max recordId",
-                UnaryGroupModifier.max(Record::getCategory, RecordComparators.recordId()));
+                UnaryGroupModifier.max(Record::getCategory, RecordComparators.recordId(NULLS.FIRST)));
 
         showUnaryGroup("reduce maxBy recordId",
                 UnaryGroupModifier.reduce(Record::getCategory,
-                        BinaryOperator.maxBy(RecordComparators.recordId())));
+                        BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))));
 
         showUnaryGroup("collect maxBy recordId",
                 UnaryGroupModifier.collect(Record::getCategory,
-                        Collectors.maxBy(RecordComparators.recordId()),
+                        Collectors.maxBy(RecordComparators.recordId(NULLS.FIRST)),
                         null));
 
         showUnaryGroup("collect reducing maxBy recordId",
                 UnaryGroupModifier.collect(Record::getCategory,
-                        Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId())),
+                        Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))),
                         null));
     }
 
