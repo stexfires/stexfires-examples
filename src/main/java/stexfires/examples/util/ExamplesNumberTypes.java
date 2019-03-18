@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("MagicNumber")
 public final class ExamplesNumberTypes {
 
     private static final int[] INT_VALUES = new int[]{
@@ -52,6 +53,7 @@ public final class ExamplesNumberTypes {
     static {
         List<BigInteger> values = new ArrayList<>();
         values.add(BigInteger.valueOf(Long.MIN_VALUE));
+        values.add(BigInteger.valueOf((long) Integer.MIN_VALUE));
         values.add(BigInteger.valueOf(-10L));
         values.add(BigInteger.valueOf(-4L));
         values.add(BigInteger.valueOf(-3L));
@@ -62,10 +64,13 @@ public final class ExamplesNumberTypes {
         values.add(BigInteger.valueOf(1L));
         values.add(BigInteger.ONE);
         values.add(BigInteger.valueOf(2L));
+        values.add(BigInteger.TWO);
+        values.add(BigInteger.valueOf(1L).shiftLeft(1));
         values.add(BigInteger.valueOf(3L));
         values.add(BigInteger.valueOf(4L));
         values.add(BigInteger.valueOf(10L));
         values.add(BigInteger.TEN);
+        values.add(BigInteger.valueOf((long) Integer.MAX_VALUE));
         values.add(BigInteger.valueOf(Long.MAX_VALUE));
         values.add(null);
         BIG_INTEGER_VALUES = Collections.unmodifiableList(values);
@@ -96,40 +101,6 @@ public final class ExamplesNumberTypes {
             for (BigInteger value : BIG_INTEGER_VALUES) {
                 System.out.println(printTypeValue(type.name(), "BigI", value)
                         + "? " + type.check(value));
-            }
-        }
-    }
-
-    private static void showNumberUnaryOperatorType() {
-        System.out.println("-showNumberUnaryOperatorType---");
-
-        for (NumberUnaryOperatorType type : NumberUnaryOperatorType.values()) {
-            for (int value : INT_VALUES) {
-                try {
-                    System.out.println(printTypeValue(type.name(), "int ", value)
-                            + "? " + type.operate(value));
-                } catch (ArithmeticException e) {
-                    System.out.println(printTypeValue(type.name(), "int ", value)
-                            + "? " + e.getMessage());
-                }
-            }
-            for (long value : LONG_VALUES) {
-                try {
-                    System.out.println(printTypeValue(type.name(), "long", value)
-                            + "? " + type.operate(value));
-                } catch (ArithmeticException e) {
-                    System.out.println(printTypeValue(type.name(), "long ", value)
-                            + "? " + e.getMessage());
-                }
-            }
-            for (BigInteger value : BIG_INTEGER_VALUES) {
-                try {
-                    System.out.println(printTypeValue(type.name(), "BigI", value)
-                            + "? " + type.operate(value));
-                } catch (ArithmeticException e) {
-                    System.out.println(printTypeValue(type.name(), "BigI ", value)
-                            + "? " + e.getMessage());
-                }
             }
         }
     }
@@ -183,9 +154,43 @@ public final class ExamplesNumberTypes {
         }
     }
 
+    private static void showNumberUnaryOperatorType() {
+        System.out.println("-showNumberUnaryOperatorType---");
+
+        for (NumberUnaryOperatorType type : NumberUnaryOperatorType.values()) {
+            for (int value : INT_VALUES) {
+                try {
+                    System.out.println(printTypeValue(type.name(), "int ", value)
+                            + "? " + type.operate(value));
+                } catch (ArithmeticException e) {
+                    System.out.println(printTypeValue(type.name(), "int ", value)
+                            + "? " + e.getMessage());
+                }
+            }
+            for (long value : LONG_VALUES) {
+                try {
+                    System.out.println(printTypeValue(type.name(), "long", value)
+                            + "? " + type.operate(value));
+                } catch (ArithmeticException e) {
+                    System.out.println(printTypeValue(type.name(), "long ", value)
+                            + "? " + e.getMessage());
+                }
+            }
+            for (BigInteger value : BIG_INTEGER_VALUES) {
+                try {
+                    System.out.println(printTypeValue(type.name(), "BigI", value)
+                            + "? " + type.operate(value));
+                } catch (ArithmeticException e) {
+                    System.out.println(printTypeValue(type.name(), "BigI ", value)
+                            + "? " + e.getMessage());
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         showNumberCheckType();
-        showNumberUnaryOperatorType();
         showNumberComparisonType();
+        showNumberUnaryOperatorType();
     }
 }

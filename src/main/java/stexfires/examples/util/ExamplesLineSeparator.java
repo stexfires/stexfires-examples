@@ -14,9 +14,10 @@ public final class ExamplesLineSeparator {
 
         for (LineSeparator type : LineSeparator.values()) {
             System.out.println(type.name() + " (string()) ? " + type.string());
-            System.out.println(type.name() + " (toString()) ? " + type.toString());
-            System.out.println(type.name() + " (chars() toList) ? " + type.chars().boxed().collect(Collectors.toList()));
+            System.out.println(type.name() + " (supplier() get) ? " + type.supplier().get());
             System.out.println(type.name() + " (stream() toList) ? " + type.stream().collect(Collectors.toList()));
+            System.out.println(type.name() + " (chars() toList) ? " + type.chars().boxed().collect(Collectors.toList()));
+            System.out.println(type.name() + " (toString()) ? " + type.toString());
         }
     }
 

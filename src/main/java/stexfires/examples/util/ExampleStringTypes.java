@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("Java9CollectionFactory")
 public final class ExampleStringTypes {
 
     private static final List<String> VALUES;
@@ -118,17 +119,6 @@ public final class ExampleStringTypes {
         }
     }
 
-    private static void showStringUnaryOperatorType() {
-        System.out.println("-showStringUnaryOperatorType---");
-
-        for (StringUnaryOperatorType type : StringUnaryOperatorType.values()) {
-            for (String value : VALUES) {
-                System.out.println(printTypeValue(type.name(), value)
-                        + printResult(value, type.operate(value)));
-            }
-        }
-    }
-
     private static void showStringComparisonType() {
         System.out.println("-showStringComparisonType---");
 
@@ -149,10 +139,21 @@ public final class ExampleStringTypes {
         }
     }
 
+    private static void showStringUnaryOperatorType() {
+        System.out.println("-showStringUnaryOperatorType---");
+
+        for (StringUnaryOperatorType type : StringUnaryOperatorType.values()) {
+            for (String value : VALUES) {
+                System.out.println(printTypeValue(type.name(), value)
+                        + printResult(value, type.operate(value)));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         showStringCheckType();
-        showStringUnaryOperatorType();
         showStringComparisonType();
+        showStringUnaryOperatorType();
     }
 
 }

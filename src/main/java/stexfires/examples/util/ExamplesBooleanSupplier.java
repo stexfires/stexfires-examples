@@ -7,6 +7,8 @@ import stexfires.util.supplier.RepeatingPatternBooleanSupplier;
 import stexfires.util.supplier.SwitchingBooleanSupplier;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,24 +24,9 @@ public final class ExamplesBooleanSupplier {
         stream.limit(10L).forEachOrdered(System.out::println);
     }
 
-    private static void showSwitchingBooleanSupplier() {
-        System.out.println("-showSwitchingBooleanSupplier---");
-
-        printStream("Switching: onlyOnce at index 3",
-                Stream.generate(
-                        SwitchingBooleanSupplier.onlyOnce(false, 3)));
-
-        printStream("Switching: everyTime",
-                Stream.generate(
-                        SwitchingBooleanSupplier.everyTime(false)));
-
-        printStream("Switching: EVEN",
-                Stream.generate(
-                        SwitchingBooleanSupplier.check(true, NumberCheckType.EVEN)));
-
-        printStream("Switching: MULTIPLE_OF 3",
-                Stream.generate(
-                        SwitchingBooleanSupplier.compare(true, NumberComparisonType.MULTIPLE_OF, 3)));
+    private static void printBoolean(String title, boolean value) {
+        System.out.println(title);
+        System.out.println(value);
     }
 
     private static void showRandomBooleanSupplier() {
@@ -65,14 +52,33 @@ public final class ExamplesBooleanSupplier {
                 Stream.generate(
                         new RandomBooleanSupplier(0)));
 
-        System.out.println("Random: 50% 100000");
+        printStream("Random:  -10%",
+                Stream.generate(
+                        new RandomBooleanSupplier(-10)));
+
+        System.out.println("Random: 50% 100.000");
         System.out.println(Stream.generate(new RandomBooleanSupplier(50))
-                                 .limit(100000L)
+                                 .limit(100_000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+
+        printStream("Random: 50% Seed 1L",
+                Stream.generate(
+                        new RandomBooleanSupplier(50, 1L)));
+
+        printStream("Random: ThreadLocalRandom Seed 1L",
+                Stream.generate(
+                        new RandomBooleanSupplier(50, ThreadLocalRandom.current())));
+
+        printBoolean("Random: 50% primitive boolean",
+                new RandomBooleanSupplier(50).asPrimitiveBooleanSupplier().getAsBoolean());
     }
 
     private static void showRepeatingPatternBooleanSupplier() {
         System.out.println("-showRepeatingPatternBooleanSupplier---");
+
+        printStream("Pattern: List [TRUE]",
+                Stream.generate(
+                        new RepeatingPatternBooleanSupplier(Collections.singletonList(Boolean.TRUE))));
 
         printStream("Pattern: true, true, false",
                 Stream.generate(
@@ -82,15 +88,41 @@ public final class ExamplesBooleanSupplier {
                 Stream.generate(
                         RepeatingPatternBooleanSupplier.primitiveBooleans(true, true, true, false)));
 
-        printStream("Pattern: List [TRUE]",
+        printBoolean("Pattern: List [FALSE]  primitive boolean",
+                new RepeatingPatternBooleanSupplier(List.of(Boolean.FALSE)).asPrimitiveBooleanSupplier().getAsBoolean());
+    }
+
+    private static void showSwitchingBooleanSupplier() {
+        System.out.println("-showSwitchingBooleanSupplier---");
+
+        printStream("Switching: Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, i -> i == 2",
                 Stream.generate(
-                        new RepeatingPatternBooleanSupplier(Collections.singletonList(Boolean.TRUE))));
+                        new SwitchingBooleanSupplier(Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, i -> i == 2)));
+
+        printStream("Switching: onlyOnce at index 3",
+                Stream.generate(
+                        SwitchingBooleanSupplier.onlyOnce(false, 3)));
+
+        printStream("Switching: everyTime",
+                Stream.generate(
+                        SwitchingBooleanSupplier.everyTime(false)));
+
+        printStream("Switching: EVEN",
+                Stream.generate(
+                        SwitchingBooleanSupplier.check(true, NumberCheckType.EVEN)));
+
+        printStream("Switching: MULTIPLE_OF 3",
+                Stream.generate(
+                        SwitchingBooleanSupplier.compare(true, NumberComparisonType.MULTIPLE_OF, 3)));
+
+        printBoolean("Switching: everyTime primitive boolean",
+                SwitchingBooleanSupplier.everyTime(true).asPrimitiveBooleanSupplier().getAsBoolean());
     }
 
     public static void main(String[] args) {
-        showSwitchingBooleanSupplier();
         showRandomBooleanSupplier();
         showRepeatingPatternBooleanSupplier();
+        showSwitchingBooleanSupplier();
     }
 
 }

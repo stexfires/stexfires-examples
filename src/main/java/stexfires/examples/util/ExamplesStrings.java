@@ -4,9 +4,19 @@ import stexfires.util.Strings;
 
 import java.util.stream.Stream;
 
+@SuppressWarnings("UnnecessaryBoxing")
 public final class ExamplesStrings {
 
     private ExamplesStrings() {
+    }
+
+    private static void showStringsMisc() {
+        System.out.println("-showStringsMisc---");
+
+        System.out.println(Strings.asString(null));
+        System.out.println(Strings.asString("Test"));
+        System.out.println(Strings.asString(Integer.valueOf(10)));
+        System.out.println(Strings.empty());
     }
 
     private static void showStringsList() {
@@ -49,7 +59,6 @@ public final class ExamplesStrings {
         System.out.println(Strings.collect(Strings.concat(Stream.of("a"))));
         System.out.println(Strings.collect(Strings.concat(Stream.of("a"), Stream.of("b"))));
         System.out.println(Strings.collect(Strings.concat(Stream.of("a", "b"), Stream.of("c", "d"))));
-
     }
 
     private static void showStringsCollect() {
@@ -76,21 +85,25 @@ public final class ExamplesStrings {
         System.out.println(Strings.join(Strings.stream((String) null)));
         System.out.println(Strings.join(Strings.stream(null, null)));
         System.out.println(Strings.join(Strings.stream(new String[]{"a"})));
+
+        System.out.println(Strings.join(Strings.stream("a", "b", "c"), Strings.DEFAULT_DELIMITER));
+        System.out.println(Strings.join(Strings.stream("a", "b", "c"), "-"));
     }
 
     private static void showStringsPrintLine() {
         System.out.println("-showStringsPrintLine---");
 
-        Strings.printLine(Strings.stream("a", "b"), ", ");
+        Strings.printLine(Strings.stream("a", "b", "c"), ", ");
     }
 
     private static void showStringsPrintLines() {
         System.out.println("-showStringsPrintLines---");
 
-        Strings.printLines(Strings.stream("a", "b"));
+        Strings.printLines(Strings.stream("a", "b", "c"));
     }
 
     public static void main(String[] args) {
+        showStringsMisc();
         showStringsList();
         showStringsStream();
         showStringsStreamOfNullable();

@@ -28,9 +28,9 @@ public final class ExamplesStringSupplier {
     private static void showSequenceStringSupplier() {
         System.out.println("-showSequenceStringSupplier---");
 
-        printStream("constructor 1000",
+        printStream("constructor 1.000",
                 Stream.generate(
-                        new SequenceStringSupplier(1000L)));
+                        new SequenceStringSupplier(1_000L)));
     }
 
     private static void showThreadNameStringSupplier() {
