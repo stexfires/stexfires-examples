@@ -2,8 +2,8 @@ package stexfires.examples.wiki;
 
 import stexfires.core.Record;
 import stexfires.core.mapper.RecordMapper;
+import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ValuesMapper;
-import stexfires.core.mapper.to.ToSingleMapper;
 import stexfires.core.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
