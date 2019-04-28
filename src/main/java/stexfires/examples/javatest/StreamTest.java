@@ -2,7 +2,6 @@ package stexfires.examples.javatest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Spliterator;
@@ -95,7 +94,7 @@ public final class StreamTest {
     private static void showReduce() {
         System.out.println("-showReduce---");
         System.out.println(new SplittableRandom().ints(10L, 1, 10)
-                                                 .reduce((r, e) -> r + e).orElse(0));
+                                                 .reduce(Integer::sum).orElse(0));
     }
 
     private static void showSplittableRandom() {
@@ -162,7 +161,7 @@ public final class StreamTest {
         List<String> list1 = new ArrayList<>(1);
         list1.add(a);
         Stream<String> streamList1 = list1.stream();
-        Stream<String> streamList2 = Collections.unmodifiableList(new ArrayList<>(list1)).stream();
+        Stream<String> streamList2 = List.copyOf(list1).stream();
 
         // Single
         Stream<String> streamSingle1 = Stream.of(a);
