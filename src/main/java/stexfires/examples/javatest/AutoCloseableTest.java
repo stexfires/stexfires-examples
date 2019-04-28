@@ -1,6 +1,5 @@
 package stexfires.examples.javatest;
 
-@SuppressWarnings("UnnecessaryLocalVariable")
 public final class AutoCloseableTest {
 
     private AutoCloseableTest() {
@@ -39,6 +38,7 @@ public final class AutoCloseableTest {
         }
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     private static void showTestCase4() {
         System.out.println("-showTestCase4---");
         TestClose tBefore = new TestClose(false);
