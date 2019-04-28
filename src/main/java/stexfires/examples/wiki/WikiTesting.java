@@ -27,10 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SuppressWarnings("MagicNumber")
 public final class WikiTesting {
 
-    public static final String RESOURCE_PATH = "stexfires/examples/wiki/";
+    private static final String RESOURCE_PATH = "stexfires/examples/wiki/";
+    private static final int TITLE_MIN_WIDTH = 100;
+    private static final int LINK_MIN_WIDTH = 200;
+    private static final String TITLE_NAME = "Title";
+    private static final String LINK_NAME = "Link";
 
     private WikiTesting() {
     }
@@ -39,7 +42,7 @@ public final class WikiTesting {
         List<SimpleDelimitedFieldSpec> fieldSpecsProducer = new ArrayList<>();
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
-        return SimpleDelimitedFileSpec.read(StandardCharsets.ISO_8859_1,
+        return SimpleDelimitedFileSpec.read(StandardCharsets.UTF_8,
                 "\t",
                 fieldSpecsProducer,
                 0, 0, true, true);
@@ -47,15 +50,15 @@ public final class WikiTesting {
 
     private static MarkdownTableFileSpec createTableConsumerFileSpec(String title) {
         List<MarkdownTableFieldSpec> fieldSpecsConsumer = new ArrayList<>();
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Title", 100));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Link", 200));
-        return MarkdownTableFileSpec.write(StandardCharsets.ISO_8859_1,
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(TITLE_NAME, TITLE_MIN_WIDTH));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(LINK_NAME, LINK_MIN_WIDTH));
+        return MarkdownTableFileSpec.write(StandardCharsets.UTF_8,
                 fieldSpecsConsumer,
                 LineSeparator.CR_LF, Alignment.START, title, "");
     }
 
     private static MarkdownListFileSpec createListConsumerFileSpec(String title) {
-        return MarkdownListFileSpec.write(StandardCharsets.ISO_8859_1, LineSeparator.CR_LF,
+        return MarkdownListFileSpec.write(StandardCharsets.UTF_8, LineSeparator.CR_LF,
                 title, "", MarkdownListFileSpec.DEFAULT_BULLET_POINT, true);
     }
 
@@ -63,10 +66,10 @@ public final class WikiTesting {
                                                OutputStream outputStream) throws IOException {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
-
         RecordMapper<Record, Record> mapper = ValuesMapper.applyFunctions(
                 r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
-                r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "") + "]" + "(" + r.getValueAt(1) + ")");
+                r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "")
+                        + "]" + "(" + r.getValueAt(1) + ")");
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
@@ -75,7 +78,6 @@ public final class WikiTesting {
                                               OutputStream outputStream) throws IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
-
         RecordMapper<Record, ValueRecord> mapper = ValuesMapper.applyFunctions(
                 r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
                                                                .andThen(new ToSingleMapper<>(0));
