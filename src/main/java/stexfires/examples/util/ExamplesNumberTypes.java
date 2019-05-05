@@ -92,15 +92,15 @@ public final class ExamplesNumberTypes {
         for (NumberCheckType type : NumberCheckType.values()) {
             for (int value : INT_VALUES) {
                 System.out.println(printTypeValue(type.name(), "int ", value)
-                        + "? " + type.check(value));
+                        + "? " + type.checkInt(value));
             }
             for (long value : LONG_VALUES) {
                 System.out.println(printTypeValue(type.name(), "long", value)
-                        + "? " + type.check(value));
+                        + "? " + type.checkLong(value));
             }
             for (BigInteger value : BIG_INTEGER_VALUES) {
                 System.out.println(printTypeValue(type.name(), "BigI", value)
-                        + "? " + type.check(value));
+                        + "? " + type.checkBigInteger(value));
             }
         }
     }
@@ -113,7 +113,7 @@ public final class ExamplesNumberTypes {
                 for (int value2 : INT_VALUES) {
                     String result;
                     try {
-                        result = String.valueOf(type.compare(value1, value2));
+                        result = String.valueOf(type.compareInt(value1, value2));
                     } catch (ArithmeticException e) {
                         result = e.getMessage();
                     }
@@ -126,7 +126,7 @@ public final class ExamplesNumberTypes {
                 for (long value2 : LONG_VALUES) {
                     String result;
                     try {
-                        result = String.valueOf(type.compare(value1, value2));
+                        result = String.valueOf(type.compareLong(value1, value2));
                     } catch (ArithmeticException e) {
                         result = e.getMessage();
                     }
@@ -142,7 +142,7 @@ public final class ExamplesNumberTypes {
                     }
                     String result;
                     try {
-                        result = String.valueOf(type.compare(value1, value2));
+                        result = String.valueOf(type.compareBigInteger(value1, value2));
                     } catch (ArithmeticException e) {
                         result = e.getMessage();
                     }
@@ -161,7 +161,7 @@ public final class ExamplesNumberTypes {
             for (int value : INT_VALUES) {
                 try {
                     System.out.println(printTypeValue(type.name(), "int ", value)
-                            + "? " + type.operate(value));
+                            + "? " + type.operateInt(value));
                 } catch (ArithmeticException e) {
                     System.out.println(printTypeValue(type.name(), "int ", value)
                             + "? " + e.getMessage());
@@ -170,7 +170,7 @@ public final class ExamplesNumberTypes {
             for (long value : LONG_VALUES) {
                 try {
                     System.out.println(printTypeValue(type.name(), "long", value)
-                            + "? " + type.operate(value));
+                            + "? " + type.operateLong(value));
                 } catch (ArithmeticException e) {
                     System.out.println(printTypeValue(type.name(), "long ", value)
                             + "? " + e.getMessage());
@@ -179,7 +179,7 @@ public final class ExamplesNumberTypes {
             for (BigInteger value : BIG_INTEGER_VALUES) {
                 try {
                     System.out.println(printTypeValue(type.name(), "BigI", value)
-                            + "? " + type.operate(value));
+                            + "? " + type.operateBigInteger(value));
                 } catch (ArithmeticException e) {
                     System.out.println(printTypeValue(type.name(), "BigI ", value)
                             + "? " + e.getMessage());
