@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings("Java9CollectionFactory")
+@SuppressWarnings({"Java9CollectionFactory", "SpellCheckingInspection"})
 public final class ExampleStringTypes {
 
     private static final List<String> VALUES;
