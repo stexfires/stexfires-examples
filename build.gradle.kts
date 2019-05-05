@@ -6,7 +6,12 @@ plugins {
     `project-report`
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
+    implementation("org.jetbrains:annotations:17.0.0")
     implementation("stexfires:stexfires:0.1.0")
 }
 
