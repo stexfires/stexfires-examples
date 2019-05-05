@@ -6,6 +6,7 @@ import stexfires.util.supplier.RandomBooleanSupplier;
 import stexfires.util.supplier.RepeatingPatternBooleanSupplier;
 import stexfires.util.supplier.SwitchingBooleanSupplier;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,13 +33,17 @@ public final class ExamplesBooleanSupplier {
     private static void showRandomBooleanSupplier() {
         System.out.println("-showRandomBooleanSupplier---");
 
+        printStream("Random: 101%",
+                Stream.generate(
+                        new RandomBooleanSupplier(101)));
+
         printStream("Random: 100%",
                 Stream.generate(
                         new RandomBooleanSupplier(100)));
 
         printStream("Random: 90%",
                 Stream.generate(
-                        new RandomBooleanSupplier(90)));
+                        new RandomBooleanSupplier(75)));
 
         printStream("Random: 50%",
                 Stream.generate(
@@ -56,9 +61,19 @@ public final class ExamplesBooleanSupplier {
                 Stream.generate(
                         new RandomBooleanSupplier(-10)));
 
+        System.out.println("Random: 99% 1.000.000");
+        System.out.println(Stream.generate(new RandomBooleanSupplier(99))
+                                 .limit(1_000_000L)
+                                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+
         System.out.println("Random: 50% 100.000");
         System.out.println(Stream.generate(new RandomBooleanSupplier(50))
-                                 .limit(100_000L)
+                                 .limit(1_000_000L)
+                                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+
+        System.out.println("Random: 1% 1.000.000");
+        System.out.println(Stream.generate(new RandomBooleanSupplier(1))
+                                 .limit(1_000_000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 
         printStream("Random: 50% Seed 1L",
@@ -79,6 +94,15 @@ public final class ExamplesBooleanSupplier {
         printStream("Pattern: List [TRUE]",
                 Stream.generate(
                         new RepeatingPatternBooleanSupplier(Collections.singletonList(Boolean.TRUE))));
+
+        List<Boolean> booleanList = new ArrayList<>();
+        booleanList.add(Boolean.TRUE);
+        booleanList.add(Boolean.TRUE);
+        booleanList.add(null);
+        booleanList.add(Boolean.FALSE);
+        printStream("Pattern: List [TRUE, TRUE, null, FALSE]",
+                Stream.generate(
+                        new RepeatingPatternBooleanSupplier(booleanList)));
 
         printStream("Pattern: true, true, false",
                 Stream.generate(
