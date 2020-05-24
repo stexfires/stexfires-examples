@@ -15,11 +15,10 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr", "CheckStyle"})
 public final class ExamplesComparator {
 
     private ExamplesComparator() {
@@ -91,21 +90,20 @@ public final class ExamplesComparator {
     private static void showComparatorRecord(String title, Comparator<Record> recordComparator) {
         System.out.println("--" + title);
         RecordStreams.sort(generateStream(), recordComparator)
-                .forEachOrdered(System.out::println);
+                     .forEachOrdered(System.out::println);
     }
 
     private static void showComparatorKeyValueRecord(String title, Comparator<KeyValueRecord> recordComparator) {
         System.out.println("--" + title);
         RecordStreams.sort(generateStreamKeyValueRecord(), recordComparator)
-                .forEachOrdered(System.out::println);
+                     .forEachOrdered(System.out::println);
     }
 
     private static void showComparatorField(String title, Comparator<Field> fieldComparator) {
         System.out.println("--" + title);
-        generateStream().map(Record::streamOfFields)
-                .flatMap(Function.identity())
-                .sorted(fieldComparator)
-                .forEachOrdered(System.out::println);
+        generateStream().flatMap(Record::streamOfFields)
+                        .sorted(fieldComparator)
+                        .forEachOrdered(System.out::println);
     }
 
     private static void showRecordComparators() {
@@ -142,7 +140,7 @@ public final class ExamplesComparator {
         // Combined
         showComparatorRecord("Combined: category(reversed(), NULLS.LAST), recordId(NULLS.LAST)",
                 RecordComparators.category(Comparator.reverseOrder(), NULLS.LAST)
-                        .thenComparing(RecordComparators.recordId(NULLS.LAST)));
+                                 .thenComparing(RecordComparators.recordId(NULLS.LAST)));
     }
 
     private static void showFieldComparators() {
@@ -161,58 +159,58 @@ public final class ExamplesComparator {
 
         System.out.println("--compareTo");
         STRING_VALUES.stream()
-                .sorted(StringComparators.compareTo())
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.compareTo())
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--compareToIgnoreCase");
         STRING_VALUES.stream()
-                .sorted(StringComparators.compareToIgnoreCase())
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.compareToIgnoreCase())
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator default locale");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Collator.getInstance()))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Collator.getInstance()))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.ENGLISH");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.ENGLISH))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.ENGLISH))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.GERMAN");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.GERMAN))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.GERMAN))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.GERMAN PRIMARY");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.PRIMARY))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.PRIMARY))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.GERMAN SECONDARY");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.SECONDARY))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.SECONDARY))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.GERMAN TERTIARY");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.TERTIARY))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.TERTIARY))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator Locale.GERMAN IDENTICAL");
         STRING_VALUES.stream()
-                .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.IDENTICAL))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.collatorComparator(Locale.GERMAN, Collator.IDENTICAL))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator normalizedComparator trim compareTo");
         STRING_VALUES.stream()
-                .sorted(StringComparators.normalizedComparator(String::trim, String::compareTo))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.normalizedComparator(String::trim, String::compareTo))
+                     .forEachOrdered(System.out::println);
 
         System.out.println("--collatorComparator normalizedComparator NORMALIZE_NFKD compareTo");
         STRING_VALUES.stream()
-                .sorted(StringComparators.normalizedComparator(StringUnaryOperatorType.NORMALIZE_NFKD, String::compareTo))
-                .forEachOrdered(System.out::println);
+                     .sorted(StringComparators.normalizedComparator(StringUnaryOperatorType.NORMALIZE_NFKD, String::compareTo))
+                     .forEachOrdered(System.out::println);
     }
 
     private static void showStringCollators() {
@@ -223,8 +221,8 @@ public final class ExamplesComparator {
             Collator collator = Collator.getInstance(Locale.GERMAN);
             collator.setStrength(Collator.PRIMARY);
             STRING_VALUES.stream()
-                    .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
-                    .forEachOrdered(System.out::println);
+                         .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
+                         .forEachOrdered(System.out::println);
         }
 
         System.out.println("--collator Locale.GERMAN SECONDARY");
@@ -232,8 +230,8 @@ public final class ExamplesComparator {
             Collator collator = Collator.getInstance(Locale.GERMAN);
             collator.setStrength(Collator.SECONDARY);
             STRING_VALUES.stream()
-                    .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
-                    .forEachOrdered(System.out::println);
+                         .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
+                         .forEachOrdered(System.out::println);
         }
 
         System.out.println("--collator Locale.GERMAN TERTIARY");
@@ -241,8 +239,8 @@ public final class ExamplesComparator {
             Collator collator = Collator.getInstance(Locale.GERMAN);
             collator.setStrength(Collator.TERTIARY);
             STRING_VALUES.stream()
-                    .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
-                    .forEachOrdered(System.out::println);
+                         .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
+                         .forEachOrdered(System.out::println);
         }
 
         System.out.println("--collator Locale.GERMAN IDENTICAL");
@@ -250,8 +248,8 @@ public final class ExamplesComparator {
             Collator collator = Collator.getInstance(Locale.GERMAN);
             collator.setStrength(Collator.IDENTICAL);
             STRING_VALUES.stream()
-                    .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
-                    .forEachOrdered(System.out::println);
+                         .collect(Collectors.collectingAndThen(Collectors.groupingBy(collator::getCollationKey), r -> r.values().stream()))
+                         .forEachOrdered(System.out::println);
         }
     }
 
