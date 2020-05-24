@@ -4,6 +4,7 @@ import stexfires.util.LineSeparator;
 
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesLineSeparator {
 
     private ExamplesLineSeparator() {
@@ -13,11 +14,12 @@ public final class ExamplesLineSeparator {
         System.out.println("-showLineSeparator---");
 
         for (LineSeparator type : LineSeparator.values()) {
-            System.out.println(type.name() + " (string()) ? " + type.string());
-            System.out.println(type.name() + " (supplier() get) ? " + type.supplier().get());
+            System.out.println(type.name() + " (string())        ? " + type.string());
+            System.out.println(type.name() + " (supplier() get)  ? " + type.supplier().get());
             System.out.println(type.name() + " (stream() toList) ? " + type.stream().collect(Collectors.toList()));
-            System.out.println(type.name() + " (chars() toList) ? " + type.chars().boxed().collect(Collectors.toList()));
-            System.out.println(type.name() + " (toString()) ? " + type.toString());
+            System.out.println(type.name() + " (chars() toList)  ? " + type.chars().boxed().collect(Collectors.toList()));
+            System.out.println(type.name() + " (name())          ? " + type.name());
+            System.out.println(type.name() + " (toString())      ? " + type.toString());
         }
     }
 

@@ -14,7 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesBooleanSupplier {
 
     private ExamplesBooleanSupplier() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesNumberTypes {
 
     private static final int[] INT_VALUES = new int[]{
@@ -53,7 +53,7 @@ public final class ExamplesNumberTypes {
     static {
         List<BigInteger> values = new ArrayList<>();
         values.add(BigInteger.valueOf(Long.MIN_VALUE));
-        values.add(BigInteger.valueOf((long) Integer.MIN_VALUE));
+        values.add(BigInteger.valueOf(Integer.MIN_VALUE));
         values.add(BigInteger.valueOf(-10L));
         values.add(BigInteger.valueOf(-4L));
         values.add(BigInteger.valueOf(-3L));
@@ -70,7 +70,7 @@ public final class ExamplesNumberTypes {
         values.add(BigInteger.valueOf(4L));
         values.add(BigInteger.valueOf(10L));
         values.add(BigInteger.TEN);
-        values.add(BigInteger.valueOf((long) Integer.MAX_VALUE));
+        values.add(BigInteger.valueOf(Integer.MAX_VALUE));
         values.add(BigInteger.valueOf(Long.MAX_VALUE));
         values.add(null);
         BIG_INTEGER_VALUES = Collections.unmodifiableList(values);

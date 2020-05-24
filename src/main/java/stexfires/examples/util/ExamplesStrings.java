@@ -5,6 +5,7 @@ import stexfires.util.Strings;
 import java.math.BigInteger;
 import java.util.stream.Stream;
 
+@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesStrings {
 
     private ExamplesStrings() {
@@ -43,6 +44,14 @@ public final class ExamplesStrings {
         System.out.println(Strings.list(null, null, "Test"));
         System.out.println(Strings.list(new String[]{"a"}));
         System.out.println(Strings.list(new String[]{"a", "b"}));
+    }
+
+    private static void showStringsListOfNullable() {
+        System.out.println("-showStringsListOfNullable---");
+
+        System.out.println(Strings.listOfNullable("a"));
+        System.out.println(Strings.listOfNullable(""));
+        System.out.println(Strings.listOfNullable(null));
     }
 
     @SuppressWarnings("RedundantArrayCreation")
@@ -125,6 +134,7 @@ public final class ExamplesStrings {
     public static void main(String[] args) {
         showStringsMisc();
         showStringsList();
+        showStringsListOfNullable();
         showStringsStream();
         showStringsStreamOfNullable();
         showStringsConcat();

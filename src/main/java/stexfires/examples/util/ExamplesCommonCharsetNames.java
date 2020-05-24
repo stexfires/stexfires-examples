@@ -2,6 +2,7 @@ package stexfires.examples.util;
 
 import stexfires.util.CommonCharsetNames;
 
+@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesCommonCharsetNames {
 
     private ExamplesCommonCharsetNames() {
@@ -12,8 +13,9 @@ public final class ExamplesCommonCharsetNames {
 
         for (CommonCharsetNames type : CommonCharsetNames.values()) {
             System.out.println(type.name() + " (getCanonicalName()) ? " + type.getCanonicalName());
-            System.out.println(type.name() + " (charset()) ? " + type.charset());
-            System.out.println(type.name() + " (toString()) ? " + type.toString());
+            System.out.println(type.name() + " (charset())          ? " + type.charset());
+            System.out.println(type.name() + " (name())             ? " + type.name());
+            System.out.println(type.name() + " (toString())         ? " + type.toString());
         }
     }
 

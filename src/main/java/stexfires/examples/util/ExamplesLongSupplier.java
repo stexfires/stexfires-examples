@@ -6,7 +6,7 @@ import stexfires.util.supplier.SequencePrimitiveLongSupplier;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "SameParameterValue"})
+@SuppressWarnings({"MagicNumber", "SameParameterValue", "CheckStyle", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesLongSupplier {
 
     private ExamplesLongSupplier() {

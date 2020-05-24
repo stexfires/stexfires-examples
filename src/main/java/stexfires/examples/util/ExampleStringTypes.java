@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings({"Java9CollectionFactory", "SpellCheckingInspection"})
+@SuppressWarnings({"Java9CollectionFactory", "SpellCheckingInspection", "CheckStyle", "UseOfSystemOutOrSystemErr", "HardcodedLineSeparator"})
 public final class ExampleStringTypes {
 
     private static final List<String> VALUES;
@@ -114,7 +114,7 @@ public final class ExampleStringTypes {
         for (StringCheckType type : StringCheckType.values()) {
             for (String value : VALUES) {
                 System.out.println(printTypeValue(type.name(), value) + "? "
-                        + type.check(value));
+                        + type.checkString(value));
             }
         }
     }
@@ -127,7 +127,7 @@ public final class ExampleStringTypes {
                 for (String value2 : COMPARE_VALUES) {
                     String result;
                     try {
-                        result = String.valueOf(type.compare(value1, value2));
+                        result = String.valueOf(type.compareString(value1, value2));
                     } catch (Exception e) {
                         result = e.getMessage();
                     }
@@ -145,7 +145,7 @@ public final class ExampleStringTypes {
         for (StringUnaryOperatorType type : StringUnaryOperatorType.values()) {
             for (String value : VALUES) {
                 System.out.println(printTypeValue(type.name(), value)
-                        + printResult(value, type.operate(value)));
+                        + printResult(value, type.operateString(value)));
             }
         }
     }
