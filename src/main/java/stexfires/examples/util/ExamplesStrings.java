@@ -5,32 +5,32 @@ import stexfires.util.Strings;
 import java.math.BigInteger;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class ExamplesStrings {
 
     private ExamplesStrings() {
     }
 
-    @SuppressWarnings("UnnecessaryBoxing")
     private static void showStringsMisc() {
         System.out.println("-showStringsMisc---");
+
+        Integer ten = 10;
 
         System.out.println(Strings.asString(null));
         System.out.println(Strings.asString("Test"));
         System.out.println(Strings.asString(Boolean.TRUE));
         System.out.println(Strings.asString(BigInteger.TWO));
-        System.out.println(Strings.asString(Integer.valueOf(10)));
+        System.out.println(Strings.asString(ten));
 
         System.out.println(Strings.asOptionalString(null));
         System.out.println(Strings.asOptionalString("Test"));
         System.out.println(Strings.asOptionalString(Boolean.TRUE));
         System.out.println(Strings.asOptionalString(BigInteger.TWO));
-        System.out.println(Strings.asOptionalString(Integer.valueOf(10)));
+        System.out.println(Strings.asOptionalString(ten));
 
         System.out.println(Strings.empty());
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
     private static void showStringsList() {
         System.out.println("-showStringsList---");
 
@@ -43,7 +43,7 @@ public final class ExamplesStrings {
         System.out.println(Strings.list(null, null));
         System.out.println(Strings.list(null, null, "Test"));
         System.out.println(Strings.list(new String[]{"a"}));
-        System.out.println(Strings.list(new String[]{"a", "b"}));
+        System.out.println(Strings.list("a", "b"));
     }
 
     private static void showStringsListOfNullable() {
@@ -54,7 +54,6 @@ public final class ExamplesStrings {
         System.out.println(Strings.listOfNullable(null));
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
     private static void showStringsStream() {
         System.out.println("-showStringsStream---");
 
@@ -67,7 +66,7 @@ public final class ExamplesStrings {
         System.out.println(Strings.collect(Strings.stream(null, null)));
         System.out.println(Strings.collect(Strings.stream(null, null, "Test")));
         System.out.println(Strings.collect(Strings.stream(new String[]{"a"})));
-        System.out.println(Strings.collect(Strings.stream(new String[]{"a", "b"})));
+        System.out.println(Strings.collect(Strings.stream("a", "b")));
     }
 
     private static void showStringsStreamOfNullable() {

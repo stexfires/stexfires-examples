@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings({"MagicNumber", "CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesNumberTypes {
 
     private static final int[] INT_VALUES = new int[]{

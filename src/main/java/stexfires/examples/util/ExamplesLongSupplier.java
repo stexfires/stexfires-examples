@@ -6,7 +6,7 @@ import stexfires.util.supplier.SequencePrimitiveLongSupplier;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "SameParameterValue", "CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesLongSupplier {
 
     private ExamplesLongSupplier() {
@@ -28,6 +28,9 @@ public final class ExamplesLongSupplier {
         printStream("constructor 1.000",
                 Stream.generate(
                         new SequenceLongSupplier(1_000L)));
+        printStream("constructor -10",
+                Stream.generate(
+                        new SequenceLongSupplier(-10L)));
     }
 
     private static void showSequencePrimitiveLongSupplier() {
@@ -36,6 +39,9 @@ public final class ExamplesLongSupplier {
         printStream("constructor 1.000",
                 LongStream.generate(
                         new SequencePrimitiveLongSupplier(1_000L)));
+        printStream("constructor -10",
+                LongStream.generate(
+                        new SequencePrimitiveLongSupplier(-10L)));
     }
 
     public static void main(String[] args) {

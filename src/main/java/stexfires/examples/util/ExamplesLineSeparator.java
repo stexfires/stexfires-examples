@@ -4,7 +4,7 @@ import stexfires.util.LineSeparator;
 
 import java.util.stream.Collectors;
 
-@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class ExamplesLineSeparator {
 
     private ExamplesLineSeparator() {

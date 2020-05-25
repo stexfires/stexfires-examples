@@ -2,7 +2,7 @@ package stexfires.examples.util;
 
 import stexfires.util.CommonCharsetNames;
 
-@SuppressWarnings({"CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class ExamplesCommonCharsetNames {
 
     private ExamplesCommonCharsetNames() {

@@ -6,7 +6,7 @@ import stexfires.util.supplier.ThreadNameStringSupplier;
 
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "CheckStyle", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesStringSupplier {
 
     private ExamplesStringSupplier() {
