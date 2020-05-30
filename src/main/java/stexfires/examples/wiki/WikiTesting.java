@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class WikiTesting {
 
     private static final String RESOURCE_PATH = "stexfires/examples/wiki/";
@@ -62,6 +62,7 @@ public final class WikiTesting {
                 title, "", MarkdownListFileSpec.DEFAULT_BULLET_POINT, true);
     }
 
+    @SuppressWarnings("resource")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
                                                OutputStream outputStream) throws IOException {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
@@ -74,6 +75,7 @@ public final class WikiTesting {
         RecordIOStreams.convert(producer, mapper, consumer);
     }
 
+    @SuppressWarnings("resource")
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
                                               OutputStream outputStream) throws IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
@@ -86,8 +88,11 @@ public final class WikiTesting {
     }
 
     public static void main(String[] args) {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Missing valid output directory parameter!");
+        }
         File outputDirectory = new File(args[0]);
-        if (!outputDirectory.exists() && !outputDirectory.isDirectory()) {
+        if (!outputDirectory.exists() || !outputDirectory.isDirectory()) {
             throw new IllegalArgumentException("Missing valid output directory parameter! " + outputDirectory);
         }
 
