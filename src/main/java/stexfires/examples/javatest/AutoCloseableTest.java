@@ -1,5 +1,6 @@
 package stexfires.examples.javatest;
 
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class AutoCloseableTest {
 
     private AutoCloseableTest() {
@@ -38,7 +39,7 @@ public final class AutoCloseableTest {
         }
     }
 
-    @SuppressWarnings("UnnecessaryLocalVariable")
+    @SuppressWarnings({"UnnecessaryLocalVariable", "resource"})
     private static void showTestCase4() {
         System.out.println("-showTestCase4---");
         TestClose tBefore = new TestClose(false);
@@ -50,6 +51,7 @@ public final class AutoCloseableTest {
         }
     }
 
+    @SuppressWarnings("resource")
     private static void showTestCase5() {
         System.out.println("-showTestCase5---");
         TestClose tBefore = new TestClose(false);

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "ResultOfMethodCallIgnored"})
+@SuppressWarnings({"MagicNumber", "ResultOfMethodCallIgnored", "UseOfSystemOutOrSystemErr"})
 public final class StreamTest {
 
     private StreamTest() {
