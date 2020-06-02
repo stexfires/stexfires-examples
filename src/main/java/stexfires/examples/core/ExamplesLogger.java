@@ -3,6 +3,7 @@ package stexfires.examples.core;
 import stexfires.core.Record;
 import stexfires.core.RecordStreams;
 import stexfires.core.consumer.NullConsumer;
+import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.logger.AppendableLogger;
 import stexfires.core.logger.CollectionLogger;
@@ -23,13 +24,12 @@ import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
 import stexfires.core.record.ValueRecord;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesLogger {
 
     private ExamplesLogger() {
@@ -68,18 +68,19 @@ public final class ExamplesLogger {
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void showLoggerSingleRecord(String title, RecordLogger<SingleRecord> recordLogger) {
+    private static void showLoggerSingleRecord(String title, RecordLogger<? super SingleRecord> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStreamSingleRecord(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void showLoggerKeyValueRecord(String title, RecordLogger<KeyValueRecord> recordLogger) {
+    private static void showLoggerKeyValueRecord(String title, RecordLogger<? super KeyValueRecord> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStreamKeyValueRecord(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
+    @SuppressWarnings("resource")
     private static void showAppendableLogger() {
         System.out.println("-showAppendableLogger---");
 
@@ -93,15 +94,10 @@ public final class ExamplesLogger {
                 new AppendableLogger<>(buffer, new SizeMessage<>()));
         System.out.println(buffer.toString());
 
-        try {
-            try (StringWriter writer = new StringWriter(10)) {
-                showLogger("constructor StringWriter",
-                        new AppendableLogger<>(writer, new SizeMessage<>()));
-                System.out.println(writer.toString());
-            }
-        } catch (IOException e) {
-            System.out.println("IOException " + e.getMessage());
-        }
+        StringWriter writer = new StringWriter(10);
+        showLogger("constructor StringWriter",
+                new AppendableLogger<>(writer, new SizeMessage<>()));
+        System.out.println(writer.toString());
     }
 
     private static void showCollectionLogger() {
@@ -131,6 +127,12 @@ public final class ExamplesLogger {
                         ClassFilter.equalTo(StandardRecord.class),
                         new SystemOutLogger<>(),
                         new NullLogger<>()));
+
+        showLoggerKeyValueRecord("constructor category null",
+                new ConditionalLogger<>(
+                        CategoryFilter.isNull(),
+                        new SystemOutLogger<>(),
+                        new NullLogger<>()));
     }
 
     private static void showDispatcherLogger() {
@@ -140,8 +142,15 @@ public final class ExamplesLogger {
         recordLoggersSize.add(new SystemOutLogger<>("Size 0: "));
         recordLoggersSize.add(new SystemOutLogger<>("Size 1: "));
         recordLoggersSize.add(new SystemOutLogger<>("Size 2: "));
+        recordLoggersSize.add(new SystemOutLogger<>("Size 3: "));
 
         showLogger("bySize",
+                DispatcherLogger.bySize(recordLoggersSize));
+
+        showLoggerSingleRecord("bySize",
+                DispatcherLogger.bySize(recordLoggersSize));
+
+        showLoggerKeyValueRecord("bySize",
                 DispatcherLogger.bySize(recordLoggersSize));
 
         List<ClassFilter<Record>> recordFilters = new ArrayList<>();
@@ -155,6 +164,12 @@ public final class ExamplesLogger {
         recordLoggersFilter.add(new SystemOutLogger<>("Filter PairRecord: "));
 
         showLogger("byFilters",
+                DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
+
+        showLoggerSingleRecord("byFilters",
+                DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
+
+        showLoggerKeyValueRecord("byFilters",
                 DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
     }
 
@@ -171,6 +186,9 @@ public final class ExamplesLogger {
         System.out.println("-showNullLogger---");
 
         showLogger("constructor",
+                new NullLogger<>());
+
+        showLoggerKeyValueRecord("constructor",
                 new NullLogger<>());
     }
 
@@ -195,20 +213,6 @@ public final class ExamplesLogger {
                 new NullLogger<>().andThen(new SystemOutLogger<>()));
     }
 
-    private static void showSystemOutLogger() {
-        System.out.println("-showSystemOutLogger---");
-
-        showLogger("constructor",
-                new SystemOutLogger<>());
-        showLogger("constructor prefix",
-                new SystemOutLogger<>("--"));
-        showLogger("constructor SizeMessage",
-                new SystemOutLogger<>(new SizeMessage<>()));
-        showLogger("constructor SizeMessage false",
-                new SystemOutLogger<>(new SizeMessage<>(), false));
-        System.out.println();
-    }
-
     private static void showSystemErrLogger() {
         System.out.println("-showSystemErrLogger---");
 
@@ -223,6 +227,20 @@ public final class ExamplesLogger {
         System.err.println();
     }
 
+    private static void showSystemOutLogger() {
+        System.out.println("-showSystemOutLogger---");
+
+        showLogger("constructor",
+                new SystemOutLogger<>());
+        showLogger("constructor prefix",
+                new SystemOutLogger<>("--"));
+        showLogger("constructor SizeMessage",
+                new SystemOutLogger<>(new SizeMessage<>()));
+        showLogger("constructor SizeMessage false",
+                new SystemOutLogger<>(new SizeMessage<>(), false));
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         showAppendableLogger();
         showCollectionLogger();
@@ -232,8 +250,8 @@ public final class ExamplesLogger {
         showNullLogger();
         showPrintStreamLogger();
         showRecordLogger();
-        showSystemOutLogger();
         showSystemErrLogger();
+        showSystemOutLogger();
     }
 
 }
