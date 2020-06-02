@@ -15,6 +15,7 @@ import stexfires.core.consumer.StringWriterConsumer;
 import stexfires.core.consumer.SystemErrConsumer;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.consumer.WriterConsumer;
+import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.message.SizeMessage;
@@ -34,8 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesConsumer {
 
     private ExamplesConsumer() {
@@ -73,16 +73,17 @@ public final class ExamplesConsumer {
         RecordStreams.consume(generateStream(), recordConsumer);
     }
 
-    private static void showConsumerSingleRecord(String title, RecordConsumer<SingleRecord> recordConsumer) {
+    private static void showConsumerSingleRecord(String title, RecordConsumer<? super SingleRecord> recordConsumer) {
         System.out.println("--" + title);
         RecordStreams.consume(generateStreamSingleRecord(), recordConsumer);
     }
 
-    private static void showConsumerKeyValueRecord(String title, RecordConsumer<KeyValueRecord> recordConsumer) {
+    private static void showConsumerKeyValueRecord(String title, RecordConsumer<? super KeyValueRecord> recordConsumer) {
         System.out.println("--" + title);
         RecordStreams.consume(generateStreamKeyValueRecord(), recordConsumer);
     }
 
+    @SuppressWarnings("resource")
     private static void showAppendableConsumer() {
         System.out.println("-showAppendableConsumer---");
 
@@ -106,7 +107,7 @@ public final class ExamplesConsumer {
         System.out.println("-showCollectionConsumer---");
 
         List<String> constructor = new ArrayList<>();
-        showConsumer("constructor",
+        showConsumer("constructor toString",
                 new CollectionConsumer<>(constructor, Record::toString));
         System.out.println(constructor);
 
@@ -124,9 +125,15 @@ public final class ExamplesConsumer {
     private static void showConditionalConsumer() {
         System.out.println("-showConditionalConsumer---");
 
-        showConsumer("constructor",
+        showConsumer("constructor SingleRecord",
                 new ConditionalConsumer<>(
                         ClassFilter.equalTo(SingleRecord.class),
+                        new SystemOutConsumer<>(),
+                        new NullConsumer<>()));
+
+        showConsumerKeyValueRecord("constructor category null",
+                new ConditionalConsumer<>(
+                        CategoryFilter.isNull(),
                         new SystemOutConsumer<>(),
                         new NullConsumer<>()));
     }
@@ -138,8 +145,15 @@ public final class ExamplesConsumer {
         recordConsumersSize.add(new SystemOutConsumer<>("Size 0: "));
         recordConsumersSize.add(new SystemOutConsumer<>("Size 1: "));
         recordConsumersSize.add(new SystemOutConsumer<>("Size 2: "));
+        recordConsumersSize.add(new SystemOutConsumer<>("Size 3: "));
 
         showConsumer("bySize",
+                DispatcherConsumer.bySize(recordConsumersSize));
+
+        showConsumerSingleRecord("bySize",
+                DispatcherConsumer.bySize(recordConsumersSize));
+
+        showConsumerKeyValueRecord("bySize",
                 DispatcherConsumer.bySize(recordConsumersSize));
 
         List<ClassFilter<Record>> recordFilters = new ArrayList<>();
@@ -148,11 +162,17 @@ public final class ExamplesConsumer {
         recordFilters.add(ClassFilter.equalTo(PairRecord.class));
 
         List<RecordConsumer<? super Record>> recordConsumersFilter = new ArrayList<>();
-        recordConsumersFilter.add(new SystemOutConsumer<>("Filter EmptyRecord: "));
+        recordConsumersFilter.add(new SystemOutConsumer<>("Filter EmptyRecord:  "));
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter SingleRecord: "));
-        recordConsumersFilter.add(new SystemOutConsumer<>("Filter PairRecord: "));
+        recordConsumersFilter.add(new SystemOutConsumer<>("Filter PairRecord:   "));
 
         showConsumer("byFilters",
+                DispatcherConsumer.byFilters(recordFilters, recordConsumersFilter));
+
+        showConsumerSingleRecord("byFilters",
+                DispatcherConsumer.byFilters(recordFilters, recordConsumersFilter));
+
+        showConsumerKeyValueRecord("byFilters",
                 DispatcherConsumer.byFilters(recordFilters, recordConsumersFilter));
     }
 
@@ -161,6 +181,9 @@ public final class ExamplesConsumer {
 
         showConsumer("constructor",
                 new LoggerConsumer<>(new SystemOutLogger<>()));
+
+        showConsumerKeyValueRecord("constructor",
+                new LoggerConsumer<>(new SystemOutLogger<>()));
     }
 
     private static void showMapConsumer() {
@@ -168,7 +191,7 @@ public final class ExamplesConsumer {
 
         Map<String, String> keyValueMap = new HashMap<>();
         showConsumerKeyValueRecord("constructor",
-                new MapConsumer<>(keyValueMap));
+                new MapConsumer<>(keyValueMap, KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfValueField));
         System.out.println(keyValueMap);
     }
 
@@ -176,6 +199,9 @@ public final class ExamplesConsumer {
         System.out.println("-showNullConsumer---");
 
         showConsumer("constructor",
+                new NullConsumer<>());
+
+        showConsumerKeyValueRecord("constructor",
                 new NullConsumer<>());
     }
 
@@ -209,18 +235,18 @@ public final class ExamplesConsumer {
         System.out.println(consumer.getString());
     }
 
-    private static void showWriterConsumer() {
-        System.out.println("-showWriterConsumer---");
+    private static void showSystemErrConsumer() {
+        System.out.println("-showSystemErrConsumer---");
 
-        try {
-            try (WriterConsumer<SingleRecord, StringWriter> consumer = new WriterConsumer<>(new StringWriter(), new SizeMessage<>())) {
-                showConsumerSingleRecord("constructor",
-                        consumer);
-                System.out.println(consumer.getWriter());
-            }
-        } catch (IOException e) {
-            System.out.println("IOException " + e.getMessage());
-        }
+        showConsumer("constructor",
+                new SystemErrConsumer<>());
+        showConsumer("constructor prefix",
+                new SystemErrConsumer<>("--"));
+        showConsumer("constructor SizeMessage",
+                new SystemErrConsumer<>(new SizeMessage<>()));
+        showConsumer("constructor SizeMessage false",
+                new SystemErrConsumer<>(new SizeMessage<>(), false));
+        System.err.println();
     }
 
     private static void showSystemOutConsumer() {
@@ -237,19 +263,18 @@ public final class ExamplesConsumer {
         System.out.println();
     }
 
-    private static void showSystemErrConsumer() {
-        System.out.println("-showSystemErrConsumer---");
+    private static void showWriterConsumer() {
+        System.out.println("-showWriterConsumer---");
 
-
-        showConsumer("constructor",
-                new SystemErrConsumer<>());
-        showConsumer("constructor prefix",
-                new SystemErrConsumer<>("--"));
-        showConsumer("constructor SizeMessage",
-                new SystemErrConsumer<>(new SizeMessage<>()));
-        showConsumer("constructor SizeMessage false",
-                new SystemErrConsumer<>(new SizeMessage<>(), false));
-        System.err.println();
+        try {
+            try (WriterConsumer<SingleRecord, StringWriter> consumer = new WriterConsumer<>(new StringWriter(), new SizeMessage<>())) {
+                showConsumerSingleRecord("constructor",
+                        consumer);
+                System.out.println(consumer.getWriter());
+            }
+        } catch (IOException e) {
+            System.out.println("IOException " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -263,9 +288,9 @@ public final class ExamplesConsumer {
         showPrintStreamConsumer();
         showRecordConsumer();
         showStringWriterConsumer();
-        showWriterConsumer();
-        showSystemOutConsumer();
         showSystemErrConsumer();
+        showSystemOutConsumer();
+        showWriterConsumer();
     }
 
 }
