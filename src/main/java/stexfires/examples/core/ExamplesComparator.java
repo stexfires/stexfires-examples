@@ -1,12 +1,14 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
+import stexfires.core.Fields;
 import stexfires.core.Record;
 import stexfires.core.RecordStreams;
 import stexfires.core.comparator.FieldComparators;
 import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.comparator.StringComparators;
+import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.StandardRecord;
 import stexfires.util.StringUnaryOperatorType;
@@ -18,7 +20,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr", "CheckStyle"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesComparator {
 
     private ExamplesComparator() {
@@ -61,7 +63,7 @@ public final class ExamplesComparator {
             "\u212b"
     );
 
-    private static Stream<StandardRecord> generateStream() {
+    private static Stream<StandardRecord> generateStreamStandardRecord() {
         return Stream.of(
                 new StandardRecord("C4", 6L, "value0"),
                 new StandardRecord(null, 2L, "value0", "value1b"),
@@ -87,23 +89,19 @@ public final class ExamplesComparator {
         );
     }
 
-    private static void showComparatorRecord(String title, Comparator<Record> recordComparator) {
+    private static void showComparatorRecord(String title, Comparator<? super StandardRecord> recordComparator) {
         System.out.println("--" + title);
-        RecordStreams.sort(generateStream(), recordComparator)
-                     .forEachOrdered(System.out::println);
+        RecordStreams.sortAndConsume(generateStreamStandardRecord(), recordComparator, new SystemOutConsumer<>());
     }
 
-    private static void showComparatorKeyValueRecord(String title, Comparator<KeyValueRecord> recordComparator) {
+    private static void showComparatorKeyValueRecord(String title, Comparator<? super KeyValueRecord> recordComparator) {
         System.out.println("--" + title);
-        RecordStreams.sort(generateStreamKeyValueRecord(), recordComparator)
-                     .forEachOrdered(System.out::println);
+        RecordStreams.sortAndConsume(generateStreamKeyValueRecord(), recordComparator, new SystemOutConsumer<>());
     }
 
     private static void showComparatorField(String title, Comparator<Field> fieldComparator) {
         System.out.println("--" + title);
-        generateStream().flatMap(Record::streamOfFields)
-                        .sorted(fieldComparator)
-                        .forEachOrdered(System.out::println);
+        Fields.printLines(Fields.sortFields(generateStreamStandardRecord().flatMap(Record::streamOfFields), fieldComparator));
     }
 
     private static void showRecordComparators() {
@@ -138,9 +136,7 @@ public final class ExamplesComparator {
         showComparatorKeyValueRecord("valueOfValueField: naturalOrder(), NULLS.LAST", RecordComparators.valueOfValueField(Comparator.naturalOrder(), NULLS.LAST));
 
         // Combined
-        showComparatorRecord("Combined: category(reversed(), NULLS.LAST), recordId(NULLS.LAST)",
-                RecordComparators.category(Comparator.reverseOrder(), NULLS.LAST)
-                                 .thenComparing(RecordComparators.recordId(NULLS.LAST)));
+        showComparatorRecord("Combined: category(reversed(), NULLS.LAST), recordId(NULLS.LAST)", RecordComparators.category(Comparator.reverseOrder(), NULLS.LAST).thenComparing(RecordComparators.recordId(NULLS.LAST)));
     }
 
     private static void showFieldComparators() {
