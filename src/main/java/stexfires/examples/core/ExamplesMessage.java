@@ -27,7 +27,7 @@ import stexfires.core.record.StandardRecord;
 
 import java.util.stream.Stream;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesMessage {
 
     private ExamplesMessage() {
@@ -71,12 +71,12 @@ public final class ExamplesMessage {
         System.out.println(RecordStreams.collectMessages(generateStream(), recordMessage));
     }
 
-    private static void showMessageSingleRecord(String title, RecordMessage<SingleRecord> recordMessage) {
+    private static void showMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
         System.out.println("--" + title);
         System.out.println(RecordStreams.collectMessages(generateStreamSingleRecord(), recordMessage));
     }
 
-    private static void showMessageKeyValueRecord(String title, RecordMessage<KeyValueRecord> recordMessage) {
+    private static void showMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
         System.out.println("--" + title);
         System.out.println(RecordStreams.collectMessages(generateStreamKeyValueRecord(), recordMessage));
     }
@@ -88,6 +88,10 @@ public final class ExamplesMessage {
                 new CategoryMessage<>());
         showMessage("constructor nullCategoryValue",
                 new CategoryMessage<>("<NULL>"));
+        showMessageSingleRecord("constructor SingleRecord",
+                new CategoryMessage<>());
+        showMessageKeyValueRecord("constructor KeyValueRecord",
+                new CategoryMessage<>());
     }
 
     private static void showClassNameMessage() {
@@ -97,6 +101,10 @@ public final class ExamplesMessage {
                 new ClassNameMessage<>());
         showMessage("constructor hashCode",
                 new ClassNameMessage<>(true));
+        showMessageSingleRecord("constructor SingleRecord",
+                new ClassNameMessage<>());
+        showMessageKeyValueRecord("constructor KeyValueRecord",
+                new ClassNameMessage<>());
     }
 
     private static void showCompareMessageBuilder() {
@@ -104,6 +112,8 @@ public final class ExamplesMessage {
 
         showMessage("category / size",
                 new CompareMessageBuilder().category().size().build());
+        showMessageSingleRecord("className / category(other)",
+                new CompareMessageBuilder().className().category("<NULL>>").build());
         showMessage("values",
                 new CompareMessageBuilder().values().build());
     }
@@ -114,6 +124,12 @@ public final class ExamplesMessage {
         showMessage("constructor",
                 new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
+        showMessageSingleRecord("constructor SingleRecord",
+                new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
+                        new ConstantMessage<>("single"), new ShortMessage<>()));
+        showMessageKeyValueRecord("constructor KeyValueRecord",
+                new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
+                        new ConstantMessage<>("single"), new ShortMessage<>()));
     }
 
     private static void showConstantMessage() {
@@ -121,6 +137,8 @@ public final class ExamplesMessage {
 
         showMessage("constructor",
                 new ConstantMessage<>("message"));
+        showMessageKeyValueRecord("constructor KeyValueRecord",
+                new ConstantMessage<>("KeyValueRecord"));
     }
 
     private static void showExtendedValuesMessage() {
@@ -130,6 +148,8 @@ public final class ExamplesMessage {
                 new ExtendedValuesMessage<>("(", ")"));
         showMessage("constructor first/last",
                 new ExtendedValuesMessage<>("", "", "<", ">"));
+        showMessageKeyValueRecord("constructor KeyValueRecord",
+                new ExtendedValuesMessage<>("(", ")"));
     }
 
     private static void showJoinedValuesMessage() {
@@ -139,6 +159,8 @@ public final class ExamplesMessage {
                 new JoinedValuesMessage<>());
         showMessage("constructor delimiter",
                 new JoinedValuesMessage<>(""));
+        showMessageKeyValueRecord("constructor delimiter showMessageKeyValueRecord",
+                new JoinedValuesMessage<>("="));
     }
 
     private static void showNullSafeMessage() {
@@ -155,6 +177,8 @@ public final class ExamplesMessage {
                 new RecordIdMessage<>());
         showMessage("constructor prefix missingRecordIdMessage",
                 new RecordIdMessage<>("", "-"));
+        showMessageKeyValueRecord("constructor prefix missingRecordIdMessage KeyValueRecord",
+                new RecordIdMessage<>(RecordIdMessage.DEFAULT_PREFIX, "-"));
     }
 
     private static void showRecordMessage() {
@@ -168,6 +192,8 @@ public final class ExamplesMessage {
         System.out.println("-showShortMessage---");
 
         showMessage("constructor",
+                new ShortMessage<>());
+        showMessageKeyValueRecord("constructor KeyValueRecord",
                 new ShortMessage<>());
     }
 
@@ -195,6 +221,8 @@ public final class ExamplesMessage {
         System.out.println("-showToStringMessage---");
 
         showMessage("constructor",
+                new ToStringMessage<>());
+        showMessageKeyValueRecord("constructor KeyValueRecord",
                 new ToStringMessage<>());
     }
 
