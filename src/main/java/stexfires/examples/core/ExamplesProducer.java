@@ -23,7 +23,7 @@ public final class ExamplesProducer {
     private ExamplesProducer() {
     }
 
-    private static void produceAndPrintLines(RecordProducer<? extends Record> recordProducer) {
+    private static void showProducer(RecordProducer<? extends Record> recordProducer) {
         RecordStreams.printLines(RecordStreams.produce(recordProducer));
     }
 
@@ -32,13 +32,13 @@ public final class ExamplesProducer {
 
         long streamSize = 2L;
 
-        produceAndPrintLines(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
-        produceAndPrintLines(ConstantProducer.emptyRecords(streamSize));
-        produceAndPrintLines(ConstantProducer.singleRecords(streamSize, "value1"));
-        produceAndPrintLines(ConstantProducer.pairRecords(streamSize, "value1", "value2"));
-        produceAndPrintLines(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
-        produceAndPrintLines(ConstantProducer.standardRecords(streamSize, Strings.list("value1", "value2")));
-        produceAndPrintLines(ConstantProducer.standardRecords(streamSize, "value1", "value2", "value3"));
+        showProducer(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
+        showProducer(ConstantProducer.emptyRecords(streamSize));
+        showProducer(ConstantProducer.singleRecords(streamSize, "value1"));
+        showProducer(ConstantProducer.pairRecords(streamSize, "value1", "value2"));
+        showProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
+        showProducer(ConstantProducer.standardRecords(streamSize, Strings.list("value1", "value2")));
+        showProducer(ConstantProducer.standardRecords(streamSize, "value1", "value2", "value3"));
     }
 
     private static void showDividingProducer() {
@@ -47,9 +47,9 @@ public final class ExamplesProducer {
         int recordSize = 2;
         String category = "category";
 
-        produceAndPrintLines(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
-        produceAndPrintLines(new DividingProducer(category, recordSize, "A", "B", "C", "D", "E", "F"));
-        produceAndPrintLines(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
+        showProducer(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
+        showProducer(new DividingProducer(category, recordSize, "A", "B", "C", "D", "E", "F"));
+        showProducer(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
     }
 
     private static void showKeyValueProducer() {
@@ -62,10 +62,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        produceAndPrintLines(new KeyValueProducer(keyValueMap));
-        produceAndPrintLines(new KeyValueProducer(category, keyValueMap));
-        produceAndPrintLines(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
-        produceAndPrintLines(new KeyValueProducer(category, Records.recordIdSequence(), keyValueMap,
+        showProducer(new KeyValueProducer(keyValueMap));
+        showProducer(new KeyValueProducer(category, keyValueMap));
+        showProducer(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
+        showProducer(new KeyValueProducer(category, Records.recordIdSequence(), keyValueMap,
                 Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
@@ -79,10 +79,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        produceAndPrintLines(new SingleProducer(values));
-        produceAndPrintLines(new SingleProducer(category, values));
-        produceAndPrintLines(new SingleProducer(category, new SequenceLongSupplier(100L), values));
-        produceAndPrintLines(new SingleProducer(category, Records.recordIdSequence(), values,
+        showProducer(new SingleProducer(values));
+        showProducer(new SingleProducer(category, values));
+        showProducer(new SingleProducer(category, new SequenceLongSupplier(100L), values));
+        showProducer(new SingleProducer(category, Records.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
