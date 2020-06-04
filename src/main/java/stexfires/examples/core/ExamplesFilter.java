@@ -26,11 +26,12 @@ import stexfires.util.StringComparisonType;
 import stexfires.util.Strings;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "UnnecessaryBoxing"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesFilter {
 
     private ExamplesFilter() {
@@ -83,11 +84,13 @@ public final class ExamplesFilter {
         System.out.println("-showClassFilter---");
 
         showFilter("constructor",
-                new ClassFilter<>(clazz -> !EmptyRecord.class.equals(clazz)));
+                new ClassFilter<>(clazz -> EmptyRecord.class != clazz));
         showFilter("equalTo",
                 ClassFilter.equalTo(PairRecord.class));
         showFilter("containedIn Collection",
                 ClassFilter.containedIn(Collections.singletonList(PairRecord.class)));
+        showFilter("containedIn List",
+                ClassFilter.containedIn(List.of(PairRecord.class, EmptyRecord.class)));
     }
 
     private static void showConstantFilter() {
@@ -189,9 +192,9 @@ public final class ExamplesFilter {
         showFilter("isEmpty",
                 SizeFilter.isEmpty());
         showFilter("containedIn Collection",
-                SizeFilter.containedIn(Collections.singletonList(Integer.valueOf(2))));
+                SizeFilter.containedIn(Collections.singletonList(2)));
         showFilter("containedIn Array",
-                SizeFilter.containedIn(Integer.valueOf(8), null, 2));
+                SizeFilter.containedIn(8, null, 2));
         showFilter("between",
                 SizeFilter.between(2, 9));
     }
