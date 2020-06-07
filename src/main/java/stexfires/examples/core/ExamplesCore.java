@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
-import stexfires.core.Records;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecords;
 import stexfires.core.record.EmptyRecord;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.SingleRecord;
@@ -83,16 +83,16 @@ public final class ExamplesCore {
     private static void showRecordsBuilder() {
         System.out.println("-showRecordsBuilder---");
 
-        printRecord(".", Records.builder().build());
-        printRecord(".category", Records.builder().category("category").build());
-        printRecord(".recordId", Records.builder().recordId(1000L).build());
-        printRecord(".category.recordId", Records.builder().category("category").recordId(0L).build());
-        printRecord(".add null", Records.builder().add(null).build());
-        printRecord(".add empty", Records.builder().add("").build());
-        printRecord(".add value", Records.builder().add("value").build());
-        printRecord(".add values", Records.builder().add("firstValue").add("lastValue").build());
-        printRecord(".add values", Records.builder().add("firstValue")
-                                          .addAll(List.of("secondValue", "thirdValue")).add("lastValue").build());
+        printRecord(".", TextRecords.builder().build());
+        printRecord(".category", TextRecords.builder().category("category").build());
+        printRecord(".recordId", TextRecords.builder().recordId(1000L).build());
+        printRecord(".category.recordId", TextRecords.builder().category("category").recordId(0L).build());
+        printRecord(".add null", TextRecords.builder().add(null).build());
+        printRecord(".add empty", TextRecords.builder().add("").build());
+        printRecord(".add value", TextRecords.builder().add("value").build());
+        printRecord(".add values", TextRecords.builder().add("firstValue").add("lastValue").build());
+        printRecord(".add values", TextRecords.builder().add("firstValue")
+                                              .addAll(List.of("secondValue", "thirdValue")).add("lastValue").build());
     }
 
     private static void showRecordStreams() {

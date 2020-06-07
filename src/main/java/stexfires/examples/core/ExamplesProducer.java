@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
 import stexfires.core.RecordStreams;
-import stexfires.core.Records;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecords;
 import stexfires.core.producer.ConstantProducer;
 import stexfires.core.producer.DividingProducer;
 import stexfires.core.producer.KeyValueProducer;
@@ -65,7 +65,7 @@ public final class ExamplesProducer {
         printProducer(new KeyValueProducer(keyValueMap));
         printProducer(new KeyValueProducer(category, keyValueMap));
         printProducer(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
-        printProducer(new KeyValueProducer(category, Records.recordIdSequence(), keyValueMap,
+        printProducer(new KeyValueProducer(category, TextRecords.recordIdSequence(), keyValueMap,
                 Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
@@ -82,7 +82,7 @@ public final class ExamplesProducer {
         printProducer(new SingleProducer(values));
         printProducer(new SingleProducer(category, values));
         printProducer(new SingleProducer(category, new SequenceLongSupplier(100L), values));
-        printProducer(new SingleProducer(category, Records.recordIdSequence(), values,
+        printProducer(new SingleProducer(category, TextRecords.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
