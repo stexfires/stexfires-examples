@@ -1,6 +1,6 @@
 package stexfires.examples.javatest;
 
-import stexfires.core.Record;
+import stexfires.core.TextRecord;
 import stexfires.core.filter.RecordFilter;
 import stexfires.core.filter.ValueFilter;
 import stexfires.core.record.StandardRecord;
@@ -114,7 +114,7 @@ public final class CharacterTest {
     }
 
     @SuppressWarnings("NumericCastThatLosesPrecision")
-    public static Record generateCharacterRecord(Integer characterId) {
+    public static TextRecord generateCharacterRecord(Integer characterId) {
         Objects.requireNonNull(characterId);
 
         // character
@@ -150,13 +150,13 @@ public final class CharacterTest {
         );
     }
 
-    public static Stream<Record> generateCharacterRecordStream(int firstChar, int lastChar) {
+    public static Stream<TextRecord> generateCharacterRecordStream(int firstChar, int lastChar) {
         return IntStream.rangeClosed(firstChar, lastChar)
                         .boxed()
                         .map(CharacterTest::generateCharacterRecord);
     }
 
-    private static void writeMarkdownTableFile(File outputFile, Stream<Record> recordStream) throws IOException {
+    private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream) throws IOException {
         Objects.requireNonNull(outputFile);
         Objects.requireNonNull(recordStream);
 
@@ -179,7 +179,7 @@ public final class CharacterTest {
         }
     }
 
-    private static void writeFilteredFile(File outputMarkdownFile, RecordFilter<Record> recordFilter) throws IOException {
+    private static void writeFilteredFile(File outputMarkdownFile, RecordFilter<TextRecord> recordFilter) throws IOException {
         Objects.requireNonNull(outputMarkdownFile);
         Objects.requireNonNull(recordFilter);
 

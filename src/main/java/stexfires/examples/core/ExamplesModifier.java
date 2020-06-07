@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.consumer.SystemOutConsumer;
@@ -87,17 +87,17 @@ public final class ExamplesModifier {
         );
     }
 
-    private static void printModifierSingleRecord(String title, RecordStreamModifier<SingleRecord, ? extends Record> recordModifier) {
+    private static void printModifierSingleRecord(String title, RecordStreamModifier<SingleRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         RecordStreams.modifyAndConsume(generateStreamSingleRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printModifierSingleRecordGroup(String title, RecordStreamModifier<SingleRecord, ? extends Record> recordModifier) {
+    private static void printModifierSingleRecordGroup(String title, RecordStreamModifier<SingleRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         RecordStreams.modifyAndConsume(generateStreamSingleRecordGroup(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printModifierStandardRecord(String title, RecordStreamModifier<StandardRecord, ? extends Record> recordModifier) {
+    private static void printModifierStandardRecord(String title, RecordStreamModifier<StandardRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         RecordStreams.modifyAndConsume(generateStreamStandardRecord(), recordModifier, new SystemOutConsumer<>());
     }
@@ -105,14 +105,14 @@ public final class ExamplesModifier {
     private static void printPivotStandardRecord(String title, PivotModifier<StandardRecord> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
         Stream<StandardRecord> recordStream = Stream.of(records);
-        SystemOutConsumer<Record> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
+        SystemOutConsumer<TextRecord> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
         RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
     private static void printPivotKeyValueRecord(String title, PivotModifier<KeyValueRecord> recordModifier, KeyValueRecord... records) {
         System.out.println("--" + title);
         Stream<KeyValueRecord> recordStream = Stream.of(records);
-        SystemOutConsumer<Record> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
+        SystemOutConsumer<TextRecord> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
         RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
@@ -132,7 +132,7 @@ public final class ExamplesModifier {
         RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printUnpivot(String title, UnpivotModifier<StandardRecord, ? extends Record> recordModifier, StandardRecord... records) {
+    private static void printUnpivot(String title, UnpivotModifier<StandardRecord, ? extends TextRecord> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
         Stream<StandardRecord> recordStream = Stream.of(records);
         RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
@@ -204,11 +204,11 @@ public final class ExamplesModifier {
                         )));
 
         printModifierSingleRecord("constructor valueField; aggregateToValue category",
-                new GroupModifier<SingleRecord, Record>(
+                new GroupModifier<SingleRecord, TextRecord>(
                         groupByValueField(),
                         aggregateToValue(
                                 messageOfFirstElement(ValueMessage.value()),
-                                list -> list.stream().map(Record::getCategory).collect(Collectors.joining(","))
+                                list -> list.stream().map(TextRecord::getCategory).collect(Collectors.joining(","))
                         )));
     }
 
@@ -285,7 +285,7 @@ public final class ExamplesModifier {
         );
 
         printPivotStandardRecord("Pivot 1.3 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(Record::getCategory, r -> r.getValueAt(1), nullValue,
+                PivotModifier.pivotWithClassifications(TextRecord::getCategory, r -> r.getValueAt(1), nullValue,
                         r -> r.getValueAt(0), valueClasses),
                 new StandardRecord("key1", 1L, "jp"),
                 new StandardRecord("key1", 2L, "en", "value1en"),
@@ -396,28 +396,28 @@ public final class ExamplesModifier {
         System.out.println("-showUnaryGroupModifier---");
 
         printUnaryGroup("first",
-                UnaryGroupModifier.first(Record::getCategory));
+                UnaryGroupModifier.first(TextRecord::getCategory));
 
         printUnaryGroup("last",
-                UnaryGroupModifier.last(Record::getCategory));
+                UnaryGroupModifier.last(TextRecord::getCategory));
 
         printUnaryGroup("min recordId",
-                UnaryGroupModifier.min(Record::getCategory, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.min(TextRecord::getCategory, RecordComparators.recordId(NULLS.FIRST)));
 
         printUnaryGroup("max recordId",
-                UnaryGroupModifier.max(Record::getCategory, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.max(TextRecord::getCategory, RecordComparators.recordId(NULLS.FIRST)));
 
         printUnaryGroup("reduce maxBy recordId",
-                UnaryGroupModifier.reduce(Record::getCategory,
+                UnaryGroupModifier.reduce(TextRecord::getCategory,
                         BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))));
 
         printUnaryGroup("collect maxBy recordId",
-                UnaryGroupModifier.collect(Record::getCategory,
+                UnaryGroupModifier.collect(TextRecord::getCategory,
                         Collectors.maxBy(RecordComparators.recordId(NULLS.FIRST)),
                         null));
 
         printUnaryGroup("collect reducing maxBy recordId",
-                UnaryGroupModifier.collect(Record::getCategory,
+                UnaryGroupModifier.collect(TextRecord::getCategory,
                         Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))),
                         null));
     }

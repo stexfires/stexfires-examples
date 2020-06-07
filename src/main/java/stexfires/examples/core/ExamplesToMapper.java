@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.ToEmptyMapper;
@@ -24,7 +24,7 @@ public final class ExamplesToMapper {
     private ExamplesToMapper() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new EmptyRecord(),
                 new KeyValueRecord("key", "value"),
@@ -40,7 +40,7 @@ public final class ExamplesToMapper {
         );
     }
 
-    private static void printRecordMapper(String title, RecordMapper<Record, ? extends Record> recordMapper) {
+    private static void printRecordMapper(String title, RecordMapper<TextRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
     }

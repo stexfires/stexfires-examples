@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.core.message.CategoryMessage;
@@ -34,7 +34,7 @@ public final class ExamplesMessage {
     private ExamplesMessage() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new SingleRecord("category", 0L, "A"),
                 new SingleRecord("category", 1L, "B"),
@@ -67,7 +67,7 @@ public final class ExamplesMessage {
         );
     }
 
-    private static void printMessage(String title, RecordMessage<Record> recordMessage) {
+    private static void printMessage(String title, RecordMessage<TextRecord> recordMessage) {
         System.out.println("--" + title);
         Strings.printLine(RecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
@@ -237,11 +237,11 @@ public final class ExamplesMessage {
         printMessage("constructor index nullFieldMessage fieldValueMapper",
                 new ValueMessage<>(1, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
         printMessage("constructor function",
-                new ValueMessage<>(Record::getLastField));
+                new ValueMessage<>(TextRecord::getLastField));
         printMessage("constructor function nullFieldMessage",
-                new ValueMessage<>(Record::getLastField, "<NULL>"));
+                new ValueMessage<>(TextRecord::getLastField, "<NULL>"));
         printMessage("constructor function nullFieldMessage fieldValueMapper",
-                new ValueMessage<>(Record::getLastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
+                new ValueMessage<>(TextRecord::getLastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
         printMessageKeyValueRecord("key",
                 ValueMessage.key());
         printMessageKeyValueRecord("keyField",

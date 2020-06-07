@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
 import stexfires.core.Fields;
-import stexfires.core.Record;
+import stexfires.core.TextRecord;
 import stexfires.core.record.EmptyRecord;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.PairRecord;
@@ -17,7 +17,7 @@ public final class ExamplesRecord {
     private ExamplesRecord() {
     }
 
-    private static void printRecord(Record record) {
+    private static void printRecord(TextRecord record) {
         System.out.println("arrayOfFields:             " + Arrays.toString(record.arrayOfFields()));
         System.out.println("listOfFields:              " + record.listOfFields());
         System.out.println("streamOfFields:            " + Fields.collectFields(record.streamOfFields()));

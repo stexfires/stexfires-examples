@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.consumer.NullConsumer;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
@@ -35,7 +35,7 @@ public final class ExamplesLogger {
     private ExamplesLogger() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new SingleRecord("value1"),
                 new SingleRecord("value2"),
@@ -62,7 +62,7 @@ public final class ExamplesLogger {
         );
     }
 
-    private static void printLogger(String title, RecordLogger<Record> recordLogger) {
+    private static void printLogger(String title, RecordLogger<TextRecord> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStream(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
@@ -105,7 +105,7 @@ public final class ExamplesLogger {
 
         List<String> constructor = new ArrayList<>();
         printLogger("constructor",
-                new CollectionLogger<>(constructor, Record::toString));
+                new CollectionLogger<>(constructor, TextRecord::toString));
         System.out.println(constructor);
 
         List<String> values = new ArrayList<>();
@@ -138,7 +138,7 @@ public final class ExamplesLogger {
     private static void showDispatcherLogger() {
         System.out.println("-showDispatcherLogger---");
 
-        List<SystemOutLogger<Record>> recordLoggersSize = new ArrayList<>();
+        List<SystemOutLogger<TextRecord>> recordLoggersSize = new ArrayList<>();
         recordLoggersSize.add(new SystemOutLogger<>("Size 0: "));
         recordLoggersSize.add(new SystemOutLogger<>("Size 1: "));
         recordLoggersSize.add(new SystemOutLogger<>("Size 2: "));
@@ -153,12 +153,12 @@ public final class ExamplesLogger {
         printLoggerKeyValueRecord("bySize",
                 DispatcherLogger.bySize(recordLoggersSize));
 
-        List<ClassFilter<Record>> recordFilters = new ArrayList<>();
+        List<ClassFilter<TextRecord>> recordFilters = new ArrayList<>();
         recordFilters.add(ClassFilter.equalTo(EmptyRecord.class));
         recordFilters.add(ClassFilter.equalTo(SingleRecord.class));
         recordFilters.add(ClassFilter.equalTo(PairRecord.class));
 
-        List<RecordLogger<? super Record>> recordLoggersFilter = new ArrayList<>();
+        List<RecordLogger<? super TextRecord>> recordLoggersFilter = new ArrayList<>();
         recordLoggersFilter.add(new SystemOutLogger<>("Filter EmptyRecord: "));
         recordLoggersFilter.add(new SystemOutLogger<>("Filter SingleRecord: "));
         recordLoggersFilter.add(new SystemOutLogger<>("Filter PairRecord: "));

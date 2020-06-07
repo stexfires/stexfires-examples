@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
 import stexfires.core.Records;
+import stexfires.core.TextRecord;
 import stexfires.core.producer.ConstantProducer;
 import stexfires.core.producer.DividingProducer;
 import stexfires.core.producer.KeyValueProducer;
@@ -23,7 +23,7 @@ public final class ExamplesProducer {
     private ExamplesProducer() {
     }
 
-    private static void printProducer(RecordProducer<? extends Record> recordProducer) {
+    private static void printProducer(RecordProducer<? extends TextRecord> recordProducer) {
         RecordStreams.printLines(RecordStreams.produce(recordProducer));
     }
 

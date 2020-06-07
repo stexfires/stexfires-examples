@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.mapper.AddValueMapper;
@@ -47,7 +47,7 @@ public final class ExamplesMapper {
     private ExamplesMapper() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new SingleRecord("category", 0L, "value1"),
                 new SingleRecord("value2"),
@@ -66,12 +66,12 @@ public final class ExamplesMapper {
         );
     }
 
-    private static void printMapper(String title, RecordMapper<Record, ? extends Record> recordMapper) {
+    private static void printMapper(String title, RecordMapper<TextRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
     }
 
-    private static void printMapperValueRecord(String title, RecordMapper<? super ValueRecord, ? extends Record> recordMapper) {
+    private static void printMapperValueRecord(String title, RecordMapper<? super ValueRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStreamValueRecord(), recordMapper, new SystemOutConsumer<>());
     }
@@ -169,11 +169,11 @@ public final class ExamplesMapper {
     private static void showLookupMapper() {
         System.out.println("-showLookupMapper---");
 
-        printMapper("constructor", new LookupMapper<>(Record::getRecordId,
+        printMapper("constructor", new LookupMapper<>(TextRecord::getRecordId,
                 recordId -> recordId == null ? null : AddValueMapper.recordId(),
                 new IdentityMapper<>()));
 
-        Map<String, RecordMapper<? super Record, Record>> recordMapperMap = new HashMap<>();
+        Map<String, RecordMapper<? super TextRecord, TextRecord>> recordMapperMap = new HashMap<>();
         recordMapperMap.put("value1", AddValueMapper.constant("lookup value1"));
         recordMapperMap.put("value2", AddValueMapper.constant("lookup value2"));
         recordMapperMap.put("key", AddValueMapper.constant("lookup key"));
@@ -239,10 +239,10 @@ public final class ExamplesMapper {
                 Collections.singletonList(new SizeMessage<>())
         ));
         printMapper("applyFunctions array", ValuesMapper.applyFunctions(
-                Record::getCategory, Record::getValueOfLastField
+                TextRecord::getCategory, TextRecord::getValueOfLastField
         ));
         printMapper("applyFunctions list", ValuesMapper.applyFunctions(
-                Collections.singletonList(Record::toString)
+                Collections.singletonList(TextRecord::toString)
         ));
         printMapper("add", ValuesMapper.add(record -> "new value"));
         printMapper("remove 0", ValuesMapper.remove(0));

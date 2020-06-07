@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.filter.ConstantFilter;
@@ -37,7 +37,7 @@ public final class ExamplesFilter {
     private ExamplesFilter() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new SingleRecord("category", 0L, "A"),
                 new SingleRecord("category", 1L, ""),
@@ -54,7 +54,7 @@ public final class ExamplesFilter {
         );
     }
 
-    private static void printFilter(String title, RecordFilter<Record> recordFilter) {
+    private static void printFilter(String title, RecordFilter<TextRecord> recordFilter) {
         System.out.println("--" + title);
         RecordStreams.printLines(RecordStreams.filter(generateStream(), recordFilter));
     }
@@ -112,8 +112,8 @@ public final class ExamplesFilter {
     private static void showMessageFilter() {
         System.out.println("-showMessageFilter---");
 
-        CategoryMessage<Record> message = new CategoryMessage<>("");
-        CategoryMessage<Record> messageNull = new CategoryMessage<>();
+        CategoryMessage<TextRecord> message = new CategoryMessage<>("");
+        CategoryMessage<TextRecord> messageNull = new CategoryMessage<>();
 
         printFilter("constructor",
                 new MessageFilter<>(message, Predicate.isEqual("c")));
@@ -220,33 +220,33 @@ public final class ExamplesFilter {
         printFilter("constructor index null",
                 new ValueFilter<>(1, true, value -> false));
         printFilter("constructor function",
-                new ValueFilter<>(Record::getLastField, "A"::equals));
+                new ValueFilter<>(TextRecord::getLastField, "A"::equals));
         printFilter("constructor function null",
                 new ValueFilter<>(record -> record.getFieldAt(1), false, "t"::equals));
         printFilter("compare index",
                 ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
         printFilter("compare function",
-                ValueFilter.compare(Record::getLastField, StringComparisonType.EQUALS, "d"));
+                ValueFilter.compare(TextRecord::getLastField, StringComparisonType.EQUALS, "d"));
         printFilter("check index",
                 ValueFilter.check(0, StringCheckType.EMPTY));
         printFilter("check function",
-                ValueFilter.check(Record::getLastField, StringCheckType.EMPTY));
+                ValueFilter.check(TextRecord::getLastField, StringCheckType.EMPTY));
         printFilter("equalTo index",
                 ValueFilter.equalTo(0, "S"));
         printFilter("equalTo function",
-                ValueFilter.equalTo(Record::getLastField, "d"));
+                ValueFilter.equalTo(TextRecord::getLastField, "d"));
         printFilter("isNotNull index",
                 ValueFilter.isNotNull(2));
         printFilter("isNotNull function",
-                ValueFilter.isNotNull(Record::getLastField));
+                ValueFilter.isNotNull(TextRecord::getLastField));
         printFilter("containedIn index Collection",
                 ValueFilter.containedIn(0, Strings.list("A", "B")));
         printFilter("containedIn function Collection",
-                ValueFilter.containedIn(Record::getLastField, Strings.list("A", "d")));
+                ValueFilter.containedIn(TextRecord::getLastField, Strings.list("A", "d")));
         printFilter("containedIn index Array",
                 ValueFilter.containedIn(0, "C", "D"));
         printFilter("containedIn function Array",
-                ValueFilter.containedIn(Record::getLastField, "A", "d"));
+                ValueFilter.containedIn(TextRecord::getLastField, "A", "d"));
     }
 
     public static void main(String[] args) {

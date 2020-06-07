@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
-import stexfires.core.Record;
 import stexfires.core.Records;
+import stexfires.core.TextRecord;
 import stexfires.core.record.EmptyRecord;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.SingleRecord;
@@ -30,7 +30,7 @@ public final class ExamplesCore {
         );
     }
 
-    private static Stream<Record> generateRecordStream() {
+    private static Stream<TextRecord> generateRecordStream() {
         return Stream.of(
                 new SingleRecord("value1"),
                 new SingleRecord("value2"),
@@ -46,7 +46,7 @@ public final class ExamplesCore {
         System.out.println(fieldStreamFunction.apply(generateFieldStream()).collect(Collectors.toList()));
     }
 
-    private static void printRecord(String title, Record record) {
+    private static void printRecord(String title, TextRecord record) {
         System.out.println("--" + title);
         System.out.println(record);
     }

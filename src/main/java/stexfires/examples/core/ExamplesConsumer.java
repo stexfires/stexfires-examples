@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.Record;
 import stexfires.core.RecordStreams;
+import stexfires.core.TextRecord;
 import stexfires.core.consumer.AppendableConsumer;
 import stexfires.core.consumer.CollectionConsumer;
 import stexfires.core.consumer.ConditionalConsumer;
@@ -41,7 +41,7 @@ public final class ExamplesConsumer {
     private ExamplesConsumer() {
     }
 
-    private static Stream<Record> generateStream() {
+    private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new SingleRecord("value1"),
                 new SingleRecord("value2"),
@@ -68,7 +68,7 @@ public final class ExamplesConsumer {
         );
     }
 
-    private static void printConsumer(String title, RecordConsumer<Record> recordConsumer) {
+    private static void printConsumer(String title, RecordConsumer<TextRecord> recordConsumer) {
         System.out.println("--" + title);
         RecordStreams.consume(generateStream(), recordConsumer);
     }
@@ -108,7 +108,7 @@ public final class ExamplesConsumer {
 
         List<String> constructor = new ArrayList<>();
         printConsumer("constructor toString",
-                new CollectionConsumer<>(constructor, Record::toString));
+                new CollectionConsumer<>(constructor, TextRecord::toString));
         System.out.println(constructor);
 
         List<String> values = new ArrayList<>();
@@ -141,7 +141,7 @@ public final class ExamplesConsumer {
     private static void showDispatcherConsumer() {
         System.out.println("-showDispatcherConsumer---");
 
-        List<SystemOutConsumer<Record>> recordConsumersSize = new ArrayList<>();
+        List<SystemOutConsumer<TextRecord>> recordConsumersSize = new ArrayList<>();
         recordConsumersSize.add(new SystemOutConsumer<>("Size 0: "));
         recordConsumersSize.add(new SystemOutConsumer<>("Size 1: "));
         recordConsumersSize.add(new SystemOutConsumer<>("Size 2: "));
@@ -156,12 +156,12 @@ public final class ExamplesConsumer {
         printConsumerKeyValueRecord("bySize",
                 DispatcherConsumer.bySize(recordConsumersSize));
 
-        List<ClassFilter<Record>> recordFilters = new ArrayList<>();
+        List<ClassFilter<TextRecord>> recordFilters = new ArrayList<>();
         recordFilters.add(ClassFilter.equalTo(EmptyRecord.class));
         recordFilters.add(ClassFilter.equalTo(SingleRecord.class));
         recordFilters.add(ClassFilter.equalTo(PairRecord.class));
 
-        List<RecordConsumer<? super Record>> recordConsumersFilter = new ArrayList<>();
+        List<RecordConsumer<? super TextRecord>> recordConsumersFilter = new ArrayList<>();
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter EmptyRecord:  "));
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter SingleRecord: "));
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter PairRecord:   "));
@@ -229,7 +229,7 @@ public final class ExamplesConsumer {
     private static void showStringWriterConsumer() {
         System.out.println("-showStringWriterConsumer---");
 
-        StringWriterConsumer<Record> consumer = new StringWriterConsumer<>(new SizeMessage<>());
+        StringWriterConsumer<TextRecord> consumer = new StringWriterConsumer<>(new SizeMessage<>());
         printConsumer("constructor",
                 consumer);
         System.out.println(consumer.getString());
