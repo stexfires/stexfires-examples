@@ -24,6 +24,7 @@ import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.PairRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
+import stexfires.util.Strings;
 
 import java.util.stream.Stream;
 
@@ -68,17 +69,17 @@ public final class ExamplesMessage {
 
     private static void showMessage(String title, RecordMessage<Record> recordMessage) {
         System.out.println("--" + title);
-        System.out.println(RecordStreams.collectMessages(generateStream(), recordMessage));
+        Strings.printLine(RecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
         System.out.println("--" + title);
-        System.out.println(RecordStreams.collectMessages(generateStreamSingleRecord(), recordMessage));
+        Strings.printLine(RecordStreams.mapToMessage(generateStreamSingleRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
         System.out.println("--" + title);
-        System.out.println(RecordStreams.collectMessages(generateStreamKeyValueRecord(), recordMessage));
+        Strings.printLine(RecordStreams.mapToMessage(generateStreamKeyValueRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showCategoryMessage() {
