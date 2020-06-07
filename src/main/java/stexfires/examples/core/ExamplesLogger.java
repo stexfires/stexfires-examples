@@ -62,19 +62,19 @@ public final class ExamplesLogger {
         );
     }
 
-    private static void showLogger(String title, RecordLogger<Record> recordLogger) {
+    private static void printLogger(String title, RecordLogger<Record> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStream(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void showLoggerSingleRecord(String title, RecordLogger<? super SingleRecord> recordLogger) {
+    private static void printLoggerSingleRecord(String title, RecordLogger<? super SingleRecord> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStreamSingleRecord(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void showLoggerKeyValueRecord(String title, RecordLogger<? super KeyValueRecord> recordLogger) {
+    private static void printLoggerKeyValueRecord(String title, RecordLogger<? super KeyValueRecord> recordLogger) {
         System.out.println("--" + title);
         RecordStreams.log(generateStreamKeyValueRecord(), recordLogger)
                      .forEachOrdered(new NullConsumer<>().asConsumer());
@@ -85,17 +85,17 @@ public final class ExamplesLogger {
         System.out.println("-showAppendableLogger---");
 
         StringBuilder builder = new StringBuilder(10);
-        showLogger("constructor StringBuilder",
+        printLogger("constructor StringBuilder",
                 new AppendableLogger<>(builder, new SizeMessage<>()));
         System.out.println(builder.toString());
 
         StringBuffer buffer = new StringBuffer(10);
-        showLogger("constructor StringBuffer",
+        printLogger("constructor StringBuffer",
                 new AppendableLogger<>(buffer, new SizeMessage<>()));
         System.out.println(buffer.toString());
 
         StringWriter writer = new StringWriter(10);
-        showLogger("constructor StringWriter",
+        printLogger("constructor StringWriter",
                 new AppendableLogger<>(writer, new SizeMessage<>()));
         System.out.println(writer.toString());
     }
@@ -104,17 +104,17 @@ public final class ExamplesLogger {
         System.out.println("-showCollectionLogger---");
 
         List<String> constructor = new ArrayList<>();
-        showLogger("constructor",
+        printLogger("constructor",
                 new CollectionLogger<>(constructor, Record::toString));
         System.out.println(constructor);
 
         List<String> values = new ArrayList<>();
-        showLoggerSingleRecord("constructor values",
+        printLoggerSingleRecord("constructor values",
                 new CollectionLogger<>(values, ValueRecord::getValueOfValueField));
         System.out.println(values);
 
         List<String> keys = new ArrayList<>();
-        showLoggerKeyValueRecord("constructor keys",
+        printLoggerKeyValueRecord("constructor keys",
                 new CollectionLogger<>(keys, KeyRecord::getValueOfKeyField));
         System.out.println(keys);
     }
@@ -122,13 +122,13 @@ public final class ExamplesLogger {
     private static void showConditionalLogger() {
         System.out.println("-showConditionalLogger---");
 
-        showLogger("constructor",
+        printLogger("constructor",
                 new ConditionalLogger<>(
                         ClassFilter.equalTo(StandardRecord.class),
                         new SystemOutLogger<>(),
                         new NullLogger<>()));
 
-        showLoggerKeyValueRecord("constructor category null",
+        printLoggerKeyValueRecord("constructor category null",
                 new ConditionalLogger<>(
                         CategoryFilter.isNull(),
                         new SystemOutLogger<>(),
@@ -144,13 +144,13 @@ public final class ExamplesLogger {
         recordLoggersSize.add(new SystemOutLogger<>("Size 2: "));
         recordLoggersSize.add(new SystemOutLogger<>("Size 3: "));
 
-        showLogger("bySize",
+        printLogger("bySize",
                 DispatcherLogger.bySize(recordLoggersSize));
 
-        showLoggerSingleRecord("bySize",
+        printLoggerSingleRecord("bySize",
                 DispatcherLogger.bySize(recordLoggersSize));
 
-        showLoggerKeyValueRecord("bySize",
+        printLoggerKeyValueRecord("bySize",
                 DispatcherLogger.bySize(recordLoggersSize));
 
         List<ClassFilter<Record>> recordFilters = new ArrayList<>();
@@ -163,66 +163,66 @@ public final class ExamplesLogger {
         recordLoggersFilter.add(new SystemOutLogger<>("Filter SingleRecord: "));
         recordLoggersFilter.add(new SystemOutLogger<>("Filter PairRecord: "));
 
-        showLogger("byFilters",
+        printLogger("byFilters",
                 DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
 
-        showLoggerSingleRecord("byFilters",
+        printLoggerSingleRecord("byFilters",
                 DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
 
-        showLoggerKeyValueRecord("byFilters",
+        printLoggerKeyValueRecord("byFilters",
                 DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));
     }
 
     private static void showLimitedLogger() {
         System.out.println("-showLimitedLogger---");
 
-        showLogger("constructor 0",
+        printLogger("constructor 0",
                 new LimitedLogger<>(new SystemOutLogger<>(), 0));
-        showLogger("constructor 2",
+        printLogger("constructor 2",
                 new LimitedLogger<>(new SystemOutLogger<>(), 2));
     }
 
     private static void showNullLogger() {
         System.out.println("-showNullLogger---");
 
-        showLogger("constructor",
+        printLogger("constructor",
                 new NullLogger<>());
 
-        showLoggerKeyValueRecord("constructor",
+        printLoggerKeyValueRecord("constructor",
                 new NullLogger<>());
     }
 
     private static void showPrintStreamLogger() {
         System.out.println("-showPrintStreamLogger---");
 
-        showLogger("constructor false",
+        printLogger("constructor false",
                 new PrintStreamLogger<>(System.out, new SizeMessage<>(), false));
         System.out.println();
-        showLogger("constructor true",
+        printLogger("constructor true",
                 new PrintStreamLogger<>(System.out, new SizeMessage<>()));
     }
 
     private static void showRecordLogger() {
         System.out.println("-showRecordLogger---");
 
-        showLogger("concat 2",
+        printLogger("concat 2",
                 RecordLogger.concat(new SystemOutLogger<>(), new NullLogger<>()));
-        showLogger("concat 3",
+        printLogger("concat 3",
                 RecordLogger.concat(new SystemOutLogger<>(), new NullLogger<>(), new SystemOutLogger<>()));
-        showLogger("andThen",
+        printLogger("andThen",
                 new NullLogger<>().andThen(new SystemOutLogger<>()));
     }
 
     private static void showSystemErrLogger() {
         System.out.println("-showSystemErrLogger---");
 
-        showLogger("constructor",
+        printLogger("constructor",
                 new SystemErrLogger<>());
-        showLogger("constructor prefix",
+        printLogger("constructor prefix",
                 new SystemErrLogger<>("--"));
-        showLogger("constructor SizeMessage",
+        printLogger("constructor SizeMessage",
                 new SystemErrLogger<>(new SizeMessage<>()));
-        showLogger("constructor SizeMessage false",
+        printLogger("constructor SizeMessage false",
                 new SystemErrLogger<>(new SizeMessage<>(), false));
         System.err.println();
     }
@@ -230,13 +230,13 @@ public final class ExamplesLogger {
     private static void showSystemOutLogger() {
         System.out.println("-showSystemOutLogger---");
 
-        showLogger("constructor",
+        printLogger("constructor",
                 new SystemOutLogger<>());
-        showLogger("constructor prefix",
+        printLogger("constructor prefix",
                 new SystemOutLogger<>("--"));
-        showLogger("constructor SizeMessage",
+        printLogger("constructor SizeMessage",
                 new SystemOutLogger<>(new SizeMessage<>()));
-        showLogger("constructor SizeMessage false",
+        printLogger("constructor SizeMessage false",
                 new SystemOutLogger<>(new SizeMessage<>(), false));
         System.out.println();
     }

@@ -23,7 +23,7 @@ public final class ExamplesProducer {
     private ExamplesProducer() {
     }
 
-    private static void showProducer(RecordProducer<? extends Record> recordProducer) {
+    private static void printProducer(RecordProducer<? extends Record> recordProducer) {
         RecordStreams.printLines(RecordStreams.produce(recordProducer));
     }
 
@@ -32,13 +32,13 @@ public final class ExamplesProducer {
 
         long streamSize = 2L;
 
-        showProducer(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
-        showProducer(ConstantProducer.emptyRecords(streamSize));
-        showProducer(ConstantProducer.singleRecords(streamSize, "value1"));
-        showProducer(ConstantProducer.pairRecords(streamSize, "value1", "value2"));
-        showProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
-        showProducer(ConstantProducer.standardRecords(streamSize, Strings.list("value1", "value2")));
-        showProducer(ConstantProducer.standardRecords(streamSize, "value1", "value2", "value3"));
+        printProducer(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
+        printProducer(ConstantProducer.emptyRecords(streamSize));
+        printProducer(ConstantProducer.singleRecords(streamSize, "value1"));
+        printProducer(ConstantProducer.pairRecords(streamSize, "value1", "value2"));
+        printProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
+        printProducer(ConstantProducer.standardRecords(streamSize, Strings.list("value1", "value2")));
+        printProducer(ConstantProducer.standardRecords(streamSize, "value1", "value2", "value3"));
     }
 
     private static void showDividingProducer() {
@@ -47,9 +47,9 @@ public final class ExamplesProducer {
         int recordSize = 2;
         String category = "category";
 
-        showProducer(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
-        showProducer(new DividingProducer(category, recordSize, "A", "B", "C", "D", "E", "F"));
-        showProducer(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
+        printProducer(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
+        printProducer(new DividingProducer(category, recordSize, "A", "B", "C", "D", "E", "F"));
+        printProducer(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
     }
 
     private static void showKeyValueProducer() {
@@ -62,10 +62,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        showProducer(new KeyValueProducer(keyValueMap));
-        showProducer(new KeyValueProducer(category, keyValueMap));
-        showProducer(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
-        showProducer(new KeyValueProducer(category, Records.recordIdSequence(), keyValueMap,
+        printProducer(new KeyValueProducer(keyValueMap));
+        printProducer(new KeyValueProducer(category, keyValueMap));
+        printProducer(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
+        printProducer(new KeyValueProducer(category, Records.recordIdSequence(), keyValueMap,
                 Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
@@ -79,10 +79,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        showProducer(new SingleProducer(values));
-        showProducer(new SingleProducer(category, values));
-        showProducer(new SingleProducer(category, new SequenceLongSupplier(100L), values));
-        showProducer(new SingleProducer(category, Records.recordIdSequence(), values,
+        printProducer(new SingleProducer(values));
+        printProducer(new SingleProducer(category, values));
+        printProducer(new SingleProducer(category, new SequenceLongSupplier(100L), values));
+        printProducer(new SingleProducer(category, Records.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 

@@ -67,17 +67,17 @@ public final class ExamplesMessage {
         );
     }
 
-    private static void showMessage(String title, RecordMessage<Record> recordMessage) {
+    private static void printMessage(String title, RecordMessage<Record> recordMessage) {
         System.out.println("--" + title);
         Strings.printLine(RecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
-    private static void showMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
+    private static void printMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
         System.out.println("--" + title);
         Strings.printLine(RecordStreams.mapToMessage(generateStreamSingleRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
-    private static void showMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
+    private static void printMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
         System.out.println("--" + title);
         Strings.printLine(RecordStreams.mapToMessage(generateStreamKeyValueRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
@@ -85,50 +85,50 @@ public final class ExamplesMessage {
     private static void showCategoryMessage() {
         System.out.println("-showCategoryMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new CategoryMessage<>());
-        showMessage("constructor nullCategoryValue",
+        printMessage("constructor nullCategoryValue",
                 new CategoryMessage<>("<NULL>"));
-        showMessageSingleRecord("constructor SingleRecord",
+        printMessageSingleRecord("constructor SingleRecord",
                 new CategoryMessage<>());
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new CategoryMessage<>());
     }
 
     private static void showClassNameMessage() {
         System.out.println("-showClassNameMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ClassNameMessage<>());
-        showMessage("constructor hashCode",
+        printMessage("constructor hashCode",
                 new ClassNameMessage<>(true));
-        showMessageSingleRecord("constructor SingleRecord",
+        printMessageSingleRecord("constructor SingleRecord",
                 new ClassNameMessage<>());
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ClassNameMessage<>());
     }
 
     private static void showCompareMessageBuilder() {
         System.out.println("-showCompareMessageBuilder---");
 
-        showMessage("category / size",
+        printMessage("category / size",
                 new CompareMessageBuilder().category().size().build());
-        showMessageSingleRecord("className / category(other)",
+        printMessageSingleRecord("className / category(other)",
                 new CompareMessageBuilder().className().category("<NULL>>").build());
-        showMessage("values",
+        printMessage("values",
                 new CompareMessageBuilder().values().build());
     }
 
     private static void showConditionalMessage() {
         System.out.println("-showConditionalMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
-        showMessageSingleRecord("constructor SingleRecord",
+        printMessageSingleRecord("constructor SingleRecord",
                 new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
     }
@@ -136,31 +136,31 @@ public final class ExamplesMessage {
     private static void showConstantMessage() {
         System.out.println("-showConstantMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ConstantMessage<>("message"));
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ConstantMessage<>("KeyValueRecord"));
     }
 
     private static void showExtendedValuesMessage() {
         System.out.println("-showExtendedValuesMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ExtendedValuesMessage<>("(", ")"));
-        showMessage("constructor first/last",
+        printMessage("constructor first/last",
                 new ExtendedValuesMessage<>("", "", "<", ">"));
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ExtendedValuesMessage<>("(", ")"));
     }
 
     private static void showJoinedValuesMessage() {
         System.out.println("-showJoinedValuesMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new JoinedValuesMessage<>());
-        showMessage("constructor delimiter",
+        printMessage("constructor delimiter",
                 new JoinedValuesMessage<>(""));
-        showMessageKeyValueRecord("constructor delimiter showMessageKeyValueRecord",
+        printMessageKeyValueRecord("constructor delimiter showMessageKeyValueRecord",
                 new JoinedValuesMessage<>("="));
     }
 
@@ -174,81 +174,81 @@ public final class ExamplesMessage {
     private static void showRecordIdMessage() {
         System.out.println("-showRecordIdMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new RecordIdMessage<>());
-        showMessage("constructor prefix missingRecordIdMessage",
+        printMessage("constructor prefix missingRecordIdMessage",
                 new RecordIdMessage<>("", "-"));
-        showMessageKeyValueRecord("constructor prefix missingRecordIdMessage KeyValueRecord",
+        printMessageKeyValueRecord("constructor prefix missingRecordIdMessage KeyValueRecord",
                 new RecordIdMessage<>(RecordIdMessage.DEFAULT_PREFIX, "-"));
     }
 
     private static void showRecordMessage() {
         System.out.println("-showRecordMessage---");
 
-        showMessage("prepend / append",
+        printMessage("prepend / append",
                 new SizeMessage<>().prepend("Size:").append(" RecordId:").append(new RecordIdMessage<>()));
     }
 
     private static void showShortMessage() {
         System.out.println("-showShortMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ShortMessage<>());
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ShortMessage<>());
     }
 
     private static void showSizeMessage() {
         System.out.println("-showSizeMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new SizeMessage<>());
     }
 
     private static void showSupplierMessage() {
         System.out.println("-showSupplierMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new SupplierMessage<>(() -> "message"));
-        showMessage("localTime",
+        printMessage("localTime",
                 SupplierMessage.localTime());
-        showMessage("threadName",
+        printMessage("threadName",
                 SupplierMessage.threadName());
-        showMessage("sequence",
+        printMessage("sequence",
                 SupplierMessage.sequence(0L));
     }
 
     private static void showToStringMessage() {
         System.out.println("-showToStringMessage---");
 
-        showMessage("constructor",
+        printMessage("constructor",
                 new ToStringMessage<>());
-        showMessageKeyValueRecord("constructor KeyValueRecord",
+        printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ToStringMessage<>());
     }
 
     private static void showValueMessage() {
         System.out.println("-showValueMessage---");
 
-        showMessage("constructor index",
+        printMessage("constructor index",
                 new ValueMessage<>(1));
-        showMessage("constructor index nullFieldMessage",
+        printMessage("constructor index nullFieldMessage",
                 new ValueMessage<>(1, "<NULL>"));
-        showMessage("constructor index nullFieldMessage fieldValueMapper",
+        printMessage("constructor index nullFieldMessage fieldValueMapper",
                 new ValueMessage<>(1, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
-        showMessage("constructor function",
+        printMessage("constructor function",
                 new ValueMessage<>(Record::getLastField));
-        showMessage("constructor function nullFieldMessage",
+        printMessage("constructor function nullFieldMessage",
                 new ValueMessage<>(Record::getLastField, "<NULL>"));
-        showMessage("constructor function nullFieldMessage fieldValueMapper",
+        printMessage("constructor function nullFieldMessage fieldValueMapper",
                 new ValueMessage<>(Record::getLastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
-        showMessageKeyValueRecord("key",
+        printMessageKeyValueRecord("key",
                 ValueMessage.key());
-        showMessageKeyValueRecord("keyField",
+        printMessageKeyValueRecord("keyField",
                 ValueMessage.keyField(new AddPrefixFieldValueMapper("new key: ")));
-        showMessageSingleRecord("value",
+        printMessageSingleRecord("value",
                 ValueMessage.value());
-        showMessageSingleRecord("valueField",
+        printMessageSingleRecord("valueField",
                 ValueMessage.valueField(new AddPrefixFieldValueMapper("new value: ")));
     }
 

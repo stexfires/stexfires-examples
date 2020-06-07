@@ -41,12 +41,12 @@ public final class ExamplesCore {
         );
     }
 
-    private static void showFieldStream(String title, Function<Stream<Field>, Stream<Object>> fieldStreamFunction) {
+    private static void printFieldStream(String title, Function<Stream<Field>, Stream<Object>> fieldStreamFunction) {
         System.out.println("--" + title);
         System.out.println(fieldStreamFunction.apply(generateFieldStream()).collect(Collectors.toList()));
     }
 
-    private static void showRecord(String title, Record record) {
+    private static void printRecord(String title, Record record) {
         System.out.println("--" + title);
         System.out.println(record);
     }
@@ -54,18 +54,18 @@ public final class ExamplesCore {
     private static void showField() {
         System.out.println("-showField---");
 
-        showFieldStream("getIndex", stream -> stream.map(Field::getIndex));
-        showFieldStream("isFirst", stream -> stream.map(Field::isFirst));
-        showFieldStream("isLast", stream -> stream.map(Field::isLast));
-        showFieldStream("getValue", stream -> stream.map(Field::getValue));
-        showFieldStream("getValueOrElse", stream -> stream.map(field -> field.getValueOrElse("<NULL>")));
-        showFieldStream("getValueAsOptional", stream -> stream.map(Field::getValueAsOptional).map(optional -> optional.orElse("<NULL>")));
-        showFieldStream("valueEquals", stream -> stream.map(field -> field.valueEquals("value A")));
-        showFieldStream("valueIsNull", stream -> stream.map(Field::valueIsNull));
-        showFieldStream("valueIsEmpty", stream -> stream.map(Field::valueIsEmpty));
-        showFieldStream("valueIsNullOrEmpty", stream -> stream.map(Field::valueIsNullOrEmpty));
-        showFieldStream("length", stream -> stream.map(Field::length));
-        showFieldStream("stream", stream -> stream.flatMap(Field::stream));
+        printFieldStream("getIndex", stream -> stream.map(Field::getIndex));
+        printFieldStream("isFirst", stream -> stream.map(Field::isFirst));
+        printFieldStream("isLast", stream -> stream.map(Field::isLast));
+        printFieldStream("getValue", stream -> stream.map(Field::getValue));
+        printFieldStream("getValueOrElse", stream -> stream.map(field -> field.getValueOrElse("<NULL>")));
+        printFieldStream("getValueAsOptional", stream -> stream.map(Field::getValueAsOptional).map(optional -> optional.orElse("<NULL>")));
+        printFieldStream("valueEquals", stream -> stream.map(field -> field.valueEquals("value A")));
+        printFieldStream("valueIsNull", stream -> stream.map(Field::valueIsNull));
+        printFieldStream("valueIsEmpty", stream -> stream.map(Field::valueIsEmpty));
+        printFieldStream("valueIsNullOrEmpty", stream -> stream.map(Field::valueIsNullOrEmpty));
+        printFieldStream("length", stream -> stream.map(Field::length));
+        printFieldStream("stream", stream -> stream.flatMap(Field::stream));
     }
 
     private static void showFields() {
@@ -83,16 +83,16 @@ public final class ExamplesCore {
     private static void showRecordsBuilder() {
         System.out.println("-showRecordsBuilder---");
 
-        showRecord(".", Records.builder().build());
-        showRecord(".category", Records.builder().category("category").build());
-        showRecord(".recordId", Records.builder().recordId(1000L).build());
-        showRecord(".category.recordId", Records.builder().category("category").recordId(0L).build());
-        showRecord(".add null", Records.builder().add(null).build());
-        showRecord(".add empty", Records.builder().add("").build());
-        showRecord(".add value", Records.builder().add("value").build());
-        showRecord(".add values", Records.builder().add("firstValue").add("lastValue").build());
-        showRecord(".add values", Records.builder().add("firstValue")
-                                         .addAll(List.of("secondValue", "thirdValue")).add("lastValue").build());
+        printRecord(".", Records.builder().build());
+        printRecord(".category", Records.builder().category("category").build());
+        printRecord(".recordId", Records.builder().recordId(1000L).build());
+        printRecord(".category.recordId", Records.builder().category("category").recordId(0L).build());
+        printRecord(".add null", Records.builder().add(null).build());
+        printRecord(".add empty", Records.builder().add("").build());
+        printRecord(".add value", Records.builder().add("value").build());
+        printRecord(".add values", Records.builder().add("firstValue").add("lastValue").build());
+        printRecord(".add values", Records.builder().add("firstValue")
+                                          .addAll(List.of("secondValue", "thirdValue")).add("lastValue").build());
     }
 
     private static void showRecordStreams() {

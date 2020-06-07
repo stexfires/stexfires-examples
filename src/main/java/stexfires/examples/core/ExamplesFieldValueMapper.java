@@ -41,7 +41,7 @@ public final class ExamplesFieldValueMapper {
         );
     }
 
-    private static void showMapper(String title, FieldValueMapper fieldValueMapper) {
+    private static void printMapper(String title, FieldValueMapper fieldValueMapper) {
         System.out.println("--" + title);
         Strings.printLine(Fields.mapToValue(generateStream(), fieldValueMapper), Strings.DEFAULT_DELIMITER);
     }
@@ -49,19 +49,19 @@ public final class ExamplesFieldValueMapper {
     private static void showAddPostfixFieldValueMapper() {
         System.out.println("-showAddPostfixFieldValueMapper---");
 
-        showMapper("constructor", new AddPostfixFieldValueMapper("-postfix"));
+        printMapper("constructor", new AddPostfixFieldValueMapper("-postfix"));
     }
 
     private static void showAddPrefixFieldValueMapper() {
         System.out.println("-showAddPrefixFieldValueMapper---");
 
-        showMapper("constructor", new AddPrefixFieldValueMapper("prefix-"));
+        printMapper("constructor", new AddPrefixFieldValueMapper("prefix-"));
     }
 
     private static void showConditionalFieldValueMapper() {
         System.out.println("-showConditionalFieldValueMapper---");
 
-        showMapper("constructor valueIsNull", new ConditionalFieldValueMapper(
+        printMapper("constructor valueIsNull", new ConditionalFieldValueMapper(
                 Field::valueIsNull,
                 new ConstantFieldValueMapper("<field value is null>"),
                 new IdentityFieldValueMapper()));
@@ -70,32 +70,32 @@ public final class ExamplesFieldValueMapper {
     private static void showConstantFieldValueMapper() {
         System.out.println("-showConstantFieldValueMapper---");
 
-        showMapper("constructor", new ConstantFieldValueMapper());
-        showMapper("constructor constant", new ConstantFieldValueMapper("constant"));
+        printMapper("constructor", new ConstantFieldValueMapper());
+        printMapper("constructor constant", new ConstantFieldValueMapper("constant"));
     }
 
     private static void showFieldValueMapper() {
         System.out.println("-showFieldValueMapper---");
 
-        showMapper("append", new AddPrefixFieldValueMapper("<").append(">"));
-        showMapper("prepend", new ReplaceNullFieldValueMapper("NULL").prepend("<").append(">"));
+        printMapper("append", new AddPrefixFieldValueMapper("<").append(">"));
+        printMapper("prepend", new ReplaceNullFieldValueMapper("NULL").prepend("<").append(">"));
     }
 
     private static void showIdentityFieldValueMapper() {
         System.out.println("-showIdentityFieldValueMapper---");
 
-        showMapper("constructor", new IdentityFieldValueMapper());
+        printMapper("constructor", new IdentityFieldValueMapper());
     }
 
     private static void showIndexedFieldValueMapper() {
         System.out.println("-showIndexedFieldValueMapper---");
 
-        showMapper("constructor", new IndexedFieldValueMapper(
+        printMapper("constructor", new IndexedFieldValueMapper(
                 i -> i == 1 ? Optional.of(new ConstantFieldValueMapper("index 1")) : Optional.empty(),
                 new ConstantFieldValueMapper("else")
         ));
 
-        showMapper("byArray", IndexedFieldValueMapper.byArray(
+        printMapper("byArray", IndexedFieldValueMapper.byArray(
                 new AddPrefixFieldValueMapper("Index-0: "),
                 new AddPrefixFieldValueMapper("Index-1: "),
                 new AddPrefixFieldValueMapper("Index-2: "),
@@ -108,7 +108,7 @@ public final class ExamplesFieldValueMapper {
         fieldValueMappersList.add(new AddPrefixFieldValueMapper("Index-2: "));
         fieldValueMappersList.add(new AddPrefixFieldValueMapper("Index-3: "));
 
-        showMapper("byList", IndexedFieldValueMapper.byList(fieldValueMappersList));
+        printMapper("byList", IndexedFieldValueMapper.byList(fieldValueMappersList));
 
         Map<Integer, FieldValueMapper> fieldValueMappersMap = new TreeMap<>();
         fieldValueMappersMap.put(0, new AddPrefixFieldValueMapper("Index-0: "));
@@ -116,31 +116,31 @@ public final class ExamplesFieldValueMapper {
         fieldValueMappersMap.put(2, new AddPrefixFieldValueMapper("Index-2: "));
         fieldValueMappersMap.put(3, new AddPrefixFieldValueMapper("Index-3: "));
 
-        showMapper("byMap", IndexedFieldValueMapper.byMap(fieldValueMappersMap));
+        printMapper("byMap", IndexedFieldValueMapper.byMap(fieldValueMappersMap));
     }
 
     private static void showReplaceNullFieldValueMapper() {
         System.out.println("-showReplaceNullFieldValueMapper---");
 
-        showMapper("constructor NOT_NULL", new ReplaceNullFieldValueMapper("NOT_NULL"));
+        printMapper("constructor NOT_NULL", new ReplaceNullFieldValueMapper("NOT_NULL"));
     }
 
     private static void showStringOperationFieldValueMapper() {
         System.out.println("-showStringOperationFieldValueMapper---");
 
-        showMapper("constructor TRIM_TO_EMPTY", new StringOperationFieldValueMapper(StringUnaryOperatorType.TRIM_TO_EMPTY));
-        showMapper("constructor REVERSE", new StringOperationFieldValueMapper(StringUnaryOperatorType.REVERSE));
-        showMapper("constructor UPPER_CASE", new StringOperationFieldValueMapper(StringUnaryOperatorType.UPPER_CASE));
-        showMapper("constructor UPPER_CASE ENGLISH", new StringOperationFieldValueMapper(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
-        showMapper("constructor identity", new StringOperationFieldValueMapper(st -> st));
+        printMapper("constructor TRIM_TO_EMPTY", new StringOperationFieldValueMapper(StringUnaryOperatorType.TRIM_TO_EMPTY));
+        printMapper("constructor REVERSE", new StringOperationFieldValueMapper(StringUnaryOperatorType.REVERSE));
+        printMapper("constructor UPPER_CASE", new StringOperationFieldValueMapper(StringUnaryOperatorType.UPPER_CASE));
+        printMapper("constructor UPPER_CASE ENGLISH", new StringOperationFieldValueMapper(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
+        printMapper("constructor identity", new StringOperationFieldValueMapper(st -> st));
     }
 
     private static void showSupplierFieldValueMapper() {
         System.out.println("-showSupplierFieldValueMapper---");
 
-        showMapper("constructor LocalTimeStringSupplier", new SupplierFieldValueMapper(new LocalTimeStringSupplier()));
-        showMapper("constructor SequenceStringSupplier", new SupplierFieldValueMapper(new SequenceStringSupplier(1000L)));
-        showMapper("constructor ThreadNameStringSupplier", new SupplierFieldValueMapper(new ThreadNameStringSupplier()));
+        printMapper("constructor LocalTimeStringSupplier", new SupplierFieldValueMapper(new LocalTimeStringSupplier()));
+        printMapper("constructor SequenceStringSupplier", new SupplierFieldValueMapper(new SequenceStringSupplier(1000L)));
+        printMapper("constructor ThreadNameStringSupplier", new SupplierFieldValueMapper(new ThreadNameStringSupplier()));
     }
 
     public static void main(String[] args) {

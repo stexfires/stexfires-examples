@@ -40,7 +40,7 @@ public final class ExamplesToMapper {
         );
     }
 
-    private static void showMapper(String title, RecordMapper<Record, ? extends Record> recordMapper) {
+    private static void printRecordMapper(String title, RecordMapper<Record, ? extends Record> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
     }
@@ -48,33 +48,33 @@ public final class ExamplesToMapper {
     private static void showToEmptyMapper() {
         System.out.println("-showToEmptyMapper---");
 
-        showMapper("constructor", new ToEmptyMapper<>());
+        printRecordMapper("constructor", new ToEmptyMapper<>());
     }
 
     private static void showToKeyValueMapper() {
         System.out.println("-showToKeyValueMapper---");
 
-        showMapper("constructor (0, 1, missing key)", new ToKeyValueMapper<>(0, 1, "missing key"));
+        printRecordMapper("constructor (0, 1, missing key)", new ToKeyValueMapper<>(0, 1, "missing key"));
     }
 
     private static void showToPairMapper() {
         System.out.println("-showToPairMapper---");
 
-        showMapper("constructor", new ToPairMapper<>());
-        showMapper("constructor (2, 0)", new ToPairMapper<>(2, 0));
+        printRecordMapper("constructor", new ToPairMapper<>());
+        printRecordMapper("constructor (2, 0)", new ToPairMapper<>(2, 0));
     }
 
     private static void showToSingleMapper() {
         System.out.println("-showToSingleMapper---");
 
-        showMapper("constructor", new ToSingleMapper<>());
-        showMapper("constructor (2)", new ToSingleMapper<>(2));
+        printRecordMapper("constructor", new ToSingleMapper<>());
+        printRecordMapper("constructor (2)", new ToSingleMapper<>(2));
     }
 
     private static void showToStandardMapper() {
         System.out.println("-showToStandardMapper---");
 
-        showMapper("constructor", new ToStandardMapper<>());
+        printRecordMapper("constructor", new ToStandardMapper<>());
     }
 
     public static void main(String[] args) {

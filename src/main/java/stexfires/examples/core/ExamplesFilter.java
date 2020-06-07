@@ -54,7 +54,7 @@ public final class ExamplesFilter {
         );
     }
 
-    private static void showFilter(String title, RecordFilter<Record> recordFilter) {
+    private static void printFilter(String title, RecordFilter<Record> recordFilter) {
         System.out.println("--" + title);
         RecordStreams.printLines(RecordStreams.filter(generateStream(), recordFilter));
     }
@@ -62,50 +62,50 @@ public final class ExamplesFilter {
     private static void showCategoryFilter() {
         System.out.println("-showCategoryFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new CategoryFilter<>(Objects::isNull));
-        showFilter("compare",
+        printFilter("compare",
                 CategoryFilter.compare(StringComparisonType.ENDS_WITH, "y"));
-        showFilter("check",
+        printFilter("check",
                 CategoryFilter.check(StringCheckType.EMPTY));
-        showFilter("equalTo",
+        printFilter("equalTo",
                 CategoryFilter.equalTo("category"));
-        showFilter("isNotNull",
+        printFilter("isNotNull",
                 CategoryFilter.isNotNull());
-        showFilter("isNull",
+        printFilter("isNull",
                 CategoryFilter.isNull());
-        showFilter("containedIn Collection",
+        printFilter("containedIn Collection",
                 CategoryFilter.containedIn(Strings.list("category", "Category")));
-        showFilter("containedIn Array",
+        printFilter("containedIn Array",
                 CategoryFilter.containedIn("category", "Category"));
     }
 
     private static void showClassFilter() {
         System.out.println("-showClassFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new ClassFilter<>(clazz -> EmptyRecord.class != clazz));
-        showFilter("equalTo",
+        printFilter("equalTo",
                 ClassFilter.equalTo(PairRecord.class));
-        showFilter("containedIn Collection",
+        printFilter("containedIn Collection",
                 ClassFilter.containedIn(Collections.singletonList(PairRecord.class)));
-        showFilter("containedIn List",
+        printFilter("containedIn List",
                 ClassFilter.containedIn(List.of(PairRecord.class, EmptyRecord.class)));
     }
 
     private static void showConstantFilter() {
         System.out.println("-showConstantFilter---");
 
-        showFilter("constructor true",
+        printFilter("constructor true",
                 new ConstantFilter<>(true));
-        showFilter("constructor false",
+        printFilter("constructor false",
                 new ConstantFilter<>(false));
     }
 
     private static void showIsValidIndexFilter() {
         System.out.println("-showIsValidIndexFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new IsValidIndexFilter<>(1));
     }
 
@@ -115,137 +115,137 @@ public final class ExamplesFilter {
         CategoryMessage<Record> message = new CategoryMessage<>("");
         CategoryMessage<Record> messageNull = new CategoryMessage<>();
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new MessageFilter<>(message, Predicate.isEqual("c")));
-        showFilter("compare",
+        printFilter("compare",
                 MessageFilter.compare(message, StringComparisonType.EQUALS_IGNORE_CASE, "category"));
-        showFilter("check",
+        printFilter("check",
                 MessageFilter.check(message, StringCheckType.EMPTY));
-        showFilter("equalTo",
+        printFilter("equalTo",
                 MessageFilter.equalTo(message, "c"));
-        showFilter("isNotNull",
+        printFilter("isNotNull",
                 MessageFilter.isNotNull(messageNull));
-        showFilter("isNull",
+        printFilter("isNull",
                 MessageFilter.isNull(messageNull));
-        showFilter("containedIn Collection",
+        printFilter("containedIn Collection",
                 MessageFilter.containedIn(message, Strings.list("c")));
-        showFilter("containedIn Array",
+        printFilter("containedIn Array",
                 MessageFilter.containedIn(message, "c", ""));
     }
 
     private static void showNotNullFilter() {
         System.out.println("-showNotNullFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new NotNullFilter<>());
     }
 
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
-        showFilter("concatAnd",
+        printFilter("concatAnd",
                 RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class), SizeFilter.equalTo(8)));
-        showFilter("concatOr",
+        printFilter("concatOr",
                 RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
-        showFilter("and",
+        printFilter("and",
                 ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8)));
-        showFilter("negate",
+        printFilter("negate",
                 SizeFilter.equalTo(1).negate());
-        showFilter("or",
+        printFilter("or",
                 ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
     }
 
     private static void showRecordIdFilter() {
         System.out.println("-showRecordIdFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new RecordIdFilter<>(value -> value == 1L));
-        showFilter("compare",
+        printFilter("compare",
                 RecordIdFilter.compare(NumberComparisonType.GREATER_THAN, 2L));
-        showFilter("check",
+        printFilter("check",
                 RecordIdFilter.check(NumberCheckType.EVEN));
-        showFilter("equalTo",
+        printFilter("equalTo",
                 RecordIdFilter.equalTo(1L));
-        showFilter("isNotNull",
+        printFilter("isNotNull",
                 RecordIdFilter.isNotNull());
-        showFilter("isNull",
+        printFilter("isNull",
                 RecordIdFilter.isNull());
-        showFilter("containedIn Collection",
+        printFilter("containedIn Collection",
                 RecordIdFilter.containedIn(Collections.singletonList(4L)));
-        showFilter("containedIn Array",
+        printFilter("containedIn Array",
                 RecordIdFilter.containedIn(2L, 4L));
-        showFilter("between",
+        printFilter("between",
                 RecordIdFilter.between(3L, 5L));
     }
 
     private static void showSizeFilter() {
         System.out.println("-showSizeFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new SizeFilter<>(value -> value == 0));
-        showFilter("compare",
+        printFilter("compare",
                 SizeFilter.compare(NumberComparisonType.GREATER_THAN, 2));
-        showFilter("check",
+        printFilter("check",
                 SizeFilter.check(NumberCheckType.ODD));
-        showFilter("equalTo",
+        printFilter("equalTo",
                 SizeFilter.equalTo(1));
-        showFilter("isEmpty",
+        printFilter("isEmpty",
                 SizeFilter.isEmpty());
-        showFilter("containedIn Collection",
+        printFilter("containedIn Collection",
                 SizeFilter.containedIn(Collections.singletonList(2)));
-        showFilter("containedIn Array",
+        printFilter("containedIn Array",
                 SizeFilter.containedIn(8, null, 2));
-        showFilter("between",
+        printFilter("between",
                 SizeFilter.between(2, 9));
     }
 
     private static void showSupplierFilter() {
         System.out.println("-showSupplierFilter---");
 
-        showFilter("constructor",
+        printFilter("constructor",
                 new SupplierFilter<>(() -> false));
-        showFilter("booleanSupplier",
+        printFilter("booleanSupplier",
                 SupplierFilter.booleanSupplier(() -> true));
-        showFilter("random",
+        printFilter("random",
                 SupplierFilter.random(50));
-        showFilter("pattern",
+        printFilter("pattern",
                 SupplierFilter.pattern(true, false, false));
     }
 
     private static void showValueFilter() {
         System.out.println("-showValueFilter---");
 
-        showFilter("constructor index",
+        printFilter("constructor index",
                 new ValueFilter<>(0, "A"::equals));
-        showFilter("constructor index null",
+        printFilter("constructor index null",
                 new ValueFilter<>(1, true, value -> false));
-        showFilter("constructor function",
+        printFilter("constructor function",
                 new ValueFilter<>(Record::getLastField, "A"::equals));
-        showFilter("constructor function null",
+        printFilter("constructor function null",
                 new ValueFilter<>(record -> record.getFieldAt(1), false, "t"::equals));
-        showFilter("compare index",
+        printFilter("compare index",
                 ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
-        showFilter("compare function",
+        printFilter("compare function",
                 ValueFilter.compare(Record::getLastField, StringComparisonType.EQUALS, "d"));
-        showFilter("check index",
+        printFilter("check index",
                 ValueFilter.check(0, StringCheckType.EMPTY));
-        showFilter("check function",
+        printFilter("check function",
                 ValueFilter.check(Record::getLastField, StringCheckType.EMPTY));
-        showFilter("equalTo index",
+        printFilter("equalTo index",
                 ValueFilter.equalTo(0, "S"));
-        showFilter("equalTo function",
+        printFilter("equalTo function",
                 ValueFilter.equalTo(Record::getLastField, "d"));
-        showFilter("isNotNull index",
+        printFilter("isNotNull index",
                 ValueFilter.isNotNull(2));
-        showFilter("isNotNull function",
+        printFilter("isNotNull function",
                 ValueFilter.isNotNull(Record::getLastField));
-        showFilter("containedIn index Collection",
+        printFilter("containedIn index Collection",
                 ValueFilter.containedIn(0, Strings.list("A", "B")));
-        showFilter("containedIn function Collection",
+        printFilter("containedIn function Collection",
                 ValueFilter.containedIn(Record::getLastField, Strings.list("A", "d")));
-        showFilter("containedIn index Array",
+        printFilter("containedIn index Array",
                 ValueFilter.containedIn(0, "C", "D"));
-        showFilter("containedIn function Array",
+        printFilter("containedIn function Array",
                 ValueFilter.containedIn(Record::getLastField, "A", "d"));
     }
 

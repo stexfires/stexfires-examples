@@ -17,7 +17,7 @@ public final class ExamplesRecord {
     private ExamplesRecord() {
     }
 
-    private static void showRecord(Record record) {
+    private static void printRecord(Record record) {
         System.out.println("arrayOfFields:             " + Arrays.toString(record.arrayOfFields()));
         System.out.println("listOfFields:              " + record.listOfFields());
         System.out.println("streamOfFields:            " + Fields.collectFields(record.streamOfFields()));
@@ -50,7 +50,7 @@ public final class ExamplesRecord {
         System.out.println("-showEmptyRecord---");
 
         EmptyRecord record = new EmptyRecord();
-        showRecord(record);
+        printRecord(record);
     }
 
     private static void showKeyValueRecord() {
@@ -62,7 +62,7 @@ public final class ExamplesRecord {
         System.out.println("getValueField:             " + record.getValueField());
         System.out.println("getValueOfValueField:      " + record.getValueOfValueField());
         System.out.println("newValueRecord:            " + record.newValueRecord("new value"));
-        showRecord(record);
+        printRecord(record);
 
         KeyValueRecord record1 = new KeyValueRecord("category", 0L, "key", "value");
         System.out.println("getKeyField:               " + record1.getKeyField());
@@ -70,7 +70,7 @@ public final class ExamplesRecord {
         System.out.println("getValueField:             " + record1.getValueField());
         System.out.println("getValueOfValueField:      " + record1.getValueOfValueField());
         System.out.println("newValueRecord:            " + record1.newValueRecord("new value"));
-        showRecord(record1);
+        printRecord(record1);
     }
 
     private static void showPairRecord() {
@@ -80,13 +80,13 @@ public final class ExamplesRecord {
         System.out.println("newRecordSwapped:          " + record.newRecordSwapped());
         System.out.println("getSecondField:            " + record.getSecondField());
         System.out.println("getValueOfSecondField:     " + record.getValueOfSecondField());
-        showRecord(record);
+        printRecord(record);
 
         PairRecord record1 = new PairRecord("category", 0L, "first", "second");
         System.out.println("newRecordSwapped:          " + record1.newRecordSwapped());
         System.out.println("getSecondField:            " + record1.getSecondField());
         System.out.println("getValueOfSecondField:     " + record1.getValueOfSecondField());
-        showRecord(record1);
+        printRecord(record1);
     }
 
     private static void showSingleRecord() {
@@ -95,29 +95,29 @@ public final class ExamplesRecord {
         SingleRecord record = new SingleRecord("value");
         System.out.println("getValueField:             " + record.getValueField());
         System.out.println("getValueOfValueField:      " + record.getValueOfValueField());
-        showRecord(record);
+        printRecord(record);
 
         SingleRecord record1 = new SingleRecord("category", 0L, "value");
         System.out.println("getValueField:             " + record1.getValueField());
         System.out.println("getValueOfValueField:      " + record1.getValueOfValueField());
-        showRecord(record1);
+        printRecord(record1);
     }
 
     private static void showStandardRecord() {
         System.out.println("-showStandardRecord---");
 
-        showRecord(new StandardRecord());
+        printRecord(new StandardRecord());
 
-        showRecord(new StandardRecord(Strings.list("value1", "value2", "value3")));
-        showRecord(new StandardRecord("category", Strings.list("value1", "value2", "value3")));
-        showRecord(new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord(Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3")));
 
-        showRecord(new StandardRecord(Strings.stream("value1", "value2", "value3")));
-        showRecord(new StandardRecord("category", Strings.stream("value1", "value2", "value3")));
-        showRecord(new StandardRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord(Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
 
-        showRecord(new StandardRecord("value1", "value2", "value3"));
-        showRecord(new StandardRecord("category", 0L, "value1", "value2", "value3"));
+        printRecord(new StandardRecord("value1", "value2", "value3"));
+        printRecord(new StandardRecord("category", 0L, "value1", "value2", "value3"));
     }
 
     public static void main(String[] args) {
