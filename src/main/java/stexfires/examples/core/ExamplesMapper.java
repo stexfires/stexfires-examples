@@ -15,9 +15,9 @@ import stexfires.core.mapper.LookupMapper;
 import stexfires.core.mapper.RecordIdMapper;
 import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.SupplierMapper;
+import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ValuesMapper;
 import stexfires.core.mapper.fieldvalue.AddPrefixFieldValueMapper;
-import stexfires.core.mapper.to.ToSingleMapper;
 import stexfires.core.message.ConstantMessage;
 import stexfires.core.message.ShortMessage;
 import stexfires.core.message.SizeMessage;
@@ -41,7 +41,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "ImplicitNumericConversion"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesMapper {
 
     private ExamplesMapper() {
@@ -66,12 +66,12 @@ public final class ExamplesMapper {
         );
     }
 
-    private static void showMapper(String title, RecordMapper<Record, Record> recordMapper) {
+    private static void showMapper(String title, RecordMapper<Record, ? extends Record> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
     }
 
-    private static void showMapperValueRecord(String title, RecordMapper<ValueRecord, Record> recordMapper) {
+    private static void showMapperValueRecord(String title, RecordMapper<? super ValueRecord, ? extends Record> recordMapper) {
         System.out.println("--" + title);
         RecordStreams.mapAndConsume(generateStreamValueRecord(), recordMapper, new SystemOutConsumer<>());
     }
@@ -165,7 +165,7 @@ public final class ExamplesMapper {
         showMapper("constructor", new IdentityMapper<>());
     }
 
-    @SuppressWarnings("VariableNotUsedInsideIf")
+    @SuppressWarnings({"VariableNotUsedInsideIf", "ReturnOfNull"})
     private static void showLookupMapper() {
         System.out.println("-showLookupMapper---");
 
@@ -180,7 +180,7 @@ public final class ExamplesMapper {
         showMapper("messageMap", LookupMapper.messageMap(new ValueMessage<>(0), recordMapperMap));
     }
 
-    @SuppressWarnings({"VariableNotUsedInsideIf", "OptionalIsPresent"})
+    @SuppressWarnings("VariableNotUsedInsideIf")
     private static void showRecordIdMapper() {
         System.out.println("-showRecordIdMapper---");
 
