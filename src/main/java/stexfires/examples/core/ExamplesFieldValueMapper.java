@@ -1,6 +1,7 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
+import stexfires.core.Fields;
 import stexfires.core.mapper.fieldvalue.AddPostfixFieldValueMapper;
 import stexfires.core.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.core.mapper.fieldvalue.ConditionalFieldValueMapper;
@@ -12,6 +13,7 @@ import stexfires.core.mapper.fieldvalue.ReplaceNullFieldValueMapper;
 import stexfires.core.mapper.fieldvalue.StringOperationFieldValueMapper;
 import stexfires.core.mapper.fieldvalue.SupplierFieldValueMapper;
 import stexfires.util.StringUnaryOperatorType;
+import stexfires.util.Strings;
 import stexfires.util.supplier.LocalTimeStringSupplier;
 import stexfires.util.supplier.SequenceStringSupplier;
 import stexfires.util.supplier.ThreadNameStringSupplier;
@@ -22,26 +24,26 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesFieldValueMapper {
 
     private ExamplesFieldValueMapper() {
     }
 
-    private static void showMapper(String title, FieldValueMapper fieldValueMapper) {
-        System.out.println("--" + title);
-
-        Stream<Field> fieldStream = Stream.of(
+    private static Stream<Field> generateStream() {
+        return Stream.of(
                 new Field(0, false, "value1"),
                 new Field(1, false, null),
                 new Field(2, false, ""),
                 new Field(3, true, "value2")
         );
+    }
 
-        System.out.println(fieldStream.map(fieldValueMapper::mapToValue).collect(Collectors.toList()));
+    private static void showMapper(String title, FieldValueMapper fieldValueMapper) {
+        System.out.println("--" + title);
+        Strings.printLine(Fields.mapToValue(generateStream(), fieldValueMapper), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showAddPostfixFieldValueMapper() {
