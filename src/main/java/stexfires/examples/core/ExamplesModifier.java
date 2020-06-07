@@ -6,16 +6,38 @@ import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.filter.CategoryFilter;
+import stexfires.core.filter.RecordIdFilter;
 import stexfires.core.logger.SystemOutLogger;
-import stexfires.core.mapper.to.ToPairMapper;
-import stexfires.core.message.*;
-import stexfires.core.modifier.*;
+import stexfires.core.mapper.ToPairMapper;
+import stexfires.core.message.CategoryMessage;
+import stexfires.core.message.CompareMessageBuilder;
+import stexfires.core.message.JoinedValuesMessage;
+import stexfires.core.message.RecordIdMessage;
+import stexfires.core.message.ShortMessage;
+import stexfires.core.message.ValueMessage;
+import stexfires.core.modifier.DistinctModifier;
+import stexfires.core.modifier.FilterModifier;
+import stexfires.core.modifier.GroupModifier;
+import stexfires.core.modifier.IdentityModifier;
+import stexfires.core.modifier.LogFilterModifier;
+import stexfires.core.modifier.LogModifier;
+import stexfires.core.modifier.MapModifier;
+import stexfires.core.modifier.PivotModifier;
+import stexfires.core.modifier.RecordStreamModifier;
+import stexfires.core.modifier.SkipLimitModifier;
+import stexfires.core.modifier.SortModifier;
+import stexfires.core.modifier.UnaryGroupModifier;
+import stexfires.core.modifier.UnpivotModifier;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
 import stexfires.core.record.ValueRecord;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,7 +45,7 @@ import java.util.stream.Stream;
 import static stexfires.core.modifier.GroupModifier.*;
 import static stexfires.util.NumberComparisonType.LESS_THAN;
 
-@SuppressWarnings("MagicNumber")
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesModifier {
 
     private ExamplesModifier() {
@@ -67,32 +89,36 @@ public final class ExamplesModifier {
 
     private static void showModifierSingleRecord(String title, RecordStreamModifier<SingleRecord, ? extends Record> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.printLines(recordModifier.modify(generateStreamSingleRecord()));
+        RecordStreams.modifyAndConsume(generateStreamSingleRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
     private static void showModifierSingleRecordGroup(String title, RecordStreamModifier<SingleRecord, ? extends Record> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.printLines(recordModifier.modify(generateStreamSingleRecordGroup()));
+        RecordStreams.modifyAndConsume(generateStreamSingleRecordGroup(), recordModifier, new SystemOutConsumer<>());
     }
 
     private static void showModifierStandardRecord(String title, RecordStreamModifier<StandardRecord, ? extends Record> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.printLines(recordModifier.modify(generateStreamStandardRecord()));
+        RecordStreams.modifyAndConsume(generateStreamStandardRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void showPivotStandardRecord(String title, PivotModifier<StandardRecord> pivotModifier, StandardRecord... records) {
+    private static void showPivotStandardRecord(String title, PivotModifier<StandardRecord> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
-        RecordStreams.consume(pivotModifier.modify(Stream.of(records)), new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>())));
+        Stream<StandardRecord> recordStream = Stream.of(records);
+        SystemOutConsumer<Record> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
+        RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
-    private static void showPivotKeyValueRecord(String title, PivotModifier<KeyValueRecord> pivotModifier, KeyValueRecord... records) {
+    private static void showPivotKeyValueRecord(String title, PivotModifier<KeyValueRecord> recordModifier, KeyValueRecord... records) {
         System.out.println("--" + title);
-        RecordStreams.consume(pivotModifier.modify(Stream.of(records)), new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>())));
+        Stream<KeyValueRecord> recordStream = Stream.of(records);
+        SystemOutConsumer<Record> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
+        RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
-    private static void showUnaryGroup(String title, UnaryGroupModifier<Record> unaryGroupModifier) {
+    private static void showUnaryGroup(String title, UnaryGroupModifier<SingleRecord> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.consume(unaryGroupModifier.modify(Stream.of(
+        Stream<SingleRecord> recordStream = Stream.of(
                 new SingleRecord("A", 1L, "a1"),
                 new SingleRecord("A", 2L, "a2"),
                 new SingleRecord("B", 3L, "b1"),
@@ -102,13 +128,14 @@ public final class ExamplesModifier {
                 new SingleRecord("A", 7L, "a4"),
                 new SingleRecord("B", 8L, "b4"),
                 new SingleRecord("A", 9L, "a5"),
-                new SingleRecord("A", 0L, "a0"))),
-                new SystemOutConsumer<>());
+                new SingleRecord("A", 0L, "a0"));
+        RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void showUnpivot(String title, UnpivotModifier<StandardRecord, ? extends Record> pivotModifier, StandardRecord... records) {
+    private static void showUnpivot(String title, UnpivotModifier<StandardRecord, ? extends Record> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
-        RecordStreams.consume(pivotModifier.modify(Stream.of(records)), new SystemOutConsumer<>());
+        Stream<StandardRecord> recordStream = Stream.of(records);
+        RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
     private static void showDistinctModifier() {
@@ -129,13 +156,15 @@ public final class ExamplesModifier {
 
         showModifierSingleRecord("constructor category",
                 new FilterModifier<>(CategoryFilter.equalTo("C1")));
+        showModifierStandardRecord("constructor recordId",
+                new FilterModifier<>(RecordIdFilter.equalTo(1L)));
     }
 
     private static void showGroupModifier() {
         System.out.println("-showGroupModifier---");
 
         showModifierSingleRecordGroup("constructor category; size > 1; aggregateToValue size",
-                new GroupModifier<SingleRecord, Record>(
+                new GroupModifier<>(
                         groupByCategory(),
                         havingSizeGreaterThan(1),
                         aggregateToValue(
@@ -506,7 +535,6 @@ public final class ExamplesModifier {
                 new StandardRecord("cat1", 1L, "k1", "a1 1", "a2 1", "a3 1", "b1 1", "b2 1", "k1b"),
                 new StandardRecord("cat2", 2L, "k2", "a1 2", "a2 2", "a3 2", "b1 2", "b2 2", "k2b"),
                 new StandardRecord("cat3", 3L, "k3", "a1 3", null, "a3 3", "b1 3", "b2 3", "k3b")
-
         );
     }
 
