@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.filter.ConstantFilter;
@@ -56,7 +56,7 @@ public final class ExamplesFilter {
 
     private static void printFilter(String title, RecordFilter<TextRecord> recordFilter) {
         System.out.println("--" + title);
-        RecordStreams.printLines(RecordStreams.filter(generateStream(), recordFilter));
+        TextRecordStreams.printLines(TextRecordStreams.filter(generateStream(), recordFilter));
     }
 
     private static void showCategoryFilter() {

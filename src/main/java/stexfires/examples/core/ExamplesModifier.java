@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.consumer.SystemOutConsumer;
@@ -89,31 +89,31 @@ public final class ExamplesModifier {
 
     private static void printModifierSingleRecord(String title, RecordStreamModifier<SingleRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.modifyAndConsume(generateStreamSingleRecord(), recordModifier, new SystemOutConsumer<>());
+        TextRecordStreams.modifyAndConsume(generateStreamSingleRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
     private static void printModifierSingleRecordGroup(String title, RecordStreamModifier<SingleRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.modifyAndConsume(generateStreamSingleRecordGroup(), recordModifier, new SystemOutConsumer<>());
+        TextRecordStreams.modifyAndConsume(generateStreamSingleRecordGroup(), recordModifier, new SystemOutConsumer<>());
     }
 
     private static void printModifierStandardRecord(String title, RecordStreamModifier<StandardRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
-        RecordStreams.modifyAndConsume(generateStreamStandardRecord(), recordModifier, new SystemOutConsumer<>());
+        TextRecordStreams.modifyAndConsume(generateStreamStandardRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
     private static void printPivotStandardRecord(String title, PivotModifier<StandardRecord> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
         Stream<StandardRecord> recordStream = Stream.of(records);
         SystemOutConsumer<TextRecord> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
-        RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
+        TextRecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
     private static void printPivotKeyValueRecord(String title, PivotModifier<KeyValueRecord> recordModifier, KeyValueRecord... records) {
         System.out.println("--" + title);
         Stream<KeyValueRecord> recordStream = Stream.of(records);
         SystemOutConsumer<TextRecord> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedValuesMessage<>()));
-        RecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
+        TextRecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
     private static void printUnaryGroup(String title, UnaryGroupModifier<SingleRecord> recordModifier) {
@@ -129,13 +129,13 @@ public final class ExamplesModifier {
                 new SingleRecord("B", 8L, "b4"),
                 new SingleRecord("A", 9L, "a5"),
                 new SingleRecord("A", 0L, "a0"));
-        RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
+        TextRecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
     private static void printUnpivot(String title, UnpivotModifier<StandardRecord, ? extends TextRecord> recordModifier, StandardRecord... records) {
         System.out.println("--" + title);
         Stream<StandardRecord> recordStream = Stream.of(records);
-        RecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
+        TextRecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
     private static void showDistinctModifier() {

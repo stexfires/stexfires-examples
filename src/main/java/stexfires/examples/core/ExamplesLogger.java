@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.consumer.NullConsumer;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.filter.ClassFilter;
@@ -64,20 +64,20 @@ public final class ExamplesLogger {
 
     private static void printLogger(String title, RecordLogger<TextRecord> recordLogger) {
         System.out.println("--" + title);
-        RecordStreams.log(generateStream(), recordLogger)
-                     .forEachOrdered(new NullConsumer<>().asConsumer());
+        TextRecordStreams.log(generateStream(), recordLogger)
+                         .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
     private static void printLoggerSingleRecord(String title, RecordLogger<? super SingleRecord> recordLogger) {
         System.out.println("--" + title);
-        RecordStreams.log(generateStreamSingleRecord(), recordLogger)
-                     .forEachOrdered(new NullConsumer<>().asConsumer());
+        TextRecordStreams.log(generateStreamSingleRecord(), recordLogger)
+                         .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
     private static void printLoggerKeyValueRecord(String title, RecordLogger<? super KeyValueRecord> recordLogger) {
         System.out.println("--" + title);
-        RecordStreams.log(generateStreamKeyValueRecord(), recordLogger)
-                     .forEachOrdered(new NullConsumer<>().asConsumer());
+        TextRecordStreams.log(generateStreamKeyValueRecord(), recordLogger)
+                         .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
     @SuppressWarnings("resource")

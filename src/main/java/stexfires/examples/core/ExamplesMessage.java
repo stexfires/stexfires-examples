@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.filter.ClassFilter;
 import stexfires.core.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.core.message.CategoryMessage;
@@ -69,17 +69,17 @@ public final class ExamplesMessage {
 
     private static void printMessage(String title, RecordMessage<TextRecord> recordMessage) {
         System.out.println("--" + title);
-        Strings.printLine(RecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
+        Strings.printLine(TextRecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void printMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
         System.out.println("--" + title);
-        Strings.printLine(RecordStreams.mapToMessage(generateStreamSingleRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
+        Strings.printLine(TextRecordStreams.mapToMessage(generateStreamSingleRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void printMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
         System.out.println("--" + title);
-        Strings.printLine(RecordStreams.mapToMessage(generateStreamKeyValueRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
+        Strings.printLine(TextRecordStreams.mapToMessage(generateStreamKeyValueRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showCategoryMessage() {

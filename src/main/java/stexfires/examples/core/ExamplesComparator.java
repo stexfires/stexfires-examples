@@ -2,8 +2,8 @@ package stexfires.examples.core;
 
 import stexfires.core.Field;
 import stexfires.core.Fields;
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.comparator.FieldComparators;
 import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
@@ -91,12 +91,12 @@ public final class ExamplesComparator {
 
     private static void printComparatorRecord(String title, Comparator<? super StandardRecord> recordComparator) {
         System.out.println("--" + title);
-        RecordStreams.sortAndConsume(generateStreamStandardRecord(), recordComparator, new SystemOutConsumer<>());
+        TextRecordStreams.sortAndConsume(generateStreamStandardRecord(), recordComparator, new SystemOutConsumer<>());
     }
 
     private static void printComparatorKeyValueRecord(String title, Comparator<? super KeyValueRecord> recordComparator) {
         System.out.println("--" + title);
-        RecordStreams.sortAndConsume(generateStreamKeyValueRecord(), recordComparator, new SystemOutConsumer<>());
+        TextRecordStreams.sortAndConsume(generateStreamKeyValueRecord(), recordComparator, new SystemOutConsumer<>());
     }
 
     private static void printComparatorField(String title, Comparator<Field> fieldComparator) {

@@ -1,7 +1,7 @@
 package stexfires.examples.core;
 
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.consumer.AppendableConsumer;
 import stexfires.core.consumer.CollectionConsumer;
 import stexfires.core.consumer.ConditionalConsumer;
@@ -70,17 +70,17 @@ public final class ExamplesConsumer {
 
     private static void printConsumer(String title, RecordConsumer<TextRecord> recordConsumer) {
         System.out.println("--" + title);
-        RecordStreams.consume(generateStream(), recordConsumer);
+        TextRecordStreams.consume(generateStream(), recordConsumer);
     }
 
     private static void printConsumerSingleRecord(String title, RecordConsumer<? super SingleRecord> recordConsumer) {
         System.out.println("--" + title);
-        RecordStreams.consume(generateStreamSingleRecord(), recordConsumer);
+        TextRecordStreams.consume(generateStreamSingleRecord(), recordConsumer);
     }
 
     private static void printConsumerKeyValueRecord(String title, RecordConsumer<? super KeyValueRecord> recordConsumer) {
         System.out.println("--" + title);
-        RecordStreams.consume(generateStreamKeyValueRecord(), recordConsumer);
+        TextRecordStreams.consume(generateStreamKeyValueRecord(), recordConsumer);
     }
 
     @SuppressWarnings("resource")

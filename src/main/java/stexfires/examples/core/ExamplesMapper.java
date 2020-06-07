@@ -1,8 +1,8 @@
 package stexfires.examples.core;
 
 import stexfires.core.Field;
-import stexfires.core.RecordStreams;
 import stexfires.core.TextRecord;
+import stexfires.core.TextRecordStreams;
 import stexfires.core.consumer.SystemOutConsumer;
 import stexfires.core.filter.CategoryFilter;
 import stexfires.core.mapper.AddValueMapper;
@@ -68,12 +68,12 @@ public final class ExamplesMapper {
 
     private static void printMapper(String title, RecordMapper<TextRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
-        RecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
+        TextRecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
     }
 
     private static void printMapperValueRecord(String title, RecordMapper<? super ValueRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
-        RecordStreams.mapAndConsume(generateStreamValueRecord(), recordMapper, new SystemOutConsumer<>());
+        TextRecordStreams.mapAndConsume(generateStreamValueRecord(), recordMapper, new SystemOutConsumer<>());
     }
 
     private static void showAddValueMapper() {
