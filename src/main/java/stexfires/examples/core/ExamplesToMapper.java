@@ -18,6 +18,7 @@ import stexfires.util.Strings;
 
 import java.util.stream.Stream;
 
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class ExamplesToMapper {
 
     private ExamplesToMapper() {
