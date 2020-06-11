@@ -13,6 +13,9 @@ public final class ExamplesLineSeparator {
     private static void showLineSeparator() {
         System.out.println("-showLineSeparator---");
 
+        System.out.println("systemLineSeparator: " + LineSeparator.systemLineSeparator().name());
+        System.out.println("string count 3: " + LineSeparator.systemLineSeparator().string(3));
+
         for (LineSeparator type : LineSeparator.values()) {
             System.out.println(type.name() + " (string())        ? " + type.string());
             System.out.println(type.name() + " (supplier() get)  ? " + type.supplier().get());
