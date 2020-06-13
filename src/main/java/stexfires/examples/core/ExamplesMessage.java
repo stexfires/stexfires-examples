@@ -10,6 +10,7 @@ import stexfires.core.message.CompareMessageBuilder;
 import stexfires.core.message.ConditionalMessage;
 import stexfires.core.message.ConstantMessage;
 import stexfires.core.message.ExtendedValuesMessage;
+import stexfires.core.message.FormatterMessage;
 import stexfires.core.message.JoinedValuesMessage;
 import stexfires.core.message.NullSafeMessage;
 import stexfires.core.message.RecordIdMessage;
@@ -26,6 +27,7 @@ import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
 import stexfires.util.Strings;
 
+import java.util.Locale;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
@@ -47,6 +49,7 @@ public final class ExamplesMessage {
                 new StandardRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
                 new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
                 new StandardRecord(),
+                new StandardRecord("Category", 8L, null, null, null, null),
                 new EmptyRecord()
         );
     }
@@ -151,6 +154,20 @@ public final class ExamplesMessage {
                 new ExtendedValuesMessage<>("", "", "<", ">"));
         printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ExtendedValuesMessage<>("(", ")"));
+    }
+
+    private static void showFormatterMessage() {
+        System.out.println("-showFormatterMessage---");
+
+        printMessage("constructor",
+                new FormatterMessage<>("%nClassName: %1$-40s Category: %2$-10S RecordId: %3$5d Size: %4$2d Values: (%5$-3s | %6$S)",
+                        Locale.getDefault(), 2, "<>"));
+        printMessage("constructor withoutValues",
+                FormatterMessage.withoutValues("%4$d",
+                        Locale.getDefault()));
+        printMessageKeyValueRecord("constructor KeyValueRecord",
+                new FormatterMessage<>("%5$s=%6$s",
+                        Locale.getDefault(), 2, ""));
     }
 
     private static void showJoinedValuesMessage() {
@@ -259,6 +276,7 @@ public final class ExamplesMessage {
         showConditionalMessage();
         showConstantMessage();
         showExtendedValuesMessage();
+        showFormatterMessage();
         showJoinedValuesMessage();
         showNullSafeMessage();
         showRecordIdMessage();
