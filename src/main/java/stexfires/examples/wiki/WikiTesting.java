@@ -4,6 +4,8 @@ import stexfires.core.TextRecord;
 import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ValuesMapper;
+import stexfires.core.producer.ProducerException;
+import stexfires.core.producer.UncheckedProducerException;
 import stexfires.core.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
@@ -64,7 +66,8 @@ public final class WikiTesting {
 
     @SuppressWarnings("resource")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
-                                               OutputStream outputStream) throws IOException {
+                                               OutputStream outputStream)
+            throws ProducerException, UncheckedProducerException, IOException {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, TextRecord> mapper = ValuesMapper.applyFunctions(
@@ -77,7 +80,8 @@ public final class WikiTesting {
 
     @SuppressWarnings("resource")
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
-                                              OutputStream outputStream) throws IOException {
+                                              OutputStream outputStream)
+            throws ProducerException, UncheckedProducerException, IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
@@ -118,7 +122,7 @@ public final class WikiTesting {
                     convertToMarkdownTable(headers.get(i), producer, outputStream);
                 }
             }
-        } catch (IOException e) {
+        } catch (ProducerException | UncheckedProducerException | IOException e) {
             System.out.println("Cannot generate file! " + e.getMessage());
         }
 
@@ -134,7 +138,7 @@ public final class WikiTesting {
                     convertToMarkdownList(headers.get(i), producer, outputStream);
                 }
             }
-        } catch (IOException e) {
+        } catch (ProducerException | UncheckedProducerException | IOException e) {
             System.out.println("Cannot generate file! " + e.getMessage());
         }
     }
