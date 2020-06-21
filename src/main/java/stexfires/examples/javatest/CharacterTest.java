@@ -1,6 +1,7 @@
 package stexfires.examples.javatest;
 
 import stexfires.core.TextRecord;
+import stexfires.core.consumer.ConsumerException;
 import stexfires.core.filter.RecordFilter;
 import stexfires.core.filter.ValueFilter;
 import stexfires.core.record.StandardRecord;
@@ -156,7 +157,8 @@ public final class CharacterTest {
                         .map(CharacterTest::generateCharacterRecord);
     }
 
-    private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream) throws IOException {
+    private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream)
+            throws ConsumerException, IOException {
         Objects.requireNonNull(outputFile);
         Objects.requireNonNull(recordStream);
 
@@ -179,15 +181,18 @@ public final class CharacterTest {
         }
     }
 
-    private static void writeFilteredFile(File outputMarkdownFile, RecordFilter<TextRecord> recordFilter) throws IOException {
+    private static void writeFilteredFile(File outputMarkdownFile, RecordFilter<TextRecord> recordFilter)
+            throws ConsumerException, IOException {
         Objects.requireNonNull(outputMarkdownFile);
         Objects.requireNonNull(recordFilter);
+
+        System.out.println("Generate MarkdownTable file: " + outputMarkdownFile);
 
         writeMarkdownTableFile(outputMarkdownFile,
                 generateCharacterRecordStream(MIN_CHAR, MAX_CHAR).filter(recordFilter.asPredicate()));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }
@@ -196,66 +201,70 @@ public final class CharacterTest {
             throw new IllegalArgumentException("Missing valid output directory parameter! " + outputDirectory);
         }
 
-        // LETTER
-        writeFilteredFile(new File(outputDirectory,
-                        "Character_Markdown_Table_LETTER.md"),
-                ValueFilter.containedIn(3, List.of(
-                        "LOWERCASE_LETTER",
-                        "MODIFIER_LETTER",
-                        "OTHER_LETTER",
-                        "TITLECASE_LETTER",
-                        "UPPERCASE_LETTER"
-                )));
+        try {
+            // LETTER
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_LETTER.md"),
+                    ValueFilter.containedIn(3, List.of(
+                            "LOWERCASE_LETTER",
+                            "MODIFIER_LETTER",
+                            "OTHER_LETTER",
+                            "TITLECASE_LETTER",
+                            "UPPERCASE_LETTER"
+                    )));
 
-        // NUMBER_SYMBOL
-        writeFilteredFile(new File(outputDirectory,
-                        "Character_Markdown_Table_NUMBER_SYMBOL.md"),
-                ValueFilter.containedIn(3, List.of(
-                        "DECIMAL_DIGIT_NUMBER",
-                        "LETTER_NUMBER",
-                        "OTHER_NUMBER",
-                        "CURRENCY_SYMBOL",
-                        "MATH_SYMBOL",
-                        "MODIFIER_SYMBOL",
-                        "OTHER_SYMBOL"
-                )));
+            // NUMBER_SYMBOL
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_NUMBER_SYMBOL.md"),
+                    ValueFilter.containedIn(3, List.of(
+                            "DECIMAL_DIGIT_NUMBER",
+                            "LETTER_NUMBER",
+                            "OTHER_NUMBER",
+                            "CURRENCY_SYMBOL",
+                            "MATH_SYMBOL",
+                            "MODIFIER_SYMBOL",
+                            "OTHER_SYMBOL"
+                    )));
 
-        // MISC
-        writeFilteredFile(new File(outputDirectory,
-                        "Character_Markdown_Table_MISC.md"),
-                ValueFilter.containedIn(3, List.of(
-                        "LINE_SEPARATOR",
-                        "PARAGRAPH_SEPARATOR",
-                        "SPACE_SEPARATOR",
-                        "CONNECTOR_PUNCTUATION",
-                        "DASH_PUNCTUATION",
-                        "END_PUNCTUATION",
-                        "FINAL_QUOTE_PUNCTUATION",
-                        "INITIAL_QUOTE_PUNCTUATION",
-                        "OTHER_PUNCTUATION",
-                        "START_PUNCTUATION",
-                        "COMBINING_SPACING_MARK",
-                        "ENCLOSING_MARK",
-                        "FORMAT",
-                        "NON_SPACING_MARK"
-                )));
+            // MISC
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_MISC.md"),
+                    ValueFilter.containedIn(3, List.of(
+                            "LINE_SEPARATOR",
+                            "PARAGRAPH_SEPARATOR",
+                            "SPACE_SEPARATOR",
+                            "CONNECTOR_PUNCTUATION",
+                            "DASH_PUNCTUATION",
+                            "END_PUNCTUATION",
+                            "FINAL_QUOTE_PUNCTUATION",
+                            "INITIAL_QUOTE_PUNCTUATION",
+                            "OTHER_PUNCTUATION",
+                            "START_PUNCTUATION",
+                            "COMBINING_SPACING_MARK",
+                            "ENCLOSING_MARK",
+                            "FORMAT",
+                            "NON_SPACING_MARK"
+                    )));
 
-        // NOT_PRINTABLE
-        writeFilteredFile(new File(outputDirectory,
-                        "Character_Markdown_Table_NOT_PRINTABLE.md"),
-                ValueFilter.containedIn(3, List.of(
-                        "CONTROL",
-                        "PRIVATE_USE",
-                        "SURROGATE",
-                        "UNASSIGNED"
-                )));
+            // NOT_PRINTABLE
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_NOT_PRINTABLE.md"),
+                    ValueFilter.containedIn(3, List.of(
+                            "CONTROL",
+                            "PRIVATE_USE",
+                            "SURROGATE",
+                            "UNASSIGNED"
+                    )));
 
-        // Block_LATIN
-        writeFilteredFile(new File(outputDirectory,
-                        "Character_Markdown_Table_Block_LATIN.md"),
-                ValueFilter.compare(4, StringComparisonType.CONTAINS,
-                        "LATIN"
-                ));
+            // Block_LATIN
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_Block_LATIN.md"),
+                    ValueFilter.compare(4, StringComparisonType.CONTAINS,
+                            "LATIN"
+                    ));
+        } catch (ConsumerException | IOException e) {
+            System.out.println("Cannot generate MarkdownTable file! " + e.getMessage());
+        }
     }
 
 }

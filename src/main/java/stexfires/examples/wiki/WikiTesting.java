@@ -1,11 +1,11 @@
 package stexfires.examples.wiki;
 
 import stexfires.core.TextRecord;
+import stexfires.core.consumer.ConsumerException;
 import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ValuesMapper;
 import stexfires.core.producer.ProducerException;
-import stexfires.core.producer.UncheckedProducerException;
 import stexfires.core.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
@@ -67,7 +67,7 @@ public final class WikiTesting {
     @SuppressWarnings("resource")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
                                                OutputStream outputStream)
-            throws ProducerException, UncheckedProducerException, IOException {
+            throws ProducerException, ConsumerException, IOException {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, TextRecord> mapper = ValuesMapper.applyFunctions(
@@ -81,7 +81,7 @@ public final class WikiTesting {
     @SuppressWarnings("resource")
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
                                               OutputStream outputStream)
-            throws ProducerException, UncheckedProducerException, IOException {
+            throws ProducerException, ConsumerException, IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
@@ -113,7 +113,7 @@ public final class WikiTesting {
         // Markdown Table
         String outputFileNameTable = "Wiki_Testing_Table.md";
         File outputFileTable = new File(outputDirectory, outputFileNameTable);
-        System.out.println("Generate Markdown Table: " + outputFileTable);
+        System.out.println("Generate MarkdownTable file: " + outputFileTable);
 
         try (OutputStream outputStream = new FileOutputStream(outputFileTable)) {
             for (int i = 0; i < resources.size(); i++) {
@@ -122,14 +122,14 @@ public final class WikiTesting {
                     convertToMarkdownTable(headers.get(i), producer, outputStream);
                 }
             }
-        } catch (ProducerException | UncheckedProducerException | IOException e) {
-            System.out.println("Cannot generate file! " + e.getMessage());
+        } catch (ProducerException | ConsumerException | IOException e) {
+            System.out.println("Cannot generate MarkdownTable file! " + e.getMessage());
         }
 
         // Markdown List
         String outputFileNameList = "Wiki_Testing_List.md";
         File outputFileList = new File(outputDirectory, outputFileNameList);
-        System.out.println("Generate Markdown List: " + outputFileList);
+        System.out.println("Generate MarkdownList file: " + outputFileList);
 
         try (OutputStream outputStream = new FileOutputStream(outputFileList)) {
             for (int i = 0; i < resources.size(); i++) {
@@ -138,8 +138,8 @@ public final class WikiTesting {
                     convertToMarkdownList(headers.get(i), producer, outputStream);
                 }
             }
-        } catch (ProducerException | UncheckedProducerException | IOException e) {
-            System.out.println("Cannot generate file! " + e.getMessage());
+        } catch (ProducerException | ConsumerException | IOException e) {
+            System.out.println("Cannot generate MarkdownList file! " + e.getMessage());
         }
     }
 
