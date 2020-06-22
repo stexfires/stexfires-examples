@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.CodingErrorAction;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import static stexfires.util.CommonCharsetNames.ISO_8859_1;
@@ -90,7 +91,7 @@ public final class ExamplesConfigFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true), file);
+        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true, Locale.ENGLISH), file);
 
         // Read / log
         System.out.println("read/log: " + path);

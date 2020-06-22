@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.CodingErrorAction;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import static stexfires.util.CommonCharsetNames.UTF_8;
@@ -56,7 +57,7 @@ public final class ExamplesCombinedFile {
         // Write
         System.out.println("write: " + pathConfig + " " + pathSingle);
         CombinedWritableRecordFile<KeyValueRecord> combinedFileWrite = new CombinedWritableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true), combinedFileWrite);
+        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true, Locale.ENGLISH), combinedFileWrite);
 
         // Read / log
         System.out.println("read/log: " + pathConfig + " " + pathSingle);
