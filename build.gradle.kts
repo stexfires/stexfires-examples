@@ -9,13 +9,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:17.0.0")
+    implementation("org.jetbrains:annotations:23.0.0")
     implementation("stexfires:stexfires:0.1.0")
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(16))
+        languageVersion.set(JavaLanguageVersion.of(18))
     }
 }
 
