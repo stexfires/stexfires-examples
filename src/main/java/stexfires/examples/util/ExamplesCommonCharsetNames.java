@@ -11,15 +11,13 @@ public final class ExamplesCommonCharsetNames {
     private static void showCommonCharsetNames() {
         System.out.println("-showCommonCharsetNames---");
 
-        for (CommonCharsetNames type : CommonCharsetNames.values()) {
-            System.out.println(type.name() + " (getCanonicalName()) ? " + type.getCanonicalName());
-            System.out.println(type.name() + " (charset())          ? " + type.charset());
-            System.out.println(type.name() + " (name())             ? " + type.name());
-            System.out.println(type.name() + " (toString())         ? " + type.toString());
+        for (var charset : CommonCharsetNames.values()) {
+            System.out.println(charset.name() + " (canonicalName())    ? " + charset.canonicalName());
+            System.out.println(charset.name() + " (charset())          ? " + charset.charset());
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showCommonCharsetNames();
     }
 
