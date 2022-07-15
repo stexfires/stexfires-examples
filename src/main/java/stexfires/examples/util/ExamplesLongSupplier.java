@@ -31,6 +31,9 @@ public final class ExamplesLongSupplier {
         printStream("constructor -10",
                 Stream.generate(
                         new SequenceLongSupplier(-10L)));
+        printStream("constructor -1",
+                Stream.generate(
+                        new SequenceLongSupplier(-1L)));
     }
 
     private static void showSequencePrimitiveLongSupplier() {
@@ -42,9 +45,12 @@ public final class ExamplesLongSupplier {
         printStream("constructor -10",
                 LongStream.generate(
                         new SequencePrimitiveLongSupplier(-10L)));
+        printStream("constructor -1",
+                LongStream.generate(
+                        new SequencePrimitiveLongSupplier(-1L)));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showSequenceLongSupplier();
         showSequencePrimitiveLongSupplier();
     }

@@ -143,7 +143,7 @@ public final class ExamplesBooleanSupplier {
                 SwitchingBooleanSupplier.everyTime(true).asPrimitiveBooleanSupplier().getAsBoolean());
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showRandomBooleanSupplier();
         showRepeatingPatternBooleanSupplier();
         showSwitchingBooleanSupplier();

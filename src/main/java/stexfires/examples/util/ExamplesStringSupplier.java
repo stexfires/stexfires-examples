@@ -41,7 +41,7 @@ public final class ExamplesStringSupplier {
                         new ThreadNameStringSupplier()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showLocalTimeStringSupplier();
         showSequenceStringSupplier();
         showThreadNameStringSupplier();

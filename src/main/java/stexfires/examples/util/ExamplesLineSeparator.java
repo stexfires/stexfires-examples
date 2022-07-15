@@ -2,8 +2,6 @@ package stexfires.examples.util;
 
 import stexfires.util.LineSeparator;
 
-import java.util.stream.Collectors;
-
 @SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class ExamplesLineSeparator {
 
@@ -16,17 +14,17 @@ public final class ExamplesLineSeparator {
         System.out.println("systemLineSeparator: " + LineSeparator.systemLineSeparator().name());
         System.out.println("string count 3: " + LineSeparator.systemLineSeparator().string(3));
 
-        for (LineSeparator type : LineSeparator.values()) {
-            System.out.println(type.name() + " (string())        ? " + type.string());
-            System.out.println(type.name() + " (supplier() get)  ? " + type.supplier().get());
-            System.out.println(type.name() + " (stream() toList) ? " + type.stream().collect(Collectors.toList()));
-            System.out.println(type.name() + " (chars() toList)  ? " + type.chars().boxed().collect(Collectors.toList()));
-            System.out.println(type.name() + " (name())          ? " + type.name());
-            System.out.println(type.name() + " (toString())      ? " + type.toString());
+        for (var separator : LineSeparator.values()) {
+            System.out.println(separator.name() + " (string())        ? " + separator.string());
+            System.out.println(separator.name() + " (supplier() get)  ? " + separator.supplier().get());
+            System.out.println(separator.name() + " (stream() toList) ? " + separator.stream().toList());
+            System.out.println(separator.name() + " (chars() toList)  ? " + separator.chars().boxed().toList());
+            System.out.println(separator.name() + " (name())          ? " + separator.name());
+            System.out.println(separator.name() + " (toString())      ? " + separator);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showLineSeparator();
     }
 
