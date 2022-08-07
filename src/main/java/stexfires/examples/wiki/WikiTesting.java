@@ -64,7 +64,6 @@ public final class WikiTesting {
                 title, "", MarkdownListFileSpec.DEFAULT_BULLET_POINT, true);
     }
 
-    @SuppressWarnings("resource")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
                                                OutputStream outputStream)
             throws ProducerException, ConsumerException, IOException {
@@ -78,20 +77,20 @@ public final class WikiTesting {
         RecordIOStreams.convert(producer, mapper, consumer);
     }
 
-    @SuppressWarnings("resource")
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
                                               OutputStream outputStream)
             throws ProducerException, ConsumerException, IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
-                r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
+                                                                           r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
                                                                    .andThen(new ToSingleMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
 
-    public static void main(String[] args) {
+    @SuppressWarnings("OverlyBroadCatchBlock")
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }
