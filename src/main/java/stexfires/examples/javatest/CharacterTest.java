@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class CharacterTest {
 
     private static final char MIN_CHAR = 0;
@@ -35,80 +36,89 @@ public final class CharacterTest {
 
     public static String getCharacterTypeAsString(int characterType) {
         String type;
-        if (characterType == (int) Character.COMBINING_SPACING_MARK) type = "COMBINING_SPACING_MARK";
-        else if (characterType == (int) Character.CONNECTOR_PUNCTUATION) type = "CONNECTOR_PUNCTUATION";
-        else if (characterType == (int) Character.CONTROL) type = "CONTROL";
-        else if (characterType == (int) Character.CURRENCY_SYMBOL) type = "CURRENCY_SYMBOL";
-        else if (characterType == (int) Character.DASH_PUNCTUATION) type = "DASH_PUNCTUATION";
-        else if (characterType == (int) Character.DECIMAL_DIGIT_NUMBER) type = "DECIMAL_DIGIT_NUMBER";
-        else if (characterType == (int) Character.ENCLOSING_MARK) type = "ENCLOSING_MARK";
-        else if (characterType == (int) Character.END_PUNCTUATION) type = "END_PUNCTUATION";
-        else if (characterType == (int) Character.FINAL_QUOTE_PUNCTUATION) type = "FINAL_QUOTE_PUNCTUATION";
-        else if (characterType == (int) Character.FORMAT) type = "FORMAT";
-        else if (characterType == (int) Character.INITIAL_QUOTE_PUNCTUATION) type = "INITIAL_QUOTE_PUNCTUATION";
-        else if (characterType == (int) Character.LETTER_NUMBER) type = "LETTER_NUMBER";
-        else if (characterType == (int) Character.LINE_SEPARATOR) type = "LINE_SEPARATOR";
-        else if (characterType == (int) Character.LOWERCASE_LETTER) type = "LOWERCASE_LETTER";
-        else if (characterType == (int) Character.MATH_SYMBOL) type = "MATH_SYMBOL";
-        else if (characterType == (int) Character.MODIFIER_LETTER) type = "MODIFIER_LETTER";
-        else if (characterType == (int) Character.MODIFIER_SYMBOL) type = "MODIFIER_SYMBOL";
-        else if (characterType == (int) Character.NON_SPACING_MARK) type = "NON_SPACING_MARK";
-        else if (characterType == (int) Character.OTHER_LETTER) type = "OTHER_LETTER";
-        else if (characterType == (int) Character.OTHER_NUMBER) type = "OTHER_NUMBER";
-        else if (characterType == (int) Character.OTHER_PUNCTUATION) type = "OTHER_PUNCTUATION";
-        else if (characterType == (int) Character.OTHER_SYMBOL) type = "OTHER_SYMBOL";
-        else if (characterType == (int) Character.PARAGRAPH_SEPARATOR) type = "PARAGRAPH_SEPARATOR";
-        else if (characterType == (int) Character.PRIVATE_USE) type = "PRIVATE_USE";
-        else if (characterType == (int) Character.SPACE_SEPARATOR) type = "SPACE_SEPARATOR";
-        else if (characterType == (int) Character.START_PUNCTUATION) type = "START_PUNCTUATION";
-        else if (characterType == (int) Character.SURROGATE) type = "SURROGATE";
-        else if (characterType == (int) Character.TITLECASE_LETTER) type = "TITLECASE_LETTER";
-        else if (characterType == (int) Character.UNASSIGNED) type = "UNASSIGNED";
-        else if (characterType == (int) Character.UPPERCASE_LETTER) type = "UPPERCASE_LETTER";
+        if (characterType == Character.COMBINING_SPACING_MARK) type = "COMBINING_SPACING_MARK";
+        else if (characterType == Character.CONNECTOR_PUNCTUATION) type = "CONNECTOR_PUNCTUATION";
+        else if (characterType == Character.CONTROL) type = "CONTROL";
+        else if (characterType == Character.CURRENCY_SYMBOL) type = "CURRENCY_SYMBOL";
+        else if (characterType == Character.DASH_PUNCTUATION) type = "DASH_PUNCTUATION";
+        else if (characterType == Character.DECIMAL_DIGIT_NUMBER) type = "DECIMAL_DIGIT_NUMBER";
+        else if (characterType == Character.ENCLOSING_MARK) type = "ENCLOSING_MARK";
+        else if (characterType == Character.END_PUNCTUATION) type = "END_PUNCTUATION";
+        else if (characterType == Character.FINAL_QUOTE_PUNCTUATION) type = "FINAL_QUOTE_PUNCTUATION";
+        else if (characterType == Character.FORMAT) type = "FORMAT";
+        else if (characterType == Character.INITIAL_QUOTE_PUNCTUATION) type = "INITIAL_QUOTE_PUNCTUATION";
+        else if (characterType == Character.LETTER_NUMBER) type = "LETTER_NUMBER";
+        else if (characterType == Character.LINE_SEPARATOR) type = "LINE_SEPARATOR";
+        else if (characterType == Character.LOWERCASE_LETTER) type = "LOWERCASE_LETTER";
+        else if (characterType == Character.MATH_SYMBOL) type = "MATH_SYMBOL";
+        else if (characterType == Character.MODIFIER_LETTER) type = "MODIFIER_LETTER";
+        else if (characterType == Character.MODIFIER_SYMBOL) type = "MODIFIER_SYMBOL";
+        else if (characterType == Character.NON_SPACING_MARK) type = "NON_SPACING_MARK";
+        else if (characterType == Character.OTHER_LETTER) type = "OTHER_LETTER";
+        else if (characterType == Character.OTHER_NUMBER) type = "OTHER_NUMBER";
+        else if (characterType == Character.OTHER_PUNCTUATION) type = "OTHER_PUNCTUATION";
+        else if (characterType == Character.OTHER_SYMBOL) type = "OTHER_SYMBOL";
+        else if (characterType == Character.PARAGRAPH_SEPARATOR) type = "PARAGRAPH_SEPARATOR";
+        else if (characterType == Character.PRIVATE_USE) type = "PRIVATE_USE";
+        else if (characterType == Character.SPACE_SEPARATOR) type = "SPACE_SEPARATOR";
+        else if (characterType == Character.START_PUNCTUATION) type = "START_PUNCTUATION";
+        else if (characterType == Character.SURROGATE) type = "SURROGATE";
+        else if (characterType == Character.TITLECASE_LETTER) type = "TITLECASE_LETTER";
+        else if (characterType == Character.UNASSIGNED) type = "UNASSIGNED";
+        else if (characterType == Character.UPPERCASE_LETTER) type = "UPPERCASE_LETTER";
         else type = "---";
         return type;
     }
 
     public static String getDirectionality(int codePoint) {
         String directionality;
-        byte d = Character.getDirectionality(codePoint);
-        if (d == Character.DIRECTIONALITY_UNDEFINED) directionality = "DIRECTIONALITY_UNDEFINED";
-        else if (d == Character.DIRECTIONALITY_LEFT_TO_RIGHT) directionality = "DIRECTIONALITY_LEFT_TO_RIGHT";
-        else if (d == Character.DIRECTIONALITY_RIGHT_TO_LEFT) directionality = "DIRECTIONALITY_RIGHT_TO_LEFT";
-        else if (d == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC)
+        byte unicodeDirectionality = Character.getDirectionality(codePoint);
+        if (unicodeDirectionality == Character.DIRECTIONALITY_UNDEFINED) directionality = "DIRECTIONALITY_UNDEFINED";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT)
+            directionality = "DIRECTIONALITY_LEFT_TO_RIGHT";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT)
+            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC)
             directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC";
-        else if (d == Character.DIRECTIONALITY_EUROPEAN_NUMBER) directionality = "DIRECTIONALITY_EUROPEAN_NUMBER";
-        else if (d == Character.DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER)
+            directionality = "DIRECTIONALITY_EUROPEAN_NUMBER";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR)
             directionality = "DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR";
-        else if (d == Character.DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR)
             directionality = "DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR";
-        else if (d == Character.DIRECTIONALITY_ARABIC_NUMBER) directionality = "DIRECTIONALITY_ARABIC_NUMBER";
-        else if (d == Character.DIRECTIONALITY_COMMON_NUMBER_SEPARATOR)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_ARABIC_NUMBER)
+            directionality = "DIRECTIONALITY_ARABIC_NUMBER";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_COMMON_NUMBER_SEPARATOR)
             directionality = "DIRECTIONALITY_COMMON_NUMBER_SEPARATOR";
-        else if (d == Character.DIRECTIONALITY_NONSPACING_MARK) directionality = "DIRECTIONALITY_NONSPACING_MARK";
-        else if (d == Character.DIRECTIONALITY_BOUNDARY_NEUTRAL) directionality = "DIRECTIONALITY_BOUNDARY_NEUTRAL";
-        else if (d == Character.DIRECTIONALITY_PARAGRAPH_SEPARATOR)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_NONSPACING_MARK)
+            directionality = "DIRECTIONALITY_NONSPACING_MARK";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_BOUNDARY_NEUTRAL)
+            directionality = "DIRECTIONALITY_BOUNDARY_NEUTRAL";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_PARAGRAPH_SEPARATOR)
             directionality = "DIRECTIONALITY_PARAGRAPH_SEPARATOR";
-        else if (d == Character.DIRECTIONALITY_SEGMENT_SEPARATOR) directionality = "DIRECTIONALITY_SEGMENT_SEPARATOR";
-        else if (d == Character.DIRECTIONALITY_WHITESPACE) directionality = "DIRECTIONALITY_WHITESPACE";
-        else if (d == Character.DIRECTIONALITY_OTHER_NEUTRALS) directionality = "DIRECTIONALITY_OTHER_NEUTRALS";
-        else if (d == Character.DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_SEGMENT_SEPARATOR)
+            directionality = "DIRECTIONALITY_SEGMENT_SEPARATOR";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_WHITESPACE)
+            directionality = "DIRECTIONALITY_WHITESPACE";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_OTHER_NEUTRALS)
+            directionality = "DIRECTIONALITY_OTHER_NEUTRALS";
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING)
             directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING";
-        else if (d == Character.DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE)
             directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE";
-        else if (d == Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING)
             directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING";
-        else if (d == Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE)
             directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE";
-        else if (d == Character.DIRECTIONALITY_POP_DIRECTIONAL_FORMAT)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_POP_DIRECTIONAL_FORMAT)
             directionality = "DIRECTIONALITY_POP_DIRECTIONAL_FORMAT";
-        else if (d == Character.DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE)
             directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE";
-        else if (d == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE)
             directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE";
-        else if (d == Character.DIRECTIONALITY_FIRST_STRONG_ISOLATE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_FIRST_STRONG_ISOLATE)
             directionality = "DIRECTIONALITY_FIRST_STRONG_ISOLATE";
-        else if (d == Character.DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE)
+        else if (unicodeDirectionality == Character.DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE)
             directionality = "DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE";
         else directionality = "---";
         return directionality;
@@ -157,6 +167,7 @@ public final class CharacterTest {
                         .map(CharacterTest::generateCharacterRecord);
     }
 
+    @SuppressWarnings("OverlyBroadThrowsClause")
     private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream)
             throws ConsumerException, IOException {
         Objects.requireNonNull(outputFile);
@@ -192,7 +203,7 @@ public final class CharacterTest {
                 generateCharacterRecordStream(MIN_CHAR, MAX_CHAR).filter(recordFilter.asPredicate()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

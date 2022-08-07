@@ -12,7 +12,7 @@ public final class AutoCloseableTest {
             try (TestClose t = new TestClose(false)) {
                 t.test(false);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.out.println("catch " + e);
         }
     }
@@ -23,7 +23,7 @@ public final class AutoCloseableTest {
             try (TestClose t = new TestClose(true)) {
                 t.test(false);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.out.println("catch " + e);
         }
     }
@@ -34,7 +34,7 @@ public final class AutoCloseableTest {
             try (TestClose t = new TestClose(false)) {
                 t.test(true);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.out.println("catch " + e);
         }
     }
@@ -46,12 +46,11 @@ public final class AutoCloseableTest {
         try {
             TestClose t = tBefore;
             t.test(true);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.out.println("catch " + e);
         }
     }
 
-    @SuppressWarnings("resource")
     private static void showTestCase5() {
         System.out.println("-showTestCase5---");
         TestClose tBefore = new TestClose(false);
@@ -59,12 +58,12 @@ public final class AutoCloseableTest {
             try (TestClose t = tBefore) {
                 t.test(true);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             System.out.println("catch " + e);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showTestCase1();
         showTestCase2();
         showTestCase3();

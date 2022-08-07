@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "ResultOfMethodCallIgnored", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "ResultOfMethodCallIgnored", "UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class StreamTest {
 
     private StreamTest() {
@@ -120,16 +120,15 @@ public final class StreamTest {
               .forEachOrdered(System.out::println);
     }
 
-    @SuppressWarnings("StandardVariableNames")
     private static void showModification() {
         System.out.println("-showModification---");
-        String a = "a";
-        String b = "b";
-        String c = "c";
-        String[] array = new String[]{a, b};
+        String strA = "a";
+        String strB = "b";
+        String strC = "c";
+        String[] array = new String[]{strA, strB};
 
         List<String> list1 = new ArrayList<>(1);
-        list1.add(a);
+        list1.add(strA);
 
         // create streams
         Stream<String> listStream = list1.stream();
@@ -137,8 +136,8 @@ public final class StreamTest {
         Stream<String> arrayStream2 = Stream.of(array);
 
         // modify streams
-        list1.add(c);
-        array[1] = c;
+        list1.add(strC);
+        array[1] = strC;
 
         // print streams
         System.out.print("Modified list stream:    ");
@@ -154,22 +153,22 @@ public final class StreamTest {
 
     private static void showCharacteristics() {
         System.out.println("-showCharacteristics---");
-        String a = "a";
-        String b = "b";
+        String strA = "a";
+        String strB = "b";
 
         // List
         List<String> list1 = new ArrayList<>(1);
-        list1.add(a);
+        list1.add(strA);
         Stream<String> streamList1 = list1.stream();
         Stream<String> streamList2 = List.copyOf(list1).stream();
 
         // Single
-        Stream<String> streamSingle1 = Stream.of(a);
+        Stream<String> streamSingle1 = Stream.of(strA);
 
         // Array
-        String[] array = new String[]{a, b};
+        String[] array = new String[]{strA, strB};
         Stream<String> streamArray1 = Arrays.stream(array);
-        Stream<String> streamArray2 = Stream.of(a, b);
+        Stream<String> streamArray2 = Stream.of(strA, strB);
         Stream<String> streamArray3 = Stream.of(array);
         Stream<String> streamArray4 = Stream.of();
 
@@ -237,7 +236,7 @@ public final class StreamTest {
         spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.SUBSIZED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showIntStreamRange();
         showStreamIterate();
         showStreamGenerate();
