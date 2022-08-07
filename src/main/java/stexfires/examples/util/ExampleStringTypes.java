@@ -11,10 +11,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "Java9CollectionFactory", "HardcodedLineSeparator"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "Java9CollectionFactory", "HardcodedLineSeparator", "SpellCheckingInspection"})
 public final class ExampleStringTypes {
 
+    @SuppressWarnings("StaticCollection")
     private static final List<String> VALUES;
+    @SuppressWarnings("StaticCollection")
     private static final List<String> COMPARE_VALUES;
 
     static {
@@ -111,6 +113,9 @@ public final class ExampleStringTypes {
     private static void showStringCheckType() {
         System.out.println("-showStringCheckType---");
 
+        System.out.println("static stringPredicate: " + StringCheckType.stringPredicate(StringCheckType.EMPTY).test(""));
+        System.out.println("       stringPredicate: " + StringCheckType.EMPTY.stringPredicate().test(""));
+
         for (StringCheckType type : StringCheckType.values()) {
             for (String value : VALUES) {
                 System.out.println(printTypeValue(type.name(), value) + "? "
@@ -128,7 +133,7 @@ public final class ExampleStringTypes {
                     String result;
                     try {
                         result = String.valueOf(type.compareString(value1, value2));
-                    } catch (Exception e) {
+                    } catch (RuntimeException e) {
                         result = e.getMessage();
                     }
                     if (!"false".equals(result)) {
@@ -150,7 +155,7 @@ public final class ExampleStringTypes {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showStringCheckType();
         showStringComparisonType();
         showStringUnaryOperatorType();
