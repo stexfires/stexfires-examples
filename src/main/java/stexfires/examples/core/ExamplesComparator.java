@@ -121,16 +121,16 @@ public final class ExamplesComparator {
         printComparatorRecord("size", RecordComparators.size());
 
         // field
-        printComparatorRecord("field: getFieldAt(1), length, NULLS.LAST", RecordComparators.field(record -> record.getFieldAt(1), FieldComparators.valueLength(), NULLS.LAST));
+        printComparatorRecord("field: getFieldAt(1), length, NULLS.LAST", RecordComparators.field(record -> record.fieldAt(1), FieldComparators.valueLength(), NULLS.LAST));
         printComparatorRecord("fieldAt: 1, length, NULLS.LAST", RecordComparators.fieldAt(1, FieldComparators.valueLength(), NULLS.LAST));
         printComparatorRecord("firstField: length, NULLS.LAST", RecordComparators.firstField(FieldComparators.valueLength(), NULLS.LAST));
         printComparatorRecord("lastField: length, NULLS.LAST", RecordComparators.lastField(FieldComparators.valueLength(), NULLS.LAST));
 
         // value
-        printComparatorRecord("value: getValueAt(1), naturalOrder(), NULLS.LAST", RecordComparators.value(record -> record.getValueAt(1), Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorRecord("value: getValueAt(1), naturalOrder(), NULLS.LAST", RecordComparators.value(record -> record.valueAt(1), Comparator.naturalOrder(), NULLS.LAST));
         printComparatorRecord("valueAt: 1, naturalOrder(), NULLS.LAST", RecordComparators.valueAt(1, Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorRecord("firstValue: naturalOrder(), NULLS.LAST", RecordComparators.firstValue(Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorRecord("lastValue: naturalOrder(), NULLS.LAST", RecordComparators.lastValue(Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorRecord("firstValue: naturalOrder(), NULLS.LAST", RecordComparators.valueOfFirstField(Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorRecord("lastValue: naturalOrder(), NULLS.LAST", RecordComparators.valueOfLastField(Comparator.naturalOrder(), NULLS.LAST));
 
         // KeyValueRecord
         printComparatorKeyValueRecord("valueOfKeyField: naturalOrder()", RecordComparators.valueOfKeyField(Comparator.naturalOrder()));

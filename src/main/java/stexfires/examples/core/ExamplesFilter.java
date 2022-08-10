@@ -220,33 +220,33 @@ public final class ExamplesFilter {
         printFilter("constructor index null",
                 new ValueFilter<>(1, true, value -> false));
         printFilter("constructor function",
-                new ValueFilter<>(TextRecord::getLastField, "A"::equals));
+                new ValueFilter<>(TextRecord::lastField, "A"::equals));
         printFilter("constructor function null",
-                new ValueFilter<>(record -> record.getFieldAt(1), false, "t"::equals));
+                new ValueFilter<>(record -> record.fieldAt(1), false, "t"::equals));
         printFilter("compare index",
                 ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
         printFilter("compare function",
-                ValueFilter.compare(TextRecord::getLastField, StringComparisonType.EQUALS, "d"));
+                ValueFilter.compare(TextRecord::lastField, StringComparisonType.EQUALS, "d"));
         printFilter("check index",
                 ValueFilter.check(0, StringCheckType.EMPTY));
         printFilter("check function",
-                ValueFilter.check(TextRecord::getLastField, StringCheckType.EMPTY));
+                ValueFilter.check(TextRecord::lastField, StringCheckType.EMPTY));
         printFilter("equalTo index",
                 ValueFilter.equalTo(0, "S"));
         printFilter("equalTo function",
-                ValueFilter.equalTo(TextRecord::getLastField, "d"));
+                ValueFilter.equalTo(TextRecord::lastField, "d"));
         printFilter("isNotNull index",
                 ValueFilter.isNotNull(2));
         printFilter("isNotNull function",
-                ValueFilter.isNotNull(TextRecord::getLastField));
+                ValueFilter.isNotNull(TextRecord::lastField));
         printFilter("containedIn index Collection",
                 ValueFilter.containedIn(0, Strings.list("A", "B")));
         printFilter("containedIn function Collection",
-                ValueFilter.containedIn(TextRecord::getLastField, Strings.list("A", "d")));
+                ValueFilter.containedIn(TextRecord::lastField, Strings.list("A", "d")));
         printFilter("containedIn index Array",
                 ValueFilter.containedIn(0, "C", "D"));
         printFilter("containedIn function Array",
-                ValueFilter.containedIn(TextRecord::getLastField, "A", "d"));
+                ValueFilter.containedIn(TextRecord::lastField, "A", "d"));
     }
 
     public static void main(String... args) {

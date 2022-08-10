@@ -34,13 +34,13 @@ public final class ExamplesRecord {
         System.out.println("size:                      " + record.size());
         System.out.println("isEmpty:                   " + record.isEmpty());
         System.out.println("isValidIndex:              " + record.isValidIndex(0));
-        System.out.println("getFieldAt:                " + record.getFieldAt(0));
-        System.out.println("getFirstField:             " + record.getFirstField());
-        System.out.println("getLastField:              " + record.getLastField());
-        System.out.println("getValueAt:                " + record.getValueAt(0));
-        System.out.println("getValueAtOrElse:          " + record.getValueAtOrElse(0, "else"));
-        System.out.println("getValueOfFirstField:      " + record.getValueOfFirstField());
-        System.out.println("getValueOfLastField:       " + record.getValueOfLastField());
+        System.out.println("fieldAt:                   " + record.fieldAt(0));
+        System.out.println("firstField:                " + record.firstField());
+        System.out.println("lastField:                 " + record.lastField());
+        System.out.println("valueAt:                   " + record.valueAt(0));
+        System.out.println("valueAtOrElse:             " + record.valueAtOrElse(0, "else"));
+        System.out.println("valueOfFirstField:         " + record.valueOfFirstField());
+        System.out.println("valueOfLastField:          " + record.valueOfLastField());
         System.out.println("hashCode:                  " + record.hashCode());
         System.out.println("toString:                  " + record);
         System.out.println();
@@ -57,18 +57,18 @@ public final class ExamplesRecord {
         System.out.println("-showKeyValueRecord---");
 
         KeyValueRecord record = new KeyValueRecord("key", "value");
-        System.out.println("getKeyField:               " + record.getKeyField());
-        System.out.println("getValueOfKeyField:        " + record.getValueOfKeyField());
-        System.out.println("getValueField:             " + record.getValueField());
-        System.out.println("getValueOfValueField:      " + record.getValueOfValueField());
+        System.out.println("keyField:                  " + record.keyField());
+        System.out.println("valueOfKeyField:           " + record.valueOfKeyField());
+        System.out.println("valueField:                " + record.valueField());
+        System.out.println("valueOfValueField:         " + record.valueOfValueField());
         System.out.println("newValueRecord:            " + record.newValueRecord("new value"));
         printRecord(record);
 
         KeyValueRecord record1 = new KeyValueRecord("category", 0L, "key", "value");
-        System.out.println("getKeyField:               " + record1.getKeyField());
-        System.out.println("getValueOfKeyField:        " + record1.getValueOfKeyField());
-        System.out.println("getValueField:             " + record1.getValueField());
-        System.out.println("getValueOfValueField:      " + record1.getValueOfValueField());
+        System.out.println("keyField:                  " + record1.keyField());
+        System.out.println("valueOfKeyField:           " + record1.valueOfKeyField());
+        System.out.println("valueField:                " + record1.valueField());
+        System.out.println("valueOfValueField:         " + record1.valueOfValueField());
         System.out.println("newValueRecord:            " + record1.newValueRecord("new value"));
         printRecord(record1);
     }
@@ -78,14 +78,14 @@ public final class ExamplesRecord {
 
         PairRecord record = new PairRecord("first", "second");
         System.out.println("newRecordSwapped:          " + record.newRecordSwapped());
-        System.out.println("getSecondField:            " + record.getSecondField());
-        System.out.println("getValueOfSecondField:     " + record.getValueOfSecondField());
+        System.out.println("secondField:               " + record.secondField());
+        System.out.println("valueOfSecondField:        " + record.valueOfSecondField());
         printRecord(record);
 
         PairRecord record1 = new PairRecord("category", 0L, "first", "second");
         System.out.println("newRecordSwapped:          " + record1.newRecordSwapped());
-        System.out.println("getSecondField:            " + record1.getSecondField());
-        System.out.println("getValueOfSecondField:     " + record1.getValueOfSecondField());
+        System.out.println("secondField:               " + record1.secondField());
+        System.out.println("valueOfSecondField:        " + record1.valueOfSecondField());
         printRecord(record1);
     }
 
@@ -93,13 +93,13 @@ public final class ExamplesRecord {
         System.out.println("-showSingleRecord---");
 
         SingleRecord record = new SingleRecord("value");
-        System.out.println("getValueField:             " + record.getValueField());
-        System.out.println("getValueOfValueField:      " + record.getValueOfValueField());
+        System.out.println("valueField:                " + record.valueField());
+        System.out.println("valueOfValueField:         " + record.valueOfValueField());
         printRecord(record);
 
         SingleRecord record1 = new SingleRecord("category", 0L, "value");
-        System.out.println("getValueField:             " + record1.getValueField());
-        System.out.println("getValueOfValueField:      " + record1.getValueOfValueField());
+        System.out.println("valueField:                " + record1.valueField());
+        System.out.println("valueOfValueField:         " + record1.valueOfValueField());
         printRecord(record1);
     }
 

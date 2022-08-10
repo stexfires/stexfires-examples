@@ -177,7 +177,7 @@ public final class ExamplesModifier {
                         havingSize(LESS_THAN.intPredicate(4)),
                         aggregateToValues(
                                 messageOfFirstElement(new CategoryMessage<>()),
-                                list -> list.stream().map(ValueRecord::getValueOfValueField).collect(Collectors.toList())
+                                list -> list.stream().map(ValueRecord::valueOfValueField).collect(Collectors.toList())
                         )));
         printModifierSingleRecordGroup("constructor category; aggregateToValuesWithMessage",
                 new GroupModifier<>(
@@ -205,7 +205,7 @@ public final class ExamplesModifier {
 
         printModifierSingleRecord("constructor valueField; aggregateToValue category",
                 new GroupModifier<SingleRecord, TextRecord>(
-                        groupByValueField(),
+                        groupByValueOfValueField(),
                         aggregateToValue(
                                 messageOfFirstElement(ValueMessage.value()),
                                 list -> list.stream().map(TextRecord::category).collect(Collectors.joining(","))
@@ -270,7 +270,7 @@ public final class ExamplesModifier {
         );
 
         printPivotKeyValueRecord("Pivot 1.2 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfValueField, nullValue,
+                PivotModifier.pivotWithClassifications(KeyValueRecord::valueOfKeyField, KeyValueRecord::valueOfValueField, nullValue,
                         KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
@@ -285,8 +285,8 @@ public final class ExamplesModifier {
         );
 
         printPivotStandardRecord("Pivot 1.3 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(TextRecord::category, r -> r.getValueAt(1), nullValue,
-                        r -> r.getValueAt(0), valueClasses),
+                PivotModifier.pivotWithClassifications(TextRecord::category, r -> r.valueAt(1), nullValue,
+                        r -> r.valueAt(0), valueClasses),
                 new StandardRecord("key1", 1L, "jp"),
                 new StandardRecord("key1", 2L, "en", "value1en"),
                 new StandardRecord("key2", 3L, "en", "value2en"),
@@ -316,8 +316,8 @@ public final class ExamplesModifier {
 
         printPivotKeyValueRecord("Pivot 3 constructor classification",
                 new PivotModifier<>(
-                        KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfKeyField, r -> Stream.empty(),
-                        KeyValueRecord::getValueOfValueField, nullValue, KeyValueRecord::category, valueClasses
+                        KeyValueRecord::valueOfKeyField, KeyValueRecord::valueOfKeyField, r -> Stream.empty(),
+                        KeyValueRecord::valueOfValueField, nullValue, KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
                 new KeyValueRecord("en", 2L, "key1", "value1en"),
@@ -427,8 +427,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.1 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.getValueOfFirstField(), "S 1", r.getValueAt(1)),
-                        new StandardRecord(r.getValueOfFirstField(), "S 3", r.getValueAt(3))
+                        new StandardRecord(r.valueOfFirstField(), "S 1", r.valueAt(1)),
+                        new StandardRecord(r.valueOfFirstField(), "S 3", r.valueAt(3))
                 )),
                 new StandardRecord("k1", "a1", "a2", "a3"),
                 new StandardRecord("k2", "b1", "b2", "b3"),
@@ -438,8 +438,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.2 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.category(), "S 1", r.getValueAt(0)),
-                        new StandardRecord(r.category(), "S 3", r.getValueAt(2))
+                        new StandardRecord(r.category(), "S 1", r.valueAt(0)),
+                        new StandardRecord(r.category(), "S 3", r.valueAt(2))
                 )),
                 new StandardRecord("k1", 1L, "a1", "a2", "a3"),
                 new StandardRecord("k2", 2L, "b1", "b2", "b3"),
@@ -449,8 +449,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.3 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.category(), r.recordId(), "S 1", r.getValueAt(0)),
-                        new StandardRecord(r.category(), r.recordId(), "S 3", r.getValueAt(2))
+                        new StandardRecord(r.category(), r.recordId(), "S 1", r.valueAt(0)),
+                        new StandardRecord(r.category(), r.recordId(), "S 3", r.valueAt(2))
                 )),
                 new StandardRecord("k1", 1L, "a1", "a2", "a3"),
                 new StandardRecord("k2", 2L, "b1", "b2", "b3"),

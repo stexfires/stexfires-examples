@@ -145,7 +145,7 @@ public final class ExamplesMapper {
         printMapper("constructor", new FunctionMapper<>(
                 record -> record.categoryOrElse("new category"),
                 record -> record.recordIdAsOptional().orElse(-1L),
-                record -> Strings.list(record.getValueAtOrElse(0, ""))
+                record -> Strings.list(record.valueAtOrElse(0, ""))
         ));
         printMapper("functionMappers", FunctionMapper.functionMappers(
                 CategoryMapper.recordId(),
@@ -226,7 +226,7 @@ public final class ExamplesMapper {
         printMapper("identity", ValuesMapper.identity());
         printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.recordIdAsOptional().orElse(0L) + field.index())));
         printMapper("mapAllFields", ValuesMapper.mapAllFields(new AddPrefixFieldValueMapper("new: ")));
-        printMapperValueRecord("mapOneField", ValuesMapper.mapOneField(ValueRecord::getValueField, new AddPrefixFieldValueMapper("new: ")));
+        printMapperValueRecord("mapOneField", ValuesMapper.mapOneField(ValueRecord::valueField, new AddPrefixFieldValueMapper("new: ")));
         printMapper("size 0", ValuesMapper.size(0, "<NULL>"));
         printMapper("size 1", ValuesMapper.size(1, "<NULL>"));
         printMapper("size 2", ValuesMapper.size(2, "<NULL>"));
@@ -239,7 +239,7 @@ public final class ExamplesMapper {
                 Collections.singletonList(new SizeMessage<>())
         ));
         printMapper("applyFunctions array", ValuesMapper.applyFunctions(
-                TextRecord::category, TextRecord::getValueOfLastField
+                TextRecord::category, TextRecord::valueOfLastField
         ));
         printMapper("applyFunctions list", ValuesMapper.applyFunctions(
                 Collections.singletonList(TextRecord::toString)

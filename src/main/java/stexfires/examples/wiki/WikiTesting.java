@@ -70,9 +70,9 @@ public final class WikiTesting {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, TextRecord> mapper = ValuesMapper.applyFunctions(
-                r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")",
-                r -> "[" + r.getValueAt(1).replace("http://", "").replace("https://", "")
-                        + "]" + "(" + r.getValueAt(1) + ")");
+                r -> "[" + r.valueAt(0) + "]" + "(" + r.valueAt(1) + ")",
+                r -> "[" + r.valueAt(1).replace("http://", "").replace("https://", "")
+                        + "]" + "(" + r.valueAt(1) + ")");
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
@@ -83,7 +83,7 @@ public final class WikiTesting {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
-                                                                           r -> "[" + r.getValueAt(0) + "]" + "(" + r.getValueAt(1) + ")")
+                                                                           r -> "[" + r.valueAt(0) + "]" + "(" + r.valueAt(1) + ")")
                                                                    .andThen(new ToSingleMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);

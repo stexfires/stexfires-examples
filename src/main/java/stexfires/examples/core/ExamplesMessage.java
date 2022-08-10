@@ -254,11 +254,11 @@ public final class ExamplesMessage {
         printMessage("constructor index nullFieldMessage fieldValueMapper",
                 new ValueMessage<>(1, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
         printMessage("constructor function",
-                new ValueMessage<>(TextRecord::getLastField));
+                new ValueMessage<>(TextRecord::lastField));
         printMessage("constructor function nullFieldMessage",
-                new ValueMessage<>(TextRecord::getLastField, "<NULL>"));
+                new ValueMessage<>(TextRecord::lastField, "<NULL>"));
         printMessage("constructor function nullFieldMessage fieldValueMapper",
-                new ValueMessage<>(TextRecord::getLastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
+                new ValueMessage<>(TextRecord::lastField, "<NULL>", new AddPrefixFieldValueMapper("new value 1: ")));
         printMessageKeyValueRecord("key",
                 ValueMessage.key());
         printMessageKeyValueRecord("keyField",

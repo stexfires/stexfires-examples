@@ -112,12 +112,12 @@ public final class ExamplesConsumer {
 
         List<String> values = new ArrayList<>();
         printConsumerSingleRecord("constructor values",
-                new CollectionConsumer<>(values, ValueRecord::getValueOfValueField));
+                new CollectionConsumer<>(values, ValueRecord::valueOfValueField));
         System.out.println(values);
 
         List<String> keys = new ArrayList<>();
         printConsumerKeyValueRecord("constructor keys",
-                new CollectionConsumer<>(keys, KeyRecord::getValueOfKeyField));
+                new CollectionConsumer<>(keys, KeyRecord::valueOfKeyField));
         System.out.println(keys);
     }
 
@@ -190,7 +190,7 @@ public final class ExamplesConsumer {
 
         Map<String, String> keyValueMap = new HashMap<>();
         printConsumerKeyValueRecord("constructor",
-                new MapConsumer<>(keyValueMap, KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfValueField));
+                new MapConsumer<>(keyValueMap, KeyValueRecord::valueOfKeyField, KeyValueRecord::valueOfValueField));
         System.out.println(keyValueMap);
     }
 

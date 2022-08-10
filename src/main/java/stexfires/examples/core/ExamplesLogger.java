@@ -109,12 +109,12 @@ public final class ExamplesLogger {
 
         List<String> values = new ArrayList<>();
         printLoggerSingleRecord("constructor values",
-                new CollectionLogger<>(values, ValueRecord::getValueOfValueField));
+                new CollectionLogger<>(values, ValueRecord::valueOfValueField));
         System.out.println(values);
 
         List<String> keys = new ArrayList<>();
         printLoggerKeyValueRecord("constructor keys",
-                new CollectionLogger<>(keys, KeyRecord::getValueOfKeyField));
+                new CollectionLogger<>(keys, KeyRecord::valueOfKeyField));
         System.out.println(keys);
     }
 
