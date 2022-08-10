@@ -77,7 +77,7 @@ public final class ExamplesToMapper {
         printRecordMapper("constructor", new ToStandardMapper<>());
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showToEmptyMapper();
         showToKeyValueMapper();
         showToPairMapper();

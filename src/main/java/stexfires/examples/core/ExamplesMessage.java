@@ -269,7 +269,7 @@ public final class ExamplesMessage {
                 ValueMessage.valueField(new AddPrefixFieldValueMapper("new value: ")));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showCategoryMessage();
         showClassNameMessage();
         showCompareMessageBuilder();

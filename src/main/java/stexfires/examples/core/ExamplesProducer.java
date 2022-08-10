@@ -86,7 +86,7 @@ public final class ExamplesProducer {
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showConstantProducer();
         showDividingProducer();
         showKeyValueProducer();

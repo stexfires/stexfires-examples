@@ -26,6 +26,7 @@ public final class ExamplesComparator {
     private ExamplesComparator() {
     }
 
+    @SuppressWarnings("StaticCollection")
     private static final List<String> STRING_VALUES = List.of(
             "!",
             "a",
@@ -249,7 +250,7 @@ public final class ExamplesComparator {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showRecordComparators();
         showFieldComparators();
         showStringComparators();

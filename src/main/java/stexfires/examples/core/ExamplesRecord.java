@@ -42,7 +42,7 @@ public final class ExamplesRecord {
         System.out.println("getValueOfFirstField:      " + record.getValueOfFirstField());
         System.out.println("getValueOfLastField:       " + record.getValueOfLastField());
         System.out.println("hashCode:                  " + record.hashCode());
-        System.out.println("toString:                  " + record.toString());
+        System.out.println("toString:                  " + record);
         System.out.println();
     }
 
@@ -120,7 +120,7 @@ public final class ExamplesRecord {
         printRecord(new StandardRecord("category", 0L, "value1", "value2", "value3"));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showEmptyRecord();
         showKeyValueRecord();
         showPairRecord();

@@ -143,7 +143,7 @@ public final class ExamplesFieldValueMapper {
         printMapper("constructor ThreadNameStringSupplier", new SupplierFieldValueMapper(new ThreadNameStringSupplier()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showAddPostfixFieldValueMapper();
         showAddPrefixFieldValueMapper();
         showConditionalFieldValueMapper();

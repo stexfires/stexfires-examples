@@ -83,24 +83,23 @@ public final class ExamplesConsumer {
         TextRecordStreams.consume(generateStreamKeyValueRecord(), recordConsumer);
     }
 
-    @SuppressWarnings("resource")
     private static void showAppendableConsumer() {
         System.out.println("-showAppendableConsumer---");
 
         StringBuilder builder = new StringBuilder(10);
         printConsumer("constructor StringBuilder",
                 new AppendableConsumer<>(builder, new SizeMessage<>()));
-        System.out.println(builder.toString());
+        System.out.println(builder);
 
         StringBuffer buffer = new StringBuffer(10);
         printConsumer("constructor StringBuffer",
                 new AppendableConsumer<>(buffer, new SizeMessage<>()));
-        System.out.println(buffer.toString());
+        System.out.println(buffer);
 
         StringWriter writer = new StringWriter(10);
         printConsumer("constructor StringWriter",
                 new AppendableConsumer<>(writer, new SizeMessage<>()));
-        System.out.println(writer.toString());
+        System.out.println(writer);
     }
 
     private static void showCollectionConsumer() {
@@ -277,7 +276,7 @@ public final class ExamplesConsumer {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showAppendableConsumer();
         showCollectionConsumer();
         showConditionalConsumer();

@@ -250,7 +250,7 @@ public final class ExamplesMapper {
         printMapper("remove valueIsNullOrEmpty", ValuesMapper.remove(Field::valueIsNullOrEmpty));
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showAddValueMapper();
         showCategoryMapper();
         showConditionalMapper();

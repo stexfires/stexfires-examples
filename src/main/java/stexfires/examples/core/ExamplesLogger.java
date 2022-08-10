@@ -80,24 +80,23 @@ public final class ExamplesLogger {
                          .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    @SuppressWarnings("resource")
     private static void showAppendableLogger() {
         System.out.println("-showAppendableLogger---");
 
         StringBuilder builder = new StringBuilder(10);
         printLogger("constructor StringBuilder",
                 new AppendableLogger<>(builder, new SizeMessage<>()));
-        System.out.println(builder.toString());
+        System.out.println(builder);
 
         StringBuffer buffer = new StringBuffer(10);
         printLogger("constructor StringBuffer",
                 new AppendableLogger<>(buffer, new SizeMessage<>()));
-        System.out.println(buffer.toString());
+        System.out.println(buffer);
 
         StringWriter writer = new StringWriter(10);
         printLogger("constructor StringWriter",
                 new AppendableLogger<>(writer, new SizeMessage<>()));
-        System.out.println(writer.toString());
+        System.out.println(writer);
     }
 
     private static void showCollectionLogger() {
@@ -241,7 +240,7 @@ public final class ExamplesLogger {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showAppendableLogger();
         showCollectionLogger();
         showConditionalLogger();

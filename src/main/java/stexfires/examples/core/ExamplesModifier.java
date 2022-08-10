@@ -538,7 +538,7 @@ public final class ExamplesModifier {
         );
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         showDistinctModifier();
         showFilterModifier();
         showGroupModifier();
