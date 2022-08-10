@@ -63,6 +63,7 @@ public final class ExamplesCore {
 
         printFieldStream("isFirstField", stream -> stream.map(Field::isFirstField));
         printFieldStream("isLastField", stream -> stream.map(Field::isLastField));
+        printFieldStream("hasValue", stream -> stream.map(Field::hasValue));
         printFieldStream("valueOrElse", stream -> stream.map(field -> field.valueOrElse("<NULL>")));
         printFieldStream("valueAsOptional", stream -> stream.map(Field::valueAsOptional).map(optional -> optional.orElse("<NULL>")));
         printFieldStream("valueEquals", stream -> stream.map(field -> field.valueEquals("value A")));
