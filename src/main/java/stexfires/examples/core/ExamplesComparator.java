@@ -121,10 +121,10 @@ public final class ExamplesComparator {
         printComparatorRecord("size", RecordComparators.size());
 
         // field
-        printComparatorRecord("field: getFieldAt(1), length, NULLS.LAST", RecordComparators.field(record -> record.getFieldAt(1), FieldComparators.length(), NULLS.LAST));
-        printComparatorRecord("fieldAt: 1, length, NULLS.LAST", RecordComparators.fieldAt(1, FieldComparators.length(), NULLS.LAST));
-        printComparatorRecord("firstField: length, NULLS.LAST", RecordComparators.firstField(FieldComparators.length(), NULLS.LAST));
-        printComparatorRecord("lastField: length, NULLS.LAST", RecordComparators.lastField(FieldComparators.length(), NULLS.LAST));
+        printComparatorRecord("field: getFieldAt(1), length, NULLS.LAST", RecordComparators.field(record -> record.getFieldAt(1), FieldComparators.valueLength(), NULLS.LAST));
+        printComparatorRecord("fieldAt: 1, length, NULLS.LAST", RecordComparators.fieldAt(1, FieldComparators.valueLength(), NULLS.LAST));
+        printComparatorRecord("firstField: length, NULLS.LAST", RecordComparators.firstField(FieldComparators.valueLength(), NULLS.LAST));
+        printComparatorRecord("lastField: length, NULLS.LAST", RecordComparators.lastField(FieldComparators.valueLength(), NULLS.LAST));
 
         // value
         printComparatorRecord("value: getValueAt(1), naturalOrder(), NULLS.LAST", RecordComparators.value(record -> record.getValueAt(1), Comparator.naturalOrder(), NULLS.LAST));
@@ -144,11 +144,11 @@ public final class ExamplesComparator {
         System.out.println("-showFieldComparators---");
 
         printComparatorField("index", FieldComparators.index());
-        printComparatorField("first", FieldComparators.first());
-        printComparatorField("last", FieldComparators.last());
+        printComparatorField("first", FieldComparators.isFirstField());
+        printComparatorField("last", FieldComparators.isLastField());
         printComparatorField("value: nullsLast(naturalOrder())", FieldComparators.value(Comparator.nullsLast(Comparator.naturalOrder())));
         printComparatorField("value: naturalOrder(), NULLS.LAST", FieldComparators.value(Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorField("length", FieldComparators.length());
+        printComparatorField("length", FieldComparators.valueLength());
     }
 
     private static void showStringComparators() {

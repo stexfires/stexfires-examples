@@ -34,10 +34,10 @@ public final class ExamplesFieldValueMapper {
 
     private static Stream<Field> generateStream() {
         return Stream.of(
-                new Field(0, false, "value1"),
-                new Field(1, false, null),
-                new Field(2, false, ""),
-                new Field(3, true, "value2")
+                new Field(0, 3, "value1"),
+                new Field(1, 3, null),
+                new Field(2, 3, ""),
+                new Field(3, 3, "value2")
         );
     }
 

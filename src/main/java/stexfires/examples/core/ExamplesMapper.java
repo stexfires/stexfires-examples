@@ -224,7 +224,7 @@ public final class ExamplesMapper {
 
         printMapper("constructor", new ValuesMapper<>(record -> Strings.list("new value 0", "new value 1", "new value 2")));
         printMapper("identity", ValuesMapper.identity());
-        printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.getRecordIdAsOptional().orElse(0L) + field.getIndex())));
+        printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.getRecordIdAsOptional().orElse(0L) + field.index())));
         printMapper("mapAllFields", ValuesMapper.mapAllFields(new AddPrefixFieldValueMapper("new: ")));
         printMapperValueRecord("mapOneField", ValuesMapper.mapOneField(ValueRecord::getValueField, new AddPrefixFieldValueMapper("new: ")));
         printMapper("size 0", ValuesMapper.size(0, "<NULL>"));
