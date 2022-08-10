@@ -126,7 +126,7 @@ public final class ExamplesFixedWidthFile {
         RecordFiles.logFile(fixedWidthFile, new SystemOutLogger<>());
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

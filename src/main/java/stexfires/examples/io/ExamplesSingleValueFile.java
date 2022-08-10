@@ -131,6 +131,7 @@ public final class ExamplesSingleValueFile {
         RecordFiles.logFile(singleValueFile, new SystemOutLogger<>());
     }
 
+    @SuppressWarnings("OverlyBroadThrowsClause")
     private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test4---");
 
@@ -152,6 +153,7 @@ public final class ExamplesSingleValueFile {
         }
     }
 
+    @SuppressWarnings("OverlyBroadThrowsClause")
     private static void test5(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test5---");
 
@@ -173,7 +175,7 @@ public final class ExamplesSingleValueFile {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

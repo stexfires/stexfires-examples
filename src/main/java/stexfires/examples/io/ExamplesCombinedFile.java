@@ -65,7 +65,7 @@ public final class ExamplesCombinedFile {
         RecordFiles.logFile(combinedFileRead, new SystemOutLogger<>());
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

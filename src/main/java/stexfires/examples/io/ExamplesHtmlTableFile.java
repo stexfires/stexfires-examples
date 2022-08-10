@@ -116,7 +116,7 @@ public final class ExamplesHtmlTableFile {
         RecordFiles.writeFile(stream, file);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

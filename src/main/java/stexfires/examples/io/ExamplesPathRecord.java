@@ -37,7 +37,7 @@ public final class ExamplesPathRecord {
         System.out.println(pathRecord.pathType());
         System.out.println(pathRecord.fileName());
         System.out.println(pathRecord.fileNameAsOptional());
-        System.out.println(pathRecord.path().toString());
+        System.out.println(pathRecord.path());
         System.out.println(pathRecord.parent());
         System.out.println(pathRecord.parentAsOptional());
         System.out.println(pathRecord.pathNameCount());
@@ -106,7 +106,7 @@ public final class ExamplesPathRecord {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }

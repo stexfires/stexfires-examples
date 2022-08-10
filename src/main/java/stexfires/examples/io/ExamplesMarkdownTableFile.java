@@ -125,7 +125,7 @@ public final class ExamplesMarkdownTableFile {
         RecordFiles.writeFile(stream2, file2, StandardOpenOption.APPEND);
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
         }
