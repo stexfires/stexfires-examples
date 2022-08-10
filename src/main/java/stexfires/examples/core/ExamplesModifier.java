@@ -449,8 +449,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.3 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.category(), r.getRecordId(), "S 1", r.getValueAt(0)),
-                        new StandardRecord(r.category(), r.getRecordId(), "S 3", r.getValueAt(2))
+                        new StandardRecord(r.category(), r.recordId(), "S 1", r.getValueAt(0)),
+                        new StandardRecord(r.category(), r.recordId(), "S 3", r.getValueAt(2))
                 )),
                 new StandardRecord("k1", 1L, "a1", "a2", "a3"),
                 new StandardRecord("k2", 2L, "b1", "b2", "b3"),

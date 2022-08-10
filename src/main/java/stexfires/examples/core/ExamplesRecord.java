@@ -26,11 +26,11 @@ public final class ExamplesRecord {
         System.out.println("categoryOrElse:            " + record.categoryOrElse("else"));
         System.out.println("categoryAsOptional:        " + record.categoryAsOptional());
         System.out.println("categoryAsStream:          " + record.categoryAsStream().findFirst());
-        System.out.println("getRecordId:               " + record.getRecordId());
+        System.out.println("recordId:                  " + record.recordId());
         System.out.println("hasRecordId:               " + record.hasRecordId());
-        System.out.println("getRecordIdAsOptionalLong: " + record.getRecordIdAsOptionalLong());
-        System.out.println("getRecordIdAsOptional:     " + record.getRecordIdAsOptional());
-        System.out.println("streamOfRecordId:          " + record.streamOfRecordId().findFirst());
+        System.out.println("recordIdAsOptionalLong:    " + record.recordIdAsOptionalLong());
+        System.out.println("recordIdAsOptional:        " + record.recordIdAsOptional());
+        System.out.println("recordIdAsStream:          " + record.recordIdAsStream().findFirst());
         System.out.println("size:                      " + record.size());
         System.out.println("isEmpty:                   " + record.isEmpty());
         System.out.println("isValidIndex:              " + record.isValidIndex(0));

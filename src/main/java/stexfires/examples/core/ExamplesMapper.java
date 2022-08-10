@@ -144,7 +144,7 @@ public final class ExamplesMapper {
 
         printMapper("constructor", new FunctionMapper<>(
                 record -> record.categoryOrElse("new category"),
-                record -> record.getRecordIdAsOptional().orElse(-1L),
+                record -> record.recordIdAsOptional().orElse(-1L),
                 record -> Strings.list(record.getValueAtOrElse(0, ""))
         ));
         printMapper("functionMappers", FunctionMapper.functionMappers(
@@ -169,7 +169,7 @@ public final class ExamplesMapper {
     private static void showLookupMapper() {
         System.out.println("-showLookupMapper---");
 
-        printMapper("constructor", new LookupMapper<>(TextRecord::getRecordId,
+        printMapper("constructor", new LookupMapper<>(TextRecord::recordId,
                 recordId -> recordId == null ? null : AddValueMapper.recordId(),
                 new IdentityMapper<>()));
 
@@ -184,7 +184,7 @@ public final class ExamplesMapper {
     private static void showRecordIdMapper() {
         System.out.println("-showRecordIdMapper---");
 
-        printMapper("constructor", new RecordIdMapper<>(record -> record.getRecordIdAsOptional().orElse(-1L) + 100L));
+        printMapper("constructor", new RecordIdMapper<>(record -> record.recordIdAsOptional().orElse(-1L) + 100L));
         printMapper("identity", RecordIdMapper.identity());
         printMapper("supplier", RecordIdMapper.supplier(new SequenceLongSupplier(1000L)));
         printMapper("intSupplier", RecordIdMapper.intSupplier(() -> 1));
@@ -224,7 +224,7 @@ public final class ExamplesMapper {
 
         printMapper("constructor", new ValuesMapper<>(record -> Strings.list("new value 0", "new value 1", "new value 2")));
         printMapper("identity", ValuesMapper.identity());
-        printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.getRecordIdAsOptional().orElse(0L) + field.index())));
+        printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.recordIdAsOptional().orElse(0L) + field.index())));
         printMapper("mapAllFields", ValuesMapper.mapAllFields(new AddPrefixFieldValueMapper("new: ")));
         printMapperValueRecord("mapOneField", ValuesMapper.mapOneField(ValueRecord::getValueField, new AddPrefixFieldValueMapper("new: ")));
         printMapper("size 0", ValuesMapper.size(0, "<NULL>"));
