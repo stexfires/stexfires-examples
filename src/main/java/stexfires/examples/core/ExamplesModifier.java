@@ -208,7 +208,7 @@ public final class ExamplesModifier {
                         groupByValueField(),
                         aggregateToValue(
                                 messageOfFirstElement(ValueMessage.value()),
-                                list -> list.stream().map(TextRecord::getCategory).collect(Collectors.joining(","))
+                                list -> list.stream().map(TextRecord::category).collect(Collectors.joining(","))
                         )));
     }
 
@@ -271,7 +271,7 @@ public final class ExamplesModifier {
 
         printPivotKeyValueRecord("Pivot 1.2 pivotWithClassifications",
                 PivotModifier.pivotWithClassifications(KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfValueField, nullValue,
-                        KeyValueRecord::getCategory, valueClasses
+                        KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
                 new KeyValueRecord("en", 2L, "key1", "value1en"),
@@ -285,7 +285,7 @@ public final class ExamplesModifier {
         );
 
         printPivotStandardRecord("Pivot 1.3 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(TextRecord::getCategory, r -> r.getValueAt(1), nullValue,
+                PivotModifier.pivotWithClassifications(TextRecord::category, r -> r.getValueAt(1), nullValue,
                         r -> r.getValueAt(0), valueClasses),
                 new StandardRecord("key1", 1L, "jp"),
                 new StandardRecord("key1", 2L, "en", "value1en"),
@@ -317,7 +317,7 @@ public final class ExamplesModifier {
         printPivotKeyValueRecord("Pivot 3 constructor classification",
                 new PivotModifier<>(
                         KeyValueRecord::getValueOfKeyField, KeyValueRecord::getValueOfKeyField, r -> Stream.empty(),
-                        KeyValueRecord::getValueOfValueField, nullValue, KeyValueRecord::getCategory, valueClasses
+                        KeyValueRecord::getValueOfValueField, nullValue, KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
                 new KeyValueRecord("en", 2L, "key1", "value1en"),
@@ -396,28 +396,28 @@ public final class ExamplesModifier {
         System.out.println("-showUnaryGroupModifier---");
 
         printUnaryGroup("first",
-                UnaryGroupModifier.first(TextRecord::getCategory));
+                UnaryGroupModifier.first(TextRecord::category));
 
         printUnaryGroup("last",
-                UnaryGroupModifier.last(TextRecord::getCategory));
+                UnaryGroupModifier.last(TextRecord::category));
 
         printUnaryGroup("min recordId",
-                UnaryGroupModifier.min(TextRecord::getCategory, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.min(TextRecord::category, RecordComparators.recordId(NULLS.FIRST)));
 
         printUnaryGroup("max recordId",
-                UnaryGroupModifier.max(TextRecord::getCategory, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.max(TextRecord::category, RecordComparators.recordId(NULLS.FIRST)));
 
         printUnaryGroup("reduce maxBy recordId",
-                UnaryGroupModifier.reduce(TextRecord::getCategory,
+                UnaryGroupModifier.reduce(TextRecord::category,
                         BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))));
 
         printUnaryGroup("collect maxBy recordId",
-                UnaryGroupModifier.collect(TextRecord::getCategory,
+                UnaryGroupModifier.collect(TextRecord::category,
                         Collectors.maxBy(RecordComparators.recordId(NULLS.FIRST)),
                         null));
 
         printUnaryGroup("collect reducing maxBy recordId",
-                UnaryGroupModifier.collect(TextRecord::getCategory,
+                UnaryGroupModifier.collect(TextRecord::category,
                         Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))),
                         null));
     }
@@ -438,8 +438,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.2 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.getCategory(), "S 1", r.getValueAt(0)),
-                        new StandardRecord(r.getCategory(), "S 3", r.getValueAt(2))
+                        new StandardRecord(r.category(), "S 1", r.getValueAt(0)),
+                        new StandardRecord(r.category(), "S 3", r.getValueAt(2))
                 )),
                 new StandardRecord("k1", 1L, "a1", "a2", "a3"),
                 new StandardRecord("k2", 2L, "b1", "b2", "b3"),
@@ -449,8 +449,8 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.3 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.getCategory(), r.getRecordId(), "S 1", r.getValueAt(0)),
-                        new StandardRecord(r.getCategory(), r.getRecordId(), "S 3", r.getValueAt(2))
+                        new StandardRecord(r.category(), r.getRecordId(), "S 1", r.getValueAt(0)),
+                        new StandardRecord(r.category(), r.getRecordId(), "S 3", r.getValueAt(2))
                 )),
                 new StandardRecord("k1", 1L, "a1", "a2", "a3"),
                 new StandardRecord("k2", 2L, "b1", "b2", "b3"),

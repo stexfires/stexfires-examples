@@ -21,11 +21,11 @@ public final class ExamplesRecord {
         System.out.println("arrayOfFields:             " + Arrays.toString(record.arrayOfFields()));
         System.out.println("listOfFields:              " + record.listOfFields());
         System.out.println("streamOfFields:            " + Fields.collectFields(record.streamOfFields()));
-        System.out.println("getCategory:               " + record.getCategory());
+        System.out.println("category:                  " + record.category());
         System.out.println("hasCategory:               " + record.hasCategory());
-        System.out.println("getCategoryOrElse:         " + record.getCategoryOrElse("else"));
-        System.out.println("getCategoryAsOptional:     " + record.getCategoryAsOptional());
-        System.out.println("streamOfCategory:          " + record.streamOfCategory().findFirst());
+        System.out.println("categoryOrElse:            " + record.categoryOrElse("else"));
+        System.out.println("categoryAsOptional:        " + record.categoryAsOptional());
+        System.out.println("categoryAsStream:          " + record.categoryAsStream().findFirst());
         System.out.println("getRecordId:               " + record.getRecordId());
         System.out.println("hasRecordId:               " + record.hasRecordId());
         System.out.println("getRecordIdAsOptionalLong: " + record.getRecordIdAsOptionalLong());

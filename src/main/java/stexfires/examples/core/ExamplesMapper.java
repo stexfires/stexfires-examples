@@ -143,7 +143,7 @@ public final class ExamplesMapper {
         System.out.println("-showFunctionMapper---");
 
         printMapper("constructor", new FunctionMapper<>(
-                record -> record.getCategoryOrElse("new category"),
+                record -> record.categoryOrElse("new category"),
                 record -> record.getRecordIdAsOptional().orElse(-1L),
                 record -> Strings.list(record.getValueAtOrElse(0, ""))
         ));
@@ -239,7 +239,7 @@ public final class ExamplesMapper {
                 Collections.singletonList(new SizeMessage<>())
         ));
         printMapper("applyFunctions array", ValuesMapper.applyFunctions(
-                TextRecord::getCategory, TextRecord::getValueOfLastField
+                TextRecord::category, TextRecord::getValueOfLastField
         ));
         printMapper("applyFunctions list", ValuesMapper.applyFunctions(
                 Collections.singletonList(TextRecord::toString)
