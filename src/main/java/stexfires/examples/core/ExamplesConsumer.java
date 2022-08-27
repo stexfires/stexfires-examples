@@ -20,7 +20,7 @@ import stexfires.core.filter.ClassFilter;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.message.SizeMessage;
 import stexfires.core.record.EmptyRecord;
-import stexfires.core.record.KeyRecord;
+import stexfires.core.KeyRecord;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.PairRecord;
 import stexfires.core.record.SingleRecord;
