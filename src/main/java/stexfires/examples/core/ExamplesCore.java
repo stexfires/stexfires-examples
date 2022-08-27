@@ -3,10 +3,10 @@ package stexfires.examples.core;
 import stexfires.core.Field;
 import stexfires.core.TextRecord;
 import stexfires.core.TextRecords;
-import stexfires.core.record.EmptyRecord;
-import stexfires.core.record.KeyValueRecord;
-import stexfires.core.record.SingleRecord;
-import stexfires.core.record.StandardRecord;
+import stexfires.core.impl.EmptyRecord;
+import stexfires.core.impl.KeyValueRecord;
+import stexfires.core.impl.SingleRecord;
+import stexfires.core.impl.StandardRecord;
 
 import java.util.List;
 import java.util.function.Function;

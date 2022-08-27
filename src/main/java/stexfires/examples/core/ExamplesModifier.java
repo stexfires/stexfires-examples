@@ -28,9 +28,9 @@ import stexfires.core.modifier.SkipLimitModifier;
 import stexfires.core.modifier.SortModifier;
 import stexfires.core.modifier.UnaryGroupModifier;
 import stexfires.core.modifier.UnpivotModifier;
-import stexfires.core.record.KeyValueRecord;
-import stexfires.core.record.SingleRecord;
-import stexfires.core.record.StandardRecord;
+import stexfires.core.impl.KeyValueRecord;
+import stexfires.core.impl.SingleRecord;
+import stexfires.core.impl.StandardRecord;
 import stexfires.core.ValueRecord;
 
 import java.util.ArrayList;

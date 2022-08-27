@@ -9,8 +9,8 @@ import stexfires.core.comparator.NULLS;
 import stexfires.core.comparator.RecordComparators;
 import stexfires.core.comparator.StringComparators;
 import stexfires.core.consumer.SystemOutConsumer;
-import stexfires.core.record.KeyValueRecord;
-import stexfires.core.record.StandardRecord;
+import stexfires.core.impl.KeyValueRecord;
+import stexfires.core.impl.StandardRecord;
 import stexfires.util.StringUnaryOperatorType;
 
 import java.text.Collator;

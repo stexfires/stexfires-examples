@@ -3,7 +3,7 @@ package stexfires.examples.io;
 import stexfires.core.consumer.ConsumerException;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.producer.ProducerException;
-import stexfires.core.record.KeyValueRecord;
+import stexfires.core.impl.KeyValueRecord;
 import stexfires.core.ValueRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.combined.CombinedReadableRecordFile;

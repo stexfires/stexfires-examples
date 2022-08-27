@@ -9,11 +9,11 @@ import stexfires.core.mapper.ToKeyValueMapper;
 import stexfires.core.mapper.ToPairMapper;
 import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ToStandardMapper;
-import stexfires.core.record.EmptyRecord;
-import stexfires.core.record.KeyValueRecord;
-import stexfires.core.record.PairRecord;
-import stexfires.core.record.SingleRecord;
-import stexfires.core.record.StandardRecord;
+import stexfires.core.impl.EmptyRecord;
+import stexfires.core.impl.KeyValueRecord;
+import stexfires.core.impl.PairRecord;
+import stexfires.core.impl.SingleRecord;
+import stexfires.core.impl.StandardRecord;
 import stexfires.util.Strings;
 
 import java.util.stream.Stream;

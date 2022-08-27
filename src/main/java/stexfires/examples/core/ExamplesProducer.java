@@ -8,7 +8,7 @@ import stexfires.core.producer.DividingProducer;
 import stexfires.core.producer.KeyValueProducer;
 import stexfires.core.producer.RecordProducer;
 import stexfires.core.producer.SingleProducer;
-import stexfires.core.record.KeyValueRecord;
+import stexfires.core.impl.KeyValueRecord;
 import stexfires.util.Strings;
 import stexfires.util.supplier.SequenceLongSupplier;
 

@@ -4,7 +4,7 @@ import stexfires.core.TextRecord;
 import stexfires.core.consumer.ConsumerException;
 import stexfires.core.filter.RecordFilter;
 import stexfires.core.filter.ValueFilter;
-import stexfires.core.record.StandardRecord;
+import stexfires.core.impl.StandardRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.markdown.table.MarkdownTableConsumer;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
