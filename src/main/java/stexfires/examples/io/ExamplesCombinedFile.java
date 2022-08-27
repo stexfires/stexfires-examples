@@ -4,7 +4,7 @@ import stexfires.core.consumer.ConsumerException;
 import stexfires.core.logger.SystemOutLogger;
 import stexfires.core.producer.ProducerException;
 import stexfires.core.record.KeyValueRecord;
-import stexfires.core.record.ValueRecord;
+import stexfires.core.ValueRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.combined.CombinedReadableRecordFile;
 import stexfires.io.combined.CombinedWritableRecordFile;

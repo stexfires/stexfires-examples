@@ -31,7 +31,7 @@ import stexfires.core.modifier.UnpivotModifier;
 import stexfires.core.record.KeyValueRecord;
 import stexfires.core.record.SingleRecord;
 import stexfires.core.record.StandardRecord;
-import stexfires.core.record.ValueRecord;
+import stexfires.core.ValueRecord;
 
 import java.util.ArrayList;
 import java.util.Comparator;

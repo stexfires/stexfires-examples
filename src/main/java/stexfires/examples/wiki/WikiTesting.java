@@ -6,7 +6,7 @@ import stexfires.core.mapper.RecordMapper;
 import stexfires.core.mapper.ToSingleMapper;
 import stexfires.core.mapper.ValuesMapper;
 import stexfires.core.producer.ProducerException;
-import stexfires.core.record.ValueRecord;
+import stexfires.core.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
