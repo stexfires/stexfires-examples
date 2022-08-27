@@ -61,6 +61,7 @@ public final class ExamplesRecord {
         System.out.println("valueOfKeyField:           " + record.valueOfKeyField());
         System.out.println("valueField:                " + record.valueField());
         System.out.println("valueOfValueField:         " + record.valueOfValueField());
+        System.out.println("newKeyRecord:              " + record.newKeyRecord("newKey"));
         System.out.println("newValueRecord:            " + record.newValueRecord("new value"));
         printRecord(record);
 
@@ -69,6 +70,7 @@ public final class ExamplesRecord {
         System.out.println("valueOfKeyField:           " + record1.valueOfKeyField());
         System.out.println("valueField:                " + record1.valueField());
         System.out.println("valueOfValueField:         " + record1.valueOfValueField());
+        System.out.println("newKeyRecord:              " + record1.newKeyRecord("newKey"));
         System.out.println("newValueRecord:            " + record1.newValueRecord("new value"));
         printRecord(record1);
     }
