@@ -8,9 +8,9 @@ import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.PairRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
+import stexfires.record.impl.TwoValuesRecord;
 import stexfires.record.mapper.AddValueMapper;
 import stexfires.record.mapper.CategoryMapper;
 import stexfires.record.mapper.ConditionalMapper;
@@ -21,7 +21,7 @@ import stexfires.record.mapper.LookupMapper;
 import stexfires.record.mapper.RecordIdMapper;
 import stexfires.record.mapper.RecordMapper;
 import stexfires.record.mapper.SupplierMapper;
-import stexfires.record.mapper.ToSingleMapper;
+import stexfires.record.mapper.ToOneValueRecordMapper;
 import stexfires.record.mapper.ValuesMapper;
 import stexfires.record.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.record.message.ConstantMessage;
@@ -49,19 +49,19 @@ public final class ExamplesMapper {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new SingleRecord("category", 0L, "value1"),
-                new SingleRecord("value2"),
+                new OneValueRecord("category", 0L, "value1"),
+                new OneValueRecord("value2"),
                 new KeyValueRecord("category", 1L, "key", "value"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord("category", 2L),
+                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord("category", 2L),
                 new EmptyRecord()
         );
     }
 
     private static Stream<ValueRecord> generateStreamValueRecord() {
         return Stream.of(
-                new SingleRecord("category", 0L, "value1"),
-                new SingleRecord("value2"),
+                new OneValueRecord("category", 0L, "value1"),
+                new OneValueRecord("value2"),
                 new KeyValueRecord("category", 1L, "key", "value")
         );
     }
@@ -136,7 +136,7 @@ public final class ExamplesMapper {
     private static void showConstantMapper() {
         System.out.println("-showConstantMapper---");
 
-        printMapper("constructor", new ConstantMapper<>(new PairRecord("A", "B")));
+        printMapper("constructor", new ConstantMapper<>(new TwoValuesRecord("A", "B")));
     }
 
     private static void showFunctionMapper() {
@@ -202,7 +202,7 @@ public final class ExamplesMapper {
 
         printMapper("concat 2", RecordMapper.concat(
                 CategoryMapper.constantNull(),
-                new ToSingleMapper<>(1)));
+                new ToOneValueRecordMapper<>(1)));
         printMapperValueRecord("concat 3", RecordMapper.concat(
                 CategoryMapper.categoryOrElse("missing category"),
                 RecordIdMapper.longSupplier(new SequencePrimitiveLongSupplier(1000L)),
@@ -210,13 +210,13 @@ public final class ExamplesMapper {
         printMapper("compose",
                 CategoryMapper.constantNull().compose(AddValueMapper.constant("new value")));
         printMapper("andThen",
-                new ToSingleMapper<>(0).andThen(AddValueMapper.constant("new value")));
+                new ToOneValueRecordMapper<>(0).andThen(AddValueMapper.constant("new value")));
     }
 
     private static void showSupplierMapper() {
         System.out.println("-showSupplierMapper---");
 
-        printMapper("constructor", new SupplierMapper<>(() -> new SingleRecord("value")));
+        printMapper("constructor", new SupplierMapper<>(() -> new OneValueRecord("value")));
     }
 
     private static void showValuesMapper() {

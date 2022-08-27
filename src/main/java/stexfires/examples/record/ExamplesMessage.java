@@ -5,9 +5,9 @@ import stexfires.record.TextRecordStreams;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.PairRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
+import stexfires.record.impl.TwoValuesRecord;
 import stexfires.record.mapper.fieldvalue.AddPrefixFieldValueMapper;
 import stexfires.record.message.CategoryMessage;
 import stexfires.record.message.ClassNameMessage;
@@ -38,27 +38,27 @@ public final class ExamplesMessage {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new SingleRecord("category", 0L, "A"),
-                new SingleRecord("category", 1L, "B"),
-                new SingleRecord("", 2L, "C"),
-                new SingleRecord("Category", 3L, "D"),
-                new SingleRecord(null, 4L, "E"),
-                new SingleRecord("c", 5L, "F"),
-                new PairRecord("c", 6L, "X", "Y"),
+                new OneValueRecord("category", 0L, "A"),
+                new OneValueRecord("category", 1L, "B"),
+                new OneValueRecord("", 2L, "C"),
+                new OneValueRecord("Category", 3L, "D"),
+                new OneValueRecord(null, 4L, "E"),
+                new OneValueRecord("c", 5L, "F"),
+                new TwoValuesRecord("c", 6L, "X", "Y"),
                 new KeyValueRecord("key", "value"),
-                new StandardRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
-                new StandardRecord("Category", 8L, null, null, null, null),
+                new ManyValuesRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord(),
+                new ManyValuesRecord("Category", 8L, null, null, null, null),
                 new EmptyRecord()
         );
     }
 
-    private static Stream<SingleRecord> generateStreamSingleRecord() {
+    private static Stream<OneValueRecord> generateStreamOneValueRecord() {
         return Stream.of(
-                new SingleRecord("value1"),
-                new SingleRecord(null, 2L, "value2"),
-                new SingleRecord("category", 3L, "value3")
+                new OneValueRecord("value1"),
+                new OneValueRecord(null, 2L, "value2"),
+                new OneValueRecord("category", 3L, "value3")
         );
     }
 
@@ -75,9 +75,9 @@ public final class ExamplesMessage {
         Strings.printLine(TextRecordStreams.mapToMessage(generateStream(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
-    private static void printMessageSingleRecord(String title, RecordMessage<? super SingleRecord> recordMessage) {
+    private static void printMessageOneValueRecord(String title, RecordMessage<? super OneValueRecord> recordMessage) {
         System.out.println("--" + title);
-        Strings.printLine(TextRecordStreams.mapToMessage(generateStreamSingleRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
+        Strings.printLine(TextRecordStreams.mapToMessage(generateStreamOneValueRecord(), recordMessage), Strings.DEFAULT_DELIMITER);
     }
 
     private static void printMessageKeyValueRecord(String title, RecordMessage<? super KeyValueRecord> recordMessage) {
@@ -92,7 +92,7 @@ public final class ExamplesMessage {
                 new CategoryMessage<>());
         printMessage("constructor nullCategoryValue",
                 new CategoryMessage<>("<NULL>"));
-        printMessageSingleRecord("constructor SingleRecord",
+        printMessageOneValueRecord("constructor OneValueRecord",
                 new CategoryMessage<>());
         printMessageKeyValueRecord("constructor KeyValueRecord",
                 new CategoryMessage<>());
@@ -105,7 +105,7 @@ public final class ExamplesMessage {
                 new ClassNameMessage<>());
         printMessage("constructor hashCode",
                 new ClassNameMessage<>(true));
-        printMessageSingleRecord("constructor SingleRecord",
+        printMessageOneValueRecord("constructor OneValueRecord",
                 new ClassNameMessage<>());
         printMessageKeyValueRecord("constructor KeyValueRecord",
                 new ClassNameMessage<>());
@@ -116,7 +116,7 @@ public final class ExamplesMessage {
 
         printMessage("category / size",
                 new CompareMessageBuilder().category().size().build());
-        printMessageSingleRecord("className / category(other)",
+        printMessageOneValueRecord("className / category(other)",
                 new CompareMessageBuilder().className().category("<NULL>>").build());
         printMessage("values",
                 new CompareMessageBuilder().values().build());
@@ -126,13 +126,13 @@ public final class ExamplesMessage {
         System.out.println("-showConditionalMessage---");
 
         printMessage("constructor",
-                new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
+                new ConditionalMessage<>(ClassFilter.equalTo(OneValueRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
-        printMessageSingleRecord("constructor SingleRecord",
-                new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
+        printMessageOneValueRecord("constructor OneValueRecord",
+                new ConditionalMessage<>(ClassFilter.equalTo(OneValueRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
         printMessageKeyValueRecord("constructor KeyValueRecord",
-                new ConditionalMessage<>(ClassFilter.equalTo(SingleRecord.class),
+                new ConditionalMessage<>(ClassFilter.equalTo(OneValueRecord.class),
                         new ConstantMessage<>("single"), new ShortMessage<>()));
     }
 
@@ -263,9 +263,9 @@ public final class ExamplesMessage {
                 ValueMessage.key());
         printMessageKeyValueRecord("keyField",
                 ValueMessage.keyField(new AddPrefixFieldValueMapper("new key: ")));
-        printMessageSingleRecord("value",
+        printMessageOneValueRecord("value",
                 ValueMessage.value());
-        printMessageSingleRecord("valueField",
+        printMessageOneValueRecord("valueField",
                 ValueMessage.valueField(new AddPrefixFieldValueMapper("new value: ")));
     }
 

@@ -6,9 +6,9 @@ import stexfires.record.TextRecords;
 import stexfires.record.impl.KeyValueRecord;
 import stexfires.record.producer.ConstantProducer;
 import stexfires.record.producer.DividingProducer;
-import stexfires.record.producer.KeyValueProducer;
+import stexfires.record.producer.KeyValueRecordProducer;
+import stexfires.record.producer.OneValueRecordProducer;
 import stexfires.record.producer.RecordProducer;
-import stexfires.record.producer.SingleProducer;
 import stexfires.util.Strings;
 import stexfires.util.supplier.SequenceLongSupplier;
 
@@ -34,11 +34,11 @@ public final class ExamplesProducer {
 
         printProducer(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
         printProducer(ConstantProducer.emptyRecords(streamSize));
-        printProducer(ConstantProducer.singleRecords(streamSize, "value1"));
-        printProducer(ConstantProducer.pairRecords(streamSize, "value1", "value2"));
+        printProducer(ConstantProducer.oneValueRecords(streamSize, "value1"));
+        printProducer(ConstantProducer.twoValuesRecords(streamSize, "value1", "value2"));
         printProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
-        printProducer(ConstantProducer.standardRecords(streamSize, Strings.list("value1", "value2")));
-        printProducer(ConstantProducer.standardRecords(streamSize, "value1", "value2", "value3"));
+        printProducer(ConstantProducer.manyValuesRecords(streamSize, Strings.list("value1", "value2")));
+        printProducer(ConstantProducer.manyValuesRecords(streamSize, "value1", "value2", "value3"));
     }
 
     private static void showDividingProducer() {
@@ -62,10 +62,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        printProducer(new KeyValueProducer(keyValueMap));
-        printProducer(new KeyValueProducer(category, keyValueMap));
-        printProducer(new KeyValueProducer(category, new SequenceLongSupplier(100L), keyValueMap));
-        printProducer(new KeyValueProducer(category, TextRecords.recordIdSequence(), keyValueMap,
+        printProducer(new KeyValueRecordProducer(keyValueMap));
+        printProducer(new KeyValueRecordProducer(category, keyValueMap));
+        printProducer(new KeyValueRecordProducer(category, new SequenceLongSupplier(100L), keyValueMap));
+        printProducer(new KeyValueRecordProducer(category, TextRecords.recordIdSequence(), keyValueMap,
                 Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
@@ -79,10 +79,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        printProducer(new SingleProducer(values));
-        printProducer(new SingleProducer(category, values));
-        printProducer(new SingleProducer(category, new SequenceLongSupplier(100L), values));
-        printProducer(new SingleProducer(category, TextRecords.recordIdSequence(), values,
+        printProducer(new OneValueRecordProducer(values));
+        printProducer(new OneValueRecordProducer(category, values));
+        printProducer(new OneValueRecordProducer(category, new SequenceLongSupplier(100L), values));
+        printProducer(new OneValueRecordProducer(category, TextRecords.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 

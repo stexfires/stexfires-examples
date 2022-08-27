@@ -8,9 +8,9 @@ import stexfires.record.TextRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.PairRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
+import stexfires.record.impl.TwoValuesRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
@@ -58,20 +58,20 @@ public final class ExamplesConfigFile {
                 new KeyValueRecord("Section500", 502L, "property502", "value502"),
                 new KeyValueRecord("Section500", 503L, "property500", "value503"),
 
-                new StandardRecord("Section200", 200L),
-                new StandardRecord("Section200", 201L, "A", "B", "C"),
-                new StandardRecord("Section200", 202L, "A", "D"),
-                new StandardRecord("Section200", 203L, "A", "B", "D"),
-                new StandardRecord("Section200", 204L, "a", "b", "c", "d"),
-                new StandardRecord("Section200", 205L, "A"),
+                new ManyValuesRecord("Section200", 200L),
+                new ManyValuesRecord("Section200", 201L, "A", "B", "C"),
+                new ManyValuesRecord("Section200", 202L, "A", "D"),
+                new ManyValuesRecord("Section200", 203L, "A", "B", "D"),
+                new ManyValuesRecord("Section200", 204L, "a", "b", "c", "d"),
+                new ManyValuesRecord("Section200", 205L, "A"),
 
-                new SingleRecord("Section300", 300L, "property300"),
+                new OneValueRecord("Section300", 300L, "property300"),
 
-                new PairRecord("Section400", 400L, "property400", "value400"),
-                new PairRecord("Section400", 400L, "property400", "value400"),
-                new PairRecord("Section400", 400L, "property400", "value400"),
-                new PairRecord("Section400", 401L, "property400", "value401"),
-                new PairRecord("Section400", 401L, "property401", "value401"),
+                new TwoValuesRecord("Section400", 400L, "property400", "value400"),
+                new TwoValuesRecord("Section400", 400L, "property400", "value400"),
+                new TwoValuesRecord("Section400", 400L, "property400", "value400"),
+                new TwoValuesRecord("Section400", 401L, "property400", "value401"),
+                new TwoValuesRecord("Section400", 401L, "property401", "value401"),
 
                 new KeyValueRecord("Section100", 100L, "", null),
                 new KeyValueRecord("Section100", 101L, "", ""),

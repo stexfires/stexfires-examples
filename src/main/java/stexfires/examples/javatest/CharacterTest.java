@@ -8,7 +8,7 @@ import stexfires.record.TextRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.filter.RecordFilter;
 import stexfires.record.filter.ValueFilter;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 import stexfires.util.StringComparisonType;
@@ -150,7 +150,7 @@ public final class CharacterTest {
         String name = Character.getName(characterId);
         String directionality = getDirectionality(characterId);
 
-        return new StandardRecord(characterAsString, characterIdAsLong,
+        return new ManyValuesRecord(characterAsString, characterIdAsLong,
                 characterIdAsDecString,
                 characterIdAsHexString,
                 printChar,

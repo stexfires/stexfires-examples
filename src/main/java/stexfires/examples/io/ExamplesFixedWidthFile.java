@@ -7,8 +7,8 @@ import stexfires.io.fixedwidth.FixedWidthFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
@@ -32,23 +32,23 @@ public final class ExamplesFixedWidthFile {
 
     private static Stream<TextRecord> generateStream1() {
         return Stream.of(
-                new StandardRecord(null, 0L, "a", "1", "AAAA", "ä", "zu viele Werte"),
-                new StandardRecord(null, 1L, "b", "2", "BB", "€µ"),
-                new StandardRecord(null, 2L, "c", "3", "C", ""),
-                new StandardRecord(null, 3L, "d", "4", "dDDDDd", null),
-                new StandardRecord(null, 4L, "e", "05", "eEEEEEEEEEEEEEEEEEe"),
-                new StandardRecord(null, 5L),
-                new StandardRecord(null, 6L, null, null, null, null),
-                new StandardRecord(null, 7L, "", "", "", "")
+                new ManyValuesRecord(null, 0L, "a", "1", "AAAA", "ä", "zu viele Werte"),
+                new ManyValuesRecord(null, 1L, "b", "2", "BB", "€µ"),
+                new ManyValuesRecord(null, 2L, "c", "3", "C", ""),
+                new ManyValuesRecord(null, 3L, "d", "4", "dDDDDd", null),
+                new ManyValuesRecord(null, 4L, "e", "05", "eEEEEEEEEEEEEEEEEEe"),
+                new ManyValuesRecord(null, 5L),
+                new ManyValuesRecord(null, 6L, null, null, null, null),
+                new ManyValuesRecord(null, 7L, "", "", "", "")
         );
     }
 
-    private static Stream<SingleRecord> generateStream2() {
+    private static Stream<OneValueRecord> generateStream2() {
         return Stream.of(
-                new SingleRecord("abcdefghijklmnopqrstuvwxyz"),
-                new SingleRecord(""),
-                new SingleRecord("_"),
-                new SingleRecord("_...------_____##___")
+                new OneValueRecord("abcdefghijklmnopqrstuvwxyz"),
+                new OneValueRecord(""),
+                new OneValueRecord("_"),
+                new OneValueRecord("_...------_____##___")
         );
     }
 

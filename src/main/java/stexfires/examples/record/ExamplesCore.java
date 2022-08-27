@@ -5,8 +5,8 @@ import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
 
 import java.util.List;
 import java.util.function.Function;
@@ -32,11 +32,11 @@ public final class ExamplesCore {
 
     private static Stream<TextRecord> generateRecordStream() {
         return Stream.of(
-                new SingleRecord("value1"),
-                new SingleRecord("value2"),
+                new OneValueRecord("value1"),
+                new OneValueRecord("value2"),
                 new KeyValueRecord("key", "value"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
+                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord(),
                 new EmptyRecord()
         );
     }

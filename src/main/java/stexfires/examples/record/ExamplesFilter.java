@@ -15,9 +15,9 @@ import stexfires.record.filter.SupplierFilter;
 import stexfires.record.filter.ValueFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.PairRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
+import stexfires.record.impl.TwoValuesRecord;
 import stexfires.record.message.CategoryMessage;
 import stexfires.util.NumberCheckType;
 import stexfires.util.NumberComparisonType;
@@ -39,17 +39,17 @@ public final class ExamplesFilter {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new SingleRecord("category", 0L, "A"),
-                new SingleRecord("category", 1L, ""),
-                new SingleRecord("", 2L, "C"),
-                new SingleRecord("Category", 3L, "D"),
-                new SingleRecord(null, 4L, "E"),
-                new SingleRecord("c", 5L, "F"),
-                new PairRecord("c", 6L, "X", "Y"),
+                new OneValueRecord("category", 0L, "A"),
+                new OneValueRecord("category", 1L, ""),
+                new OneValueRecord("", 2L, "C"),
+                new OneValueRecord("Category", 3L, "D"),
+                new OneValueRecord(null, 4L, "E"),
+                new OneValueRecord("c", 5L, "F"),
+                new TwoValuesRecord("c", 6L, "X", "Y"),
                 new KeyValueRecord("key", "value"),
-                new StandardRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
+                new ManyValuesRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyValuesRecord(),
                 new EmptyRecord()
         );
     }
@@ -86,11 +86,11 @@ public final class ExamplesFilter {
         printFilter("constructor",
                 new ClassFilter<>(clazz -> EmptyRecord.class != clazz));
         printFilter("equalTo",
-                ClassFilter.equalTo(PairRecord.class));
+                ClassFilter.equalTo(TwoValuesRecord.class));
         printFilter("containedIn Collection",
-                ClassFilter.containedIn(Collections.singletonList(PairRecord.class)));
+                ClassFilter.containedIn(Collections.singletonList(TwoValuesRecord.class)));
         printFilter("containedIn List",
-                ClassFilter.containedIn(List.of(PairRecord.class, EmptyRecord.class)));
+                ClassFilter.containedIn(List.of(TwoValuesRecord.class, EmptyRecord.class)));
     }
 
     private static void showConstantFilter() {
@@ -144,15 +144,15 @@ public final class ExamplesFilter {
         System.out.println("-showRecordFilter---");
 
         printFilter("concatAnd",
-                RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class), SizeFilter.equalTo(8)));
+                RecordFilter.concatAnd(ClassFilter.equalTo(ManyValuesRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatOr",
-                RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
+                RecordFilter.concatOr(ClassFilter.equalTo(ManyValuesRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
         printFilter("and",
-                ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8)));
+                ClassFilter.equalTo(ManyValuesRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
                 SizeFilter.equalTo(1).negate());
         printFilter("or",
-                ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
+                ClassFilter.equalTo(ManyValuesRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
     }
 
     private static void showRecordIdFilter() {

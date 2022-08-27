@@ -9,8 +9,8 @@ import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.EmptyRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.OneValueRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
@@ -32,19 +32,19 @@ public final class ExamplesSimpleDelimitedFile {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new StandardRecord(null, 0L, "a", "0", "AAAA", "ä"),
-                new StandardRecord(null, 1L, "b", "1", "BB", "€"),
-                new StandardRecord(null, 2L, "c", "2", "C", ""),
-                new StandardRecord(null, 3L, "d", "3.33", "dDDDDd", null),
-                new StandardRecord(null, 4L, "e", "004", "eEEEEEEEEEEEEEEEEEe", "    "),
-                new StandardRecord(null, 5L, "f", null, "    ", "fff"),
-                new StandardRecord(null, 6L, null, null, null, null),
-                new StandardRecord(null, 7L, "", "", "", ""),
-                new StandardRecord(null, 8L, "  ", "  ", "  ", "  "),
-                new StandardRecord(null, 9L, "j", "9", "k", "l", "m", "n", "o"),
+                new ManyValuesRecord(null, 0L, "a", "0", "AAAA", "ä"),
+                new ManyValuesRecord(null, 1L, "b", "1", "BB", "€"),
+                new ManyValuesRecord(null, 2L, "c", "2", "C", ""),
+                new ManyValuesRecord(null, 3L, "d", "3.33", "dDDDDd", null),
+                new ManyValuesRecord(null, 4L, "e", "004", "eEEEEEEEEEEEEEEEEEe", "    "),
+                new ManyValuesRecord(null, 5L, "f", null, "    ", "fff"),
+                new ManyValuesRecord(null, 6L, null, null, null, null),
+                new ManyValuesRecord(null, 7L, "", "", "", ""),
+                new ManyValuesRecord(null, 8L, "  ", "  ", "  ", "  "),
+                new ManyValuesRecord(null, 9L, "j", "9", "k", "l", "m", "n", "o"),
                 new EmptyRecord(),
-                new StandardRecord(null, 11L),
-                new StandardRecord(null, 12L, "---")
+                new ManyValuesRecord(null, 11L),
+                new ManyValuesRecord(null, 12L, "---")
         );
     }
 
@@ -85,21 +85,21 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Write
         System.out.println("write (prepare read with SingleValueFile): " + path);
-        Stream<SingleRecord> singleRecordStream = Stream.of(
-                new SingleRecord("Header"),
-                new SingleRecord("------"),
-                new SingleRecord("A1"),
-                new SingleRecord(""),
-                new SingleRecord(" "),
-                new SingleRecord("B1,B2"),
-                new SingleRecord(","),
-                new SingleRecord(" , "),
-                new SingleRecord("C1,C2,C3,"),
-                new SingleRecord(",,,"),
-                new SingleRecord(" , , ,"),
-                new SingleRecord("Footer")
+        Stream<OneValueRecord> oneValueRecordStream = Stream.of(
+                new OneValueRecord("Header"),
+                new OneValueRecord("------"),
+                new OneValueRecord("A1"),
+                new OneValueRecord(""),
+                new OneValueRecord(" "),
+                new OneValueRecord("B1,B2"),
+                new OneValueRecord(","),
+                new OneValueRecord(" , "),
+                new OneValueRecord("C1,C2,C3,"),
+                new OneValueRecord(",,,"),
+                new OneValueRecord(" , , ,"),
+                new OneValueRecord("Footer")
         );
-        RecordFiles.writeFile(singleRecordStream, singleValueFileWrite);
+        RecordFiles.writeFile(oneValueRecordStream, singleValueFileWrite);
 
         List<SimpleDelimitedFieldSpec> fieldSpecs = new ArrayList<>();
         fieldSpecs.add(new SimpleDelimitedFieldSpec());

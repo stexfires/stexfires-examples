@@ -13,7 +13,7 @@ import stexfires.record.TextRecord;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.mapper.RecordMapper;
-import stexfires.record.mapper.ToSingleMapper;
+import stexfires.record.mapper.ToOneValueRecordMapper;
 import stexfires.record.mapper.ValuesMapper;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
@@ -84,7 +84,7 @@ public final class WikiTesting {
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
                                                                            r -> "[" + r.valueAt(0) + "]" + "(" + r.valueAt(1) + ")")
-                                                                   .andThen(new ToSingleMapper<>(0));
+                                                                   .andThen(new ToOneValueRecordMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }

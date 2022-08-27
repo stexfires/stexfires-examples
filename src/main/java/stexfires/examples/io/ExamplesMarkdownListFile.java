@@ -6,7 +6,7 @@ import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.OneValueRecord;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
@@ -28,8 +28,8 @@ public final class ExamplesMarkdownListFile {
                 .write(
                         StandardCharsets.UTF_8,
                         lineSeparator,
-                        "Header SingleRecord",
-                        "Footer SingleRecord",
+                        "Header OneValueRecord",
+                        "Footer OneValueRecord",
                         MarkdownListFileSpec.BulletPoint.NUMBER,
                         true
                 )
@@ -37,11 +37,11 @@ public final class ExamplesMarkdownListFile {
 
         // Write
         System.out.println("write: " + path);
-        Stream<SingleRecord> stream = TextRecordStreams.of(
-                new SingleRecord("a"),
-                new SingleRecord("b"),
-                new SingleRecord(null),
-                new SingleRecord("d")
+        Stream<OneValueRecord> stream = TextRecordStreams.of(
+                new OneValueRecord("a"),
+                new OneValueRecord("b"),
+                new OneValueRecord(null),
+                new OneValueRecord("d")
         );
         RecordFiles.writeFile(stream, file);
     }
