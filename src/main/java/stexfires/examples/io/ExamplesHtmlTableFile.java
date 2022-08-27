@@ -1,14 +1,14 @@
 package stexfires.examples.io;
 
-import stexfires.record.TextRecordStreams;
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.mapper.AddValueMapper;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.html.table.HtmlTableFieldSpec;
 import stexfires.io.html.table.HtmlTableFile;
 import stexfires.io.html.table.HtmlTableFileSpec;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.mapper.AddValueMapper;
 import stexfires.util.LineSeparator;
 
 import java.io.File;

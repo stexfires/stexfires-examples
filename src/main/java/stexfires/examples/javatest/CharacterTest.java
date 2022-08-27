@@ -1,14 +1,14 @@
 package stexfires.examples.javatest;
 
+import stexfires.io.RecordIOStreams;
+import stexfires.io.markdown.table.MarkdownTableConsumer;
+import stexfires.io.markdown.table.MarkdownTableFieldSpec;
+import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.filter.RecordFilter;
 import stexfires.record.filter.ValueFilter;
 import stexfires.record.impl.StandardRecord;
-import stexfires.io.RecordIOStreams;
-import stexfires.io.markdown.table.MarkdownTableConsumer;
-import stexfires.io.markdown.table.MarkdownTableFieldSpec;
-import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 import stexfires.util.StringComparisonType;

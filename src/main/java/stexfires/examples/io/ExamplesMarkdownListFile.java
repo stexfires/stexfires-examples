@@ -1,12 +1,12 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFiles;
+import stexfires.io.markdown.list.MarkdownListFile;
+import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueRecord;
 import stexfires.record.impl.SingleRecord;
-import stexfires.io.RecordFiles;
-import stexfires.io.markdown.list.MarkdownListFile;
-import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.util.LineSeparator;
 
 import java.io.File;

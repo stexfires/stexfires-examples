@@ -1,13 +1,13 @@
 package stexfires.examples.io;
 
-import stexfires.record.TextRecord;
-import stexfires.record.TextRecordStreams;
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFile;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 

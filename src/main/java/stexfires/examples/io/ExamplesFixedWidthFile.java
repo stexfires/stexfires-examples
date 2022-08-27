@@ -1,16 +1,16 @@
 package stexfires.examples.io;
 
-import stexfires.record.TextRecord;
-import stexfires.record.TextRecordStreams;
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.producer.ProducerException;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.fixedwidth.FixedWidthFieldSpec;
 import stexfires.io.fixedwidth.FixedWidthFile;
 import stexfires.io.fixedwidth.FixedWidthFileSpec;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 

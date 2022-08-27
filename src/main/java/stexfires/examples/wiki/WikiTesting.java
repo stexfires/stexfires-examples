@@ -1,12 +1,5 @@
 package stexfires.examples.wiki;
 
-import stexfires.record.TextRecord;
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.mapper.RecordMapper;
-import stexfires.record.mapper.ToSingleMapper;
-import stexfires.record.mapper.ValuesMapper;
-import stexfires.record.producer.ProducerException;
-import stexfires.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
@@ -16,6 +9,13 @@ import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.io.markdown.table.MarkdownTableConsumer;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
+import stexfires.record.TextRecord;
+import stexfires.record.ValueRecord;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.mapper.RecordMapper;
+import stexfires.record.mapper.ToSingleMapper;
+import stexfires.record.mapper.ValuesMapper;
+import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 

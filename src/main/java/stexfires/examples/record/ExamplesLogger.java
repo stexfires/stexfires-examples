@@ -1,10 +1,17 @@
 package stexfires.examples.record;
 
+import stexfires.record.KeyRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.ValueRecord;
 import stexfires.record.consumer.NullConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
+import stexfires.record.impl.EmptyRecord;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.PairRecord;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.record.logger.AppendableLogger;
 import stexfires.record.logger.CollectionLogger;
 import stexfires.record.logger.ConditionalLogger;
@@ -16,13 +23,6 @@ import stexfires.record.logger.RecordLogger;
 import stexfires.record.logger.SystemErrLogger;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.message.SizeMessage;
-import stexfires.record.impl.EmptyRecord;
-import stexfires.record.KeyRecord;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.PairRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
-import stexfires.record.ValueRecord;
 
 import java.io.StringWriter;
 import java.util.ArrayList;

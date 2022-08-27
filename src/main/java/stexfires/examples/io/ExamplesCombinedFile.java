@@ -1,10 +1,5 @@
 package stexfires.examples.io;
 
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.producer.ProducerException;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.ValueRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.combined.CombinedReadableRecordFile;
 import stexfires.io.combined.CombinedWritableRecordFile;
@@ -13,6 +8,11 @@ import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
 import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
+import stexfires.record.ValueRecord;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
 
 import java.io.File;

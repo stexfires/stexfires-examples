@@ -1,16 +1,16 @@
 package stexfires.examples.io;
 
-import stexfires.record.TextRecordStreams;
-import stexfires.record.consumer.ConsumerException;
-import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.producer.ProducerException;
-import stexfires.record.impl.SingleRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;
 import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
 
 import java.io.File;

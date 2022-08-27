@@ -1,7 +1,5 @@
 package stexfires.examples.io;
 
-import stexfires.record.TextRecordStreams;
-import stexfires.record.consumer.ConsumerException;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFile;
@@ -11,6 +9,8 @@ import stexfires.io.path.PathRecord;
 import stexfires.io.path.PathRecords;
 import stexfires.io.path.PathType;
 import stexfires.io.path.PathTypeFilter;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
 import stexfires.util.LineSeparator;
 
 import java.io.File;

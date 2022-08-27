@@ -2,11 +2,15 @@ package stexfires.examples.record;
 
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.ValueRecord;
 import stexfires.record.comparator.NULLS;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.RecordIdFilter;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.mapper.ToPairMapper;
 import stexfires.record.message.CategoryMessage;
@@ -28,10 +32,6 @@ import stexfires.record.modifier.SkipLimitModifier;
 import stexfires.record.modifier.SortModifier;
 import stexfires.record.modifier.UnaryGroupModifier;
 import stexfires.record.modifier.UnpivotModifier;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.SingleRecord;
-import stexfires.record.impl.StandardRecord;
-import stexfires.record.ValueRecord;
 
 import java.util.ArrayList;
 import java.util.Comparator;

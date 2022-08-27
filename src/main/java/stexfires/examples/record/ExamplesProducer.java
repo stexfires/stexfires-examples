@@ -3,12 +3,12 @@ package stexfires.examples.record;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.TextRecords;
+import stexfires.record.impl.KeyValueRecord;
 import stexfires.record.producer.ConstantProducer;
 import stexfires.record.producer.DividingProducer;
 import stexfires.record.producer.KeyValueProducer;
 import stexfires.record.producer.RecordProducer;
 import stexfires.record.producer.SingleProducer;
-import stexfires.record.impl.KeyValueRecord;
 import stexfires.util.Strings;
 import stexfires.util.supplier.SequenceLongSupplier;
 
