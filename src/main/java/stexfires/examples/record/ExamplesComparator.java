@@ -1,16 +1,16 @@
-package stexfires.examples.core;
+package stexfires.examples.record;
 
-import stexfires.core.Field;
-import stexfires.core.Fields;
-import stexfires.core.TextRecord;
-import stexfires.core.TextRecordStreams;
-import stexfires.core.comparator.FieldComparators;
-import stexfires.core.comparator.NULLS;
-import stexfires.core.comparator.RecordComparators;
-import stexfires.core.comparator.StringComparators;
-import stexfires.core.consumer.SystemOutConsumer;
-import stexfires.core.impl.KeyValueRecord;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.Field;
+import stexfires.record.Fields;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.comparator.FieldComparators;
+import stexfires.record.comparator.NULLS;
+import stexfires.record.comparator.RecordComparators;
+import stexfires.record.comparator.StringComparators;
+import stexfires.record.consumer.SystemOutConsumer;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.StringUnaryOperatorType;
 
 import java.text.Collator;

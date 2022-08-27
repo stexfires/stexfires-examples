@@ -1,12 +1,12 @@
 package stexfires.examples.io;
 
-import stexfires.core.TextRecord;
-import stexfires.core.consumer.ConsumerException;
-import stexfires.core.logger.SystemOutLogger;
-import stexfires.core.producer.ProducerException;
-import stexfires.core.impl.EmptyRecord;
-import stexfires.core.impl.SingleRecord;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.TextRecord;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.producer.ProducerException;
+import stexfires.record.impl.EmptyRecord;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFile;

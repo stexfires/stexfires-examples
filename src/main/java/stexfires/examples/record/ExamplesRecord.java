@@ -1,12 +1,12 @@
-package stexfires.examples.core;
+package stexfires.examples.record;
 
-import stexfires.core.Fields;
-import stexfires.core.TextRecord;
-import stexfires.core.impl.EmptyRecord;
-import stexfires.core.impl.KeyValueRecord;
-import stexfires.core.impl.PairRecord;
-import stexfires.core.impl.SingleRecord;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.Fields;
+import stexfires.record.TextRecord;
+import stexfires.record.impl.EmptyRecord;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.PairRecord;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.Strings;
 
 import java.util.Arrays;

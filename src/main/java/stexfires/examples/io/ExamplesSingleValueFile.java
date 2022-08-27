@@ -1,10 +1,10 @@
 package stexfires.examples.io;
 
-import stexfires.core.TextRecordStreams;
-import stexfires.core.consumer.ConsumerException;
-import stexfires.core.logger.SystemOutLogger;
-import stexfires.core.producer.ProducerException;
-import stexfires.core.impl.SingleRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.producer.ProducerException;
+import stexfires.record.impl.SingleRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;

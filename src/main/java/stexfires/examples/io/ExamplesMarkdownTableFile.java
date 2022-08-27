@@ -1,9 +1,9 @@
 package stexfires.examples.io;
 
-import stexfires.core.TextRecord;
-import stexfires.core.TextRecordStreams;
-import stexfires.core.consumer.ConsumerException;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFile;

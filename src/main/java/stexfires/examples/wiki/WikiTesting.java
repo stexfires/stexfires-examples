@@ -1,12 +1,12 @@
 package stexfires.examples.wiki;
 
-import stexfires.core.TextRecord;
-import stexfires.core.consumer.ConsumerException;
-import stexfires.core.mapper.RecordMapper;
-import stexfires.core.mapper.ToSingleMapper;
-import stexfires.core.mapper.ValuesMapper;
-import stexfires.core.producer.ProducerException;
-import stexfires.core.ValueRecord;
+import stexfires.record.TextRecord;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.mapper.RecordMapper;
+import stexfires.record.mapper.ToSingleMapper;
+import stexfires.record.mapper.ValuesMapper;
+import stexfires.record.producer.ProducerException;
+import stexfires.record.ValueRecord;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;

@@ -1,7 +1,7 @@
 package stexfires.examples.io;
 
-import stexfires.core.TextRecordStreams;
-import stexfires.core.consumer.ConsumerException;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFile;

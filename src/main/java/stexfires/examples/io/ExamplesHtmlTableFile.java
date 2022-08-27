@@ -1,10 +1,10 @@
 package stexfires.examples.io;
 
-import stexfires.core.TextRecordStreams;
-import stexfires.core.consumer.ConsumerException;
-import stexfires.core.mapper.AddValueMapper;
-import stexfires.core.impl.KeyValueRecord;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.ConsumerException;
+import stexfires.record.mapper.AddValueMapper;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.io.RecordFiles;
 import stexfires.io.html.table.HtmlTableFieldSpec;
 import stexfires.io.html.table.HtmlTableFile;

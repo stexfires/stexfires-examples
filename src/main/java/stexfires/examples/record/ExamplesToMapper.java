@@ -1,19 +1,19 @@
-package stexfires.examples.core;
+package stexfires.examples.record;
 
-import stexfires.core.TextRecord;
-import stexfires.core.TextRecordStreams;
-import stexfires.core.consumer.SystemOutConsumer;
-import stexfires.core.mapper.RecordMapper;
-import stexfires.core.mapper.ToEmptyMapper;
-import stexfires.core.mapper.ToKeyValueMapper;
-import stexfires.core.mapper.ToPairMapper;
-import stexfires.core.mapper.ToSingleMapper;
-import stexfires.core.mapper.ToStandardMapper;
-import stexfires.core.impl.EmptyRecord;
-import stexfires.core.impl.KeyValueRecord;
-import stexfires.core.impl.PairRecord;
-import stexfires.core.impl.SingleRecord;
-import stexfires.core.impl.StandardRecord;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.consumer.SystemOutConsumer;
+import stexfires.record.mapper.RecordMapper;
+import stexfires.record.mapper.ToEmptyMapper;
+import stexfires.record.mapper.ToKeyValueMapper;
+import stexfires.record.mapper.ToPairMapper;
+import stexfires.record.mapper.ToSingleMapper;
+import stexfires.record.mapper.ToStandardMapper;
+import stexfires.record.impl.EmptyRecord;
+import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.PairRecord;
+import stexfires.record.impl.SingleRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.Strings;
 
 import java.util.stream.Stream;

@@ -1,14 +1,14 @@
-package stexfires.examples.core;
+package stexfires.examples.record;
 
-import stexfires.core.TextRecord;
-import stexfires.core.TextRecordStreams;
-import stexfires.core.TextRecords;
-import stexfires.core.producer.ConstantProducer;
-import stexfires.core.producer.DividingProducer;
-import stexfires.core.producer.KeyValueProducer;
-import stexfires.core.producer.RecordProducer;
-import stexfires.core.producer.SingleProducer;
-import stexfires.core.impl.KeyValueRecord;
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.TextRecords;
+import stexfires.record.producer.ConstantProducer;
+import stexfires.record.producer.DividingProducer;
+import stexfires.record.producer.KeyValueProducer;
+import stexfires.record.producer.RecordProducer;
+import stexfires.record.producer.SingleProducer;
+import stexfires.record.impl.KeyValueRecord;
 import stexfires.util.Strings;
 import stexfires.util.supplier.SequenceLongSupplier;
 
