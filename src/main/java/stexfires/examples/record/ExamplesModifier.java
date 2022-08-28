@@ -3,7 +3,6 @@ package stexfires.examples.record;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
-import stexfires.record.comparator.NULLS;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.filter.CategoryFilter;
@@ -32,6 +31,7 @@ import stexfires.record.modifier.SkipLimitModifier;
 import stexfires.record.modifier.SortModifier;
 import stexfires.record.modifier.UnaryGroupModifier;
 import stexfires.record.modifier.UnpivotModifier;
+import stexfires.util.NULLS;
 
 import java.util.ArrayList;
 import java.util.Comparator;
