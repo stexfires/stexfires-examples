@@ -62,8 +62,8 @@ public final class ExamplesRecord {
         System.out.println("valueOfKeyField:           " + record.valueOfKeyField());
         System.out.println("valueField:                " + record.valueField());
         System.out.println("valueOfValueField:         " + record.valueOfValueField());
-        System.out.println("newKeyRecord:              " + record.newKeyRecord("newKey"));
-        System.out.println("newValueRecord:            " + record.newValueRecord("new value"));
+        System.out.println("withKey:                   " + record.withKey("newKey"));
+        System.out.println("withValue:                 " + record.withValue("new value"));
         printRecord(record);
 
         KeyValueRecord record1 = new KeyValueRecord("category", 0L, "key", "value");
@@ -71,8 +71,8 @@ public final class ExamplesRecord {
         System.out.println("valueOfKeyField:           " + record1.valueOfKeyField());
         System.out.println("valueField:                " + record1.valueField());
         System.out.println("valueOfValueField:         " + record1.valueOfValueField());
-        System.out.println("newKeyRecord:              " + record1.newKeyRecord("newKey"));
-        System.out.println("newValueRecord:            " + record1.newValueRecord("new value"));
+        System.out.println("withKey:                   " + record1.withKey("newKey"));
+        System.out.println("withValue:                 " + record1.withValue("new value"));
         printRecord(record1);
     }
 
@@ -80,13 +80,13 @@ public final class ExamplesRecord {
         System.out.println("-showTwoValuesRecord---");
 
         TwoValuesRecord record = new TwoValuesRecord("first", "second");
-        System.out.println("newRecordSwapped:          " + record.newRecordSwapped());
+        System.out.println("withSwappedValues:         " + record.withSwappedValues());
         System.out.println("secondField:               " + record.secondField());
         System.out.println("valueOfSecondField:        " + record.valueOfSecondField());
         printRecord(record);
 
         TwoValuesRecord record1 = new TwoValuesRecord("category", 0L, "first", "second");
-        System.out.println("newRecordSwapped:          " + record1.newRecordSwapped());
+        System.out.println("withSwappedValues:         " + record1.withSwappedValues());
         System.out.println("secondField:               " + record1.secondField());
         System.out.println("valueOfSecondField:        " + record1.valueOfSecondField());
         printRecord(record1);
