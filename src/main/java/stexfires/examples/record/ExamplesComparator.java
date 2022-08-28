@@ -9,7 +9,7 @@ import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.impl.KeyValueRecord;
 import stexfires.record.impl.ManyValuesRecord;
-import stexfires.util.NULLS;
+import stexfires.util.SortNulls;
 
 import java.util.Comparator;
 import java.util.stream.Stream;
@@ -66,34 +66,34 @@ public final class ExamplesComparator {
 
         // category
         printComparatorRecord("category: nullsFirst(naturalOrder)", RecordComparators.category(Comparator.nullsFirst(Comparator.naturalOrder())));
-        printComparatorRecord("category: reverseOrder, NULLS.LAST", RecordComparators.category(Comparator.reverseOrder(), NULLS.LAST));
+        printComparatorRecord("category: reverseOrder, SortNulls.LAST", RecordComparators.category(Comparator.reverseOrder(), SortNulls.LAST));
 
         // recordId
         printComparatorRecord("recordId: nullsFirst(naturalOrder)", RecordComparators.recordId(Comparator.nullsFirst(Comparator.naturalOrder())));
-        printComparatorRecord("recordId: reverseOrder, NULLS.LAST", RecordComparators.recordId(Comparator.reverseOrder(), NULLS.LAST));
-        printComparatorRecord("recordId: NULLS.LAST", RecordComparators.recordId(NULLS.LAST));
+        printComparatorRecord("recordId: reverseOrder, SortNulls.LAST", RecordComparators.recordId(Comparator.reverseOrder(), SortNulls.LAST));
+        printComparatorRecord("recordId: SortNulls.LAST", RecordComparators.recordId(SortNulls.LAST));
 
         // size
         printComparatorRecord("size", RecordComparators.size());
 
         // field
-        printComparatorRecord("field: getFieldAt(1), length, NULLS.LAST", RecordComparators.field(record -> record.fieldAt(1), FieldComparators.valueLength(), NULLS.LAST));
-        printComparatorRecord("fieldAt: 1, length, NULLS.LAST", RecordComparators.fieldAt(1, FieldComparators.valueLength(), NULLS.LAST));
-        printComparatorRecord("firstField: length, NULLS.LAST", RecordComparators.firstField(FieldComparators.valueLength(), NULLS.LAST));
-        printComparatorRecord("lastField: length, NULLS.LAST", RecordComparators.lastField(FieldComparators.valueLength(), NULLS.LAST));
+        printComparatorRecord("field: getFieldAt(1), length, SortNulls.LAST", RecordComparators.field(record -> record.fieldAt(1), FieldComparators.valueLength(), SortNulls.LAST));
+        printComparatorRecord("fieldAt: 1, length, SortNulls.LAST", RecordComparators.fieldAt(1, FieldComparators.valueLength(), SortNulls.LAST));
+        printComparatorRecord("firstField: length, SortNulls.LAST", RecordComparators.firstField(FieldComparators.valueLength(), SortNulls.LAST));
+        printComparatorRecord("lastField: length, SortNulls.LAST", RecordComparators.lastField(FieldComparators.valueLength(), SortNulls.LAST));
 
         // value
-        printComparatorRecord("value: getValueAt(1), naturalOrder(), NULLS.LAST", RecordComparators.value(record -> record.valueAt(1), Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorRecord("valueAt: 1, naturalOrder(), NULLS.LAST", RecordComparators.valueAt(1, Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorRecord("firstValue: naturalOrder(), NULLS.LAST", RecordComparators.valueOfFirstField(Comparator.naturalOrder(), NULLS.LAST));
-        printComparatorRecord("lastValue: naturalOrder(), NULLS.LAST", RecordComparators.valueOfLastField(Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorRecord("value: getValueAt(1), naturalOrder(), SortNulls.LAST", RecordComparators.value(record -> record.valueAt(1), Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("valueAt: 1, naturalOrder(), SortNulls.LAST", RecordComparators.valueAt(1, Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("firstValue: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfFirstField(Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfLastField(Comparator.naturalOrder(), SortNulls.LAST));
 
         // KeyValueRecord
         printComparatorKeyValueRecord("valueOfKeyField: naturalOrder()", RecordComparators.valueOfKeyField(Comparator.naturalOrder()));
-        printComparatorKeyValueRecord("valueOfValueField: naturalOrder(), NULLS.LAST", RecordComparators.valueOfValueField(Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorKeyValueRecord("valueOfValueField: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfValueField(Comparator.naturalOrder(), SortNulls.LAST));
 
         // Combined
-        printComparatorRecord("Combined: category(reversed(), NULLS.LAST), recordId(NULLS.LAST)", RecordComparators.category(Comparator.reverseOrder(), NULLS.LAST).thenComparing(RecordComparators.recordId(NULLS.LAST)));
+        printComparatorRecord("Combined: category(reversed(), SortNulls.LAST), recordId(SortNulls.LAST)", RecordComparators.category(Comparator.reverseOrder(), SortNulls.LAST).thenComparing(RecordComparators.recordId(SortNulls.LAST)));
     }
 
     private static void showFieldComparators() {
@@ -103,7 +103,7 @@ public final class ExamplesComparator {
         printComparatorField("first", FieldComparators.isFirstField());
         printComparatorField("last", FieldComparators.isLastField());
         printComparatorField("value: nullsLast(naturalOrder())", FieldComparators.value(Comparator.nullsLast(Comparator.naturalOrder())));
-        printComparatorField("value: naturalOrder(), NULLS.LAST", FieldComparators.value(Comparator.naturalOrder(), NULLS.LAST));
+        printComparatorField("value: naturalOrder(), SortNulls.LAST", FieldComparators.value(Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorField("length", FieldComparators.valueLength());
     }
 

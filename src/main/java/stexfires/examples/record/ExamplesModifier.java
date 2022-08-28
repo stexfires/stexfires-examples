@@ -31,7 +31,7 @@ import stexfires.record.modifier.SkipLimitModifier;
 import stexfires.record.modifier.SortModifier;
 import stexfires.record.modifier.UnaryGroupModifier;
 import stexfires.record.modifier.UnpivotModifier;
-import stexfires.util.NULLS;
+import stexfires.util.SortNulls;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -387,9 +387,9 @@ public final class ExamplesModifier {
         System.out.println("-showSortModifier---");
 
         printModifierOneValueRecord("constructor category",
-                new SortModifier<>(RecordComparators.category(Comparator.naturalOrder(), NULLS.FIRST)));
+                new SortModifier<>(RecordComparators.category(Comparator.naturalOrder(), SortNulls.FIRST)));
         printModifierOneValueRecord("constructor valueField",
-                new SortModifier<>(RecordComparators.valueOfValueField(Comparator.naturalOrder(), NULLS.FIRST)));
+                new SortModifier<>(RecordComparators.valueOfValueField(Comparator.naturalOrder(), SortNulls.FIRST)));
     }
 
     private static void showUnaryGroupModifier() {
@@ -402,23 +402,23 @@ public final class ExamplesModifier {
                 UnaryGroupModifier.last(TextRecord::category));
 
         printUnaryGroup("min recordId",
-                UnaryGroupModifier.min(TextRecord::category, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.min(TextRecord::category, RecordComparators.recordId(SortNulls.FIRST)));
 
         printUnaryGroup("max recordId",
-                UnaryGroupModifier.max(TextRecord::category, RecordComparators.recordId(NULLS.FIRST)));
+                UnaryGroupModifier.max(TextRecord::category, RecordComparators.recordId(SortNulls.FIRST)));
 
         printUnaryGroup("reduce maxBy recordId",
                 UnaryGroupModifier.reduce(TextRecord::category,
-                        BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))));
+                        BinaryOperator.maxBy(RecordComparators.recordId(SortNulls.FIRST))));
 
         printUnaryGroup("collect maxBy recordId",
                 UnaryGroupModifier.collect(TextRecord::category,
-                        Collectors.maxBy(RecordComparators.recordId(NULLS.FIRST)),
+                        Collectors.maxBy(RecordComparators.recordId(SortNulls.FIRST)),
                         null));
 
         printUnaryGroup("collect reducing maxBy recordId",
                 UnaryGroupModifier.collect(TextRecord::category,
-                        Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId(NULLS.FIRST))),
+                        Collectors.reducing(BinaryOperator.maxBy(RecordComparators.recordId(SortNulls.FIRST))),
                         null));
     }
 
