@@ -20,6 +20,7 @@ public final class ExamplesRecord {
     private static void printRecord(TextRecord record) {
         System.out.println("arrayOfFields:             " + Arrays.toString(record.arrayOfFields()));
         System.out.println("listOfFields:              " + record.listOfFields());
+        System.out.println("listOfFieldsReversed:      " + record.listOfFieldsReversed());
         System.out.println("streamOfFields:            " + Fields.collectFields(record.streamOfFields()));
         System.out.println("category:                  " + record.category());
         System.out.println("hasCategory:               " + record.hasCategory());
