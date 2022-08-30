@@ -4,12 +4,14 @@ import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.impl.EmptyRecord;
+import stexfires.record.impl.KeyValueCommentRecord;
 import stexfires.record.impl.KeyValueRecord;
 import stexfires.record.impl.ManyValuesRecord;
 import stexfires.record.impl.OneValueRecord;
 import stexfires.record.impl.TwoValuesRecord;
 import stexfires.record.mapper.RecordMapper;
 import stexfires.record.mapper.ToEmptyRecordMapper;
+import stexfires.record.mapper.ToKeyValueCommentRecordMapper;
 import stexfires.record.mapper.ToKeyValueRecordMapper;
 import stexfires.record.mapper.ToManyValuesRecordMapper;
 import stexfires.record.mapper.ToOneValueRecordMapper;
@@ -29,6 +31,7 @@ public final class ExamplesToMapper {
                 new EmptyRecord(),
                 new KeyValueRecord("key", "value"),
                 new KeyValueRecord("category", 0L, "key", "value"),
+                new KeyValueCommentRecord("category", 0L, "key", "value", "comment"),
                 new TwoValuesRecord("first", "second"),
                 new TwoValuesRecord("category", 0L, "first", "second"),
                 new OneValueRecord("value"),
@@ -36,7 +39,8 @@ public final class ExamplesToMapper {
                 new ManyValuesRecord(),
                 new ManyValuesRecord(Strings.list("value1", "value2", "value3")),
                 new ManyValuesRecord("category", Strings.list("value1", "value2", "value3")),
-                new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3"))
+                new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3")),
+                new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3", "value4"))
         );
     }
 
@@ -55,6 +59,12 @@ public final class ExamplesToMapper {
         System.out.println("-showToKeyValueMapper---");
 
         printRecordMapper("constructor (0, 1, missing key)", new ToKeyValueRecordMapper<>(0, 1, "missing key"));
+    }
+
+    private static void showToKeyValueCommentMapper() {
+        System.out.println("-showToKeyValueCommentMapper---");
+
+        printRecordMapper("constructor (0, 1, missing key)", new ToKeyValueCommentRecordMapper<>(0, 1, 3, "missing key"));
     }
 
     private static void showToPairMapper() {
@@ -80,6 +90,7 @@ public final class ExamplesToMapper {
     public static void main(String... args) {
         showToEmptyMapper();
         showToKeyValueMapper();
+        showToKeyValueCommentMapper();
         showToPairMapper();
         showToSingleMapper();
         showToStandardMapper();

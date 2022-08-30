@@ -37,6 +37,7 @@ public final class ExamplesProducer {
         printProducer(ConstantProducer.oneValueRecords(streamSize, "value1"));
         printProducer(ConstantProducer.twoValuesRecords(streamSize, "value1", "value2"));
         printProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
+        printProducer(ConstantProducer.keyValueCommentRecords(streamSize, "key1", "value1", "comment1"));
         printProducer(ConstantProducer.manyValuesRecords(streamSize, Strings.list("value1", "value2")));
         printProducer(ConstantProducer.manyValuesRecords(streamSize, "value1", "value2", "value3"));
     }
