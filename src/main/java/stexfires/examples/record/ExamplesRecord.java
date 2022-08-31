@@ -61,7 +61,7 @@ public final class ExamplesRecord {
         System.out.println("keyField:                  " + record.keyField());
         System.out.println("key:                       " + record.key());
         System.out.println("valueField:                " + record.valueField());
-        System.out.println("valueOfValueField:         " + record.valueOfValueField());
+        System.out.println("value:                     " + record.value());
         System.out.println("withKey:                   " + record.withKey("newKey"));
         System.out.println("withValue:                 " + record.withValue("new value"));
         printRecord(record);
@@ -70,7 +70,7 @@ public final class ExamplesRecord {
         System.out.println("keyField:                  " + record1.keyField());
         System.out.println("key:                       " + record1.key());
         System.out.println("valueField:                " + record1.valueField());
-        System.out.println("valueOfValueField:         " + record1.valueOfValueField());
+        System.out.println("value:                     " + record1.value());
         System.out.println("withKey:                   " + record1.withKey("newKey"));
         System.out.println("withValue:                 " + record1.withValue("new value"));
         printRecord(record1);
@@ -97,12 +97,12 @@ public final class ExamplesRecord {
 
         OneValueRecord record = new OneValueRecord("value");
         System.out.println("valueField:                " + record.valueField());
-        System.out.println("valueOfValueField:         " + record.valueOfValueField());
+        System.out.println("value:                     " + record.value());
         printRecord(record);
 
         OneValueRecord record1 = new OneValueRecord("category", 0L, "value");
         System.out.println("valueField:                " + record1.valueField());
-        System.out.println("valueOfValueField:         " + record1.valueOfValueField());
+        System.out.println("value:                     " + record1.value());
         printRecord(record1);
     }
 

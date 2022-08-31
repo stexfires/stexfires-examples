@@ -177,7 +177,7 @@ public final class ExamplesModifier {
                         havingSize(LESS_THAN.intPredicate(4)),
                         aggregateToValues(
                                 messageOfFirstElement(new CategoryMessage<>()),
-                                list -> list.stream().map(ValueRecord::valueOfValueField).collect(Collectors.toList())
+                                list -> list.stream().map(ValueRecord::value).collect(Collectors.toList())
                         )));
         printModifierOneValueRecordGroup("constructor category; aggregateToValuesWithMessage",
                 new GroupModifier<>(
@@ -205,7 +205,7 @@ public final class ExamplesModifier {
 
         printModifierOneValueRecord("constructor valueField; aggregateToValue category",
                 new GroupModifier<OneValueRecord, TextRecord>(
-                        groupByValueOfValueField(),
+                        groupByValue(),
                         aggregateToValue(
                                 messageOfFirstElement(ValueMessage.value()),
                                 list -> list.stream().map(TextRecord::category).collect(Collectors.joining(","))
@@ -270,7 +270,7 @@ public final class ExamplesModifier {
         );
 
         printPivotKeyValueRecord("Pivot 1.2 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(KeyValueRecord::key, KeyValueRecord::valueOfValueField, nullValue,
+                PivotModifier.pivotWithClassifications(KeyValueRecord::key, KeyValueRecord::value, nullValue,
                         KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
@@ -317,7 +317,7 @@ public final class ExamplesModifier {
         printPivotKeyValueRecord("Pivot 3 constructor classification",
                 new PivotModifier<>(
                         KeyValueRecord::key, KeyValueRecord::key, r -> Stream.empty(),
-                        KeyValueRecord::valueOfValueField, nullValue, KeyValueRecord::category, valueClasses
+                        KeyValueRecord::value, nullValue, KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
                 new KeyValueRecord("en", 2L, "key1", "value1en"),
@@ -389,7 +389,7 @@ public final class ExamplesModifier {
         printModifierOneValueRecord("constructor category",
                 new SortModifier<>(RecordComparators.category(Comparator.naturalOrder(), SortNulls.FIRST)));
         printModifierOneValueRecord("constructor valueField",
-                new SortModifier<>(RecordComparators.valueOfValueField(Comparator.naturalOrder(), SortNulls.FIRST)));
+                new SortModifier<>(RecordComparators.value(Comparator.naturalOrder(), SortNulls.FIRST)));
     }
 
     private static void showUnaryGroupModifier() {

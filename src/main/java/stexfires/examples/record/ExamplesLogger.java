@@ -109,7 +109,7 @@ public final class ExamplesLogger {
 
         List<String> values = new ArrayList<>();
         printLoggerOneValueRecord("constructor values",
-                new CollectionLogger<>(values, ValueRecord::valueOfValueField));
+                new CollectionLogger<>(values, ValueRecord::value));
         System.out.println(values);
 
         List<String> keys = new ArrayList<>();
