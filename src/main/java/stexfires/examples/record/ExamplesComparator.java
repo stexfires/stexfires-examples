@@ -89,7 +89,7 @@ public final class ExamplesComparator {
         printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfLastField(Comparator.naturalOrder(), SortNulls.LAST));
 
         // KeyValueRecord
-        printComparatorKeyValueRecord("valueOfKeyField: naturalOrder()", RecordComparators.valueOfKeyField(Comparator.naturalOrder()));
+        printComparatorKeyValueRecord("key: naturalOrder()", RecordComparators.key(Comparator.naturalOrder()));
         printComparatorKeyValueRecord("valueOfValueField: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfValueField(Comparator.naturalOrder(), SortNulls.LAST));
 
         // Combined

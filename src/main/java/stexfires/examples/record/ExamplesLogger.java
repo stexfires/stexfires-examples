@@ -114,7 +114,7 @@ public final class ExamplesLogger {
 
         List<String> keys = new ArrayList<>();
         printLoggerKeyValueRecord("constructor keys",
-                new CollectionLogger<>(keys, KeyRecord::valueOfKeyField));
+                new CollectionLogger<>(keys, KeyRecord::key));
         System.out.println(keys);
     }
 

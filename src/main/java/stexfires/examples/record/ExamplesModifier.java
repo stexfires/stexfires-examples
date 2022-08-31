@@ -270,7 +270,7 @@ public final class ExamplesModifier {
         );
 
         printPivotKeyValueRecord("Pivot 1.2 pivotWithClassifications",
-                PivotModifier.pivotWithClassifications(KeyValueRecord::valueOfKeyField, KeyValueRecord::valueOfValueField, nullValue,
+                PivotModifier.pivotWithClassifications(KeyValueRecord::key, KeyValueRecord::valueOfValueField, nullValue,
                         KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),
@@ -316,7 +316,7 @@ public final class ExamplesModifier {
 
         printPivotKeyValueRecord("Pivot 3 constructor classification",
                 new PivotModifier<>(
-                        KeyValueRecord::valueOfKeyField, KeyValueRecord::valueOfKeyField, r -> Stream.empty(),
+                        KeyValueRecord::key, KeyValueRecord::key, r -> Stream.empty(),
                         KeyValueRecord::valueOfValueField, nullValue, KeyValueRecord::category, valueClasses
                 ),
                 new KeyValueRecord("jp", 1L, "key1", null),

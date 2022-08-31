@@ -59,7 +59,7 @@ public final class ExamplesRecord {
 
         KeyValueRecord record = new KeyValueRecord("key", "value");
         System.out.println("keyField:                  " + record.keyField());
-        System.out.println("valueOfKeyField:           " + record.valueOfKeyField());
+        System.out.println("key:                       " + record.key());
         System.out.println("valueField:                " + record.valueField());
         System.out.println("valueOfValueField:         " + record.valueOfValueField());
         System.out.println("withKey:                   " + record.withKey("newKey"));
@@ -68,7 +68,7 @@ public final class ExamplesRecord {
 
         KeyValueRecord record1 = new KeyValueRecord("category", 0L, "key", "value");
         System.out.println("keyField:                  " + record1.keyField());
-        System.out.println("valueOfKeyField:           " + record1.valueOfKeyField());
+        System.out.println("key:                       " + record1.key());
         System.out.println("valueField:                " + record1.valueField());
         System.out.println("valueOfValueField:         " + record1.valueOfValueField());
         System.out.println("withKey:                   " + record1.withKey("newKey"));
