@@ -247,7 +247,7 @@ public final class ExamplesMapper {
         printMapper("add", ValuesMapper.add(record -> "new value"));
         printMapper("remove 0", ValuesMapper.remove(0));
         printMapper("remove 2", ValuesMapper.remove(2));
-        printMapper("remove valueIsNullOrEmpty", ValuesMapper.remove(Field::valueIsNullOrEmpty));
+        printMapper("remove isNullOrEmpty", ValuesMapper.remove(Field::isNullOrEmpty));
     }
 
     public static void main(String... args) {

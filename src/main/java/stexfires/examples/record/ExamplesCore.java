@@ -56,22 +56,23 @@ public final class ExamplesCore {
 
         printFieldStream("index", stream -> stream.map(Field::index));
         printFieldStream("maxIndex", stream -> stream.map(Field::maxIndex));
+        printFieldStream("isFirstField", stream -> stream.map(Field::isFirstField));
+        printFieldStream("isLastField", stream -> stream.map(Field::isLastField));
+        printFieldStream("recordSize", stream -> stream.map(Field::recordSize));
+
         printFieldStream("value", stream -> stream.map(Field::value));
+        printFieldStream("orElse", stream -> stream.map(field -> field.orElse("<NULL>")));
+        printFieldStream("asOptional", stream -> stream.map(Field::asOptional).map(optional -> optional.orElse("<NULL>")));
+        printFieldStream("isNotNull", stream -> stream.map(Field::isNotNull));
+        printFieldStream("isNull", stream -> stream.map(Field::isNull));
+        printFieldStream("isEmpty", stream -> stream.map(Field::isEmpty));
+        printFieldStream("isNullOrEmpty", stream -> stream.map(Field::isNullOrEmpty));
+        printFieldStream("length", stream -> stream.map(Field::length));
+        printFieldStream("stream", stream -> stream.flatMap(Field::stream));
 
         printFieldStream("toString", stream -> stream.map(Field::toString));
         printFieldStream("hashCode", stream -> stream.map(Field::hashCode));
 
-        printFieldStream("isFirstField", stream -> stream.map(Field::isFirstField));
-        printFieldStream("isLastField", stream -> stream.map(Field::isLastField));
-        printFieldStream("hasValue", stream -> stream.map(Field::hasValue));
-        printFieldStream("valueOrElse", stream -> stream.map(field -> field.valueOrElse("<NULL>")));
-        printFieldStream("valueAsOptional", stream -> stream.map(Field::valueAsOptional).map(optional -> optional.orElse("<NULL>")));
-        printFieldStream("valueEquals", stream -> stream.map(field -> field.valueEquals("value A")));
-        printFieldStream("valueIsNull", stream -> stream.map(Field::valueIsNull));
-        printFieldStream("valueIsEmpty", stream -> stream.map(Field::valueIsEmpty));
-        printFieldStream("valueIsNullOrEmpty", stream -> stream.map(Field::valueIsNullOrEmpty));
-        printFieldStream("valueLength", stream -> stream.map(Field::valueLength));
-        printFieldStream("valueAsStream", stream -> stream.flatMap(Field::valueAsStream));
     }
 
     private static void showFields() {

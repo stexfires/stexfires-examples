@@ -62,7 +62,7 @@ public final class ExamplesFieldValueMapper {
         System.out.println("-showConditionalFieldValueMapper---");
 
         printMapper("constructor valueIsNull", new ConditionalFieldValueMapper(
-                Field::valueIsNull,
+                Field::isNull,
                 new ConstantFieldValueMapper("<field value is null>"),
                 new IdentityFieldValueMapper()));
     }
