@@ -102,8 +102,8 @@ public final class ExamplesComparator {
         printComparatorField("index", FieldComparators.index());
         printComparatorField("first", FieldComparators.isFirstField());
         printComparatorField("last", FieldComparators.isLastField());
-        printComparatorField("value: nullsLast(naturalOrder())", FieldComparators.value(Comparator.nullsLast(Comparator.naturalOrder())));
-        printComparatorField("value: naturalOrder(), SortNulls.LAST", FieldComparators.value(Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorField("text: nullsLast(naturalOrder())", FieldComparators.text(Comparator.nullsLast(Comparator.naturalOrder())));
+        printComparatorField("text: naturalOrder(), SortNulls.LAST", FieldComparators.text(Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorField("length", FieldComparators.length());
     }
 
