@@ -13,8 +13,8 @@ import stexfires.record.TextRecord;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.mapper.RecordMapper;
-import stexfires.record.mapper.ToOneValueRecordMapper;
-import stexfires.record.mapper.ValuesMapper;
+import stexfires.record.mapper.TextsMapper;
+import stexfires.record.mapper.ToOneFieldRecordMapper;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
@@ -69,10 +69,10 @@ public final class WikiTesting {
             throws ProducerException, ConsumerException, IOException {
         MarkdownTableFileSpec consumerFileSpec = createTableConsumerFileSpec(title);
         MarkdownTableConsumer consumer = consumerFileSpec.consumer(outputStream);
-        RecordMapper<TextRecord, TextRecord> mapper = ValuesMapper.applyFunctions(
-                r -> "[" + r.valueAt(0) + "]" + "(" + r.valueAt(1) + ")",
-                r -> "[" + r.valueAt(1).replace("http://", "").replace("https://", "")
-                        + "]" + "(" + r.valueAt(1) + ")");
+        RecordMapper<TextRecord, TextRecord> mapper = TextsMapper.applyFunctions(
+                r -> "[" + r.textAt(0) + "]" + "(" + r.textAt(1) + ")",
+                r -> "[" + r.textAt(1).replace("http://", "").replace("https://", "")
+                        + "]" + "(" + r.textAt(1) + ")");
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }
@@ -82,9 +82,9 @@ public final class WikiTesting {
             throws ProducerException, ConsumerException, IOException {
         MarkdownListFileSpec consumerFileSpec = createListConsumerFileSpec(title);
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
-        RecordMapper<TextRecord, ValueRecord> mapper = ValuesMapper.applyFunctions(
-                                                                           r -> "[" + r.valueAt(0) + "]" + "(" + r.valueAt(1) + ")")
-                                                                   .andThen(new ToOneValueRecordMapper<>(0));
+        RecordMapper<TextRecord, ValueRecord> mapper = TextsMapper.applyFunctions(
+                                                                          r -> "[" + r.textAt(0) + "]" + "(" + r.textAt(1) + ")")
+                                                                  .andThen(new ToOneFieldRecordMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }

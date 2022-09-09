@@ -8,10 +8,10 @@ import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.impl.OneValueRecord;
-import stexfires.record.impl.TwoValuesRecord;
-import stexfires.record.mapper.AddValueMapper;
+import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.TwoFieldsRecord;
+import stexfires.record.mapper.AddTextMapper;
 import stexfires.record.mapper.CategoryMapper;
 import stexfires.record.mapper.ConditionalMapper;
 import stexfires.record.mapper.ConstantMapper;
@@ -21,13 +21,13 @@ import stexfires.record.mapper.LookupMapper;
 import stexfires.record.mapper.RecordIdMapper;
 import stexfires.record.mapper.RecordMapper;
 import stexfires.record.mapper.SupplierMapper;
-import stexfires.record.mapper.ToOneValueRecordMapper;
-import stexfires.record.mapper.ValuesMapper;
-import stexfires.record.mapper.fieldvalue.AddPrefixFieldValueMapper;
+import stexfires.record.mapper.TextsMapper;
+import stexfires.record.mapper.ToOneFieldRecordMapper;
+import stexfires.record.mapper.field.AddPrefixFieldTextMapper;
 import stexfires.record.message.ConstantMessage;
 import stexfires.record.message.ShortMessage;
 import stexfires.record.message.SizeMessage;
-import stexfires.record.message.ValueMessage;
+import stexfires.record.message.TextMessage;
 import stexfires.util.StringUnaryOperatorType;
 import stexfires.util.Strings;
 import stexfires.util.supplier.LocalTimeStringSupplier;
@@ -49,19 +49,19 @@ public final class ExamplesMapper {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneValueRecord("category", 0L, "value1"),
-                new OneValueRecord("value2"),
+                new OneFieldRecord("category", 0L, "value1"),
+                new OneFieldRecord("value2"),
                 new KeyValueRecord("category", 1L, "key", "value"),
-                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new ManyValuesRecord("category", 2L),
+                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new StandardRecord("category", 2L),
                 new EmptyRecord()
         );
     }
 
     private static Stream<ValueRecord> generateStreamValueRecord() {
         return Stream.of(
-                new OneValueRecord("category", 0L, "value1"),
-                new OneValueRecord("value2"),
+                new OneFieldRecord("category", 0L, "value1"),
+                new OneFieldRecord("value2"),
                 new KeyValueRecord("category", 1L, "key", "value")
         );
     }
@@ -79,24 +79,24 @@ public final class ExamplesMapper {
     private static void showAddValueMapper() {
         System.out.println("-showAddValueMapper---");
 
-        printMapper("constructor", new AddValueMapper<>(record -> "Size: " + record.size()));
-        printMapper("supplier", AddValueMapper.supplier(new LocalTimeStringSupplier()));
-        printMapper("intSupplier", AddValueMapper.intSupplier(() -> 1));
-        printMapper("longSupplier", AddValueMapper.longSupplier(new SequencePrimitiveLongSupplier(0L)));
-        printMapper("recordMessage", AddValueMapper.recordMessage(new ShortMessage<>()));
-        printMapper("constant", AddValueMapper.constant("constant"));
-        printMapper("constantNull", AddValueMapper.constantNull());
-        printMapper("category", AddValueMapper.category());
-        printMapper("categoryOrElse", AddValueMapper.categoryOrElse("missing category"));
-        printMapper("categoryFunction", AddValueMapper.categoryFunction(category -> "new " + category));
-        printMapper("categoryOperator", AddValueMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE));
-        printMapper("categoryOperator", AddValueMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
-        printMapper("categoryAsOptionalFunction", AddValueMapper.categoryAsOptionalFunction(optionalCategory -> optionalCategory.orElse("missing category")));
-        printMapper("recordId", AddValueMapper.recordId());
-        printMapper("valueAt", AddValueMapper.valueAt(2));
-        printMapper("valueAtOrElse", AddValueMapper.valueAtOrElse(2, "missing value"));
-        printMapper("fieldAtOrElse", AddValueMapper.fieldAtOrElse(2, new AddPrefixFieldValueMapper("new: "), "missing value"));
-        printMapper("fileName", AddValueMapper.fileName(Paths.get("").toAbsolutePath()));
+        printMapper("constructor", new AddTextMapper<>(record -> "Size: " + record.size()));
+        printMapper("supplier", AddTextMapper.supplier(new LocalTimeStringSupplier()));
+        printMapper("intSupplier", AddTextMapper.intSupplier(() -> 1));
+        printMapper("longSupplier", AddTextMapper.longSupplier(new SequencePrimitiveLongSupplier(0L)));
+        printMapper("recordMessage", AddTextMapper.recordMessage(new ShortMessage<>()));
+        printMapper("constant", AddTextMapper.constant("constant"));
+        printMapper("constantNull", AddTextMapper.constantNull());
+        printMapper("category", AddTextMapper.category());
+        printMapper("categoryOrElse", AddTextMapper.categoryOrElse("missing category"));
+        printMapper("categoryFunction", AddTextMapper.categoryFunction(category -> "new " + category));
+        printMapper("categoryOperator", AddTextMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE));
+        printMapper("categoryOperator", AddTextMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
+        printMapper("categoryAsOptionalFunction", AddTextMapper.categoryAsOptionalFunction(optionalCategory -> optionalCategory.orElse("missing category")));
+        printMapper("recordId", AddTextMapper.recordId());
+        printMapper("textAt", AddTextMapper.textAt(2));
+        printMapper("textAtOrElse", AddTextMapper.textAtOrElse(2, "missing value"));
+        printMapper("fieldAtOrElse", AddTextMapper.fieldAtOrElse(2, new AddPrefixFieldTextMapper("new: "), "missing value"));
+        printMapper("fileName", AddTextMapper.fileName(Paths.get("").toAbsolutePath()));
     }
 
     private static void showCategoryMapper() {
@@ -117,9 +117,9 @@ public final class ExamplesMapper {
         printMapper("categoryOperator", CategoryMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
         printMapper("categoryAsOptionalFunction", CategoryMapper.categoryAsOptionalFunction(optionalCategory -> optionalCategory.orElse("missing category")));
         printMapper("recordId", CategoryMapper.recordId());
-        printMapper("valueAt", CategoryMapper.valueAt(2));
-        printMapper("valueAtOrElse", CategoryMapper.valueAtOrElse(2, "missing value"));
-        printMapper("fieldAtOrElse", CategoryMapper.fieldAtOrElse(2, new AddPrefixFieldValueMapper("new: "), "missing value"));
+        printMapper("textAt", CategoryMapper.textAt(2));
+        printMapper("textAtOrElse", CategoryMapper.textAtOrElse(2, "missing value"));
+        printMapper("fieldAtOrElse", CategoryMapper.fieldAtOrElse(2, new AddPrefixFieldTextMapper("new: "), "missing value"));
         printMapper("fileName", CategoryMapper.fileName(Paths.get("").toAbsolutePath()));
     }
 
@@ -136,7 +136,7 @@ public final class ExamplesMapper {
     private static void showConstantMapper() {
         System.out.println("-showConstantMapper---");
 
-        printMapper("constructor", new ConstantMapper<>(new TwoValuesRecord("A", "B")));
+        printMapper("constructor", new ConstantMapper<>(new TwoFieldsRecord("A", "B")));
     }
 
     private static void showFunctionMapper() {
@@ -145,17 +145,17 @@ public final class ExamplesMapper {
         printMapper("constructor", new FunctionMapper<>(
                 record -> record.categoryOrElse("new category"),
                 record -> record.recordIdAsOptional().orElse(-1L),
-                record -> Strings.list(record.valueAtOrElse(0, ""))
+                record -> Strings.list(record.textAtOrElse(0, ""))
         ));
         printMapper("functionMappers", FunctionMapper.functionMappers(
                 CategoryMapper.recordId(),
                 RecordIdMapper.constant(100L),
-                ValuesMapper.reverseValues())
+                TextsMapper.reverseTexts())
         );
         printMapper("functionMappers identity", FunctionMapper.functionMappers(
                 CategoryMapper.identity(),
                 RecordIdMapper.identity(),
-                ValuesMapper.identity())
+                TextsMapper.identity())
         );
     }
 
@@ -170,14 +170,14 @@ public final class ExamplesMapper {
         System.out.println("-showLookupMapper---");
 
         printMapper("constructor", new LookupMapper<>(TextRecord::recordId,
-                recordId -> recordId == null ? null : AddValueMapper.recordId(),
+                recordId -> recordId == null ? null : AddTextMapper.recordId(),
                 new IdentityMapper<>()));
 
         Map<String, RecordMapper<? super TextRecord, TextRecord>> recordMapperMap = new HashMap<>();
-        recordMapperMap.put("value1", AddValueMapper.constant("lookup value1"));
-        recordMapperMap.put("value2", AddValueMapper.constant("lookup value2"));
-        recordMapperMap.put("key", AddValueMapper.constant("lookup key"));
-        printMapper("messageMap", LookupMapper.messageMap(new ValueMessage<>(0), recordMapperMap));
+        recordMapperMap.put("value1", AddTextMapper.constant("lookup value1"));
+        recordMapperMap.put("value2", AddTextMapper.constant("lookup value2"));
+        recordMapperMap.put("key", AddTextMapper.constant("lookup key"));
+        printMapper("messageMap", LookupMapper.messageMap(new TextMessage<>(0), recordMapperMap));
     }
 
     @SuppressWarnings("VariableNotUsedInsideIf")
@@ -194,7 +194,7 @@ public final class ExamplesMapper {
         printMapper("categoryFunction", RecordIdMapper.categoryFunction(cat -> cat == null ? 0L : 1L));
         printMapper("categoryAsOptionalFunction", RecordIdMapper.categoryAsOptionalFunction(cat -> cat.isPresent() ? 0L : 1L));
         printMapper("recordId", RecordIdMapper.recordId());
-        printMapper("valueAt", RecordIdMapper.valueAt(2, value -> value == null ? 0L : 1L));
+        printMapper("textAt", RecordIdMapper.textAt(2, value -> value == null ? 0L : 1L));
     }
 
     private static void showRecordMapper() {
@@ -202,52 +202,52 @@ public final class ExamplesMapper {
 
         printMapper("concat 2", RecordMapper.concat(
                 CategoryMapper.constantNull(),
-                new ToOneValueRecordMapper<>(1)));
+                new ToOneFieldRecordMapper<>(1)));
         printMapperValueRecord("concat 3", RecordMapper.concat(
                 CategoryMapper.categoryOrElse("missing category"),
                 RecordIdMapper.longSupplier(new SequencePrimitiveLongSupplier(1000L)),
-                AddValueMapper.constant("new value")));
+                AddTextMapper.constant("new value")));
         printMapper("compose",
-                CategoryMapper.constantNull().compose(AddValueMapper.constant("new value")));
+                CategoryMapper.constantNull().compose(AddTextMapper.constant("new value")));
         printMapper("andThen",
-                new ToOneValueRecordMapper<>(0).andThen(AddValueMapper.constant("new value")));
+                new ToOneFieldRecordMapper<>(0).andThen(AddTextMapper.constant("new value")));
     }
 
     private static void showSupplierMapper() {
         System.out.println("-showSupplierMapper---");
 
-        printMapper("constructor", new SupplierMapper<>(() -> new OneValueRecord("value")));
+        printMapper("constructor", new SupplierMapper<>(() -> new OneFieldRecord("value")));
     }
 
     private static void showValuesMapper() {
         System.out.println("-showValuesMapper---");
 
-        printMapper("constructor", new ValuesMapper<>(record -> Strings.list("new value 0", "new value 1", "new value 2")));
-        printMapper("identity", ValuesMapper.identity());
-        printMapper("recordFieldFunction", ValuesMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.recordIdAsOptional().orElse(0L) + field.index())));
-        printMapper("mapAllFields", ValuesMapper.mapAllFields(new AddPrefixFieldValueMapper("new: ")));
-        printMapperValueRecord("mapOneField", ValuesMapper.mapOneField(ValueRecord::valueField, new AddPrefixFieldValueMapper("new: ")));
-        printMapper("size 0", ValuesMapper.size(0, "<NULL>"));
-        printMapper("size 1", ValuesMapper.size(1, "<NULL>"));
-        printMapper("size 2", ValuesMapper.size(2, "<NULL>"));
-        printMapper("reverseValues", ValuesMapper.reverseValues());
-        printMapper("createMessages array", ValuesMapper.createMessages(
+        printMapper("constructor", new TextsMapper<>(record -> Strings.list("new value 0", "new value 1", "new value 2")));
+        printMapper("identity", TextsMapper.identity());
+        printMapper("recordFieldFunction", TextsMapper.recordFieldFunction((record, field) -> String.valueOf(10L * record.recordIdAsOptional().orElse(0L) + field.index())));
+        printMapper("mapAllFields", TextsMapper.mapAllFields(new AddPrefixFieldTextMapper("new: ")));
+        printMapperValueRecord("mapOneField", TextsMapper.mapOneField(ValueRecord::valueField, new AddPrefixFieldTextMapper("new: ")));
+        printMapper("size 0", TextsMapper.size(0, "<NULL>"));
+        printMapper("size 1", TextsMapper.size(1, "<NULL>"));
+        printMapper("size 2", TextsMapper.size(2, "<NULL>"));
+        printMapper("reverseTexts", TextsMapper.reverseTexts());
+        printMapper("createMessages array", TextsMapper.createMessages(
                 new ConstantMessage<>("new"),
                 new SizeMessage<>()
         ));
-        printMapper("createMessages list", ValuesMapper.createMessages(
+        printMapper("createMessages list", TextsMapper.createMessages(
                 Collections.singletonList(new SizeMessage<>())
         ));
-        printMapper("applyFunctions array", ValuesMapper.applyFunctions(
-                TextRecord::category, TextRecord::valueOfLastField
+        printMapper("applyFunctions array", TextsMapper.applyFunctions(
+                TextRecord::category, TextRecord::lastText
         ));
-        printMapper("applyFunctions list", ValuesMapper.applyFunctions(
+        printMapper("applyFunctions list", TextsMapper.applyFunctions(
                 Collections.singletonList(TextRecord::toString)
         ));
-        printMapper("add", ValuesMapper.add(record -> "new value"));
-        printMapper("remove 0", ValuesMapper.remove(0));
-        printMapper("remove 2", ValuesMapper.remove(2));
-        printMapper("remove isNullOrEmpty", ValuesMapper.remove(Field::isNullOrEmpty));
+        printMapper("add", TextsMapper.add(record -> "new value"));
+        printMapper("remove 0", TextsMapper.remove(0));
+        printMapper("remove 2", TextsMapper.remove(2));
+        printMapper("remove isNullOrEmpty", TextsMapper.remove(Field::isNullOrEmpty));
     }
 
     public static void main(String... args) {

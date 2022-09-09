@@ -9,9 +9,9 @@ import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.impl.OneValueRecord;
-import stexfires.record.impl.TwoValuesRecord;
+import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.logger.AppendableLogger;
 import stexfires.record.logger.CollectionLogger;
 import stexfires.record.logger.ConditionalLogger;
@@ -37,20 +37,20 @@ public final class ExamplesLogger {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneValueRecord("value1"),
-                new OneValueRecord("value2"),
+                new OneFieldRecord("value1"),
+                new OneFieldRecord("value2"),
                 new KeyValueRecord("key", "value"),
-                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new ManyValuesRecord(),
+                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new StandardRecord(),
                 new EmptyRecord()
         );
     }
 
-    private static Stream<OneValueRecord> generateStreamOneValueRecord() {
+    private static Stream<OneFieldRecord> generateStreamOneValueRecord() {
         return Stream.of(
-                new OneValueRecord("value1"),
-                new OneValueRecord(null, 2L, "value2"),
-                new OneValueRecord("category", 3L, "value3")
+                new OneFieldRecord("value1"),
+                new OneFieldRecord(null, 2L, "value2"),
+                new OneFieldRecord("category", 3L, "value3")
         );
     }
 
@@ -68,7 +68,7 @@ public final class ExamplesLogger {
                          .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void printLoggerOneValueRecord(String title, RecordLogger<? super OneValueRecord> recordLogger) {
+    private static void printLoggerOneValueRecord(String title, RecordLogger<? super OneFieldRecord> recordLogger) {
         System.out.println("--" + title);
         TextRecordStreams.log(generateStreamOneValueRecord(), recordLogger)
                          .forEachOrdered(new NullConsumer<>().asConsumer());
@@ -123,7 +123,7 @@ public final class ExamplesLogger {
 
         printLogger("constructor",
                 new ConditionalLogger<>(
-                        ClassFilter.equalTo(ManyValuesRecord.class),
+                        ClassFilter.equalTo(StandardRecord.class),
                         new SystemOutLogger<>(),
                         new NullLogger<>()));
 
@@ -154,13 +154,13 @@ public final class ExamplesLogger {
 
         List<ClassFilter<TextRecord>> recordFilters = new ArrayList<>();
         recordFilters.add(ClassFilter.equalTo(EmptyRecord.class));
-        recordFilters.add(ClassFilter.equalTo(OneValueRecord.class));
-        recordFilters.add(ClassFilter.equalTo(TwoValuesRecord.class));
+        recordFilters.add(ClassFilter.equalTo(OneFieldRecord.class));
+        recordFilters.add(ClassFilter.equalTo(TwoFieldsRecord.class));
 
         List<RecordLogger<? super TextRecord>> recordLoggersFilter = new ArrayList<>();
         recordLoggersFilter.add(new SystemOutLogger<>("Filter EmptyRecord: "));
-        recordLoggersFilter.add(new SystemOutLogger<>("Filter OneValueRecord: "));
-        recordLoggersFilter.add(new SystemOutLogger<>("Filter TwoValuesRecord: "));
+        recordLoggersFilter.add(new SystemOutLogger<>("Filter OneFieldRecord: "));
+        recordLoggersFilter.add(new SystemOutLogger<>("Filter TwoFieldsRecord: "));
 
         printLogger("byFilters",
                 DispatcherLogger.byFilters(recordFilters, recordLoggersFilter));

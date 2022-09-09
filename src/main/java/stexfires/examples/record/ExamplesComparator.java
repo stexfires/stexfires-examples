@@ -8,7 +8,7 @@ import stexfires.record.comparator.FieldComparators;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.SortNulls;
 
 import java.util.Comparator;
@@ -20,18 +20,18 @@ public final class ExamplesComparator {
     private ExamplesComparator() {
     }
 
-    private static Stream<ManyValuesRecord> generateStreamManyValuesRecord() {
+    private static Stream<StandardRecord> generateStreamManyValuesRecord() {
         return Stream.of(
-                new ManyValuesRecord("C4", 6L, "value0"),
-                new ManyValuesRecord(null, 2L, "value0", "value1b"),
-                new ManyValuesRecord("C1", 5L, "value0", "value1a", "value2"),
-                new ManyValuesRecord("C2", 0L, "value0b"),
-                new ManyValuesRecord(null, 2L, "value0a"),
-                new ManyValuesRecord(null, 1L, "value0c"),
-                new ManyValuesRecord("C0", (Long) null, "value0"),
-                new ManyValuesRecord("C4", 7L),
-                new ManyValuesRecord("C4", 8L, null, null, null, null),
-                new ManyValuesRecord()
+                new StandardRecord("C4", 6L, "value0"),
+                new StandardRecord(null, 2L, "value0", "value1b"),
+                new StandardRecord("C1", 5L, "value0", "value1a", "value2"),
+                new StandardRecord("C2", 0L, "value0b"),
+                new StandardRecord(null, 2L, "value0a"),
+                new StandardRecord(null, 1L, "value0c"),
+                new StandardRecord("C0", (Long) null, "value0"),
+                new StandardRecord("C4", 7L),
+                new StandardRecord("C4", 8L, null, null, null, null),
+                new StandardRecord()
         );
     }
 
@@ -46,7 +46,7 @@ public final class ExamplesComparator {
         );
     }
 
-    private static void printComparatorRecord(String title, Comparator<? super ManyValuesRecord> recordComparator) {
+    private static void printComparatorRecord(String title, Comparator<? super StandardRecord> recordComparator) {
         System.out.println("--" + title);
         TextRecordStreams.sortAndConsume(generateStreamManyValuesRecord(), recordComparator, new SystemOutConsumer<>());
     }
@@ -83,10 +83,10 @@ public final class ExamplesComparator {
         printComparatorRecord("lastField: length, SortNulls.LAST", RecordComparators.lastField(FieldComparators.length(), SortNulls.LAST));
 
         // value
-        printComparatorRecord("value: getValueAt(1), naturalOrder(), SortNulls.LAST", RecordComparators.value(record -> record.valueAt(1), Comparator.naturalOrder(), SortNulls.LAST));
-        printComparatorRecord("valueAt: 1, naturalOrder(), SortNulls.LAST", RecordComparators.valueAt(1, Comparator.naturalOrder(), SortNulls.LAST));
-        printComparatorRecord("firstValue: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfFirstField(Comparator.naturalOrder(), SortNulls.LAST));
-        printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.valueOfLastField(Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("value: getValueAt(1), naturalOrder(), SortNulls.LAST", RecordComparators.string(record -> record.textAt(1), Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("textAt: 1, naturalOrder(), SortNulls.LAST", RecordComparators.textAt(1, Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("firstValue: naturalOrder(), SortNulls.LAST", RecordComparators.firstText(Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.lastText(Comparator.naturalOrder(), SortNulls.LAST));
 
         // KeyValueRecord
         printComparatorKeyValueRecord("key: naturalOrder()", RecordComparators.key(Comparator.naturalOrder()));

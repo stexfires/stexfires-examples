@@ -12,12 +12,12 @@ import stexfires.record.filter.RecordFilter;
 import stexfires.record.filter.RecordIdFilter;
 import stexfires.record.filter.SizeFilter;
 import stexfires.record.filter.SupplierFilter;
-import stexfires.record.filter.ValueFilter;
+import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.impl.OneValueRecord;
-import stexfires.record.impl.TwoValuesRecord;
+import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.message.CategoryMessage;
 import stexfires.util.NumberCheckType;
 import stexfires.util.NumberComparisonType;
@@ -39,17 +39,17 @@ public final class ExamplesFilter {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneValueRecord("category", 0L, "A"),
-                new OneValueRecord("category", 1L, ""),
-                new OneValueRecord("", 2L, "C"),
-                new OneValueRecord("Category", 3L, "D"),
-                new OneValueRecord(null, 4L, "E"),
-                new OneValueRecord("c", 5L, "F"),
-                new TwoValuesRecord("c", 6L, "X", "Y"),
+                new OneFieldRecord("category", 0L, "A"),
+                new OneFieldRecord("category", 1L, ""),
+                new OneFieldRecord("", 2L, "C"),
+                new OneFieldRecord("Category", 3L, "D"),
+                new OneFieldRecord(null, 4L, "E"),
+                new OneFieldRecord("c", 5L, "F"),
+                new TwoFieldsRecord("c", 6L, "X", "Y"),
                 new KeyValueRecord("key", "value"),
-                new ManyValuesRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
-                new ManyValuesRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new ManyValuesRecord(),
+                new StandardRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
+                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new StandardRecord(),
                 new EmptyRecord()
         );
     }
@@ -86,11 +86,11 @@ public final class ExamplesFilter {
         printFilter("constructor",
                 new ClassFilter<>(clazz -> EmptyRecord.class != clazz));
         printFilter("equalTo",
-                ClassFilter.equalTo(TwoValuesRecord.class));
+                ClassFilter.equalTo(TwoFieldsRecord.class));
         printFilter("containedIn Collection",
-                ClassFilter.containedIn(Collections.singletonList(TwoValuesRecord.class)));
+                ClassFilter.containedIn(Collections.singletonList(TwoFieldsRecord.class)));
         printFilter("containedIn List",
-                ClassFilter.containedIn(List.of(TwoValuesRecord.class, EmptyRecord.class)));
+                ClassFilter.containedIn(List.of(TwoFieldsRecord.class, EmptyRecord.class)));
     }
 
     private static void showConstantFilter() {
@@ -144,15 +144,15 @@ public final class ExamplesFilter {
         System.out.println("-showRecordFilter---");
 
         printFilter("concatAnd",
-                RecordFilter.concatAnd(ClassFilter.equalTo(ManyValuesRecord.class), SizeFilter.equalTo(8)));
+                RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatOr",
-                RecordFilter.concatOr(ClassFilter.equalTo(ManyValuesRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
+                RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
         printFilter("and",
-                ClassFilter.equalTo(ManyValuesRecord.class).and(SizeFilter.equalTo(8)));
+                ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
                 SizeFilter.equalTo(1).negate());
         printFilter("or",
-                ClassFilter.equalTo(ManyValuesRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
+                ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
     }
 
     private static void showRecordIdFilter() {
@@ -216,37 +216,37 @@ public final class ExamplesFilter {
         System.out.println("-showValueFilter---");
 
         printFilter("constructor index",
-                new ValueFilter<>(0, "A"::equals));
+                new TextFilter<>(0, "A"::equals));
         printFilter("constructor index null",
-                new ValueFilter<>(1, true, value -> false));
+                new TextFilter<>(1, true, value -> false));
         printFilter("constructor function",
-                new ValueFilter<>(TextRecord::lastField, "A"::equals));
+                new TextFilter<>(TextRecord::lastField, "A"::equals));
         printFilter("constructor function null",
-                new ValueFilter<>(record -> record.fieldAt(1), false, "t"::equals));
+                new TextFilter<>(record -> record.fieldAt(1), false, "t"::equals));
         printFilter("compare index",
-                ValueFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
+                TextFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
         printFilter("compare function",
-                ValueFilter.compare(TextRecord::lastField, StringComparisonType.EQUALS, "d"));
+                TextFilter.compare(TextRecord::lastField, StringComparisonType.EQUALS, "d"));
         printFilter("check index",
-                ValueFilter.check(0, StringCheckType.EMPTY));
+                TextFilter.check(0, StringCheckType.EMPTY));
         printFilter("check function",
-                ValueFilter.check(TextRecord::lastField, StringCheckType.EMPTY));
+                TextFilter.check(TextRecord::lastField, StringCheckType.EMPTY));
         printFilter("equalTo index",
-                ValueFilter.equalTo(0, "S"));
+                TextFilter.equalTo(0, "S"));
         printFilter("equalTo function",
-                ValueFilter.equalTo(TextRecord::lastField, "d"));
+                TextFilter.equalTo(TextRecord::lastField, "d"));
         printFilter("isNotNull index",
-                ValueFilter.isNotNull(2));
+                TextFilter.isNotNull(2));
         printFilter("isNotNull function",
-                ValueFilter.isNotNull(TextRecord::lastField));
+                TextFilter.isNotNull(TextRecord::lastField));
         printFilter("containedIn index Collection",
-                ValueFilter.containedIn(0, Strings.list("A", "B")));
+                TextFilter.containedIn(0, Strings.list("A", "B")));
         printFilter("containedIn function Collection",
-                ValueFilter.containedIn(TextRecord::lastField, Strings.list("A", "d")));
+                TextFilter.containedIn(TextRecord::lastField, Strings.list("A", "d")));
         printFilter("containedIn index Array",
-                ValueFilter.containedIn(0, "C", "D"));
+                TextFilter.containedIn(0, "C", "D"));
         printFilter("containedIn function Array",
-                ValueFilter.containedIn(TextRecord::lastField, "A", "d"));
+                TextFilter.containedIn(TextRecord::lastField, "A", "d"));
     }
 
     public static void main(String... args) {

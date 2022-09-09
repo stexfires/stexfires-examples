@@ -7,8 +7,8 @@ import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.filter.RecordFilter;
-import stexfires.record.filter.ValueFilter;
-import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.filter.TextFilter;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 import stexfires.util.StringComparisonType;
@@ -150,7 +150,7 @@ public final class CharacterTest {
         String name = Character.getName(characterId);
         String directionality = getDirectionality(characterId);
 
-        return new ManyValuesRecord(characterAsString, characterIdAsLong,
+        return new StandardRecord(characterAsString, characterIdAsLong,
                 characterIdAsDecString,
                 characterIdAsHexString,
                 printChar,
@@ -216,7 +216,7 @@ public final class CharacterTest {
             // LETTER
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_LETTER.md"),
-                    ValueFilter.containedIn(3, List.of(
+                    TextFilter.containedIn(3, List.of(
                             "LOWERCASE_LETTER",
                             "MODIFIER_LETTER",
                             "OTHER_LETTER",
@@ -227,7 +227,7 @@ public final class CharacterTest {
             // NUMBER_SYMBOL
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_NUMBER_SYMBOL.md"),
-                    ValueFilter.containedIn(3, List.of(
+                    TextFilter.containedIn(3, List.of(
                             "DECIMAL_DIGIT_NUMBER",
                             "LETTER_NUMBER",
                             "OTHER_NUMBER",
@@ -240,7 +240,7 @@ public final class CharacterTest {
             // MISC
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_MISC.md"),
-                    ValueFilter.containedIn(3, List.of(
+                    TextFilter.containedIn(3, List.of(
                             "LINE_SEPARATOR",
                             "PARAGRAPH_SEPARATOR",
                             "SPACE_SEPARATOR",
@@ -260,7 +260,7 @@ public final class CharacterTest {
             // NOT_PRINTABLE
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_NOT_PRINTABLE.md"),
-                    ValueFilter.containedIn(3, List.of(
+                    TextFilter.containedIn(3, List.of(
                             "CONTROL",
                             "PRIVATE_USE",
                             "SURROGATE",
@@ -270,7 +270,7 @@ public final class CharacterTest {
             // Block_LATIN
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_Block_LATIN.md"),
-                    ValueFilter.compare(4, StringComparisonType.CONTAINS,
+                    TextFilter.compare(4, StringComparisonType.CONTAINS,
                             "LATIN"
                     ));
         } catch (ConsumerException | IOException e) {

@@ -6,16 +6,16 @@ import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueCommentRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.impl.OneValueRecord;
-import stexfires.record.impl.TwoValuesRecord;
+import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.mapper.RecordMapper;
 import stexfires.record.mapper.ToEmptyRecordMapper;
 import stexfires.record.mapper.ToKeyValueCommentRecordMapper;
 import stexfires.record.mapper.ToKeyValueRecordMapper;
-import stexfires.record.mapper.ToManyValuesRecordMapper;
-import stexfires.record.mapper.ToOneValueRecordMapper;
-import stexfires.record.mapper.ToTwoValuesRecordMapper;
+import stexfires.record.mapper.ToOneFieldRecordMapper;
+import stexfires.record.mapper.ToStandardRecordMapper;
+import stexfires.record.mapper.ToTwoFieldsRecordMapper;
 import stexfires.util.Strings;
 
 import java.util.stream.Stream;
@@ -32,15 +32,15 @@ public final class ExamplesToMapper {
                 new KeyValueRecord("key", "value"),
                 new KeyValueRecord("category", 0L, "key", "value"),
                 new KeyValueCommentRecord("category", 0L, "key", "value", "comment"),
-                new TwoValuesRecord("first", "second"),
-                new TwoValuesRecord("category", 0L, "first", "second"),
-                new OneValueRecord("value"),
-                new OneValueRecord("category", 0L, "value"),
-                new ManyValuesRecord(),
-                new ManyValuesRecord(Strings.list("value1", "value2", "value3")),
-                new ManyValuesRecord("category", Strings.list("value1", "value2", "value3")),
-                new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3")),
-                new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3", "value4"))
+                new TwoFieldsRecord("first", "second"),
+                new TwoFieldsRecord("category", 0L, "first", "second"),
+                new OneFieldRecord("value"),
+                new OneFieldRecord("category", 0L, "value"),
+                new StandardRecord(),
+                new StandardRecord(Strings.list("value1", "value2", "value3")),
+                new StandardRecord("category", Strings.list("value1", "value2", "value3")),
+                new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3")),
+                new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3", "value4"))
         );
     }
 
@@ -70,21 +70,21 @@ public final class ExamplesToMapper {
     private static void showToPairMapper() {
         System.out.println("-showToPairMapper---");
 
-        printRecordMapper("constructor", new ToTwoValuesRecordMapper<>());
-        printRecordMapper("constructor (2, 0)", new ToTwoValuesRecordMapper<>(2, 0));
+        printRecordMapper("constructor", new ToTwoFieldsRecordMapper<>());
+        printRecordMapper("constructor (2, 0)", new ToTwoFieldsRecordMapper<>(2, 0));
     }
 
     private static void showToSingleMapper() {
         System.out.println("-showToSingleMapper---");
 
-        printRecordMapper("constructor", new ToOneValueRecordMapper<>());
-        printRecordMapper("constructor (2)", new ToOneValueRecordMapper<>(2));
+        printRecordMapper("constructor", new ToOneFieldRecordMapper<>());
+        printRecordMapper("constructor (2)", new ToOneFieldRecordMapper<>(2));
     }
 
     private static void showToStandardMapper() {
         System.out.println("-showToStandardMapper---");
 
-        printRecordMapper("constructor", new ToManyValuesRecordMapper<>());
+        printRecordMapper("constructor", new ToStandardRecordMapper<>());
     }
 
     public static void main(String... args) {

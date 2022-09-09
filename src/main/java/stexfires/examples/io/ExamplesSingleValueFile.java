@@ -8,7 +8,7 @@ import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.OneValueRecord;
+import stexfires.record.impl.OneFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
@@ -32,37 +32,37 @@ public final class ExamplesSingleValueFile {
     private ExamplesSingleValueFile() {
     }
 
-    private static Stream<OneValueRecord> generateStream() {
+    private static Stream<OneFieldRecord> generateStream() {
         return Stream.of(
-                new OneValueRecord("Start---"),
+                new OneFieldRecord("Start---"),
 
-                new OneValueRecord("A"),
-                new OneValueRecord(null),
-                new OneValueRecord("C"),
-                new OneValueRecord(""),
-                new OneValueRecord("    "),
-                new OneValueRecord("F"),
-                new OneValueRecord("//value1"),
-                new OneValueRecord("value2 value2 value2"),
-                new OneValueRecord(" value3 "),
-                new OneValueRecord("\t"),
-                new OneValueRecord("\tvalue4\t\tvalue4\t"),
+                new OneFieldRecord("A"),
+                new OneFieldRecord(null),
+                new OneFieldRecord("C"),
+                new OneFieldRecord(""),
+                new OneFieldRecord("    "),
+                new OneFieldRecord("F"),
+                new OneFieldRecord("//value1"),
+                new OneFieldRecord("value2 value2 value2"),
+                new OneFieldRecord(" value3 "),
+                new OneFieldRecord("\t"),
+                new OneFieldRecord("\tvalue4\t\tvalue4\t"),
 
-                new OneValueRecord(LineSeparator.LF.string()),
-                new OneValueRecord(LineSeparator.CR.string()),
-                new OneValueRecord(LineSeparator.CR_LF.string()),
-                new OneValueRecord(LineSeparator.LF.string() + "value11"),
-                new OneValueRecord("value12.1" + LineSeparator.LF.string() + "value12.2" + LineSeparator.CR.string() + "value12.3\fvalue12.4"),
+                new OneFieldRecord(LineSeparator.LF.string()),
+                new OneFieldRecord(LineSeparator.CR.string()),
+                new OneFieldRecord(LineSeparator.CR_LF.string()),
+                new OneFieldRecord(LineSeparator.LF.string() + "value11"),
+                new OneFieldRecord("value12.1" + LineSeparator.LF.string() + "value12.2" + LineSeparator.CR.string() + "value12.3\fvalue12.4"),
 
-                new OneValueRecord("\\ =:#! \u000B \u0004 \u0015"),
-                new OneValueRecord("\""),
-                new OneValueRecord("<entry>"),
-                new OneValueRecord("\u20AC \u0178"),
-                new OneValueRecord("\u00A6 \u00BC \u00B4 \u00B8"),
-                new OneValueRecord("\u007E \u007F \u0080 \u009F \u00A0"),
-                new OneValueRecord("äÄáß@{[²µ^°1234567890ß\"§$%&/()?`+*'-_.,;<>|~"),
+                new OneFieldRecord("\\ =:#! \u000B \u0004 \u0015"),
+                new OneFieldRecord("\""),
+                new OneFieldRecord("<entry>"),
+                new OneFieldRecord("\u20AC \u0178"),
+                new OneFieldRecord("\u00A6 \u00BC \u00B4 \u00B8"),
+                new OneFieldRecord("\u007E \u007F \u0080 \u009F \u00A0"),
+                new OneFieldRecord("äÄáß@{[²µ^°1234567890ß\"§$%&/()?`+*'-_.,;<>|~"),
 
-                new OneValueRecord("End---")
+                new OneFieldRecord("End---")
         );
     }
 
@@ -76,10 +76,10 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(new OneValueRecord("1. Test"), singleValueFile);
-        RecordFiles.writeFile(new OneValueRecord(""), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new OneValueRecord(null), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new OneValueRecord("4. Test"), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new OneFieldRecord("1. Test"), singleValueFile);
+        RecordFiles.writeFile(new OneFieldRecord(""), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new OneFieldRecord(null), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new OneFieldRecord("4. Test"), singleValueFile, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);

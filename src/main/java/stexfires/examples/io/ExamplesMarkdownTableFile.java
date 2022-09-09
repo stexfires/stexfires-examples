@@ -7,7 +7,7 @@ import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.ManyValuesRecord;
+import stexfires.record.impl.StandardRecord;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
 
@@ -56,18 +56,18 @@ public final class ExamplesMarkdownTableFile {
         // Write
         System.out.println("write: " + path);
         Stream<TextRecord> stream = TextRecordStreams.of(
-                new ManyValuesRecord("a", "1", "aa"),
-                new ManyValuesRecord("b", "22", "bbbbbb"),
-                new ManyValuesRecord("c", "333", "cccccccccc"),
-                new ManyValuesRecord("d", "4444", "ddddddddddddddddddddd"),
-                new ManyValuesRecord(" ", " ", " "),
-                new ManyValuesRecord("", "", ""),
-                new ManyValuesRecord(null, 1L, null, null, null),
-                new ManyValuesRecord(" "),
-                new ManyValuesRecord(""),
-                new ManyValuesRecord(null, 1L, null, null),
-                new ManyValuesRecord(),
-                new ManyValuesRecord("b", "|", "a|b|c")
+                new StandardRecord("a", "1", "aa"),
+                new StandardRecord("b", "22", "bbbbbb"),
+                new StandardRecord("c", "333", "cccccccccc"),
+                new StandardRecord("d", "4444", "ddddddddddddddddddddd"),
+                new StandardRecord(" ", " ", " "),
+                new StandardRecord("", "", ""),
+                new StandardRecord(null, 1L, null, null, null),
+                new StandardRecord(" "),
+                new StandardRecord(""),
+                new StandardRecord(null, 1L, null, null),
+                new StandardRecord(),
+                new StandardRecord("b", "|", "a|b|c")
         );
         RecordFiles.writeFile(stream, file);
     }
@@ -89,18 +89,18 @@ public final class ExamplesMarkdownTableFile {
         // Write
         System.out.println("write: " + path);
         Stream<TextRecord> stream = TextRecordStreams.of(
-                new ManyValuesRecord("a", "1", "aa"),
-                new ManyValuesRecord("b", "22", "bbbbbb"),
-                new ManyValuesRecord("c", "333", "cccccccccc"),
-                new ManyValuesRecord("d", "4444", "ddddddddddddddddddddd"),
-                new ManyValuesRecord(" ", " ", " "),
-                new ManyValuesRecord("", "", ""),
-                new ManyValuesRecord(null, 1L, null, null, null),
-                new ManyValuesRecord(" "),
-                new ManyValuesRecord(""),
-                new ManyValuesRecord(null, 1L, null, null),
-                new ManyValuesRecord(),
-                new ManyValuesRecord("b", "|", "a|b|c")
+                new StandardRecord("a", "1", "aa"),
+                new StandardRecord("b", "22", "bbbbbb"),
+                new StandardRecord("c", "333", "cccccccccc"),
+                new StandardRecord("d", "4444", "ddddddddddddddddddddd"),
+                new StandardRecord(" ", " ", " "),
+                new StandardRecord("", "", ""),
+                new StandardRecord(null, 1L, null, null, null),
+                new StandardRecord(" "),
+                new StandardRecord(""),
+                new StandardRecord(null, 1L, null, null),
+                new StandardRecord(),
+                new StandardRecord("b", "|", "a|b|c")
         );
         RecordFiles.writeFile(stream, file);
 
@@ -119,8 +119,8 @@ public final class ExamplesMarkdownTableFile {
         // Write
         System.out.println("write APPEND: " + path);
         Stream<TextRecord> stream2 = TextRecordStreams.of(
-                new ManyValuesRecord("a"),
-                new ManyValuesRecord("b")
+                new StandardRecord("a"),
+                new StandardRecord("b")
         );
         RecordFiles.writeFile(stream2, file2, StandardOpenOption.APPEND);
     }

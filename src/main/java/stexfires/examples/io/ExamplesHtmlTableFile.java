@@ -7,8 +7,8 @@ import stexfires.io.html.table.HtmlTableFileSpec;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.mapper.AddValueMapper;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.mapper.AddTextMapper;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public final class ExamplesHtmlTableFile {
                 new KeyValueRecord("Section2", 10L, "property6", "value6/section2"),
                 new KeyValueRecord(lineSeparator.string(), 13L, "property13", "value13")
         );
-        RecordFiles.writeFile(stream, AddValueMapper.category(), file);
+        RecordFiles.writeFile(stream, AddTextMapper.category(), file);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -105,13 +105,13 @@ public final class ExamplesHtmlTableFile {
 
         // Write
         System.out.println("write: " + path);
-        Stream<ManyValuesRecord> stream = TextRecordStreams.of(
-                new ManyValuesRecord(Stream.of("A0", "B0", "C0")),
-                new ManyValuesRecord(Stream.of("A1", "B1")),
-                new ManyValuesRecord(Stream.of("A2", null, "C2")),
-                new ManyValuesRecord(Stream.of(null, "B3")),
-                new ManyValuesRecord(Stream.of("A4", "B4", "C4", "D4", "E4")),
-                new ManyValuesRecord()
+        Stream<StandardRecord> stream = TextRecordStreams.of(
+                new StandardRecord(Stream.of("A0", "B0", "C0")),
+                new StandardRecord(Stream.of("A1", "B1")),
+                new StandardRecord(Stream.of("A2", null, "C2")),
+                new StandardRecord(Stream.of(null, "B3")),
+                new StandardRecord(Stream.of("A4", "B4", "C4", "D4", "E4")),
+                new StandardRecord()
         );
         RecordFiles.writeFile(stream, file);
     }

@@ -4,9 +4,9 @@ import stexfires.record.Fields;
 import stexfires.record.TextRecord;
 import stexfires.record.impl.EmptyRecord;
 import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.ManyValuesRecord;
-import stexfires.record.impl.OneValueRecord;
-import stexfires.record.impl.TwoValuesRecord;
+import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.util.Strings;
 
 import java.util.Arrays;
@@ -38,10 +38,10 @@ public final class ExamplesRecord {
         System.out.println("fieldAt:                   " + record.fieldAt(0));
         System.out.println("firstField:                " + record.firstField());
         System.out.println("lastField:                 " + record.lastField());
-        System.out.println("valueAt:                   " + record.valueAt(0));
-        System.out.println("valueAtOrElse:             " + record.valueAtOrElse(0, "else"));
-        System.out.println("valueOfFirstField:         " + record.valueOfFirstField());
-        System.out.println("valueOfLastField:          " + record.valueOfLastField());
+        System.out.println("textAt:                   " + record.textAt(0));
+        System.out.println("textAtOrElse:             " + record.textAtOrElse(0, "else"));
+        System.out.println("valueOfFirstField:         " + record.firstText());
+        System.out.println("valueOfLastField:          " + record.lastText());
         System.out.println("hashCode:                  " + record.hashCode());
         System.out.println("toString:                  " + record);
         System.out.println();
@@ -79,28 +79,28 @@ public final class ExamplesRecord {
     private static void showTwoValuesRecord() {
         System.out.println("-showTwoValuesRecord---");
 
-        TwoValuesRecord record = new TwoValuesRecord("first", "second");
-        System.out.println("withSwappedValues:         " + record.withSwappedValues());
+        TwoFieldsRecord record = new TwoFieldsRecord("first", "second");
+        System.out.println("withSwappedTexts:          " + record.withSwappedTexts());
         System.out.println("secondField:               " + record.secondField());
-        System.out.println("valueOfSecondField:        " + record.valueOfSecondField());
+        System.out.println("valueOfSecondField:        " + record.secondText());
         printRecord(record);
 
-        TwoValuesRecord record1 = new TwoValuesRecord("category", 0L, "first", "second");
-        System.out.println("withSwappedValues:         " + record1.withSwappedValues());
+        TwoFieldsRecord record1 = new TwoFieldsRecord("category", 0L, "first", "second");
+        System.out.println("withSwappedTexts:          " + record1.withSwappedTexts());
         System.out.println("secondField:               " + record1.secondField());
-        System.out.println("valueOfSecondField:        " + record1.valueOfSecondField());
+        System.out.println("valueOfSecondField:        " + record1.secondText());
         printRecord(record1);
     }
 
     private static void showOneValueRecord() {
         System.out.println("-showOneValueRecord---");
 
-        OneValueRecord record = new OneValueRecord("value");
+        OneFieldRecord record = new OneFieldRecord("value");
         System.out.println("valueField:                " + record.valueField());
         System.out.println("value:                     " + record.value());
         printRecord(record);
 
-        OneValueRecord record1 = new OneValueRecord("category", 0L, "value");
+        OneFieldRecord record1 = new OneFieldRecord("category", 0L, "value");
         System.out.println("valueField:                " + record1.valueField());
         System.out.println("value:                     " + record1.value());
         printRecord(record1);
@@ -109,18 +109,18 @@ public final class ExamplesRecord {
     private static void showManyValuesRecord() {
         System.out.println("-showManyValuesRecord---");
 
-        printRecord(new ManyValuesRecord());
+        printRecord(new StandardRecord());
 
-        printRecord(new ManyValuesRecord(Strings.list("value1", "value2", "value3")));
-        printRecord(new ManyValuesRecord("category", Strings.list("value1", "value2", "value3")));
-        printRecord(new ManyValuesRecord("category", 0L, Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord(Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", Strings.list("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", 0L, Strings.list("value1", "value2", "value3")));
 
-        printRecord(new ManyValuesRecord(Strings.stream("value1", "value2", "value3")));
-        printRecord(new ManyValuesRecord("category", Strings.stream("value1", "value2", "value3")));
-        printRecord(new ManyValuesRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord(Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", Strings.stream("value1", "value2", "value3")));
+        printRecord(new StandardRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
 
-        printRecord(new ManyValuesRecord("value1", "value2", "value3"));
-        printRecord(new ManyValuesRecord("category", 0L, "value1", "value2", "value3"));
+        printRecord(new StandardRecord("value1", "value2", "value3"));
+        printRecord(new StandardRecord("category", 0L, "value1", "value2", "value3"));
     }
 
     public static void main(String... args) {
