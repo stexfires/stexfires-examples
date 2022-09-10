@@ -1,8 +1,10 @@
 package stexfires.examples.record;
 
 import stexfires.record.KeyRecord;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.TextRecords;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.AppendableConsumer;
 import stexfires.record.consumer.CollectionConsumer;
@@ -20,10 +22,10 @@ import stexfires.record.consumer.WriterConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.impl.EmptyRecord;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.message.SizeMessage;
 
@@ -43,28 +45,28 @@ public final class ExamplesConsumer {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneFieldRecord("value1"),
-                new OneFieldRecord("value2"),
-                new KeyValueRecord("key", "value"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
-                new EmptyRecord()
+                new ValueFieldRecord("value1"),
+                new ValueFieldRecord("value2"),
+                new KeyValueFieldsRecord("key", "value"),
+                new ManyFieldsRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyFieldsRecord(),
+                TextRecords.empty()
         );
     }
 
-    private static Stream<OneFieldRecord> generateStreamOneValueRecord() {
+    private static Stream<ValueRecord> generateStreamOneValueRecord() {
         return Stream.of(
-                new OneFieldRecord("value1"),
-                new OneFieldRecord(null, 2L, "value2"),
-                new OneFieldRecord("category", 3L, "value3")
+                new ValueFieldRecord("value1"),
+                new ValueFieldRecord(null, 2L, "value2"),
+                new ValueFieldRecord("category", 3L, "value3")
         );
     }
 
     private static Stream<KeyValueRecord> generateStreamKeyValueRecord() {
         return Stream.of(
-                new KeyValueRecord("key1", "value1"),
-                new KeyValueRecord(null, 2L, "key2", "value2"),
-                new KeyValueRecord("category", 3L, "key3", "value3")
+                new KeyValueFieldsRecord("key1", "value1"),
+                new KeyValueFieldsRecord(null, 2L, "key2", "value2"),
+                new KeyValueFieldsRecord("category", 3L, "key3", "value3")
         );
     }
 
@@ -73,7 +75,7 @@ public final class ExamplesConsumer {
         TextRecordStreams.consume(generateStream(), recordConsumer);
     }
 
-    private static void printConsumerOneValueRecord(String title, RecordConsumer<? super OneFieldRecord> recordConsumer) {
+    private static void printConsumerOneValueRecord(String title, RecordConsumer<? super ValueRecord> recordConsumer) {
         System.out.println("--" + title);
         TextRecordStreams.consume(generateStreamOneValueRecord(), recordConsumer);
     }
@@ -124,9 +126,9 @@ public final class ExamplesConsumer {
     private static void showConditionalConsumer() {
         System.out.println("-showConditionalConsumer---");
 
-        printConsumer("constructor OneFieldRecord",
+        printConsumer("constructor ValueFieldRecord",
                 new ConditionalConsumer<>(
-                        ClassFilter.equalTo(OneFieldRecord.class),
+                        ClassFilter.equalTo(ValueFieldRecord.class),
                         new SystemOutConsumer<>(),
                         new NullConsumer<>()));
 
@@ -157,12 +159,12 @@ public final class ExamplesConsumer {
 
         List<ClassFilter<TextRecord>> recordFilters = new ArrayList<>();
         recordFilters.add(ClassFilter.equalTo(EmptyRecord.class));
-        recordFilters.add(ClassFilter.equalTo(OneFieldRecord.class));
+        recordFilters.add(ClassFilter.equalTo(ValueFieldRecord.class));
         recordFilters.add(ClassFilter.equalTo(TwoFieldsRecord.class));
 
         List<RecordConsumer<? super TextRecord>> recordConsumersFilter = new ArrayList<>();
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter EmptyRecord:  "));
-        recordConsumersFilter.add(new SystemOutConsumer<>("Filter OneFieldRecord: "));
+        recordConsumersFilter.add(new SystemOutConsumer<>("Filter ValueFieldRecord: "));
         recordConsumersFilter.add(new SystemOutConsumer<>("Filter TwoFieldsRecord:   "));
 
         printConsumer("byFilters",
@@ -266,7 +268,7 @@ public final class ExamplesConsumer {
         System.out.println("-showWriterConsumer---");
 
         try {
-            try (WriterConsumer<OneFieldRecord, StringWriter> consumer = new WriterConsumer<>(new StringWriter(), new SizeMessage<>())) {
+            try (WriterConsumer<ValueRecord, StringWriter> consumer = new WriterConsumer<>(new StringWriter(), new SizeMessage<>())) {
                 printConsumerOneValueRecord("constructor",
                         consumer);
                 System.out.println(consumer.getWriter());

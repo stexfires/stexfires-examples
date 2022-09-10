@@ -1,5 +1,6 @@
 package stexfires.examples.record;
 
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
@@ -7,11 +8,11 @@ import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.RecordIdFilter;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.mapper.ToTwoFieldsRecordMapper;
+import stexfires.record.mapper.impl.ToTwoFieldsRecordMapper;
 import stexfires.record.message.CategoryMessage;
 import stexfires.record.message.CompareMessageBuilder;
 import stexfires.record.message.JoinedTextsMessage;
@@ -51,60 +52,60 @@ public final class ExamplesModifier {
     private ExamplesModifier() {
     }
 
-    private static Stream<OneFieldRecord> generateStreamOneValueRecord() {
+    private static Stream<ValueRecord> generateStreamOneValueRecord() {
         return Stream.of(
-                new OneFieldRecord("C0", 0L, "value0"),
-                new OneFieldRecord("C0", 1L, "value0"),
-                new OneFieldRecord("C1", 2L, "value0"),
-                new OneFieldRecord("C1", 3L, "value1"),
-                new OneFieldRecord("C2", 4L, "value2"),
-                new OneFieldRecord("C0", 5L, "value1"),
-                new OneFieldRecord("C0", 6L, "value2")
+                new ValueFieldRecord("C0", 0L, "value0"),
+                new ValueFieldRecord("C0", 1L, "value0"),
+                new ValueFieldRecord("C1", 2L, "value0"),
+                new ValueFieldRecord("C1", 3L, "value1"),
+                new ValueFieldRecord("C2", 4L, "value2"),
+                new ValueFieldRecord("C0", 5L, "value1"),
+                new ValueFieldRecord("C0", 6L, "value2")
         );
     }
 
-    private static Stream<OneFieldRecord> generateStreamOneValueRecordGroup() {
+    private static Stream<ValueRecord> generateStreamOneValueRecordGroup() {
         return Stream.of(
-                new OneFieldRecord("A", 0L, "a1"),
-                new OneFieldRecord("A", 1L, "a2"),
-                new OneFieldRecord("B", 2L, "b1"),
-                new OneFieldRecord("B", 3L, "b2"),
-                new OneFieldRecord("C", 4L, "c1"),
-                new OneFieldRecord("B", 5L, "b3"),
-                new OneFieldRecord("D", 6L, "d1"),
-                new OneFieldRecord("A", 7L, "a3"),
-                new OneFieldRecord("A", 8L, "a4")
+                new ValueFieldRecord("A", 0L, "a1"),
+                new ValueFieldRecord("A", 1L, "a2"),
+                new ValueFieldRecord("B", 2L, "b1"),
+                new ValueFieldRecord("B", 3L, "b2"),
+                new ValueFieldRecord("C", 4L, "c1"),
+                new ValueFieldRecord("B", 5L, "b3"),
+                new ValueFieldRecord("D", 6L, "d1"),
+                new ValueFieldRecord("A", 7L, "a3"),
+                new ValueFieldRecord("A", 8L, "a4")
         );
     }
 
-    private static Stream<StandardRecord> generateStreamManyValuesRecord() {
+    private static Stream<ManyFieldsRecord> generateStreamManyValuesRecord() {
         return Stream.of(
-                new StandardRecord("C0", 0L, "B", "3", null, null),
-                new StandardRecord("C0", 1L, "Z", "7", "a", null),
-                new StandardRecord("C0", 2L, "A", "2", "a", null),
-                new StandardRecord("C0", 3L, "C", "2", "b", null),
-                new StandardRecord("C1", 4L, "X", "0", "c", null)
+                new ManyFieldsRecord("C0", 0L, "B", "3", null, null),
+                new ManyFieldsRecord("C0", 1L, "Z", "7", "a", null),
+                new ManyFieldsRecord("C0", 2L, "A", "2", "a", null),
+                new ManyFieldsRecord("C0", 3L, "C", "2", "b", null),
+                new ManyFieldsRecord("C1", 4L, "X", "0", "c", null)
         );
     }
 
-    private static void printModifierOneValueRecord(String title, RecordStreamModifier<OneFieldRecord, ? extends TextRecord> recordModifier) {
+    private static void printModifierOneValueRecord(String title, RecordStreamModifier<ValueRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         TextRecordStreams.modifyAndConsume(generateStreamOneValueRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printModifierOneValueRecordGroup(String title, RecordStreamModifier<OneFieldRecord, ? extends TextRecord> recordModifier) {
+    private static void printModifierOneValueRecordGroup(String title, RecordStreamModifier<ValueRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         TextRecordStreams.modifyAndConsume(generateStreamOneValueRecordGroup(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printModifierManyValuesRecord(String title, RecordStreamModifier<StandardRecord, ? extends TextRecord> recordModifier) {
+    private static void printModifierManyValuesRecord(String title, RecordStreamModifier<ManyFieldsRecord, ? extends TextRecord> recordModifier) {
         System.out.println("--" + title);
         TextRecordStreams.modifyAndConsume(generateStreamManyValuesRecord(), recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printPivotManyValuesRecord(String title, PivotModifier<StandardRecord> recordModifier, StandardRecord... records) {
+    private static void printPivotManyValuesRecord(String title, PivotModifier<ManyFieldsRecord> recordModifier, ManyFieldsRecord... records) {
         System.out.println("--" + title);
-        Stream<StandardRecord> recordStream = Stream.of(records);
+        Stream<ManyFieldsRecord> recordStream = Stream.of(records);
         SystemOutConsumer<TextRecord> consumer = new SystemOutConsumer<>(new CategoryMessage<>().prepend("(").append(") ").append(new JoinedTextsMessage<>()));
         TextRecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
@@ -116,25 +117,25 @@ public final class ExamplesModifier {
         TextRecordStreams.modifyAndConsume(recordStream, recordModifier, consumer);
     }
 
-    private static void printUnaryGroup(String title, UnaryGroupModifier<OneFieldRecord> recordModifier) {
+    private static void printUnaryGroup(String title, UnaryGroupModifier<ValueRecord> recordModifier) {
         System.out.println("--" + title);
-        Stream<OneFieldRecord> recordStream = Stream.of(
-                new OneFieldRecord("A", 1L, "a1"),
-                new OneFieldRecord("A", 2L, "a2"),
-                new OneFieldRecord("B", 3L, "b1"),
-                new OneFieldRecord("B", 4L, "b2"),
-                new OneFieldRecord("A", 5L, "a3"),
-                new OneFieldRecord("B", 6L, "b3"),
-                new OneFieldRecord("A", 7L, "a4"),
-                new OneFieldRecord("B", 8L, "b4"),
-                new OneFieldRecord("A", 9L, "a5"),
-                new OneFieldRecord("A", 0L, "a0"));
+        Stream<ValueRecord> recordStream = Stream.of(
+                new ValueFieldRecord("A", 1L, "a1"),
+                new ValueFieldRecord("A", 2L, "a2"),
+                new ValueFieldRecord("B", 3L, "b1"),
+                new ValueFieldRecord("B", 4L, "b2"),
+                new ValueFieldRecord("A", 5L, "a3"),
+                new ValueFieldRecord("B", 6L, "b3"),
+                new ValueFieldRecord("A", 7L, "a4"),
+                new ValueFieldRecord("B", 8L, "b4"),
+                new ValueFieldRecord("A", 9L, "a5"),
+                new ValueFieldRecord("A", 0L, "a0"));
         TextRecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
-    private static void printUnpivot(String title, UnpivotModifier<StandardRecord, ? extends TextRecord> recordModifier, StandardRecord... records) {
+    private static void printUnpivot(String title, UnpivotModifier<ManyFieldsRecord, ? extends TextRecord> recordModifier, ManyFieldsRecord... records) {
         System.out.println("--" + title);
-        Stream<StandardRecord> recordStream = Stream.of(records);
+        Stream<ManyFieldsRecord> recordStream = Stream.of(records);
         TextRecordStreams.modifyAndConsume(recordStream, recordModifier, new SystemOutConsumer<>());
     }
 
@@ -146,7 +147,7 @@ public final class ExamplesModifier {
         printModifierOneValueRecord("constructor recordId",
                 new DistinctModifier<>(new RecordIdMessage<>()));
         printModifierOneValueRecord("constructor value",
-                new DistinctModifier<>(new TextMessage<>(OneFieldRecord.VALUE_INDEX)));
+                new DistinctModifier<>(new TextMessage<>(ValueFieldRecord.VALUE_INDEX)));
         printModifierOneValueRecord("constructor CompareMessageBuilder",
                 new DistinctModifier<>(new CompareMessageBuilder().category().texts()));
     }
@@ -204,7 +205,7 @@ public final class ExamplesModifier {
                         )));
 
         printModifierOneValueRecord("constructor valueField; aggregateToValue category",
-                new GroupModifier<OneFieldRecord, TextRecord>(
+                new GroupModifier<ValueRecord, TextRecord>(
                         groupByValue(),
                         aggregateToValue(
                                 messageOfFirstElement(TextMessage.value()),
@@ -240,7 +241,7 @@ public final class ExamplesModifier {
         System.out.println("-showMapModifier---");
 
         printModifierOneValueRecord("constructor ToTwoFieldsRecordMapper",
-                new MapModifier<>(new ToTwoFieldsRecordMapper<>(OneFieldRecord.VALUE_INDEX, OneFieldRecord.VALUE_INDEX)));
+                new MapModifier<>(new ToTwoFieldsRecordMapper<>(ValueFieldRecord.VALUE_INDEX, ValueFieldRecord.VALUE_INDEX)));
     }
 
     private static void showPivotModifier() {
@@ -258,60 +259,60 @@ public final class ExamplesModifier {
         printPivotManyValuesRecord("Pivot 1.1 pivotWithClassifications",
                 PivotModifier.pivotWithClassifications(1, 2, nullValue,
                         0, valueClasses),
-                new StandardRecord(null, 1L, "jp", "key1"),
-                new StandardRecord(null, 2L, "en", "key1", "value1en"),
-                new StandardRecord(null, 3L, "en", "key2", "value2en"),
-                new StandardRecord(null, 4L, "en", "key3"),
-                new StandardRecord(null, 5L, "en", "key4", "value4en"),
-                new StandardRecord(null, 6L, "de", "key1", "value1de"),
-                new StandardRecord(null, 7L, "de", "key2", "value2de"),
-                new StandardRecord(null, 8L, "de", "key3", "value3de"),
-                new StandardRecord(null, 9L, "fr", "key2", "value2fr")
+                new ManyFieldsRecord(null, 1L, "jp", "key1"),
+                new ManyFieldsRecord(null, 2L, "en", "key1", "value1en"),
+                new ManyFieldsRecord(null, 3L, "en", "key2", "value2en"),
+                new ManyFieldsRecord(null, 4L, "en", "key3"),
+                new ManyFieldsRecord(null, 5L, "en", "key4", "value4en"),
+                new ManyFieldsRecord(null, 6L, "de", "key1", "value1de"),
+                new ManyFieldsRecord(null, 7L, "de", "key2", "value2de"),
+                new ManyFieldsRecord(null, 8L, "de", "key3", "value3de"),
+                new ManyFieldsRecord(null, 9L, "fr", "key2", "value2fr")
         );
 
         printPivotKeyValueRecord("Pivot 1.2 pivotWithClassifications",
                 PivotModifier.pivotWithClassifications(KeyValueRecord::key, KeyValueRecord::value, nullValue,
                         KeyValueRecord::category, valueClasses
                 ),
-                new KeyValueRecord("jp", 1L, "key1", null),
-                new KeyValueRecord("en", 2L, "key1", "value1en"),
-                new KeyValueRecord("en", 3L, "key2", "value2en"),
-                new KeyValueRecord("en", 4L, "key3", null),
-                new KeyValueRecord("en", 5L, "key4", "value4en"),
-                new KeyValueRecord("de", 6L, "key1", "value1de"),
-                new KeyValueRecord("de", 7L, "key2", "value2de"),
-                new KeyValueRecord("de", 8L, "key3", "value3de"),
-                new KeyValueRecord("fr", 9L, "key2", "value2fr")
+                new KeyValueFieldsRecord("jp", 1L, "key1", null),
+                new KeyValueFieldsRecord("en", 2L, "key1", "value1en"),
+                new KeyValueFieldsRecord("en", 3L, "key2", "value2en"),
+                new KeyValueFieldsRecord("en", 4L, "key3", null),
+                new KeyValueFieldsRecord("en", 5L, "key4", "value4en"),
+                new KeyValueFieldsRecord("de", 6L, "key1", "value1de"),
+                new KeyValueFieldsRecord("de", 7L, "key2", "value2de"),
+                new KeyValueFieldsRecord("de", 8L, "key3", "value3de"),
+                new KeyValueFieldsRecord("fr", 9L, "key2", "value2fr")
         );
 
         printPivotManyValuesRecord("Pivot 1.3 pivotWithClassifications",
                 PivotModifier.pivotWithClassifications(TextRecord::category, r -> r.textAt(1), nullValue,
                         r -> r.textAt(0), valueClasses),
-                new StandardRecord("key1", 1L, "jp"),
-                new StandardRecord("key1", 2L, "en", "value1en"),
-                new StandardRecord("key2", 3L, "en", "value2en"),
-                new StandardRecord("key3", 4L, "en"),
-                new StandardRecord("key4", 5L, "en", "value4en"),
-                new StandardRecord("key1", 6L, "de", "value1de"),
-                new StandardRecord("key2", 7L, "de", "value2de"),
-                new StandardRecord("key3", 8L, "de", "value3de"),
-                new StandardRecord("key2", 9L, "fr", "value2fr")
+                new ManyFieldsRecord("key1", 1L, "jp"),
+                new ManyFieldsRecord("key1", 2L, "en", "value1en"),
+                new ManyFieldsRecord("key2", 3L, "en", "value2en"),
+                new ManyFieldsRecord("key3", 4L, "en"),
+                new ManyFieldsRecord("key4", 5L, "en", "value4en"),
+                new ManyFieldsRecord("key1", 6L, "de", "value1de"),
+                new ManyFieldsRecord("key2", 7L, "de", "value2de"),
+                new ManyFieldsRecord("key3", 8L, "de", "value3de"),
+                new ManyFieldsRecord("key2", 9L, "fr", "value2fr")
         );
 
         printPivotManyValuesRecord("Pivot 2 pivotWithIndexes",
                 PivotModifier.pivotWithIndexes(0, 3, nullValueShort,
                         1, 2),
-                new StandardRecord(null, 1L, "key1", "A1", "B1", "no"),
-                new StandardRecord(null, 2L, "key1", "A2", "B2", "no"),
-                new StandardRecord(null, 3L, "key1", "A3", "B3", "no"),
-                new StandardRecord(null, 3L, "key1", "A4", "B4", "no"),
-                new StandardRecord(null, 4L, "key2", "C1", "D1"),
-                new StandardRecord(null, 5L, "key2", "C2", "D2"),
-                new StandardRecord(null, 6L, "key2", "C3", "D3"),
-                new StandardRecord(null, 5L, "key3", "E1", "F1"),
-                new StandardRecord(null, 5L, "key4", "G1"),
-                new StandardRecord(null, 5L, "key4", "H1"),
-                new StandardRecord(null, 6L, "key5", null, "I2", "I3")
+                new ManyFieldsRecord(null, 1L, "key1", "A1", "B1", "no"),
+                new ManyFieldsRecord(null, 2L, "key1", "A2", "B2", "no"),
+                new ManyFieldsRecord(null, 3L, "key1", "A3", "B3", "no"),
+                new ManyFieldsRecord(null, 3L, "key1", "A4", "B4", "no"),
+                new ManyFieldsRecord(null, 4L, "key2", "C1", "D1"),
+                new ManyFieldsRecord(null, 5L, "key2", "C2", "D2"),
+                new ManyFieldsRecord(null, 6L, "key2", "C3", "D3"),
+                new ManyFieldsRecord(null, 5L, "key3", "E1", "F1"),
+                new ManyFieldsRecord(null, 5L, "key4", "G1"),
+                new ManyFieldsRecord(null, 5L, "key4", "H1"),
+                new ManyFieldsRecord(null, 6L, "key5", null, "I2", "I3")
         );
 
         printPivotKeyValueRecord("Pivot 3 constructor classification",
@@ -319,15 +320,15 @@ public final class ExamplesModifier {
                         KeyValueRecord::key, KeyValueRecord::key, r -> Stream.empty(),
                         KeyValueRecord::value, nullValue, KeyValueRecord::category, valueClasses
                 ),
-                new KeyValueRecord("jp", 1L, "key1", null),
-                new KeyValueRecord("en", 2L, "key1", "value1en"),
-                new KeyValueRecord("en", 3L, "key2", "value2en"),
-                new KeyValueRecord("en", 4L, "key3", null),
-                new KeyValueRecord("en", 5L, "key4", "value4en"),
-                new KeyValueRecord("de", 6L, "key1", "value1de"),
-                new KeyValueRecord("de", 7L, "key2", "value2de"),
-                new KeyValueRecord("de", 8L, "key3", "value3de"),
-                new KeyValueRecord("fr", 9L, "key2", "value2fr")
+                new KeyValueFieldsRecord("jp", 1L, "key1", null),
+                new KeyValueFieldsRecord("en", 2L, "key1", "value1en"),
+                new KeyValueFieldsRecord("en", 3L, "key2", "value2en"),
+                new KeyValueFieldsRecord("en", 4L, "key3", null),
+                new KeyValueFieldsRecord("en", 5L, "key4", "value4en"),
+                new KeyValueFieldsRecord("de", 6L, "key1", "value1de"),
+                new KeyValueFieldsRecord("de", 7L, "key2", "value2de"),
+                new KeyValueFieldsRecord("de", 8L, "key3", "value3de"),
+                new KeyValueFieldsRecord("fr", 9L, "key2", "value2fr")
         );
 
         List<String> valueClassifications = new ArrayList<>();
@@ -339,16 +340,16 @@ public final class ExamplesModifier {
         printPivotManyValuesRecord("Pivot 4 pivotWithClassifications",
                 PivotModifier.pivotWithClassifications(0, 2, nullValue,
                         1, valueClassifications),
-                new StandardRecord("key2", "Type1", "Value2.1", "not relevant"),
-                new StandardRecord("key1", "Type1", "Value1.1", "not relevant"),
-                new StandardRecord("key2", "Type3", "Value2.3", "not relevant"),
-                new StandardRecord("key1", "Type2", "Value1.2", "not relevant"),
-                new StandardRecord("key3", "Type1", "Value3.1", "not relevant"),
-                new StandardRecord("key1", "Type3", "Value1.3", "not relevant"),
-                new StandardRecord("key2", "Type2", "Value2.2", "not relevant"),
-                new StandardRecord("key3", "Type3", "Value3.3", "not relevant"),
-                new StandardRecord("key4"),
-                new StandardRecord("key5", "Type5", "Value5.5", "not relevant")
+                new ManyFieldsRecord("key2", "Type1", "Value2.1", "not relevant"),
+                new ManyFieldsRecord("key1", "Type1", "Value1.1", "not relevant"),
+                new ManyFieldsRecord("key2", "Type3", "Value2.3", "not relevant"),
+                new ManyFieldsRecord("key1", "Type2", "Value1.2", "not relevant"),
+                new ManyFieldsRecord("key3", "Type1", "Value3.1", "not relevant"),
+                new ManyFieldsRecord("key1", "Type3", "Value1.3", "not relevant"),
+                new ManyFieldsRecord("key2", "Type2", "Value2.2", "not relevant"),
+                new ManyFieldsRecord("key3", "Type3", "Value3.3", "not relevant"),
+                new ManyFieldsRecord("key4"),
+                new ManyFieldsRecord("key5", "Type5", "Value5.5", "not relevant")
         );
     }
 
@@ -365,10 +366,10 @@ public final class ExamplesModifier {
                         new IdentityModifier<>(),
                         new SkipLimitModifier<>(1L, 1L)));
         printModifierOneValueRecord("compose",
-                new DistinctModifier<OneFieldRecord>(new CategoryMessage<>())
+                new DistinctModifier<ValueRecord>(new CategoryMessage<>())
                         .compose(new FilterModifier<>(CategoryFilter.equalTo("C1"))));
         printModifierOneValueRecord("andThen",
-                new FilterModifier<OneFieldRecord>(CategoryFilter.equalTo("C1"))
+                new FilterModifier<ValueRecord>(CategoryFilter.equalTo("C1"))
                         .andThen(new DistinctModifier<>(new CategoryMessage<>())));
     }
 
@@ -427,59 +428,59 @@ public final class ExamplesModifier {
 
         printUnpivot("Unpivot 1.1 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.firstText(), "S 1", r.textAt(1)),
-                        new StandardRecord(r.firstText(), "S 3", r.textAt(3))
+                        new ManyFieldsRecord(r.firstText(), "S 1", r.textAt(1)),
+                        new ManyFieldsRecord(r.firstText(), "S 3", r.textAt(3))
                 )),
-                new StandardRecord("k1", "a1", "a2", "a3"),
-                new StandardRecord("k2", "b1", "b2", "b3"),
-                new StandardRecord("k3", "c1", "c2"),
-                new StandardRecord("k4", "d1", "d2", "d3")
+                new ManyFieldsRecord("k1", "a1", "a2", "a3"),
+                new ManyFieldsRecord("k2", "b1", "b2", "b3"),
+                new ManyFieldsRecord("k3", "c1", "c2"),
+                new ManyFieldsRecord("k4", "d1", "d2", "d3")
         );
 
         printUnpivot("Unpivot 1.2 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.category(), "S 1", r.textAt(0)),
-                        new StandardRecord(r.category(), "S 3", r.textAt(2))
+                        new ManyFieldsRecord(r.category(), "S 1", r.textAt(0)),
+                        new ManyFieldsRecord(r.category(), "S 3", r.textAt(2))
                 )),
-                new StandardRecord("k1", 1L, "a1", "a2", "a3"),
-                new StandardRecord("k2", 2L, "b1", "b2", "b3"),
-                new StandardRecord("k3", 3L, "c1", "c2"),
-                new StandardRecord("k4", 4L, "d1", "d2", "d3")
+                new ManyFieldsRecord("k1", 1L, "a1", "a2", "a3"),
+                new ManyFieldsRecord("k2", 2L, "b1", "b2", "b3"),
+                new ManyFieldsRecord("k3", 3L, "c1", "c2"),
+                new ManyFieldsRecord("k4", 4L, "d1", "d2", "d3")
         );
 
         printUnpivot("Unpivot 1.3 constructor",
                 new UnpivotModifier<>(r -> Stream.of(
-                        new StandardRecord(r.category(), r.recordId(), "S 1", r.textAt(0)),
-                        new StandardRecord(r.category(), r.recordId(), "S 3", r.textAt(2))
+                        new ManyFieldsRecord(r.category(), r.recordId(), "S 1", r.textAt(0)),
+                        new ManyFieldsRecord(r.category(), r.recordId(), "S 3", r.textAt(2))
                 )),
-                new StandardRecord("k1", 1L, "a1", "a2", "a3"),
-                new StandardRecord("k2", 2L, "b1", "b2", "b3"),
-                new StandardRecord("k3", 3L, "c1", "c2"),
-                new StandardRecord("k4", 4L, "d1", "d2", "d3")
+                new ManyFieldsRecord("k1", 1L, "a1", "a2", "a3"),
+                new ManyFieldsRecord("k2", 2L, "b1", "b2", "b3"),
+                new ManyFieldsRecord("k3", 3L, "c1", "c2"),
+                new ManyFieldsRecord("k4", 4L, "d1", "d2", "d3")
         );
 
         printUnpivot("Unpivot 2.1 oneRecordPerValue",
                 UnpivotModifier.oneRecordPerValue(0, String::valueOf, true, 1, 2, 3),
-                new StandardRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
-                new StandardRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
-                new StandardRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
-                new StandardRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
-                new StandardRecord("k5", "e1"),
-                new StandardRecord("cat6", 6L, "k6", "f1", null, "f2"),
-                new StandardRecord("cat7", 7L, "k7", "g1"),
-                new StandardRecord("cat8", 8L, "k8")
+                new ManyFieldsRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
+                new ManyFieldsRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
+                new ManyFieldsRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
+                new ManyFieldsRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
+                new ManyFieldsRecord("k5", "e1"),
+                new ManyFieldsRecord("cat6", 6L, "k6", "f1", null, "f2"),
+                new ManyFieldsRecord("cat7", 7L, "k7", "g1"),
+                new ManyFieldsRecord("cat8", 8L, "k8")
         );
 
         printUnpivot("Unpivot 2.2 oneRecordPerValue",
                 UnpivotModifier.oneRecordPerValue(0, i -> "Index: " + i, false, 2, 3),
-                new StandardRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
-                new StandardRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
-                new StandardRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
-                new StandardRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
-                new StandardRecord("k5", "e1"),
-                new StandardRecord("cat6", 6L, "k6", "f1", null, "f2"),
-                new StandardRecord("cat7", 7L, "k7", "g1"),
-                new StandardRecord("cat8", 8L, "k8")
+                new ManyFieldsRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
+                new ManyFieldsRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
+                new ManyFieldsRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
+                new ManyFieldsRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
+                new ManyFieldsRecord("k5", "e1"),
+                new ManyFieldsRecord("cat6", 6L, "k6", "f1", null, "f2"),
+                new ManyFieldsRecord("cat7", 7L, "k7", "g1"),
+                new ManyFieldsRecord("cat8", 8L, "k8")
         );
 
         Map<Integer, String> map23 = new TreeMap<>();
@@ -488,14 +489,14 @@ public final class ExamplesModifier {
         map23.put(3, "S 3");
         printUnpivot("Unpivot 2.3 oneRecordPerValue",
                 UnpivotModifier.oneRecordPerValue(0, true, map23),
-                new StandardRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
-                new StandardRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
-                new StandardRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
-                new StandardRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
-                new StandardRecord("k5", "e1"),
-                new StandardRecord("cat6", 6L, "k6", "f1", null, "f2"),
-                new StandardRecord("cat7", 7L, "k7", "g1"),
-                new StandardRecord("cat8", 8L, "k8")
+                new ManyFieldsRecord("cat1", 1L, "k1", "a1", "a2", "a3"),
+                new ManyFieldsRecord("cat2", 2L, "k2", "b1", "b2", "b3"),
+                new ManyFieldsRecord("cat3", 3L, "k3", "c1", "c2", "c3"),
+                new ManyFieldsRecord("cat4", 4L, "k4", "d1", "d2", "d3"),
+                new ManyFieldsRecord("k5", "e1"),
+                new ManyFieldsRecord("cat6", 6L, "k6", "f1", null, "f2"),
+                new ManyFieldsRecord("cat7", 7L, "k7", "g1"),
+                new ManyFieldsRecord("cat8", 8L, "k8")
         );
 
         List<Integer> keyIndexes24 = new ArrayList<>();
@@ -506,14 +507,14 @@ public final class ExamplesModifier {
         map24.put(4, "S 3");
         printUnpivot("Unpivot 2.4 oneRecordPerValue two keys",
                 UnpivotModifier.oneRecordPerValue(keyIndexes24, map24::get, false, map24.keySet()),
-                new StandardRecord("cat1", 1L, "k1", "k1b", "a1", "a2", "a3"),
-                new StandardRecord("cat2", 2L, "k2", "k2b", "b1", "b2", "b3"),
-                new StandardRecord("cat3", 3L, "k3", "k3b", "c1", "c2", "c3"),
-                new StandardRecord("cat4", 4L, "k4", "k4b", "d1", "d2", "d3"),
-                new StandardRecord("k5", "k5b", "e1"),
-                new StandardRecord("cat6", 6L, "k6", "k6b", "f1", null, "f2"),
-                new StandardRecord("cat7", 7L, "k7", "k7b", "g1"),
-                new StandardRecord("cat8", 8L, "k8", "k8b")
+                new ManyFieldsRecord("cat1", 1L, "k1", "k1b", "a1", "a2", "a3"),
+                new ManyFieldsRecord("cat2", 2L, "k2", "k2b", "b1", "b2", "b3"),
+                new ManyFieldsRecord("cat3", 3L, "k3", "k3b", "c1", "c2", "c3"),
+                new ManyFieldsRecord("cat4", 4L, "k4", "k4b", "d1", "d2", "d3"),
+                new ManyFieldsRecord("k5", "k5b", "e1"),
+                new ManyFieldsRecord("cat6", 6L, "k6", "k6b", "f1", null, "f2"),
+                new ManyFieldsRecord("cat7", 7L, "k7", "k7b", "g1"),
+                new ManyFieldsRecord("cat8", 8L, "k8", "k8b")
         );
 
         List<Integer> keyValues3 = new ArrayList<>();
@@ -532,9 +533,9 @@ public final class ExamplesModifier {
                 UnpivotModifier.oneRecordPerValues(keyValues3,
                         String::valueOf,
                         valueIndexes31, valueIndexes32, valueIndexes33),
-                new StandardRecord("cat1", 1L, "k1", "a1 1", "a2 1", "a3 1", "b1 1", "b2 1", "k1b"),
-                new StandardRecord("cat2", 2L, "k2", "a1 2", "a2 2", "a3 2", "b1 2", "b2 2", "k2b"),
-                new StandardRecord("cat3", 3L, "k3", "a1 3", null, "a3 3", "b1 3", "b2 3", "k3b")
+                new ManyFieldsRecord("cat1", 1L, "k1", "a1 1", "a2 1", "a3 1", "b1 1", "b2 1", "k1b"),
+                new ManyFieldsRecord("cat2", 2L, "k2", "a1 2", "a2 2", "a3 2", "b1 2", "b2 2", "k2b"),
+                new ManyFieldsRecord("cat3", 3L, "k3", "a1 3", null, "a3 3", "b1 3", "b2 3", "k3b")
         );
     }
 

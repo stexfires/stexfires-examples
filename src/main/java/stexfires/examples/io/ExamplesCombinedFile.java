@@ -8,9 +8,10 @@ import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
 import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.LineSeparator;
@@ -32,13 +33,13 @@ public final class ExamplesCombinedFile {
 
     private static Stream<KeyValueRecord> generateStream() {
         return Stream.of(
-                new KeyValueRecord("SectionA", 1L, "key1", "value1a"),
-                new KeyValueRecord("SectionB", 2L, "key2", "value2"),
-                new KeyValueRecord("SectionA", 3L, "key3", "value3"),
-                new KeyValueRecord(null, 4L, "", null),
-                new KeyValueRecord("SectionA", 5L, "key1", "value1b"),
-                new KeyValueRecord(null, 6L, "", ""),
-                new KeyValueRecord("SectionC", 7L, "key7", "value7")
+                new KeyValueFieldsRecord("SectionA", 1L, "key1", "value1a"),
+                new KeyValueFieldsRecord("SectionB", 2L, "key2", "value2"),
+                new KeyValueFieldsRecord("SectionA", 3L, "key3", "value3"),
+                new KeyValueFieldsRecord(null, 4L, "", null),
+                new KeyValueFieldsRecord("SectionA", 5L, "key1", "value1b"),
+                new KeyValueFieldsRecord(null, 6L, "", ""),
+                new KeyValueFieldsRecord("SectionC", 7L, "key7", "value7")
         );
     }
 

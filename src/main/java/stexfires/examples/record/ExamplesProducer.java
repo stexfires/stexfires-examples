@@ -3,12 +3,16 @@ package stexfires.examples.record;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.TextRecords;
-import stexfires.record.impl.KeyValueRecord;
+import stexfires.record.impl.KeyValueCommentFieldsRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
+import stexfires.record.impl.TwoFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.producer.ConstantProducer;
 import stexfires.record.producer.DividingProducer;
 import stexfires.record.producer.KeyValueRecordProducer;
-import stexfires.record.producer.OneValueRecordProducer;
 import stexfires.record.producer.RecordProducer;
+import stexfires.record.producer.ValueRecordProducer;
 import stexfires.util.Strings;
 import stexfires.util.supplier.SequenceLongSupplier;
 
@@ -32,14 +36,14 @@ public final class ExamplesProducer {
 
         long streamSize = 2L;
 
-        printProducer(new ConstantProducer<>(streamSize, new KeyValueRecord("key1", "value1")));
-        printProducer(ConstantProducer.emptyRecords(streamSize));
-        printProducer(ConstantProducer.oneValueRecords(streamSize, "value1"));
-        printProducer(ConstantProducer.twoValuesRecords(streamSize, "value1", "value2"));
-        printProducer(ConstantProducer.keyValueRecords(streamSize, "key1", "value1"));
-        printProducer(ConstantProducer.keyValueCommentRecords(streamSize, "key1", "value1", "comment1"));
-        printProducer(ConstantProducer.manyValuesRecords(streamSize, Strings.list("value1", "value2")));
-        printProducer(ConstantProducer.manyValuesRecords(streamSize, "value1", "value2", "value3"));
+        printProducer(new ConstantProducer<>(streamSize, new KeyValueFieldsRecord("key1", "value1")));
+        printProducer(new ConstantProducer<>(streamSize, TextRecords.empty()));
+        printProducer(new ConstantProducer<>(streamSize, new ValueFieldRecord("value1")));
+        printProducer(new ConstantProducer<>(streamSize, new TwoFieldsRecord("value1", "value2")));
+        printProducer(new ConstantProducer<>(streamSize, new KeyValueFieldsRecord("key1", "value1")));
+        printProducer(new ConstantProducer<>(streamSize, new KeyValueCommentFieldsRecord("key1", "value1", "comment1")));
+        printProducer(new ConstantProducer<>(streamSize, new ManyFieldsRecord(Strings.list("value1", "value2"))));
+        printProducer(new ConstantProducer<>(streamSize, new ManyFieldsRecord("value1", "value2", "value3")));
     }
 
     private static void showDividingProducer() {
@@ -49,7 +53,7 @@ public final class ExamplesProducer {
         String category = "category";
 
         printProducer(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
-        printProducer(new DividingProducer(category, recordSize, "A", "B", "C", "D", "E", "F"));
+        printProducer(new DividingProducer(category, TextRecords.recordIdSequence(), recordSize, "A", "B", "C", "D", "E", "F"));
         printProducer(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
     }
 
@@ -80,10 +84,10 @@ public final class ExamplesProducer {
 
         String category = "category";
 
-        printProducer(new OneValueRecordProducer(values));
-        printProducer(new OneValueRecordProducer(category, values));
-        printProducer(new OneValueRecordProducer(category, new SequenceLongSupplier(100L), values));
-        printProducer(new OneValueRecordProducer(category, TextRecords.recordIdSequence(), values,
+        printProducer(new ValueRecordProducer(values));
+        printProducer(new ValueRecordProducer(category, values));
+        printProducer(new ValueRecordProducer(category, new SequenceLongSupplier(100L), values));
+        printProducer(new ValueRecordProducer(category, TextRecords.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 

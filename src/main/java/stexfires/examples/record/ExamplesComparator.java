@@ -2,13 +2,14 @@ package stexfires.examples.record;
 
 import stexfires.record.Field;
 import stexfires.record.Fields;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.comparator.FieldComparators;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.SystemOutConsumer;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.util.SortNulls;
 
 import java.util.Comparator;
@@ -20,33 +21,33 @@ public final class ExamplesComparator {
     private ExamplesComparator() {
     }
 
-    private static Stream<StandardRecord> generateStreamManyValuesRecord() {
+    private static Stream<ManyFieldsRecord> generateStreamManyValuesRecord() {
         return Stream.of(
-                new StandardRecord("C4", 6L, "value0"),
-                new StandardRecord(null, 2L, "value0", "value1b"),
-                new StandardRecord("C1", 5L, "value0", "value1a", "value2"),
-                new StandardRecord("C2", 0L, "value0b"),
-                new StandardRecord(null, 2L, "value0a"),
-                new StandardRecord(null, 1L, "value0c"),
-                new StandardRecord("C0", (Long) null, "value0"),
-                new StandardRecord("C4", 7L),
-                new StandardRecord("C4", 8L, null, null, null, null),
-                new StandardRecord()
+                new ManyFieldsRecord("C4", 6L, "value0"),
+                new ManyFieldsRecord(null, 2L, "value0", "value1b"),
+                new ManyFieldsRecord("C1", 5L, "value0", "value1a", "value2"),
+                new ManyFieldsRecord("C2", 0L, "value0b"),
+                new ManyFieldsRecord(null, 2L, "value0a"),
+                new ManyFieldsRecord(null, 1L, "value0c"),
+                new ManyFieldsRecord("C0", (Long) null, "value0"),
+                new ManyFieldsRecord("C4", 7L),
+                new ManyFieldsRecord("C4", 8L, null, null, null, null),
+                new ManyFieldsRecord()
         );
     }
 
     private static Stream<KeyValueRecord> generateStreamKeyValueRecord() {
         return Stream.of(
-                new KeyValueRecord("key4", "value5"),
-                new KeyValueRecord("key2", "value2"),
-                new KeyValueRecord("key0", "value1"),
-                new KeyValueRecord("key2", "value3"),
-                new KeyValueRecord("key5", null),
-                new KeyValueRecord("key1", "value0")
+                new KeyValueFieldsRecord("key4", "value5"),
+                new KeyValueFieldsRecord("key2", "value2"),
+                new KeyValueFieldsRecord("key0", "value1"),
+                new KeyValueFieldsRecord("key2", "value3"),
+                new KeyValueFieldsRecord("key5", null),
+                new KeyValueFieldsRecord("key1", "value0")
         );
     }
 
-    private static void printComparatorRecord(String title, Comparator<? super StandardRecord> recordComparator) {
+    private static void printComparatorRecord(String title, Comparator<? super ManyFieldsRecord> recordComparator) {
         System.out.println("--" + title);
         TextRecordStreams.sortAndConsume(generateStreamManyValuesRecord(), recordComparator, new SystemOutConsumer<>());
     }
@@ -88,7 +89,7 @@ public final class ExamplesComparator {
         printComparatorRecord("firstValue: naturalOrder(), SortNulls.LAST", RecordComparators.firstText(Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.lastText(Comparator.naturalOrder(), SortNulls.LAST));
 
-        // KeyValueRecord
+        // KeyValueFieldsRecord
         printComparatorKeyValueRecord("key: naturalOrder()", RecordComparators.key(Comparator.naturalOrder()));
         printComparatorKeyValueRecord("value: naturalOrder(), SortNulls.LAST", RecordComparators.value(Comparator.naturalOrder(), SortNulls.LAST));
 

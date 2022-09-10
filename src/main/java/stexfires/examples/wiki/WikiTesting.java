@@ -14,7 +14,7 @@ import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.mapper.RecordMapper;
 import stexfires.record.mapper.TextsMapper;
-import stexfires.record.mapper.ToOneFieldRecordMapper;
+import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
@@ -64,6 +64,7 @@ public final class WikiTesting {
                 title, "", MarkdownListFileSpec.DEFAULT_BULLET_POINT, true);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
                                                OutputStream outputStream)
             throws ProducerException, ConsumerException, IOException {
@@ -84,7 +85,7 @@ public final class WikiTesting {
         MarkdownListConsumer consumer = consumerFileSpec.consumer(outputStream);
         RecordMapper<TextRecord, ValueRecord> mapper = TextsMapper.applyFunctions(
                                                                           r -> "[" + r.textAt(0) + "]" + "(" + r.textAt(1) + ")")
-                                                                  .andThen(new ToOneFieldRecordMapper<>(0));
+                                                                  .andThen(new ToValueFieldRecordMapper<>(0));
 
         RecordIOStreams.convert(producer, mapper, consumer);
     }

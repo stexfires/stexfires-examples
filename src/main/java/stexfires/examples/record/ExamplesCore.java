@@ -3,10 +3,9 @@ package stexfires.examples.record;
 import stexfires.record.Field;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
-import stexfires.record.impl.EmptyRecord;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 
 import java.util.List;
 import java.util.function.Function;
@@ -32,12 +31,12 @@ public final class ExamplesCore {
 
     private static Stream<TextRecord> generateRecordStream() {
         return Stream.of(
-                new OneFieldRecord("value1"),
-                new OneFieldRecord("value2"),
-                new KeyValueRecord("key", "value"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
-                new EmptyRecord()
+                new ValueFieldRecord("value1"),
+                new ValueFieldRecord("value2"),
+                new KeyValueFieldsRecord("key", "value"),
+                new ManyFieldsRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyFieldsRecord(),
+                TextRecords.empty()
         );
     }
 

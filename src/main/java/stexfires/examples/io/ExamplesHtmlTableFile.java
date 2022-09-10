@@ -4,10 +4,11 @@ import stexfires.io.RecordFiles;
 import stexfires.io.html.table.HtmlTableFieldSpec;
 import stexfires.io.html.table.HtmlTableFile;
 import stexfires.io.html.table.HtmlTableFileSpec;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.mapper.AddTextMapper;
 import stexfires.util.LineSeparator;
 
@@ -53,27 +54,27 @@ public final class ExamplesHtmlTableFile {
         // Write
         System.out.println("write: " + path);
         Stream<KeyValueRecord> stream = TextRecordStreams.of(
-                new KeyValueRecord("", null, "<br>", "</td>"),
-                new KeyValueRecord("", null, "\"", "\"aa\""),
-                new KeyValueRecord("", null, "&& &", "&auml;"),
-                new KeyValueRecord("", 2L, "property2", "value2"),
-                new KeyValueRecord("Section1", 6L, "property6", "value6"),
-                new KeyValueRecord("    ", 11L, "property11", "value11"),
-                new KeyValueRecord("Section2", 8L, "property8", "value8"),
-                new KeyValueRecord("section1", 4L, "property4", "value4"),
-                new KeyValueRecord(null, 1L, "property1", "value1"),
-                new KeyValueRecord("Missing value", 20L, "", null),
-                new KeyValueRecord("Missing value", 21L, "", ""),
-                new KeyValueRecord("Missing value", 22L, " ", " "),
-                new KeyValueRecord("Section1", 5L, "property5", "value5"),
-                new KeyValueRecord("", 3L, "property3", "value3"),
-                new KeyValueRecord("\t", 12L, "property12", "value12"),
-                new KeyValueRecord(" Section3 ", 14L, "property14", "value14"),
-                new KeyValueRecord("   Section3   ", 15L, "property15", "value15"),
-                new KeyValueRecord("Section1", 6L, "property6", "value6b"),
-                new KeyValueRecord("Section2", 7L, "property7", "value7"),
-                new KeyValueRecord("Section2", 10L, "property6", "value6/section2"),
-                new KeyValueRecord(lineSeparator.string(), 13L, "property13", "value13")
+                new KeyValueFieldsRecord("", null, "<br>", "</td>"),
+                new KeyValueFieldsRecord("", null, "\"", "\"aa\""),
+                new KeyValueFieldsRecord("", null, "&& &", "&auml;"),
+                new KeyValueFieldsRecord("", 2L, "property2", "value2"),
+                new KeyValueFieldsRecord("Section1", 6L, "property6", "value6"),
+                new KeyValueFieldsRecord("    ", 11L, "property11", "value11"),
+                new KeyValueFieldsRecord("Section2", 8L, "property8", "value8"),
+                new KeyValueFieldsRecord("section1", 4L, "property4", "value4"),
+                new KeyValueFieldsRecord(null, 1L, "property1", "value1"),
+                new KeyValueFieldsRecord("Missing value", 20L, "", null),
+                new KeyValueFieldsRecord("Missing value", 21L, "", ""),
+                new KeyValueFieldsRecord("Missing value", 22L, " ", " "),
+                new KeyValueFieldsRecord("Section1", 5L, "property5", "value5"),
+                new KeyValueFieldsRecord("", 3L, "property3", "value3"),
+                new KeyValueFieldsRecord("\t", 12L, "property12", "value12"),
+                new KeyValueFieldsRecord(" Section3 ", 14L, "property14", "value14"),
+                new KeyValueFieldsRecord("   Section3   ", 15L, "property15", "value15"),
+                new KeyValueFieldsRecord("Section1", 6L, "property6", "value6b"),
+                new KeyValueFieldsRecord("Section2", 7L, "property7", "value7"),
+                new KeyValueFieldsRecord("Section2", 10L, "property6", "value6/section2"),
+                new KeyValueFieldsRecord(lineSeparator.string(), 13L, "property13", "value13")
         );
         RecordFiles.writeFile(stream, AddTextMapper.category(), file);
     }
@@ -105,13 +106,13 @@ public final class ExamplesHtmlTableFile {
 
         // Write
         System.out.println("write: " + path);
-        Stream<StandardRecord> stream = TextRecordStreams.of(
-                new StandardRecord(Stream.of("A0", "B0", "C0")),
-                new StandardRecord(Stream.of("A1", "B1")),
-                new StandardRecord(Stream.of("A2", null, "C2")),
-                new StandardRecord(Stream.of(null, "B3")),
-                new StandardRecord(Stream.of("A4", "B4", "C4", "D4", "E4")),
-                new StandardRecord()
+        Stream<ManyFieldsRecord> stream = TextRecordStreams.of(
+                new ManyFieldsRecord(Stream.of("A0", "B0", "C0")),
+                new ManyFieldsRecord(Stream.of("A1", "B1")),
+                new ManyFieldsRecord(Stream.of("A2", null, "C2")),
+                new ManyFieldsRecord(Stream.of(null, "B3")),
+                new ManyFieldsRecord(Stream.of("A4", "B4", "C4", "D4", "E4")),
+                new ManyFieldsRecord()
         );
         RecordFiles.writeFile(stream, file);
     }

@@ -1,17 +1,19 @@
 package stexfires.examples.record;
 
 import stexfires.record.KeyRecord;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.TextRecords;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.NullConsumer;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.impl.EmptyRecord;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.AppendableLogger;
 import stexfires.record.logger.CollectionLogger;
 import stexfires.record.logger.ConditionalLogger;
@@ -37,28 +39,28 @@ public final class ExamplesLogger {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneFieldRecord("value1"),
-                new OneFieldRecord("value2"),
-                new KeyValueRecord("key", "value"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
-                new EmptyRecord()
+                new ValueFieldRecord("value1"),
+                new ValueFieldRecord("value2"),
+                new KeyValueFieldsRecord("key", "value"),
+                new ManyFieldsRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyFieldsRecord(),
+                TextRecords.empty()
         );
     }
 
-    private static Stream<OneFieldRecord> generateStreamOneValueRecord() {
+    private static Stream<ValueRecord> generateStreamOneValueRecord() {
         return Stream.of(
-                new OneFieldRecord("value1"),
-                new OneFieldRecord(null, 2L, "value2"),
-                new OneFieldRecord("category", 3L, "value3")
+                new ValueFieldRecord("value1"),
+                new ValueFieldRecord(null, 2L, "value2"),
+                new ValueFieldRecord("category", 3L, "value3")
         );
     }
 
     private static Stream<KeyValueRecord> generateStreamKeyValueRecord() {
         return Stream.of(
-                new KeyValueRecord("key1", "value1"),
-                new KeyValueRecord(null, 2L, "key2", "value2"),
-                new KeyValueRecord("category", 3L, "key3", "value3")
+                new KeyValueFieldsRecord("key1", "value1"),
+                new KeyValueFieldsRecord(null, 2L, "key2", "value2"),
+                new KeyValueFieldsRecord("category", 3L, "key3", "value3")
         );
     }
 
@@ -68,7 +70,7 @@ public final class ExamplesLogger {
                          .forEachOrdered(new NullConsumer<>().asConsumer());
     }
 
-    private static void printLoggerOneValueRecord(String title, RecordLogger<? super OneFieldRecord> recordLogger) {
+    private static void printLoggerOneValueRecord(String title, RecordLogger<? super ValueRecord> recordLogger) {
         System.out.println("--" + title);
         TextRecordStreams.log(generateStreamOneValueRecord(), recordLogger)
                          .forEachOrdered(new NullConsumer<>().asConsumer());
@@ -123,7 +125,7 @@ public final class ExamplesLogger {
 
         printLogger("constructor",
                 new ConditionalLogger<>(
-                        ClassFilter.equalTo(StandardRecord.class),
+                        ClassFilter.equalTo(ManyFieldsRecord.class),
                         new SystemOutLogger<>(),
                         new NullLogger<>()));
 
@@ -154,12 +156,12 @@ public final class ExamplesLogger {
 
         List<ClassFilter<TextRecord>> recordFilters = new ArrayList<>();
         recordFilters.add(ClassFilter.equalTo(EmptyRecord.class));
-        recordFilters.add(ClassFilter.equalTo(OneFieldRecord.class));
+        recordFilters.add(ClassFilter.equalTo(ValueFieldRecord.class));
         recordFilters.add(ClassFilter.equalTo(TwoFieldsRecord.class));
 
         List<RecordLogger<? super TextRecord>> recordLoggersFilter = new ArrayList<>();
         recordLoggersFilter.add(new SystemOutLogger<>("Filter EmptyRecord: "));
-        recordLoggersFilter.add(new SystemOutLogger<>("Filter OneFieldRecord: "));
+        recordLoggersFilter.add(new SystemOutLogger<>("Filter ValueFieldRecord: "));
         recordLoggersFilter.add(new SystemOutLogger<>("Filter TwoFieldsRecord: "));
 
         printLogger("byFilters",

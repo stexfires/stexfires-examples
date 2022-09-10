@@ -3,10 +3,12 @@ package stexfires.examples.io;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.list.MarkdownListFile;
 import stexfires.io.markdown.list.MarkdownListFileSpec;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
@@ -28,8 +30,8 @@ public final class ExamplesMarkdownListFile {
                 .write(
                         StandardCharsets.UTF_8,
                         lineSeparator,
-                        "Header OneFieldRecord",
-                        "Footer OneFieldRecord",
+                        "Header ValueFieldRecord",
+                        "Footer ValueFieldRecord",
                         MarkdownListFileSpec.BulletPoint.NUMBER,
                         true
                 )
@@ -37,11 +39,11 @@ public final class ExamplesMarkdownListFile {
 
         // Write
         System.out.println("write: " + path);
-        Stream<OneFieldRecord> stream = TextRecordStreams.of(
-                new OneFieldRecord("a"),
-                new OneFieldRecord("b"),
-                new OneFieldRecord(null),
-                new OneFieldRecord("d")
+        Stream<ValueRecord> stream = TextRecordStreams.of(
+                new ValueFieldRecord("a"),
+                new ValueFieldRecord("b"),
+                new ValueFieldRecord(null),
+                new ValueFieldRecord("d")
         );
         RecordFiles.writeFile(stream, file);
     }
@@ -53,8 +55,8 @@ public final class ExamplesMarkdownListFile {
                 .write(
                         StandardCharsets.UTF_8,
                         lineSeparator,
-                        "Header KeyValueRecord",
-                        "Footer KeyValueRecord",
+                        "Header KeyValueFieldsRecord",
+                        "Footer KeyValueFieldsRecord",
                         MarkdownListFileSpec.BulletPoint.STAR,
                         false
                 )
@@ -63,10 +65,10 @@ public final class ExamplesMarkdownListFile {
         // Write
         System.out.println("write: " + path);
         Stream<KeyValueRecord> stream = TextRecordStreams.of(
-                new KeyValueRecord("key1", "value1"),
-                new KeyValueRecord("key2", "value2"),
-                new KeyValueRecord("key3", null),
-                new KeyValueRecord("key4", "value4")
+                new KeyValueFieldsRecord("key1", "value1"),
+                new KeyValueFieldsRecord("key2", "value2"),
+                new KeyValueFieldsRecord("key3", null),
+                new KeyValueFieldsRecord("key4", "value4")
         );
         RecordFiles.writeFile(stream, file);
     }

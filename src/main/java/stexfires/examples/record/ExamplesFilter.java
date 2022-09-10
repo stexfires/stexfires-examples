@@ -2,6 +2,7 @@ package stexfires.examples.record;
 
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.TextRecords;
 import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.filter.ConstantFilter;
@@ -14,10 +15,10 @@ import stexfires.record.filter.SizeFilter;
 import stexfires.record.filter.SupplierFilter;
 import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.EmptyRecord;
-import stexfires.record.impl.KeyValueRecord;
-import stexfires.record.impl.OneFieldRecord;
-import stexfires.record.impl.StandardRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
+import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.message.CategoryMessage;
 import stexfires.util.NumberCheckType;
 import stexfires.util.NumberComparisonType;
@@ -39,18 +40,18 @@ public final class ExamplesFilter {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
-                new OneFieldRecord("category", 0L, "A"),
-                new OneFieldRecord("category", 1L, ""),
-                new OneFieldRecord("", 2L, "C"),
-                new OneFieldRecord("Category", 3L, "D"),
-                new OneFieldRecord(null, 4L, "E"),
-                new OneFieldRecord("c", 5L, "F"),
+                new ValueFieldRecord("category", 0L, "A"),
+                new ValueFieldRecord("category", 1L, ""),
+                new ValueFieldRecord("", 2L, "C"),
+                new ValueFieldRecord("Category", 3L, "D"),
+                new ValueFieldRecord(null, 4L, "E"),
+                new ValueFieldRecord("c", 5L, "F"),
                 new TwoFieldsRecord("c", 6L, "X", "Y"),
-                new KeyValueRecord("key", "value"),
-                new StandardRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord("S", "t", "a", "n", "d", "a", "r", "d"),
-                new StandardRecord(),
-                new EmptyRecord()
+                new KeyValueFieldsRecord("key", "value"),
+                new ManyFieldsRecord("Category", 7L, "S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyFieldsRecord("S", "t", "a", "n", "d", "a", "r", "d"),
+                new ManyFieldsRecord(),
+                TextRecords.empty()
         );
     }
 
@@ -144,15 +145,15 @@ public final class ExamplesFilter {
         System.out.println("-showRecordFilter---");
 
         printFilter("concatAnd",
-                RecordFilter.concatAnd(ClassFilter.equalTo(StandardRecord.class), SizeFilter.equalTo(8)));
+                RecordFilter.concatAnd(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatOr",
-                RecordFilter.concatOr(ClassFilter.equalTo(StandardRecord.class), ClassFilter.equalTo(KeyValueRecord.class)));
+                RecordFilter.concatOr(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class)));
         printFilter("and",
-                ClassFilter.equalTo(StandardRecord.class).and(SizeFilter.equalTo(8)));
+                ClassFilter.equalTo(ManyFieldsRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
                 SizeFilter.equalTo(1).negate());
         printFilter("or",
-                ClassFilter.equalTo(StandardRecord.class).or(ClassFilter.equalTo(KeyValueRecord.class)));
+                ClassFilter.equalTo(ManyFieldsRecord.class).or(ClassFilter.equalTo(KeyValueFieldsRecord.class)));
     }
 
     private static void showRecordIdFilter() {

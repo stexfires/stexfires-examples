@@ -27,9 +27,9 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
-public final class ExamplesFieldValueMapper {
+public final class ExamplesFieldTextMapper {
 
-    private ExamplesFieldValueMapper() {
+    private ExamplesFieldTextMapper() {
     }
 
     private static Stream<Field> generateStream() {
