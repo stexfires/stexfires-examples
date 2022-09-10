@@ -1,7 +1,7 @@
 package stexfires.examples.record;
 
-import stexfires.record.Field;
-import stexfires.record.Fields;
+import stexfires.record.TextField;
+import stexfires.record.TextFields;
 import stexfires.record.mapper.field.AddPostfixFieldTextMapper;
 import stexfires.record.mapper.field.AddPrefixFieldTextMapper;
 import stexfires.record.mapper.field.ConditionalFieldTextMapper;
@@ -32,18 +32,18 @@ public final class ExamplesFieldTextMapper {
     private ExamplesFieldTextMapper() {
     }
 
-    private static Stream<Field> generateStream() {
+    private static Stream<TextField> generateStream() {
         return Stream.of(
-                new Field(0, 3, "value1"),
-                new Field(1, 3, null),
-                new Field(2, 3, ""),
-                new Field(3, 3, "value2")
+                new TextField(0, 3, "value1"),
+                new TextField(1, 3, null),
+                new TextField(2, 3, ""),
+                new TextField(3, 3, "value2")
         );
     }
 
     private static void printMapper(String title, FieldTextMapper fieldTextMapper) {
         System.out.println("--" + title);
-        Strings.printLine(Fields.mapToTexts(generateStream(), fieldTextMapper), Strings.DEFAULT_DELIMITER);
+        Strings.printLine(TextFields.mapToTexts(generateStream(), fieldTextMapper), Strings.DEFAULT_DELIMITER);
     }
 
     private static void showAddPostfixFieldValueMapper() {
@@ -62,7 +62,7 @@ public final class ExamplesFieldTextMapper {
         System.out.println("-showConditionalFieldValueMapper---");
 
         printMapper("constructor valueIsNull", new ConditionalFieldTextMapper(
-                Field::isNull,
+                TextField::isNull,
                 new ConstantFieldTextMapper("<field value is null>"),
                 new IdentityFieldTextMapper()));
     }

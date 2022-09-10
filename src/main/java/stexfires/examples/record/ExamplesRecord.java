@@ -1,6 +1,6 @@
 package stexfires.examples.record;
 
-import stexfires.record.Fields;
+import stexfires.record.TextFields;
 import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
@@ -23,7 +23,7 @@ public final class ExamplesRecord {
         System.out.println("arrayOfFields:             " + Arrays.toString(record.arrayOfFields()));
         System.out.println("listOfFields:              " + record.listOfFields());
         System.out.println("listOfFieldsReversed:      " + record.listOfFieldsReversed());
-        System.out.println("streamOfFields:            " + Fields.collectFields(record.streamOfFields()));
+        System.out.println("streamOfFields:            " + TextFields.collectFields(record.streamOfFields()));
         System.out.println("category:                  " + record.category());
         System.out.println("hasCategory:               " + record.hasCategory());
         System.out.println("categoryAsOptional:        " + record.categoryAsOptional());

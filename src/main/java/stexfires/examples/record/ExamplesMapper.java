@@ -1,6 +1,6 @@
 package stexfires.examples.record;
 
-import stexfires.record.Field;
+import stexfires.record.TextField;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.TextRecords;
@@ -247,7 +247,7 @@ public final class ExamplesMapper {
         printMapper("add", TextsMapper.add(record -> "new value"));
         printMapper("remove 0", TextsMapper.remove(0));
         printMapper("remove 2", TextsMapper.remove(2));
-        printMapper("remove isNullOrEmpty", TextsMapper.remove(Field::isNullOrEmpty));
+        printMapper("remove isNullOrEmpty", TextsMapper.remove(TextField::isNullOrEmpty));
     }
 
     public static void main(String... args) {

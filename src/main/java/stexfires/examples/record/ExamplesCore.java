@@ -1,6 +1,6 @@
 package stexfires.examples.record;
 
-import stexfires.record.Field;
+import stexfires.record.TextField;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
 import stexfires.record.impl.KeyValueFieldsRecord;
@@ -18,14 +18,14 @@ public final class ExamplesCore {
     private ExamplesCore() {
     }
 
-    private static Stream<Field> generateFieldStream() {
+    private static Stream<TextField> generateFieldStream() {
         return Stream.of(
-                new Field(0, 0, "value A"),
-                new Field(0, 2, "value B"),
-                new Field(0, 0, null),
-                new Field(1, 1, "value C"),
-                new Field(1, 1, ""),
-                new Field(1, 2, "value D")
+                new TextField(0, 0, "value A"),
+                new TextField(0, 2, "value B"),
+                new TextField(0, 0, null),
+                new TextField(1, 1, "value C"),
+                new TextField(1, 1, ""),
+                new TextField(1, 2, "value D")
         );
     }
 
@@ -40,7 +40,7 @@ public final class ExamplesCore {
         );
     }
 
-    private static void printFieldStream(String title, Function<Stream<Field>, Stream<Object>> fieldStreamFunction) {
+    private static void printFieldStream(String title, Function<Stream<TextField>, Stream<Object>> fieldStreamFunction) {
         System.out.println("--" + title);
         System.out.println(fieldStreamFunction.apply(generateFieldStream()).collect(Collectors.toList()));
     }
@@ -53,24 +53,24 @@ public final class ExamplesCore {
     private static void showField() {
         System.out.println("-showField---");
 
-        printFieldStream("index", stream -> stream.map(Field::index));
-        printFieldStream("maxIndex", stream -> stream.map(Field::maxIndex));
-        printFieldStream("isFirstField", stream -> stream.map(Field::isFirstField));
-        printFieldStream("isLastField", stream -> stream.map(Field::isLastField));
-        printFieldStream("recordSize", stream -> stream.map(Field::recordSize));
+        printFieldStream("index", stream -> stream.map(TextField::index));
+        printFieldStream("maxIndex", stream -> stream.map(TextField::maxIndex));
+        printFieldStream("isFirstField", stream -> stream.map(TextField::isFirstField));
+        printFieldStream("isLastField", stream -> stream.map(TextField::isLastField));
+        printFieldStream("recordSize", stream -> stream.map(TextField::recordSize));
 
-        printFieldStream("text", stream -> stream.map(Field::text));
+        printFieldStream("text", stream -> stream.map(TextField::text));
         printFieldStream("orElse", stream -> stream.map(field -> field.orElse("<NULL>")));
-        printFieldStream("asOptional", stream -> stream.map(Field::asOptional).map(optional -> optional.orElse("<NULL>")));
-        printFieldStream("isNotNull", stream -> stream.map(Field::isNotNull));
-        printFieldStream("isNull", stream -> stream.map(Field::isNull));
-        printFieldStream("isEmpty", stream -> stream.map(Field::isEmpty));
-        printFieldStream("isNullOrEmpty", stream -> stream.map(Field::isNullOrEmpty));
-        printFieldStream("length", stream -> stream.map(Field::length));
-        printFieldStream("stream", stream -> stream.flatMap(Field::stream));
+        printFieldStream("asOptional", stream -> stream.map(TextField::asOptional).map(optional -> optional.orElse("<NULL>")));
+        printFieldStream("isNotNull", stream -> stream.map(TextField::isNotNull));
+        printFieldStream("isNull", stream -> stream.map(TextField::isNull));
+        printFieldStream("isEmpty", stream -> stream.map(TextField::isEmpty));
+        printFieldStream("isNullOrEmpty", stream -> stream.map(TextField::isNullOrEmpty));
+        printFieldStream("length", stream -> stream.map(TextField::length));
+        printFieldStream("stream", stream -> stream.flatMap(TextField::stream));
 
-        printFieldStream("toString", stream -> stream.map(Field::toString));
-        printFieldStream("hashCode", stream -> stream.map(Field::hashCode));
+        printFieldStream("toString", stream -> stream.map(TextField::toString));
+        printFieldStream("hashCode", stream -> stream.map(TextField::hashCode));
 
     }
 
