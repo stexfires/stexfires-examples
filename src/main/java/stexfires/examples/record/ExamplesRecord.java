@@ -1,7 +1,7 @@
 package stexfires.examples.record;
 
-import stexfires.record.TextFields;
 import stexfires.record.KeyValueRecord;
+import stexfires.record.TextFields;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
 import stexfires.record.ValueRecord;

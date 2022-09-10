@@ -1,8 +1,8 @@
 package stexfires.examples.record;
 
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextField;
 import stexfires.record.TextFields;
-import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.comparator.FieldComparators;
@@ -84,7 +84,7 @@ public final class ExamplesComparator {
         printComparatorRecord("lastField: length, SortNulls.LAST", RecordComparators.lastField(FieldComparators.length(), SortNulls.LAST));
 
         // value
-        printComparatorRecord("value: getValueAt(1), naturalOrder(), SortNulls.LAST", RecordComparators.string(record -> record.textAt(1), Comparator.naturalOrder(), SortNulls.LAST));
+        printComparatorRecord("value: getValueAt(1), naturalOrder(), SortNulls.LAST", RecordComparators.text(record -> record.textAt(1), Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorRecord("textAt: 1, naturalOrder(), SortNulls.LAST", RecordComparators.textAt(1, Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorRecord("firstValue: naturalOrder(), SortNulls.LAST", RecordComparators.firstText(Comparator.naturalOrder(), SortNulls.LAST));
         printComparatorRecord("lastValue: naturalOrder(), SortNulls.LAST", RecordComparators.lastText(Comparator.naturalOrder(), SortNulls.LAST));
