@@ -53,37 +53,52 @@ public final class ExamplesStringSupplier {
         printStream("uuid",
                 Stream.generate(
                         RandomStringSupplier.uuid()));
-        printStream("stringSelection List",
+        printStream("stringSelection List 3",
                 Stream.generate(
                         RandomStringSupplier.stringSelection(random, List.of("Aaa", "Bbb", "Ccc"))));
-        printStream("stringSelection Array",
+        printStream("stringSelection Array 3",
                 Stream.generate(
                         RandomStringSupplier.stringSelection(random, "Aaa", "Bbb", "Ccc")));
-        printStream("stringSelection Array",
+        printStream("stringSelection Array 1",
                 Stream.generate(
                         RandomStringSupplier.stringSelection(random, "Aaa")));
         printStream("characterConcatenation Boundary A-z isAlphabetic",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, 'A', 'z',
-                                Character::isAlphabetic, () -> random.nextLong(5, 20)
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20), 'A', 'z',
+                                Character::isAlphabetic
                         )));
         printStream("characterConcatenation Boundary 32-255 isLetterOrDigit",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, 32, 255,
-                                Character::isLetterOrDigit, () -> random.nextLong(5, 20)
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20), 32, 255,
+                                Character::isLetterOrDigit
                         )));
         printStream("characterConcatenation Boundary 32-255 DASH_PUNCTUATION || CURRENCY_SYMBOL",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, 32, 255,
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20), 32, 255,
                                 c -> {
                                     var type = Character.getType(c);
                                     return type == Character.DASH_PUNCTUATION || type == Character.CURRENCY_SYMBOL;
-                                }, () -> random.nextLong(5, 20)
+                                }
                         )));
-        printStream("characterConcatenation sourceCharacters",
+        printStream("characterConcatenation String",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, "Hello world!",
-                                () -> random.nextLong(5, 20))));
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                                "Hello world!")));
+
+        printStream("characterConcatenation List 3",
+                Stream.generate(
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                                List.of('A', 'B', 'C'))));
+
+        printStream("characterConcatenation Array 3",
+                Stream.generate(
+                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                                'a', 'b', 'c')));
+
+        printStream("stringCutting",
+                Stream.generate(
+                        RandomStringSupplier.stringCutting(() -> 2 * random.nextInt(0, 10), () -> 3,
+                                "1234567890ABCDEFGH")));
     }
 
     public static void main(String... args) {
