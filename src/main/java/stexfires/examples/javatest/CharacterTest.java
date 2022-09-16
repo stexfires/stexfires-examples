@@ -27,160 +27,149 @@ import java.util.stream.Stream;
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class CharacterTest {
 
-    private static final char MIN_CHAR = 0;
-    private static final char MAX_CHAR_8_BIT = 255;
-    private static final char MAX_CHAR = 65535;
+    private static final String MISSING = "-----";
+    private static final String NOT_PRINTABLE = "-----";
+    private static final int INDEX_MIRRORED = 6;
+    private static final int INDEX_TYPE = 14;
+    private static final int INDEX_BLOCK = 15;
 
     private CharacterTest() {
     }
 
-    public static String getCharacterTypeAsString(int characterType) {
-        String type;
-        if (characterType == Character.COMBINING_SPACING_MARK) type = "COMBINING_SPACING_MARK";
-        else if (characterType == Character.CONNECTOR_PUNCTUATION) type = "CONNECTOR_PUNCTUATION";
-        else if (characterType == Character.CONTROL) type = "CONTROL";
-        else if (characterType == Character.CURRENCY_SYMBOL) type = "CURRENCY_SYMBOL";
-        else if (characterType == Character.DASH_PUNCTUATION) type = "DASH_PUNCTUATION";
-        else if (characterType == Character.DECIMAL_DIGIT_NUMBER) type = "DECIMAL_DIGIT_NUMBER";
-        else if (characterType == Character.ENCLOSING_MARK) type = "ENCLOSING_MARK";
-        else if (characterType == Character.END_PUNCTUATION) type = "END_PUNCTUATION";
-        else if (characterType == Character.FINAL_QUOTE_PUNCTUATION) type = "FINAL_QUOTE_PUNCTUATION";
-        else if (characterType == Character.FORMAT) type = "FORMAT";
-        else if (characterType == Character.INITIAL_QUOTE_PUNCTUATION) type = "INITIAL_QUOTE_PUNCTUATION";
-        else if (characterType == Character.LETTER_NUMBER) type = "LETTER_NUMBER";
-        else if (characterType == Character.LINE_SEPARATOR) type = "LINE_SEPARATOR";
-        else if (characterType == Character.LOWERCASE_LETTER) type = "LOWERCASE_LETTER";
-        else if (characterType == Character.MATH_SYMBOL) type = "MATH_SYMBOL";
-        else if (characterType == Character.MODIFIER_LETTER) type = "MODIFIER_LETTER";
-        else if (characterType == Character.MODIFIER_SYMBOL) type = "MODIFIER_SYMBOL";
-        else if (characterType == Character.NON_SPACING_MARK) type = "NON_SPACING_MARK";
-        else if (characterType == Character.OTHER_LETTER) type = "OTHER_LETTER";
-        else if (characterType == Character.OTHER_NUMBER) type = "OTHER_NUMBER";
-        else if (characterType == Character.OTHER_PUNCTUATION) type = "OTHER_PUNCTUATION";
-        else if (characterType == Character.OTHER_SYMBOL) type = "OTHER_SYMBOL";
-        else if (characterType == Character.PARAGRAPH_SEPARATOR) type = "PARAGRAPH_SEPARATOR";
-        else if (characterType == Character.PRIVATE_USE) type = "PRIVATE_USE";
-        else if (characterType == Character.SPACE_SEPARATOR) type = "SPACE_SEPARATOR";
-        else if (characterType == Character.START_PUNCTUATION) type = "START_PUNCTUATION";
-        else if (characterType == Character.SURROGATE) type = "SURROGATE";
-        else if (characterType == Character.TITLECASE_LETTER) type = "TITLECASE_LETTER";
-        else if (characterType == Character.UNASSIGNED) type = "UNASSIGNED";
-        else if (characterType == Character.UPPERCASE_LETTER) type = "UPPERCASE_LETTER";
-        else type = "---";
-        return type;
+    public static String convertTypeIntoString(int characterType) {
+        return switch (characterType) {
+            case Character.COMBINING_SPACING_MARK -> "COMBINING_SPACING_MARK";
+            case Character.CONNECTOR_PUNCTUATION -> "CONNECTOR_PUNCTUATION";
+            case Character.CONTROL -> "CONTROL";
+            case Character.CURRENCY_SYMBOL -> "CURRENCY_SYMBOL";
+            case Character.DASH_PUNCTUATION -> "DASH_PUNCTUATION";
+            case Character.DECIMAL_DIGIT_NUMBER -> "DECIMAL_DIGIT_NUMBER";
+            case Character.ENCLOSING_MARK -> "ENCLOSING_MARK";
+            case Character.END_PUNCTUATION -> "END_PUNCTUATION";
+            case Character.FINAL_QUOTE_PUNCTUATION -> "FINAL_QUOTE_PUNCTUATION";
+            case Character.FORMAT -> "FORMAT";
+            case Character.INITIAL_QUOTE_PUNCTUATION -> "INITIAL_QUOTE_PUNCTUATION";
+            case Character.LETTER_NUMBER -> "LETTER_NUMBER";
+            case Character.LINE_SEPARATOR -> "LINE_SEPARATOR";
+            case Character.LOWERCASE_LETTER -> "LOWERCASE_LETTER";
+            case Character.MATH_SYMBOL -> "MATH_SYMBOL";
+            case Character.MODIFIER_LETTER -> "MODIFIER_LETTER";
+            case Character.MODIFIER_SYMBOL -> "MODIFIER_SYMBOL";
+            case Character.NON_SPACING_MARK -> "NON_SPACING_MARK";
+            case Character.OTHER_LETTER -> "OTHER_LETTER";
+            case Character.OTHER_NUMBER -> "OTHER_NUMBER";
+            case Character.OTHER_PUNCTUATION -> "OTHER_PUNCTUATION";
+            case Character.OTHER_SYMBOL -> "OTHER_SYMBOL";
+            case Character.PARAGRAPH_SEPARATOR -> "PARAGRAPH_SEPARATOR";
+            case Character.PRIVATE_USE -> "PRIVATE_USE";
+            case Character.SPACE_SEPARATOR -> "SPACE_SEPARATOR";
+            case Character.START_PUNCTUATION -> "START_PUNCTUATION";
+            case Character.SURROGATE -> "SURROGATE";
+            case Character.TITLECASE_LETTER -> "TITLECASE_LETTER";
+            case Character.UNASSIGNED -> "UNASSIGNED";
+            case Character.UPPERCASE_LETTER -> "UPPERCASE_LETTER";
+            default -> MISSING;
+        };
     }
 
-    public static String getDirectionality(int codePoint) {
-        String directionality;
-        byte unicodeDirectionality = Character.getDirectionality(codePoint);
-        if (unicodeDirectionality == Character.DIRECTIONALITY_UNDEFINED) directionality = "DIRECTIONALITY_UNDEFINED";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT)
-            directionality = "DIRECTIONALITY_LEFT_TO_RIGHT";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT)
-            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC)
-            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER)
-            directionality = "DIRECTIONALITY_EUROPEAN_NUMBER";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR)
-            directionality = "DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR)
-            directionality = "DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_ARABIC_NUMBER)
-            directionality = "DIRECTIONALITY_ARABIC_NUMBER";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_COMMON_NUMBER_SEPARATOR)
-            directionality = "DIRECTIONALITY_COMMON_NUMBER_SEPARATOR";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_NONSPACING_MARK)
-            directionality = "DIRECTIONALITY_NONSPACING_MARK";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_BOUNDARY_NEUTRAL)
-            directionality = "DIRECTIONALITY_BOUNDARY_NEUTRAL";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_PARAGRAPH_SEPARATOR)
-            directionality = "DIRECTIONALITY_PARAGRAPH_SEPARATOR";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_SEGMENT_SEPARATOR)
-            directionality = "DIRECTIONALITY_SEGMENT_SEPARATOR";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_WHITESPACE)
-            directionality = "DIRECTIONALITY_WHITESPACE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_OTHER_NEUTRALS)
-            directionality = "DIRECTIONALITY_OTHER_NEUTRALS";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING)
-            directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE)
-            directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING)
-            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE)
-            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_POP_DIRECTIONAL_FORMAT)
-            directionality = "DIRECTIONALITY_POP_DIRECTIONAL_FORMAT";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE)
-            directionality = "DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE)
-            directionality = "DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_FIRST_STRONG_ISOLATE)
-            directionality = "DIRECTIONALITY_FIRST_STRONG_ISOLATE";
-        else if (unicodeDirectionality == Character.DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE)
-            directionality = "DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE";
-        else directionality = "---";
-        return directionality;
+    public static String convertDirectionalityIntoString(byte unicodeDirectionality) {
+        return switch (unicodeDirectionality) {
+            case Character.DIRECTIONALITY_UNDEFINED -> "DIRECTIONALITY_UNDEFINED";
+            case Character.DIRECTIONALITY_LEFT_TO_RIGHT -> "DIRECTIONALITY_LEFT_TO_RIGHT";
+            case Character.DIRECTIONALITY_RIGHT_TO_LEFT -> "DIRECTIONALITY_RIGHT_TO_LEFT";
+            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC -> "DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC";
+            case Character.DIRECTIONALITY_EUROPEAN_NUMBER -> "DIRECTIONALITY_EUROPEAN_NUMBER";
+            case Character.DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR -> "DIRECTIONALITY_EUROPEAN_NUMBER_SEPARATOR";
+            case Character.DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR -> "DIRECTIONALITY_EUROPEAN_NUMBER_TERMINATOR";
+            case Character.DIRECTIONALITY_ARABIC_NUMBER -> "DIRECTIONALITY_ARABIC_NUMBER";
+            case Character.DIRECTIONALITY_COMMON_NUMBER_SEPARATOR -> "DIRECTIONALITY_COMMON_NUMBER_SEPARATOR";
+            case Character.DIRECTIONALITY_NONSPACING_MARK -> "DIRECTIONALITY_NONSPACING_MARK";
+            case Character.DIRECTIONALITY_BOUNDARY_NEUTRAL -> "DIRECTIONALITY_BOUNDARY_NEUTRAL";
+            case Character.DIRECTIONALITY_PARAGRAPH_SEPARATOR -> "DIRECTIONALITY_PARAGRAPH_SEPARATOR";
+            case Character.DIRECTIONALITY_SEGMENT_SEPARATOR -> "DIRECTIONALITY_SEGMENT_SEPARATOR";
+            case Character.DIRECTIONALITY_WHITESPACE -> "DIRECTIONALITY_WHITESPACE";
+            case Character.DIRECTIONALITY_OTHER_NEUTRALS -> "DIRECTIONALITY_OTHER_NEUTRALS";
+            case Character.DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING -> "DIRECTIONALITY_LEFT_TO_RIGHT_EMBEDDING";
+            case Character.DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE -> "DIRECTIONALITY_LEFT_TO_RIGHT_OVERRIDE";
+            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING -> "DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING";
+            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE -> "DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE";
+            case Character.DIRECTIONALITY_POP_DIRECTIONAL_FORMAT -> "DIRECTIONALITY_POP_DIRECTIONAL_FORMAT";
+            case Character.DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE -> "DIRECTIONALITY_LEFT_TO_RIGHT_ISOLATE";
+            case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE -> "DIRECTIONALITY_RIGHT_TO_LEFT_ISOLATE";
+            case Character.DIRECTIONALITY_FIRST_STRONG_ISOLATE -> "DIRECTIONALITY_FIRST_STRONG_ISOLATE";
+            case Character.DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE -> "DIRECTIONALITY_POP_DIRECTIONAL_ISOLATE";
+            default -> MISSING;
+        };
     }
 
-    @SuppressWarnings("NumericCastThatLosesPrecision")
-    public static TextRecord generateCharacterRecord(Integer characterId) {
-        Objects.requireNonNull(characterId);
+    public static TextRecord generateCodePointRecord(int codePoint) {
+        int characterType = Character.getType(codePoint);
+        String codePointAsPrintableString = (characterType == Character.CONTROL || characterType == Character.SURROGATE
+                || characterType == Character.UNASSIGNED || characterType == Character.PRIVATE_USE)
+                ? NOT_PRINTABLE : Character.toString(codePoint);
+        UnicodeBlock unicodeBlock = UnicodeBlock.of(codePoint);
+        String block = (unicodeBlock == null) ? MISSING : unicodeBlock.toString();
 
-        // character
-        char ch = (char) characterId.intValue();
-        String characterAsString = String.valueOf(ch);
-
-        // characterId
-        Long characterIdAsLong = characterId.longValue();
-        String characterIdAsDecString = characterId.toString();
-        String characterIdAsHexString = Integer.toHexString(characterId);
-
-        // additional character infos
-        int characterType = Character.getType(ch);
-        String printChar = (characterType == Character.CONTROL
-                || characterType == Character.SURROGATE
-                || characterType == Character.UNASSIGNED
-                || characterType == Character.PRIVATE_USE
-        ) ? "" : characterAsString;
-        String type = getCharacterTypeAsString(characterType);
-        UnicodeBlock unicodeBlock = UnicodeBlock.of(characterId);
-        String block = (unicodeBlock == null) ? "---" : unicodeBlock.toString();
-        String name = Character.getName(characterId);
-        String directionality = getDirectionality(characterId);
-
-        return new ManyFieldsRecord(characterAsString, characterIdAsLong,
-                characterIdAsDecString,
-                characterIdAsHexString,
-                printChar,
-                type,
+        return new ManyFieldsRecord(
+                // category
+                String.valueOf(characterType),
+                // recordId
+                (long) codePoint,
+                // text fields
+                String.valueOf(codePoint),
+                Integer.toHexString(codePoint),
+                codePointAsPrintableString,
+                String.valueOf(Character.charCount(codePoint)),
+                String.valueOf(Character.isDefined(codePoint)),
+                String.valueOf(Character.isValidCodePoint(codePoint)),
+                String.valueOf(Character.isMirrored(codePoint)),
+                String.valueOf(Character.isISOControl(codePoint)),
+                String.valueOf(Character.isAlphabetic(codePoint)),
+                String.valueOf(Character.isLetter(codePoint)),
+                String.valueOf(Character.isSpaceChar(codePoint)),
+                String.valueOf(Character.isDigit(codePoint)),
+                String.valueOf(Character.digit(codePoint, 10)),
+                String.valueOf(Character.getNumericValue(codePoint)),
+                convertTypeIntoString(characterType),
                 block,
-                name,
-                directionality
+                Character.getName(codePoint),
+                convertDirectionalityIntoString(Character.getDirectionality(codePoint))
         );
     }
 
-    public static Stream<TextRecord> generateCharacterRecordStream(int firstChar, int lastChar) {
-        return IntStream.rangeClosed(firstChar, lastChar)
-                        .boxed()
-                        .map(CharacterTest::generateCharacterRecord);
+    public static Stream<TextRecord> generateCodePointRecordStream(int lowestCodePoint, int highestCodePoint) {
+        return IntStream.rangeClosed(lowestCodePoint, highestCodePoint)
+                        .mapToObj(CharacterTest::generateCodePointRecord);
     }
 
-    @SuppressWarnings("OverlyBroadThrowsClause")
+    @SuppressWarnings({"MagicNumber", "OverlyBroadThrowsClause"})
     private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream)
             throws ConsumerException, IOException {
         Objects.requireNonNull(outputFile);
         Objects.requireNonNull(recordStream);
 
         List<MarkdownTableFieldSpec> fieldSpecsConsumer = new ArrayList<>();
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Decimal code point", 5, Alignment.END));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Hexadecimal code point", 5, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Decimal", 7, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Hex", 5, Alignment.END));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Char", 5, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Type", 5, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Block", 5, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Name", 5, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 5, Alignment.START));
+
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Count", 5, Alignment.END));
+
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Def?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Valid?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Mirror?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("ISO?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Alpha?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Letter?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Space?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Digit?", 7, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Digit", 6, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("NumVal", 9, Alignment.END));
+
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Type", 10, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Block", 10, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Name", 10, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 20, Alignment.START));
 
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
                 StandardCharsets.UTF_8,
@@ -200,7 +189,8 @@ public final class CharacterTest {
         System.out.println("Generate MarkdownTable file: " + outputMarkdownFile);
 
         writeMarkdownTableFile(outputMarkdownFile,
-                generateCharacterRecordStream(MIN_CHAR, MAX_CHAR).filter(recordFilter.asPredicate()));
+                generateCodePointRecordStream(Character.MIN_CODE_POINT, Character.MAX_CODE_POINT)
+                        .filter(recordFilter.asPredicate()));
     }
 
     public static void main(String... args) {
@@ -216,62 +206,72 @@ public final class CharacterTest {
             // LETTER
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_LETTER.md"),
-                    TextFilter.containedIn(3, List.of(
-                            "LOWERCASE_LETTER",
-                            "MODIFIER_LETTER",
-                            "OTHER_LETTER",
-                            "TITLECASE_LETTER",
-                            "UPPERCASE_LETTER"
-                    )));
+                    TextFilter.containedIn(INDEX_TYPE,
+                            List.of(
+                                    "LOWERCASE_LETTER",
+                                    "MODIFIER_LETTER",
+                                    "OTHER_LETTER",
+                                    "LETTER_NUMBER",
+                                    "TITLECASE_LETTER",
+                                    "UPPERCASE_LETTER"
+                            )));
 
-            // NUMBER_SYMBOL
+            // NUMBER
             writeFilteredFile(new File(outputDirectory,
-                            "Character_Markdown_Table_NUMBER_SYMBOL.md"),
-                    TextFilter.containedIn(3, List.of(
-                            "DECIMAL_DIGIT_NUMBER",
-                            "LETTER_NUMBER",
-                            "OTHER_NUMBER",
-                            "CURRENCY_SYMBOL",
-                            "MATH_SYMBOL",
-                            "MODIFIER_SYMBOL",
-                            "OTHER_SYMBOL"
-                    )));
+                            "Character_Markdown_Table_NUMBER.md"),
+                    TextFilter.containedIn(INDEX_TYPE,
+                            List.of(
+                                    "DECIMAL_DIGIT_NUMBER",
+                                    "OTHER_NUMBER"
+                            )));
+
+            // SYMBOL_PUNCTUATION
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_SYMBOL_PUNCTUATION.md"),
+                    TextFilter.containedIn(INDEX_TYPE,
+                            List.of(
+                                    "CURRENCY_SYMBOL",
+                                    "MATH_SYMBOL",
+                                    "MODIFIER_SYMBOL",
+                                    "OTHER_SYMBOL",
+                                    "CONNECTOR_PUNCTUATION",
+                                    "DASH_PUNCTUATION",
+                                    "END_PUNCTUATION",
+                                    "FINAL_QUOTE_PUNCTUATION",
+                                    "INITIAL_QUOTE_PUNCTUATION",
+                                    "OTHER_PUNCTUATION",
+                                    "START_PUNCTUATION"
+                            )));
 
             // MISC
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_MISC.md"),
-                    TextFilter.containedIn(3, List.of(
-                            "LINE_SEPARATOR",
-                            "PARAGRAPH_SEPARATOR",
-                            "SPACE_SEPARATOR",
-                            "CONNECTOR_PUNCTUATION",
-                            "DASH_PUNCTUATION",
-                            "END_PUNCTUATION",
-                            "FINAL_QUOTE_PUNCTUATION",
-                            "INITIAL_QUOTE_PUNCTUATION",
-                            "OTHER_PUNCTUATION",
-                            "START_PUNCTUATION",
-                            "COMBINING_SPACING_MARK",
-                            "ENCLOSING_MARK",
-                            "FORMAT",
-                            "NON_SPACING_MARK"
-                    )));
-
-            // NOT_PRINTABLE
-            writeFilteredFile(new File(outputDirectory,
-                            "Character_Markdown_Table_NOT_PRINTABLE.md"),
-                    TextFilter.containedIn(3, List.of(
-                            "CONTROL",
-                            "PRIVATE_USE",
-                            "SURROGATE",
-                            "UNASSIGNED"
-                    )));
+                    TextFilter.containedIn(INDEX_TYPE,
+                            List.of(
+                                    "LINE_SEPARATOR",
+                                    "PARAGRAPH_SEPARATOR",
+                                    "SPACE_SEPARATOR",
+                                    "COMBINING_SPACING_MARK",
+                                    "ENCLOSING_MARK",
+                                    "FORMAT",
+                                    "NON_SPACING_MARK",
+                                    "CONTROL"
+                            )));
 
             // Block_LATIN
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_Block_LATIN.md"),
-                    TextFilter.compare(4, StringComparisonType.CONTAINS,
+                    TextFilter.compare(INDEX_BLOCK,
+                            StringComparisonType.CONTAINS,
                             "LATIN"
+                    ));
+
+            // IsMirrored
+            writeFilteredFile(new File(outputDirectory,
+                            "Character_Markdown_Table_IsMirrored.md"),
+                    TextFilter.compare(INDEX_MIRRORED,
+                            StringComparisonType.EQUALS,
+                            "true"
                     ));
         } catch (ConsumerException | IOException e) {
             System.out.println("Cannot generate MarkdownTable file! " + e.getMessage());
