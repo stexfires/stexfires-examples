@@ -49,6 +49,8 @@ public final class ExampleStringTypes {
         values.add("-1.23");
         values.add("1.23");
         values.add("+1.23");
+        values.add("\uD83D\uDE01");
+        values.add("\uD83D\uDE00");
         values.add(" \u20ac ");
         values.add(" \u00df ");
         values.add(" \u1e9e ");

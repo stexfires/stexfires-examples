@@ -28,6 +28,7 @@ public final class ExamplesStringComparators {
             "ss",
             "S",
             "SS",
+            "\uD83D\uDE01",
             "\u00e0",
             "\u00e1",
             "\u00e2",
@@ -49,7 +50,8 @@ public final class ExamplesStringComparators {
             "c\u0327",
             "\u00c5",
             "A\u030a",
-            "\u212b"
+            "\u212b",
+            "\uD83D\uDE00"
     );
 
     private static void showStringComparators() {
