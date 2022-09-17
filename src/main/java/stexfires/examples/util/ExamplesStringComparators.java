@@ -1,7 +1,7 @@
 package stexfires.examples.util;
 
 import stexfires.util.StringComparators;
-import stexfires.util.StringUnaryOperatorType;
+import stexfires.util.function.StringUnaryOperatorType;
 
 import java.text.Collator;
 import java.util.List;

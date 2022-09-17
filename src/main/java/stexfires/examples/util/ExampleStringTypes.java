@@ -2,7 +2,7 @@ package stexfires.examples.util;
 
 import stexfires.util.StringCheckType;
 import stexfires.util.StringComparisonType;
-import stexfires.util.StringUnaryOperatorType;
+import stexfires.util.function.StringUnaryOperatorType;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
