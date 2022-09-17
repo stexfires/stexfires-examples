@@ -46,6 +46,7 @@ public final class ExamplesStringSupplier {
                         new ThreadNameStringSupplier()));
     }
 
+    @SuppressWarnings("CharUsedInArithmeticContext")
     private static void showRandomStringSupplier() {
         System.out.println("-showRandomStringSupplier---");
 
