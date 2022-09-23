@@ -13,7 +13,7 @@ import stexfires.record.mapper.field.ReplaceNullFieldTextMapper;
 import stexfires.record.mapper.field.StringOperationFieldTextMapper;
 import stexfires.record.mapper.field.SupplierFieldTextMapper;
 import stexfires.util.Strings;
-import stexfires.util.function.StringUnaryOperatorType;
+import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.supplier.LocalTimeStringSupplier;
 import stexfires.util.supplier.SequenceStringSupplier;
 import stexfires.util.supplier.ThreadNameStringSupplier;
@@ -128,11 +128,10 @@ public final class ExamplesFieldTextMapper {
     private static void showStringOperationFieldValueMapper() {
         System.out.println("-showStringOperationFieldValueMapper---");
 
-        printMapper("constructor TRIM_TO_EMPTY", new StringOperationFieldTextMapper(StringUnaryOperatorType.TRIM_TO_EMPTY));
-        printMapper("constructor REVERSE", new StringOperationFieldTextMapper(StringUnaryOperatorType.REVERSE));
-        printMapper("constructor UPPER_CASE", new StringOperationFieldTextMapper(StringUnaryOperatorType.UPPER_CASE));
-        printMapper("constructor UPPER_CASE ENGLISH", new StringOperationFieldTextMapper(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
-        printMapper("constructor identity", new StringOperationFieldTextMapper(st -> st));
+        printMapper("constructor trimToEmpty", new StringOperationFieldTextMapper(StringUnaryOperators.trimToEmpty()));
+        printMapper("constructor reverse", new StringOperationFieldTextMapper(StringUnaryOperators.reverse()));
+        printMapper("constructor upperCase", new StringOperationFieldTextMapper(StringUnaryOperators.upperCase(Locale.ENGLISH)));
+        printMapper("constructor identity", new StringOperationFieldTextMapper(StringUnaryOperators.identity()));
     }
 
     private static void showSupplierFieldValueMapper() {

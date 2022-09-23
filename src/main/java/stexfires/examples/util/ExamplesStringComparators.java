@@ -1,7 +1,7 @@
 package stexfires.examples.util;
 
 import stexfires.util.StringComparators;
-import stexfires.util.function.StringUnaryOperatorType;
+import stexfires.util.function.StringUnaryOperators;
 
 import java.text.Collator;
 import java.util.List;
@@ -17,6 +17,7 @@ public final class ExamplesStringComparators {
     @SuppressWarnings("StaticCollection")
     private static final List<String> STRING_VALUES = List.of(
             "!",
+            "0",
             "a",
             "A",
             "aa",
@@ -109,7 +110,7 @@ public final class ExamplesStringComparators {
 
         System.out.println("--collatorComparator normalizedComparator NORMALIZE_NFKD compareTo");
         STRING_VALUES.stream()
-                     .sorted(StringComparators.normalizedComparator(StringUnaryOperatorType.NORMALIZE_NFKD, String::compareTo))
+                     .sorted(StringComparators.normalizedComparator(StringUnaryOperators.normalizeNFKD(), String::compareTo))
                      .forEachOrdered(System.out::println);
     }
 

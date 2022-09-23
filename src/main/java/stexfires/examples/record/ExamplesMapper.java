@@ -29,7 +29,7 @@ import stexfires.record.message.ShortMessage;
 import stexfires.record.message.SizeMessage;
 import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
-import stexfires.util.function.StringUnaryOperatorType;
+import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.supplier.LocalTimeStringSupplier;
 import stexfires.util.supplier.SequenceLongSupplier;
 import stexfires.util.supplier.SequencePrimitiveLongSupplier;
@@ -89,8 +89,7 @@ public final class ExamplesMapper {
         printMapper("category", AddTextMapper.category());
         printMapper("categoryOrElse", AddTextMapper.categoryOrElse("missing category"));
         printMapper("categoryFunction", AddTextMapper.categoryFunction(category -> "new " + category));
-        printMapper("categoryOperator", AddTextMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE));
-        printMapper("categoryOperator", AddTextMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
+        printMapper("categoryOperator", AddTextMapper.categoryOperator(StringUnaryOperators.upperCase(Locale.ENGLISH)));
         printMapper("categoryAsOptionalFunction", AddTextMapper.categoryAsOptionalFunction(optionalCategory -> optionalCategory.orElse("missing category")));
         printMapper("recordId", AddTextMapper.recordId());
         printMapper("textAt", AddTextMapper.textAt(2));
@@ -113,8 +112,7 @@ public final class ExamplesMapper {
         printMapper("category", CategoryMapper.category());
         printMapper("categoryOrElse", CategoryMapper.categoryOrElse("missing category"));
         printMapper("categoryFunction", CategoryMapper.categoryFunction(category -> "new " + category));
-        printMapper("categoryOperator", CategoryMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE));
-        printMapper("categoryOperator", CategoryMapper.categoryOperator(StringUnaryOperatorType.UPPER_CASE, Locale.ENGLISH));
+        printMapper("categoryOperator", CategoryMapper.categoryOperator(StringUnaryOperators.upperCase(Locale.ENGLISH)));
         printMapper("categoryAsOptionalFunction", CategoryMapper.categoryAsOptionalFunction(optionalCategory -> optionalCategory.orElse("missing category")));
         printMapper("recordId", CategoryMapper.recordId());
         printMapper("textAt", CategoryMapper.textAt(2));
