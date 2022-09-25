@@ -3,6 +3,7 @@ package stexfires.examples.util;
 import stexfires.util.StringCheckType;
 import stexfires.util.StringComparisonType;
 import stexfires.util.function.StringUnaryOperators;
+import stexfires.util.supplier.SequenceStringSupplier;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -305,8 +306,10 @@ public final class ExampleStringTypes {
         printUnaryOperator(StringUnaryOperators.supplier(() -> "supplier"), "supplier");
         printUnaryOperator(StringUnaryOperators.codePointAt(0, "*"), "codePointAt 0");
         printUnaryOperator(StringUnaryOperators.codePointAt(4, "*"), "codePointAt 4");
+        printUnaryOperator(StringUnaryOperators.codePointAt(5, new SequenceStringSupplier(0L)), "codePointAt 5 SequenceStringSupplier");
         printUnaryOperator(StringUnaryOperators.charAt(0, "*"), "charAt 0");
         printUnaryOperator(StringUnaryOperators.charAt(4, "*"), "charAt 4");
+        printUnaryOperator(StringUnaryOperators.charAt(5, new SequenceStringSupplier(0L)), "charAt 5 SequenceStringSupplier");
         printUnaryOperator(StringUnaryOperators.format(Locale.ENGLISH, "*", 1), "format with Locale");
         printUnaryOperator(StringUnaryOperators.format(null, "*", 2), "format without Locale");
         printUnaryOperator(StringUnaryOperators.substring(2), "substring 2");
