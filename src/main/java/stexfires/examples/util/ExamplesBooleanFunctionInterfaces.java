@@ -24,20 +24,23 @@ public final class ExamplesBooleanFunctionInterfaces {
     private static void showBooleanUnaryOperator() {
         System.out.println("-showBooleanUnaryOperator---");
 
-        printBooleanUnaryOperator("IDENTITY", BooleanUnaryOperator.IDENTITY());
+        printBooleanUnaryOperator("identity", BooleanUnaryOperator.identity());
+        printBooleanUnaryOperator("constant true", BooleanUnaryOperator.constant(true));
+        printBooleanUnaryOperator("supplier false", BooleanUnaryOperator.supplier(() -> false));
+
         printBooleanUnaryOperator("NOT", BooleanUnaryOperator.NOT());
 
-        printBooleanUnaryOperator("AND IDENTITY, NOT", BooleanUnaryOperator.AND(BooleanUnaryOperator.IDENTITY(), BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("AND identity, NOT", BooleanUnaryOperator.AND(BooleanUnaryOperator.identity(), BooleanUnaryOperator.NOT()));
         printBooleanUnaryOperator("AND NOT, NOT", BooleanUnaryOperator.AND(BooleanUnaryOperator.NOT(), BooleanUnaryOperator.NOT()));
 
-        printBooleanUnaryOperator("OR IDENTITY, NOT", BooleanUnaryOperator.OR(BooleanUnaryOperator.IDENTITY(), BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("OR identity, NOT", BooleanUnaryOperator.OR(BooleanUnaryOperator.identity(), BooleanUnaryOperator.NOT()));
         printBooleanUnaryOperator("OR NOT, NOT", BooleanUnaryOperator.OR(BooleanUnaryOperator.NOT(), BooleanUnaryOperator.NOT()));
 
-        printBooleanUnaryOperator("compose IDENTITY, NOT", BooleanUnaryOperator.IDENTITY().compose(BooleanUnaryOperator.NOT()));
-        printBooleanUnaryOperator("andThen IDENTITY, NOT", BooleanUnaryOperator.IDENTITY().andThen(BooleanUnaryOperator.NOT()));
-        printBooleanUnaryOperator("and IDENTITY, NOT", BooleanUnaryOperator.IDENTITY().and(BooleanUnaryOperator.NOT()));
-        printBooleanUnaryOperator("or IDENTITY, NOT", BooleanUnaryOperator.IDENTITY().or(BooleanUnaryOperator.NOT()));
-        printBooleanUnaryOperator("negate IDENTITY", BooleanUnaryOperator.IDENTITY().negate());
+        printBooleanUnaryOperator("compose identity, NOT", BooleanUnaryOperator.identity().compose(BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("andThen identity, NOT", BooleanUnaryOperator.identity().andThen(BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("and identity, NOT", BooleanUnaryOperator.identity().and(BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("or identity, NOT", BooleanUnaryOperator.identity().or(BooleanUnaryOperator.NOT()));
+        printBooleanUnaryOperator("negate identity", BooleanUnaryOperator.identity().negate());
         printBooleanUnaryOperator("negate NOT", BooleanUnaryOperator.NOT().negate());
 
         System.out.println("asPredicate NOT : false -> " + BooleanUnaryOperator.NOT().asPredicate().test(Boolean.FALSE));
@@ -48,6 +51,12 @@ public final class ExamplesBooleanFunctionInterfaces {
 
     private static void showBooleanBinaryOperator() {
         System.out.println("-showBooleanBinaryOperator---");
+
+        printBooleanBinaryOperator("constant ", BooleanBinaryOperator.constant(true));
+        printBooleanBinaryOperator("supplier ", BooleanBinaryOperator.supplier(() -> false));
+        printBooleanBinaryOperator("first    ", BooleanBinaryOperator.first());
+        printBooleanBinaryOperator("second   ", BooleanBinaryOperator.second());
+        printBooleanBinaryOperator("equals   ", BooleanBinaryOperator.equals());
 
         printBooleanBinaryOperator("AND  ", BooleanBinaryOperator.AND());
         printBooleanBinaryOperator("NAND ", BooleanBinaryOperator.AND());
