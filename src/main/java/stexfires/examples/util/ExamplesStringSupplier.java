@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.random.RandomGenerator;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class ExamplesStringSupplier {
 
     private ExamplesStringSupplier() {
