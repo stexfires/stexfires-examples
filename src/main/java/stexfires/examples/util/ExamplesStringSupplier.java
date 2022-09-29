@@ -1,9 +1,8 @@
 package stexfires.examples.util;
 
-import stexfires.util.supplier.LocalTimeStringSupplier;
+import stexfires.util.function.Suppliers;
 import stexfires.util.supplier.RandomStringSuppliers;
 import stexfires.util.supplier.SequenceStringSupplier;
-import stexfires.util.supplier.ThreadNameStringSupplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +21,11 @@ public final class ExamplesStringSupplier {
         stream.limit(10L).forEachOrdered(System.out::println);
     }
 
-    private static void showLocalTimeStringSupplier() {
-        System.out.println("-showLocalTimeStringSupplier---");
+    private static void showSuppliers() {
+        System.out.println("-showSuppliers---");
 
-        printStream("constructor",
-                Stream.generate(
-                        new LocalTimeStringSupplier()));
+        printStream("stringSupplierLocalTime", Stream.generate(Suppliers.stringSupplierLocalTime()));
+        printStream("stringSupplierThreadName", Stream.generate(Suppliers.stringSupplierThreadName()));
     }
 
     private static void showSequenceStringSupplier() {
@@ -36,14 +34,6 @@ public final class ExamplesStringSupplier {
         printStream("constructor 1.000",
                 Stream.generate(
                         new SequenceStringSupplier(1_000L)));
-    }
-
-    private static void showThreadNameStringSupplier() {
-        System.out.println("-showThreadNameStringSupplier---");
-
-        printStream("constructor",
-                Stream.generate(
-                        new ThreadNameStringSupplier()));
     }
 
     @SuppressWarnings("CharUsedInArithmeticContext")
@@ -140,9 +130,8 @@ public final class ExamplesStringSupplier {
     }
 
     public static void main(String... args) {
-        showLocalTimeStringSupplier();
+        showSuppliers();
         showSequenceStringSupplier();
-        showThreadNameStringSupplier();
         showRandomStringSuppliers();
     }
 

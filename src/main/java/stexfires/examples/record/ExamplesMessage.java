@@ -28,6 +28,7 @@ import stexfires.record.message.SupplierMessage;
 import stexfires.record.message.TextMessage;
 import stexfires.record.message.ToStringMessage;
 import stexfires.util.Strings;
+import stexfires.util.supplier.SequenceStringSupplier;
 
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -229,12 +230,8 @@ public final class ExamplesMessage {
 
         printMessage("constructor",
                 new SupplierMessage<>(() -> "message"));
-        printMessage("localTime",
-                SupplierMessage.localTime());
-        printMessage("threadName",
-                SupplierMessage.threadName());
         printMessage("sequence",
-                SupplierMessage.sequence(0L));
+                new SupplierMessage<>(new SequenceStringSupplier(0L)));
     }
 
     private static void showToStringMessage() {

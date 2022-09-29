@@ -14,9 +14,8 @@ import stexfires.record.mapper.field.StringOperationFieldTextMapper;
 import stexfires.record.mapper.field.SupplierFieldTextMapper;
 import stexfires.util.Strings;
 import stexfires.util.function.StringUnaryOperators;
-import stexfires.util.supplier.LocalTimeStringSupplier;
+import stexfires.util.function.Suppliers;
 import stexfires.util.supplier.SequenceStringSupplier;
-import stexfires.util.supplier.ThreadNameStringSupplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,9 +136,9 @@ public final class ExamplesFieldTextMapper {
     private static void showSupplierFieldValueMapper() {
         System.out.println("-showSupplierFieldValueMapper---");
 
-        printMapper("constructor LocalTimeStringSupplier", new SupplierFieldTextMapper(new LocalTimeStringSupplier()));
+        printMapper("constructor stringSupplierLocalTime", new SupplierFieldTextMapper(Suppliers.stringSupplierLocalTime()));
         printMapper("constructor SequenceStringSupplier", new SupplierFieldTextMapper(new SequenceStringSupplier(1000L)));
-        printMapper("constructor ThreadNameStringSupplier", new SupplierFieldTextMapper(new ThreadNameStringSupplier()));
+        printMapper("constructor stringSupplierThreadName", new SupplierFieldTextMapper(Suppliers.stringSupplierThreadName()));
     }
 
     public static void main(String... args) {
