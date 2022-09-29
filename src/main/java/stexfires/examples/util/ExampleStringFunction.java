@@ -1,9 +1,9 @@
 package stexfires.examples.util;
 
 import stexfires.util.Strings;
+import stexfires.util.function.SequenceStringSupplier;
 import stexfires.util.function.StringPredicates;
 import stexfires.util.function.StringUnaryOperators;
-import stexfires.util.supplier.SequenceStringSupplier;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

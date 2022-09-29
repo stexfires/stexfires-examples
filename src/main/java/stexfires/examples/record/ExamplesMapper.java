@@ -29,10 +29,10 @@ import stexfires.record.message.ShortMessage;
 import stexfires.record.message.SizeMessage;
 import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
+import stexfires.util.function.SequenceLongSupplier;
+import stexfires.util.function.SequencePrimitiveLongSupplier;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
-import stexfires.util.supplier.SequenceLongSupplier;
-import stexfires.util.supplier.SequencePrimitiveLongSupplier;
 
 import java.nio.file.Paths;
 import java.util.Collections;

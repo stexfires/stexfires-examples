@@ -2,9 +2,9 @@ package stexfires.examples.util;
 
 import stexfires.util.NumberCheckType;
 import stexfires.util.NumberComparisonType;
-import stexfires.util.supplier.RandomBooleanSupplier;
-import stexfires.util.supplier.RepeatingPatternBooleanSupplier;
-import stexfires.util.supplier.SwitchingBooleanSupplier;
+import stexfires.util.function.RandomBooleanSupplier;
+import stexfires.util.function.RepeatingPatternBooleanSupplier;
+import stexfires.util.function.SwitchingBooleanSupplier;
 
 import java.util.ArrayList;
 import java.util.Collections;

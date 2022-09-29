@@ -1,8 +1,8 @@
 package stexfires.examples.util;
 
-import stexfires.util.supplier.RandomNumberSuppliers;
-import stexfires.util.supplier.SequenceLongSupplier;
-import stexfires.util.supplier.SequencePrimitiveLongSupplier;
+import stexfires.util.function.RandomNumberSuppliers;
+import stexfires.util.function.SequenceLongSupplier;
+import stexfires.util.function.SequencePrimitiveLongSupplier;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

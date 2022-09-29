@@ -13,9 +13,9 @@ import stexfires.record.mapper.field.ReplaceNullFieldTextMapper;
 import stexfires.record.mapper.field.StringOperationFieldTextMapper;
 import stexfires.record.mapper.field.SupplierFieldTextMapper;
 import stexfires.util.Strings;
+import stexfires.util.function.SequenceStringSupplier;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
-import stexfires.util.supplier.SequenceStringSupplier;
 
 import java.util.ArrayList;
 import java.util.List;

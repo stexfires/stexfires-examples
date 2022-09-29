@@ -1,8 +1,8 @@
 package stexfires.examples.util;
 
+import stexfires.util.function.RandomStringSuppliers;
+import stexfires.util.function.SequenceStringSupplier;
 import stexfires.util.function.Suppliers;
-import stexfires.util.supplier.RandomStringSuppliers;
-import stexfires.util.supplier.SequenceStringSupplier;
 
 import java.util.ArrayList;
 import java.util.List;
