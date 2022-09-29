@@ -3,10 +3,10 @@ package stexfires.examples.util;
 import stexfires.util.function.BooleanBinaryOperator;
 import stexfires.util.function.BooleanUnaryOperator;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr"})
-public final class ExamplesBooleanFunctionInterfaces {
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
+public final class ExamplesBooleanFunction {
 
-    private ExamplesBooleanFunctionInterfaces() {
+    private ExamplesBooleanFunction() {
     }
 
     private static void printBooleanUnaryOperator(String title, BooleanUnaryOperator operator) {
