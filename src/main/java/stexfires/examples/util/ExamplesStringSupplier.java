@@ -1,7 +1,7 @@
 package stexfires.examples.util;
 
 import stexfires.util.supplier.LocalTimeStringSupplier;
-import stexfires.util.supplier.RandomStringSupplier;
+import stexfires.util.supplier.RandomStringSuppliers;
 import stexfires.util.supplier.SequenceStringSupplier;
 import stexfires.util.supplier.ThreadNameStringSupplier;
 
@@ -47,38 +47,38 @@ public final class ExamplesStringSupplier {
     }
 
     @SuppressWarnings("CharUsedInArithmeticContext")
-    private static void showRandomStringSupplier() {
-        System.out.println("-showRandomStringSupplier---");
+    private static void showRandomStringSuppliers() {
+        System.out.println("-showRandomStringSuppliers---");
 
         RandomGenerator random = new Random();
 
         printStream("uuid",
                 Stream.generate(
-                        RandomStringSupplier.uuid()));
+                        RandomStringSuppliers.uuid()));
 
         printStream("stringSelection List 3",
                 Stream.generate(
-                        RandomStringSupplier.stringSelection(random, List.of("Aaa", "Bbb", "Ccc"))));
+                        RandomStringSuppliers.stringSelection(random, List.of("Aaa", "Bbb", "Ccc"))));
         printStream("stringSelection Array 3",
                 Stream.generate(
-                        RandomStringSupplier.stringSelection(random, "Aaa", "Bbb", null, "Ccc")));
+                        RandomStringSuppliers.stringSelection(random, "Aaa", "Bbb", null, "Ccc")));
         printStream("stringSelection Array 1",
                 Stream.generate(
-                        RandomStringSupplier.stringSelection(random, "Aaa")));
+                        RandomStringSuppliers.stringSelection(random, "Aaa")));
 
         printStream("codePointConcatenation Boundary A-z isAlphabetic",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20), 'A', 'z',
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20), 'A', 'z',
                                 Character::isAlphabetic
                         )));
         printStream("codePointConcatenation Boundary 0-255 isLetterOrDigit",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20), 0, 255,
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20), 0, 255,
                                 Character::isLetterOrDigit
                         )));
         printStream("codePointConcatenation Boundary 32-255 DASH_PUNCTUATION || CURRENCY_SYMBOL",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20), 32, 255,
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20), 32, 255,
                                 c -> {
                                     var type = Character.getType(c);
                                     return (type == Character.DASH_PUNCTUATION) || (type == Character.CURRENCY_SYMBOL);
@@ -86,32 +86,32 @@ public final class ExamplesStringSupplier {
                         )));
         printStream("codePointConcatenation Boundary 128512-128515 smileys",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20), 128512, 128515,
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20), 128512, 128515,
                                 codePoint -> true
                         )));
 
         printStream("codePointConcatenation Boundary large codePoints isLetterOrDigit",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20), Character.MAX_VALUE + 1, Integer.MAX_VALUE - 1,
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20), Character.MAX_VALUE + 1, Integer.MAX_VALUE - 1,
                                 codePoint -> Character.isValidCodePoint(codePoint) && Character.isDefined(codePoint) && Character.isLetterOrDigit(codePoint)
                         )));
 
         printStream("codePointConcatenation List 3",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20),
                                 List.of(65, "€".codePointAt(0), 128512))));
         printStream("codePointConcatenation Array 3",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20),
                                 65, "€".codePointAt(0), 128512)));
         printStream("codePointConcatenation String",
                 Stream.generate(
-                        RandomStringSupplier.codePointConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.codePointConcatenation(random, () -> random.nextInt(5, 20),
                                 "Hello world! \uD83D\uDE00")));
 
         printStream("characterConcatenation List 3",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.characterConcatenation(random, () -> random.nextInt(5, 20),
                                 List.of('A', 'B', 'C'))));
 
         List<Character> charactersWithNull = new ArrayList<>(3);
@@ -120,22 +120,22 @@ public final class ExamplesStringSupplier {
         charactersWithNull.add('C');
         printStream("characterConcatenation List 3 with null",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.characterConcatenation(random, () -> random.nextInt(5, 20),
                                 charactersWithNull)));
 
         printStream("characterConcatenation Array 3",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.characterConcatenation(random, () -> random.nextInt(5, 20),
                                 'a', 'b', 'c')));
 
         printStream("characterConcatenation Array 3 with null",
                 Stream.generate(
-                        RandomStringSupplier.characterConcatenation(random, () -> random.nextInt(5, 20),
+                        RandomStringSuppliers.characterConcatenation(random, () -> random.nextInt(5, 20),
                                 'a', null, 'c')));
 
         printStream("stringCutting",
                 Stream.generate(
-                        RandomStringSupplier.stringCutting(() -> 4 * random.nextInt(0, 5), () -> 4,
+                        RandomStringSuppliers.stringCutting(() -> 4 * random.nextInt(0, 5), () -> 4,
                                 "0123ABCD4567abcdXYZ")));
     }
 
@@ -143,7 +143,7 @@ public final class ExamplesStringSupplier {
         showLocalTimeStringSupplier();
         showSequenceStringSupplier();
         showThreadNameStringSupplier();
-        showRandomStringSupplier();
+        showRandomStringSuppliers();
     }
 
 }

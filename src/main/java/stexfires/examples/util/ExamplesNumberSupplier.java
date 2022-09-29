@@ -1,6 +1,6 @@
 package stexfires.examples.util;
 
-import stexfires.util.supplier.RandomNumberSupplier;
+import stexfires.util.supplier.RandomNumberSuppliers;
 import stexfires.util.supplier.SequenceLongSupplier;
 import stexfires.util.supplier.SequencePrimitiveLongSupplier;
 
@@ -74,41 +74,41 @@ public final class ExamplesNumberSupplier {
 
         printStream("randomPrimitiveInteger",
                 IntStream.generate(
-                        RandomNumberSupplier.randomPrimitiveInteger(random, 10, 100)));
+                        RandomNumberSuppliers.randomPrimitiveInteger(random, 10, 100)));
         printStream("randomInteger",
                 Stream.generate(
-                        RandomNumberSupplier.randomInteger(random, Integer.MIN_VALUE, Integer.MAX_VALUE)));
+                        RandomNumberSuppliers.randomInteger(random, Integer.MIN_VALUE, Integer.MAX_VALUE)));
 
         printStream("randomPrimitiveLong",
                 LongStream.generate(
-                        RandomNumberSupplier.randomPrimitiveLong(random, 10, 100)));
+                        RandomNumberSuppliers.randomPrimitiveLong(random, 10, 100)));
         printStream("randomLong",
                 Stream.generate(
-                        RandomNumberSupplier.randomLong(random, Long.MIN_VALUE, Long.MAX_VALUE)));
+                        RandomNumberSuppliers.randomLong(random, Long.MIN_VALUE, Long.MAX_VALUE)));
 
         printStream("randomPrimitiveDouble",
                 DoubleStream.generate(
-                        RandomNumberSupplier.randomPrimitiveDouble(random, 10.0d, 100.0d)));
+                        RandomNumberSuppliers.randomPrimitiveDouble(random, 10.0d, 100.0d)));
         printStream("randomDouble",
                 Stream.generate(
-                        RandomNumberSupplier.randomDouble(random, Double.MIN_VALUE, Double.MAX_VALUE)));
+                        RandomNumberSuppliers.randomDouble(random, Double.MIN_VALUE, Double.MAX_VALUE)));
 
         printStream("randomFloat",
                 Stream.generate(
-                        RandomNumberSupplier.randomFloat(random, Float.MIN_VALUE, Float.MAX_VALUE)));
+                        RandomNumberSuppliers.randomFloat(random, Float.MIN_VALUE, Float.MAX_VALUE)));
         printStream("randomBigInteger",
                 Stream.generate(
-                        RandomNumberSupplier.randomBigInteger(random, Long.MIN_VALUE, Long.MAX_VALUE)));
+                        RandomNumberSuppliers.randomBigInteger(random, Long.MIN_VALUE, Long.MAX_VALUE)));
         printStream("randomBigDecimal",
                 Stream.generate(
-                        RandomNumberSupplier.randomBigDecimal(random, Double.MIN_VALUE, Double.MAX_VALUE)));
+                        RandomNumberSuppliers.randomBigDecimal(random, Double.MIN_VALUE, Double.MAX_VALUE)));
 
         printStream("randomPrimitiveDoubleGaussian",
                 DoubleStream.generate(
-                        RandomNumberSupplier.randomPrimitiveDoubleGaussian(random, 50.0d, 10.0d)));
+                        RandomNumberSuppliers.randomPrimitiveDoubleGaussian(random, 50.0d, 10.0d)));
         printStream("randomDoubleGaussian",
                 Stream.generate(
-                        RandomNumberSupplier.randomDoubleGaussian(random, 50.0d, 10.0d)));
+                        RandomNumberSuppliers.randomDoubleGaussian(random, 50.0d, 10.0d)));
 
     }
 
@@ -119,54 +119,54 @@ public final class ExamplesNumberSupplier {
 
         printStream("primitiveIntegerSelection Array",
                 IntStream.generate(
-                        RandomNumberSupplier.primitiveIntegerSelection(random, 42, 23, 1024)));
+                        RandomNumberSuppliers.primitiveIntegerSelection(random, 42, 23, 1024)));
         printStream("integerSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.integerSelection(random, List.of(42, 23, 1024))));
+                        RandomNumberSuppliers.integerSelection(random, List.of(42, 23, 1024))));
         printStream("integerSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.integerSelection(random, 42, 23, 1024)));
+                        RandomNumberSuppliers.integerSelection(random, 42, 23, 1024)));
 
         printStream("primitiveLongSelection Array",
                 LongStream.generate(
-                        RandomNumberSupplier.primitiveLongSelection(random, 42L, 23L, 1024L)));
+                        RandomNumberSuppliers.primitiveLongSelection(random, 42L, 23L, 1024L)));
         printStream("longSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.longSelection(random, List.of(42L, 23L, 1024L))));
+                        RandomNumberSuppliers.longSelection(random, List.of(42L, 23L, 1024L))));
         printStream("longSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.longSelection(random, 42L, 23L, 1024L)));
+                        RandomNumberSuppliers.longSelection(random, 42L, 23L, 1024L)));
 
         printStream("primitiveDoubleSelection Array",
                 DoubleStream.generate(
-                        RandomNumberSupplier.primitiveDoubleSelection(random, 42.0d, 23.0d, 1024.0d)));
+                        RandomNumberSuppliers.primitiveDoubleSelection(random, 42.0d, 23.0d, 1024.0d)));
         printStream("doubleSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.doubleSelection(random, List.of(42.0d, 23.0d, 1024.0d))));
+                        RandomNumberSuppliers.doubleSelection(random, List.of(42.0d, 23.0d, 1024.0d))));
         printStream("doubleSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.doubleSelection(random, 42.0d, 23.0d, 1024.0d)));
+                        RandomNumberSuppliers.doubleSelection(random, 42.0d, 23.0d, 1024.0d)));
 
         printStream("floatSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.floatSelection(random, List.of(42.0f, 23.0f, 1024.0f))));
+                        RandomNumberSuppliers.floatSelection(random, List.of(42.0f, 23.0f, 1024.0f))));
         printStream("floatSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.floatSelection(random, 42.0f, 23.0f, 1024.0f)));
+                        RandomNumberSuppliers.floatSelection(random, 42.0f, 23.0f, 1024.0f)));
 
         printStream("bigIntegerSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.bigIntegerSelection(random, List.of(BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L)))));
+                        RandomNumberSuppliers.bigIntegerSelection(random, List.of(BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L)))));
         printStream("bigIntegerSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.bigIntegerSelection(random, BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L))));
+                        RandomNumberSuppliers.bigIntegerSelection(random, BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L))));
 
         printStream("bigDecimalSelection List",
                 Stream.generate(
-                        RandomNumberSupplier.bigDecimalSelection(random, List.of(BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d)))));
+                        RandomNumberSuppliers.bigDecimalSelection(random, List.of(BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d)))));
         printStream("bigDecimalSelection Array",
                 Stream.generate(
-                        RandomNumberSupplier.bigDecimalSelection(random, BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d))));
+                        RandomNumberSuppliers.bigDecimalSelection(random, BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d))));
 
     }
 
