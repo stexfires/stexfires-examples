@@ -11,7 +11,7 @@ import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
-import stexfires.util.StringComparisonType;
+import stexfires.util.function.StringPredicates;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -261,18 +261,18 @@ public final class CharacterTest {
             // Block_LATIN
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_Block_LATIN.md"),
-                    TextFilter.compare(INDEX_BLOCK,
-                            StringComparisonType.CONTAINS,
-                            "LATIN"
-                    ));
+                    new TextFilter<>(INDEX_BLOCK,
+                            StringPredicates.contains(
+                                    "LATIN"
+                            )));
 
             // IsMirrored
             writeFilteredFile(new File(outputDirectory,
                             "Character_Markdown_Table_IsMirrored.md"),
-                    TextFilter.compare(INDEX_MIRRORED,
-                            StringComparisonType.EQUALS,
-                            "true"
-                    ));
+                    new TextFilter<>(INDEX_MIRRORED,
+                            StringPredicates.equals(
+                                    "true"
+                            )));
         } catch (ConsumerException | IOException e) {
             System.out.println("Cannot generate MarkdownTable file! " + e.getMessage());
         }

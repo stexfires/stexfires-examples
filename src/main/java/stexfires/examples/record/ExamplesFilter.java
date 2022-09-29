@@ -22,9 +22,8 @@ import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.message.CategoryMessage;
 import stexfires.util.NumberCheckType;
 import stexfires.util.NumberComparisonType;
-import stexfires.util.StringCheckType;
-import stexfires.util.StringComparisonType;
 import stexfires.util.Strings;
+import stexfires.util.function.StringPredicates;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,12 +62,12 @@ public final class ExamplesFilter {
     private static void showCategoryFilter() {
         System.out.println("-showCategoryFilter---");
 
-        printFilter("constructor",
+        printFilter("constructor Objects::isNull",
                 new CategoryFilter<>(Objects::isNull));
-        printFilter("compare",
-                CategoryFilter.compare(StringComparisonType.ENDS_WITH, "y"));
-        printFilter("check",
-                CategoryFilter.check(StringCheckType.EMPTY));
+        printFilter("constructor StringPredicates.isEmpty()",
+                new CategoryFilter<>(StringPredicates.isEmpty()));
+        printFilter("constructor StringPredicates.endsWith()",
+                new CategoryFilter<>(StringPredicates.endsWith("y")));
         printFilter("equalTo",
                 CategoryFilter.equalTo("category"));
         printFilter("isNotNull",
@@ -116,12 +115,12 @@ public final class ExamplesFilter {
         CategoryMessage<TextRecord> message = new CategoryMessage<>("");
         CategoryMessage<TextRecord> messageNull = new CategoryMessage<>();
 
-        printFilter("constructor",
+        printFilter("constructor Predicate.isEqual",
                 new MessageFilter<>(message, Predicate.isEqual("c")));
-        printFilter("compare",
-                MessageFilter.compare(message, StringComparisonType.EQUALS_IGNORE_CASE, "category"));
-        printFilter("check",
-                MessageFilter.check(message, StringCheckType.EMPTY));
+        printFilter("constructor StringPredicates.isEmpty()",
+                new MessageFilter<>(message, StringPredicates.isEmpty()));
+        printFilter("constructor StringPredicates.equalsIgnoreCase()",
+                new MessageFilter<>(message, StringPredicates.equalsIgnoreCase("category")));
         printFilter("equalTo",
                 MessageFilter.equalTo(message, "c"));
         printFilter("isNotNull",
@@ -224,14 +223,14 @@ public final class ExamplesFilter {
                 new TextFilter<>(TextRecord::lastField, "A"::equals));
         printFilter("constructor function null",
                 new TextFilter<>(record -> record.fieldAt(1), false, "t"::equals));
-        printFilter("compare index",
-                TextFilter.compare(1, StringComparisonType.ENDS_WITH, "t"));
-        printFilter("compare function",
-                TextFilter.compare(TextRecord::lastField, StringComparisonType.EQUALS, "d"));
-        printFilter("check index",
-                TextFilter.check(0, StringCheckType.EMPTY));
-        printFilter("check function",
-                TextFilter.check(TextRecord::lastField, StringCheckType.EMPTY));
+        printFilter("constructor index StringPredicates.isEmpty()",
+                new TextFilter<>(0, StringPredicates.isEmpty()));
+        printFilter("constructor function StringPredicates.isEmpty()",
+                new TextFilter<>(TextRecord::lastField, StringPredicates.isEmpty()));
+        printFilter("constructor index StringPredicates.endsWith()",
+                new TextFilter<>(1, StringPredicates.endsWith("t")));
+        printFilter("constructor function StringPredicates.equals()",
+                new TextFilter<>(TextRecord::lastField, StringPredicates.equals("d")));
         printFilter("equalTo index",
                 TextFilter.equalTo(0, "S"));
         printFilter("equalTo function",

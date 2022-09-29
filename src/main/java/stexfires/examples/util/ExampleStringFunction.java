@@ -1,7 +1,7 @@
 package stexfires.examples.util;
 
-import stexfires.util.StringCheckType;
-import stexfires.util.StringComparisonType;
+import stexfires.util.Strings;
+import stexfires.util.function.StringPredicates;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.supplier.SequenceStringSupplier;
 
@@ -13,15 +13,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "Java9CollectionFactory", "HardcodedLineSeparator", "SpellCheckingInspection"})
-public final class ExampleStringTypes {
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator", "SpellCheckingInspection", "MagicNumber"})
+public final class ExampleStringFunction {
 
     @SuppressWarnings("StaticCollection")
     private static final List<String> VALUES;
-    @SuppressWarnings("StaticCollection")
-    private static final List<String> COMPARE_VALUES;
 
     static {
         List<String> values = new ArrayList<>();
@@ -164,89 +163,150 @@ public final class ExampleStringTypes {
                 """);
 
         VALUES = Collections.unmodifiableList(values);
-
-        List<String> compareValues = new ArrayList<>();
-        compareValues.add("a");
-        compareValues.add("c");
-        compareValues.add("i");
-        compareValues.add("o");
-        compareValues.add("A");
-        compareValues.add("D");
-        compareValues.add("");
-        compareValues.add("\t");
-        compareValues.add("[ac]+");
-        compareValues.add("[a-i]+");
-        compareValues.add("\\d+");
-        compareValues.add("\\p{Alnum}+");
-        compareValues.add("\\p{Blank}+");
-        COMPARE_VALUES = Collections.unmodifiableList(compareValues);
     }
 
-    private ExampleStringTypes() {
+    private ExampleStringFunction() {
     }
 
-    private static String printTypeValue(String typeName, String value) {
-        if (value == null) {
-            return typeName + "\t (<null>) [-] \t";
+    private static String generateLengthString(String value) {
+        int length = value.length();
+        String lengthString;
+        var codePointLength = value.codePoints().count();
+        if (length != codePointLength) {
+            lengthString = "[" + length + "; " + codePointLength + "]";
+        } else {
+            lengthString = "[" + length + "]";
         }
-        return typeName + "\t ('" + value + "') [" + value.length() + "] \t";
+        return lengthString;
+    }
+
+    private static String printValue(String value) {
+        if (value == null) {
+            return "(<null>) \t [-] \t ";
+        }
+        return "('" + value + "') \t " + generateLengthString(value) + " \t ";
     }
 
     private static String printResult(String value, String result) {
         String eq = Objects.equals(value, result) ? "==" : "!=";
         if (result == null) {
-            return eq + " (<null>) [-]";
+            return eq + " (<null>) \t [-]";
         }
-        return eq + " ('" + result + "') [" + result.length() + "] \t hex: "
+        return eq + " ('" + result + "') \t " + generateLengthString(result) + " \t hex: "
                 + String.format("%04x", new BigInteger(1, result.getBytes(StandardCharsets.UTF_16BE)));
     }
 
-    private static void showStringCheckType() {
-        System.out.println("-showStringCheckType---");
-
-        System.out.println("static stringPredicate: " + StringCheckType.stringPredicate(StringCheckType.EMPTY).test(""));
-        System.out.println("       stringPredicate: " + StringCheckType.EMPTY.stringPredicate().test(""));
-
-        for (StringCheckType type : StringCheckType.values()) {
-            for (String value : VALUES) {
-                System.out.println(printTypeValue(type.name(), value) + "? "
-                        + type.checkString(value));
+    private static void printStringPredicates(Predicate<String> predicate, String name) {
+        System.out.println("---- " + name);
+        for (String value : VALUES) {
+            String result;
+            try {
+                result = String.valueOf(predicate.test(value));
+            } catch (IllegalArgumentException | NullPointerException e) {
+                result = e.toString();
             }
+            System.out.println(printValue(value)
+                    + "? " + result);
         }
-    }
-
-    private static void showStringComparisonType() {
-        System.out.println("-showStringComparisonType---");
-
-        for (StringComparisonType type : StringComparisonType.values()) {
-            for (String value1 : VALUES) {
-                for (String value2 : COMPARE_VALUES) {
-                    String result;
-                    try {
-                        result = String.valueOf(type.compareString(value1, value2));
-                    } catch (RuntimeException e) {
-                        result = e.getMessage();
-                    }
-                    if (!"false".equals(result)) {
-                        System.out.println(type.name() + "\t ('" + value1 + "', '" + value2 + "') \t? " + result);
-                    }
-                }
-            }
-        }
+        System.out.println("-------------------------------------------------");
     }
 
     private static void printUnaryOperator(UnaryOperator<String> operator, String name) {
+        System.out.println("---- " + name);
         for (String value : VALUES) {
             String result;
             try {
                 result = operator.apply(value);
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
                 result = e.toString();
             }
-            System.out.println(printTypeValue(name, value)
+            System.out.println(printValue(value)
                     + printResult(value, result));
         }
+        System.out.println("-------------------------------------------------");
+    }
 
+    private static void showStringPredicates() {
+        System.out.println("-showStringPredicates---");
+
+        printStringPredicates(StringPredicates.applyOperatorAndTest(StringUnaryOperators.trimToEmpty(), StringPredicates.isEmpty()), "applyOperatorAndTest");
+        printStringPredicates(StringPredicates.applyFunctionAndTest(String::length, length -> length > 2 && length < 6), "applyFunctionAndTest");
+
+        printStringPredicates(StringPredicates.concatAnd(StringPredicates.isNullOrEmpty(), StringPredicates.isNullOrBlank()), "concatAnd");
+        printStringPredicates(StringPredicates.concatOr(StringPredicates.isEmpty(), StringPredicates.isBlank()), "concatOr");
+
+        printStringPredicates(StringPredicates.isNullOr(StringPredicates.isBlank()), "isNullOr");
+        printStringPredicates(StringPredicates.isNotNullAnd(StringPredicates.isBlank()), "isNotNullAnd");
+
+        printStringPredicates(StringPredicates.allLinesMatch(StringPredicates.letterOrDigit(), false), "allLinesMatch letterOrDigit");
+        printStringPredicates(StringPredicates.anyLineMatch(StringPredicates.letterOrDigit(), false), "anyLineMatch letterOrDigit");
+        printStringPredicates(StringPredicates.noneLineMatch(StringPredicates.isEmpty(), false), "noneLineMatch isEmpty");
+
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointBetween(64, 127), false), "allCodePointsMatch codePointBetween");
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointASCII(), false), "allCodePointsMatch codePointASCII");
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointCharacterType(Character.DECIMAL_DIGIT_NUMBER), false), "allCodePointsMatch codePointCharacterType");
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointUnicodeBlock(Character.UnicodeBlock.BASIC_LATIN), false), "allCodePointsMatch codePointUnicodeBlock");
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointCharCount1(), false), "allCodePointsMatch codePointCharCount1");
+        printStringPredicates(StringPredicates.allCodePointsMatch(StringPredicates.codePointCharCount2(), false), "allCodePointsMatch codePointCharCount2");
+
+        printStringPredicates(StringPredicates.allCodePointsMatch(i -> i >= 32 && i <= 127, false), "allCodePointsMatch 32-127");
+        printStringPredicates(StringPredicates.allCodePointsMatch(Character::isValidCodePoint, false), "allCodePointsMatch Character::isValidCodePoint");
+        printStringPredicates(StringPredicates.anyCodePointMatch(i -> i >= 32 && i <= 127, false), "anyCodePointMatch 32-127");
+        printStringPredicates(StringPredicates.noneCodePointMatch(i -> i < 32, true), "noneCodePointMatch <32");
+
+        printStringPredicates(StringPredicates.isNull(), "isNull");
+        printStringPredicates(StringPredicates.isNotNull(), "isNotNull");
+        printStringPredicates(StringPredicates.isEmpty(), "isEmpty");
+        printStringPredicates(StringPredicates.isNullOrEmpty(), "isNullOrEmpty");
+        printStringPredicates(StringPredicates.isBlank(), "isBlank");
+        printStringPredicates(StringPredicates.isNullOrBlank(), "isNullOrBlank");
+
+        printStringPredicates(StringPredicates.equals(null), "equals null");
+        printStringPredicates(StringPredicates.equals(""), "equals empty");
+        printStringPredicates(StringPredicates.equals(" "), "equals space");
+        printStringPredicates(StringPredicates.equals("\uD83D\uDE00"), "equals \uD83D\uDE00");
+        printStringPredicates(StringPredicates.equalsIgnoreCase(null), "equalsIgnoreCase null");
+        printStringPredicates(StringPredicates.equalsIgnoreCase(""), "equalsIgnoreCase empty");
+        printStringPredicates(StringPredicates.equalsIgnoreCase("ä"), "equalsIgnoreCase ä");
+        printStringPredicates(StringPredicates.equalsChar('1'), "equalsChar '1'");
+        printStringPredicates(StringPredicates.equalsCodePoint(32), "equalsCodePoint 32");
+        printStringPredicates(StringPredicates.equalsFunction(s -> ""), "equalsFunction empty");
+        printStringPredicates(StringPredicates.equalsOperator(s -> ""), "equalsOperator empty");
+        printStringPredicates(StringPredicates.equalsSupplier(() -> ""), "equalsSupplier empty");
+
+        printStringPredicates(StringPredicates.constantTrue(), "constantTrue");
+        printStringPredicates(StringPredicates.constantFalse(), "constantFalse");
+        printStringPredicates(StringPredicates.constant(true), "constant true");
+        printStringPredicates(StringPredicates.supplier(() -> false), "supplier false");
+
+        printStringPredicates(StringPredicates.alphabetic(), "alphabetic");
+        printStringPredicates(StringPredicates.ascii(), "ascii");
+        printStringPredicates(StringPredicates.digit(), "digit");
+        printStringPredicates(StringPredicates.letter(), "letter");
+        printStringPredicates(StringPredicates.letterOrDigit(), "letterOrDigit");
+        printStringPredicates(StringPredicates.lowerCase(), "lowerCase");
+        printStringPredicates(StringPredicates.upperCase(), "upperCase");
+        printStringPredicates(StringPredicates.spaceChar(), "spaceChar");
+        printStringPredicates(StringPredicates.whitespace(), "whitespace");
+
+        printStringPredicates(StringPredicates.normalizedNFD(), "normalizedNFD");
+        printStringPredicates(StringPredicates.normalizedNFC(), "normalizedNFC");
+        printStringPredicates(StringPredicates.normalizedNFKD(), "normalizedNFKD");
+        printStringPredicates(StringPredicates.normalizedNFKC(), "normalizedNFKC");
+
+        printStringPredicates(StringPredicates.contains("1"), "contains 1");
+        printStringPredicates(StringPredicates.startsWith("1"), "startsWith 1");
+        printStringPredicates(StringPredicates.endsWith("3"), "endsWith 3");
+        printStringPredicates(StringPredicates.surroundedBy("1", "3"), "surroundedBy");
+        printStringPredicates(StringPredicates.containedIn(List.of(" ", "1", "ä")), "containedIn");
+        printStringPredicates(StringPredicates.charAt(1, '1'), "charAt");
+        printStringPredicates(StringPredicates.matches("[a-i]+"), "matches [a-i]+");
+        printStringPredicates(StringPredicates.matches("\\p{Alnum}+"), "matches Alnum");
+        printStringPredicates(StringPredicates.matches("\\p{Blank}+"), "matches Blank");
+
+        printStringPredicates(StringPredicates.length(1), "length 1");
+        printStringPredicates(StringPredicates.countCodePoints(1), "countCodePoints 1");
+        printStringPredicates(StringPredicates.countLines(1), "countLines 1");
     }
 
     private static void showStringUnaryOperators() {
@@ -293,15 +353,15 @@ public final class ExampleStringTypes {
         printUnaryOperator(StringUnaryOperators.lowerCase(Locale.GERMAN), "lowerCase");
         printUnaryOperator(StringUnaryOperators.upperCase(Locale.GERMAN), "upperCase");
         printUnaryOperator(StringUnaryOperators.repeat(2), "repeat 2");
-        printUnaryOperator(StringUnaryOperators.replaceAll(StringUnaryOperators.REGEX_WHITESPACE, "_"), "replaceAll");
-        printUnaryOperator(StringUnaryOperators.replaceFirst(StringUnaryOperators.REGEX_BACKSLASH, "/"), "replaceFirst");
-        printUnaryOperator(StringUnaryOperators.removeAll(StringUnaryOperators.REGEX_WHITESPACE), "removeAll");
-        printUnaryOperator(StringUnaryOperators.removeFirst(StringUnaryOperators.REGEX_BACKSLASH), "removeFirst");
+        printUnaryOperator(StringUnaryOperators.replaceAll(Strings.REGEX_WHITESPACE, "_"), "replaceAll");
+        printUnaryOperator(StringUnaryOperators.replaceFirst(Strings.REGEX_BACKSLASH, "/"), "replaceFirst");
+        printUnaryOperator(StringUnaryOperators.removeAll(Strings.REGEX_WHITESPACE), "removeAll");
+        printUnaryOperator(StringUnaryOperators.removeFirst(Strings.REGEX_BACKSLASH), "removeFirst");
         printUnaryOperator(StringUnaryOperators.indent(-2), "indent -2");
         printUnaryOperator(StringUnaryOperators.indent(0), "indent 0");
         printUnaryOperator(StringUnaryOperators.indent(2), "indent 2");
         printUnaryOperator(StringUnaryOperators.prefix("<<"), "prefix");
-        printUnaryOperator(StringUnaryOperators.postfix(">>"), "postfix");
+        printUnaryOperator(StringUnaryOperators.suffix(">>"), "suffix");
         printUnaryOperator(StringUnaryOperators.surround("<<", ">>"), "surround");
         printUnaryOperator(StringUnaryOperators.supplier(() -> "supplier"), "supplier");
         printUnaryOperator(StringUnaryOperators.codePointAt(0, "*"), "codePointAt 0");
@@ -323,8 +383,7 @@ public final class ExampleStringTypes {
     }
 
     public static void main(String... args) {
-        showStringCheckType();
-        showStringComparisonType();
+        showStringPredicates();
         showStringUnaryOperators();
     }
 
