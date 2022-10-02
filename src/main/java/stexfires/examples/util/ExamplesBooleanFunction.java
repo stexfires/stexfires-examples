@@ -71,6 +71,8 @@ public final class ExamplesBooleanFunction {
 
         System.out.println("asBinaryOperator AND : true  false -> " + BooleanBinaryOperator.AND().asBinaryOperator().apply(Boolean.TRUE, Boolean.FALSE));
         System.out.println("asBooleanUnaryOperator AND : true  false -> " + BooleanBinaryOperator.AND().asBooleanUnaryOperator(false).applyAsBoolean(true));
+        System.out.println("asPredicate AND : true  false -> " + BooleanBinaryOperator.AND().asPredicate(false).test(Boolean.TRUE));
+        System.out.println("asUnaryOperator AND : true  false -> " + BooleanBinaryOperator.AND().asUnaryOperator(false).apply(Boolean.TRUE));
     }
 
     public static void main(String... args) {
