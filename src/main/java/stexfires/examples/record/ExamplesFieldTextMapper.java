@@ -13,7 +13,6 @@ import stexfires.record.mapper.field.ReplaceNullFieldTextMapper;
 import stexfires.record.mapper.field.StringOperationFieldTextMapper;
 import stexfires.record.mapper.field.SupplierFieldTextMapper;
 import stexfires.util.Strings;
-import stexfires.util.function.SequenceStringSupplier;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
 
@@ -136,9 +135,9 @@ public final class ExamplesFieldTextMapper {
     private static void showSupplierFieldValueMapper() {
         System.out.println("-showSupplierFieldValueMapper---");
 
-        printMapper("constructor stringSupplierLocalTime", new SupplierFieldTextMapper(Suppliers.stringSupplierLocalTime()));
-        printMapper("constructor SequenceStringSupplier", new SupplierFieldTextMapper(new SequenceStringSupplier(1000L)));
-        printMapper("constructor stringSupplierThreadName", new SupplierFieldTextMapper(Suppliers.stringSupplierThreadName()));
+        printMapper("constructor localTimeAsString", new SupplierFieldTextMapper(Suppliers.localTimeAsString()));
+        printMapper("constructor sequenceAsString", new SupplierFieldTextMapper(Suppliers.sequenceAsString(1000L)));
+        printMapper("constructor threadNameAsString", new SupplierFieldTextMapper(Suppliers.threadNameAsString()));
     }
 
     public static void main(String... args) {

@@ -1,8 +1,7 @@
 package stexfires.examples.util;
 
 import stexfires.util.function.RandomNumberSuppliers;
-import stexfires.util.function.SequenceLongSupplier;
-import stexfires.util.function.SequencePrimitiveLongSupplier;
+import stexfires.util.function.Suppliers;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,32 +38,28 @@ public final class ExamplesNumberSupplier {
         stream.limit(10L).forEachOrdered(System.out::println);
     }
 
-    private static void showSequenceLongSupplier() {
-        System.out.println("-showSequenceLongSupplier---");
+    private static void showSuppliers() {
+        System.out.println("-showSuppliers---");
 
-        printStream("constructor 1.000",
+        printStream("sequenceAsLong 1.000",
                 Stream.generate(
-                        new SequenceLongSupplier(1_000L)));
-        printStream("constructor -10",
+                        Suppliers.sequenceAsLong(1_000L)));
+        printStream("sequenceAsLong -10",
                 Stream.generate(
-                        new SequenceLongSupplier(-10L)));
-        printStream("constructor -1",
+                        Suppliers.sequenceAsLong(-10L)));
+        printStream("sequenceAsLong -1",
                 Stream.generate(
-                        new SequenceLongSupplier(-1L)));
-    }
+                        Suppliers.sequenceAsLong(-1L)));
 
-    private static void showSequencePrimitiveLongSupplier() {
-        System.out.println("-showSequencePrimitiveLongSupplier---");
-
-        printStream("constructor 1.000",
+        printStream("sequenceAsPrimitiveLong 1.000",
                 LongStream.generate(
-                        new SequencePrimitiveLongSupplier(1_000L)));
-        printStream("constructor -10",
+                        Suppliers.sequenceAsPrimitiveLong(1_000L)));
+        printStream("sequenceAsPrimitiveLong -10",
                 LongStream.generate(
-                        new SequencePrimitiveLongSupplier(-10L)));
-        printStream("constructor -1",
+                        Suppliers.sequenceAsPrimitiveLong(-10L)));
+        printStream("sequenceAsPrimitiveLong -1",
                 LongStream.generate(
-                        new SequencePrimitiveLongSupplier(-1L)));
+                        Suppliers.sequenceAsPrimitiveLong(-1L)));
     }
 
     private static void showRandomSupplier() {
@@ -171,8 +166,7 @@ public final class ExamplesNumberSupplier {
     }
 
     public static void main(String... args) {
-        showSequenceLongSupplier();
-        showSequencePrimitiveLongSupplier();
+        showSuppliers();
         showRandomSupplier();
         showRandomSelectionSupplier();
     }

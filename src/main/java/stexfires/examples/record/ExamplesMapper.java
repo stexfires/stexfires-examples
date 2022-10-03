@@ -29,8 +29,6 @@ import stexfires.record.message.ShortMessage;
 import stexfires.record.message.SizeMessage;
 import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
-import stexfires.util.function.SequenceLongSupplier;
-import stexfires.util.function.SequencePrimitiveLongSupplier;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
 
@@ -80,9 +78,9 @@ public final class ExamplesMapper {
         System.out.println("-showAddValueMapper---");
 
         printMapper("constructor", new AddTextMapper<>(record -> "Size: " + record.size()));
-        printMapper("supplier", AddTextMapper.supplier(Suppliers.stringSupplierLocalTime()));
+        printMapper("supplier", AddTextMapper.supplier(Suppliers.localTimeAsString()));
         printMapper("intSupplier", AddTextMapper.intSupplier(() -> 1));
-        printMapper("longSupplier", AddTextMapper.longSupplier(new SequencePrimitiveLongSupplier(0L)));
+        printMapper("longSupplier", AddTextMapper.longSupplier(Suppliers.sequenceAsPrimitiveLong(0L)));
         printMapper("recordMessage", AddTextMapper.recordMessage(new ShortMessage<>()));
         printMapper("constant", AddTextMapper.constant("constant"));
         printMapper("constantNull", AddTextMapper.constantNull());
@@ -103,9 +101,9 @@ public final class ExamplesMapper {
 
         printMapper("constructor", new CategoryMapper<>(record -> "Size: " + record.size()));
         printMapper("identity", CategoryMapper.identity());
-        printMapper("supplier", CategoryMapper.supplier(Suppliers.stringSupplierLocalTime()));
+        printMapper("supplier", CategoryMapper.supplier(Suppliers.localTimeAsString()));
         printMapper("intSupplier", CategoryMapper.intSupplier(() -> 1));
-        printMapper("longSupplier", CategoryMapper.longSupplier(new SequencePrimitiveLongSupplier(0L)));
+        printMapper("longSupplier", CategoryMapper.longSupplier(Suppliers.sequenceAsPrimitiveLong(0L)));
         printMapper("recordMessage", CategoryMapper.recordMessage(new ShortMessage<>()));
         printMapper("constant", CategoryMapper.constant("constant"));
         printMapper("constantNull", CategoryMapper.constantNull());
@@ -184,9 +182,9 @@ public final class ExamplesMapper {
 
         printMapper("constructor", new RecordIdMapper<>(record -> record.recordIdAsOptional().orElse(-1L) + 100L));
         printMapper("identity", RecordIdMapper.identity());
-        printMapper("supplier", RecordIdMapper.supplier(new SequenceLongSupplier(1000L)));
+        printMapper("supplier", RecordIdMapper.supplier(Suppliers.sequenceAsLong(1000L)));
         printMapper("intSupplier", RecordIdMapper.intSupplier(() -> 1));
-        printMapper("longSupplier", RecordIdMapper.longSupplier(new SequencePrimitiveLongSupplier(1000L)));
+        printMapper("longSupplier", RecordIdMapper.longSupplier(Suppliers.sequenceAsPrimitiveLong(1000L)));
         printMapper("constant", RecordIdMapper.constant(100L));
         printMapper("constantNull", RecordIdMapper.constantNull());
         printMapper("categoryFunction", RecordIdMapper.categoryFunction(cat -> cat == null ? 0L : 1L));
@@ -203,7 +201,7 @@ public final class ExamplesMapper {
                 new ToValueFieldRecordMapper<>(1)));
         printMapperValueRecord("concat 3", RecordMapper.concat(
                 CategoryMapper.categoryOrElse("missing category"),
-                RecordIdMapper.longSupplier(new SequencePrimitiveLongSupplier(1000L)),
+                RecordIdMapper.longSupplier(Suppliers.sequenceAsPrimitiveLong(1000L)),
                 AddTextMapper.constant("new value")));
         printMapper("compose",
                 CategoryMapper.constantNull().compose(AddTextMapper.constant("new value")));

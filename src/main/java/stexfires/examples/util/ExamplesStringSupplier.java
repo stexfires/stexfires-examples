@@ -1,7 +1,6 @@
 package stexfires.examples.util;
 
 import stexfires.util.function.RandomStringSuppliers;
-import stexfires.util.function.SequenceStringSupplier;
 import stexfires.util.function.Suppliers;
 
 import java.util.ArrayList;
@@ -24,16 +23,10 @@ public final class ExamplesStringSupplier {
     private static void showSuppliers() {
         System.out.println("-showSuppliers---");
 
-        printStream("stringSupplierLocalTime", Stream.generate(Suppliers.stringSupplierLocalTime()));
-        printStream("stringSupplierThreadName", Stream.generate(Suppliers.stringSupplierThreadName()));
-    }
+        printStream("localTimeAsString", Stream.generate(Suppliers.localTimeAsString()));
+        printStream("threadNameAsString", Stream.generate(Suppliers.threadNameAsString()));
+        printStream("sequenceAsString 1.000", Stream.generate(Suppliers.sequenceAsString(1_000L)));
 
-    private static void showSequenceStringSupplier() {
-        System.out.println("-showSequenceStringSupplier---");
-
-        printStream("constructor 1.000",
-                Stream.generate(
-                        new SequenceStringSupplier(1_000L)));
     }
 
     @SuppressWarnings("CharUsedInArithmeticContext")
@@ -131,7 +124,6 @@ public final class ExamplesStringSupplier {
 
     public static void main(String... args) {
         showSuppliers();
-        showSequenceStringSupplier();
         showRandomStringSuppliers();
     }
 

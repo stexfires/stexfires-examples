@@ -14,7 +14,7 @@ import stexfires.record.producer.KeyValueRecordProducer;
 import stexfires.record.producer.RecordProducer;
 import stexfires.record.producer.ValueRecordProducer;
 import stexfires.util.Strings;
-import stexfires.util.function.SequenceLongSupplier;
+import stexfires.util.function.Suppliers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public final class ExamplesProducer {
 
         printProducer(new DividingProducer(recordSize, "A", "B", "C", "D", "E"));
         printProducer(new DividingProducer(category, TextRecords.recordIdSequence(), recordSize, "A", "B", "C", "D", "E", "F"));
-        printProducer(new DividingProducer(category, new SequenceLongSupplier(100L), recordSize, "A", "B", "C"));
+        printProducer(new DividingProducer(category, Suppliers.sequenceAsLong(100L), recordSize, "A", "B", "C"));
     }
 
     private static void showKeyValueProducer() {
@@ -69,7 +69,7 @@ public final class ExamplesProducer {
 
         printProducer(new KeyValueRecordProducer(keyValueMap));
         printProducer(new KeyValueRecordProducer(category, keyValueMap));
-        printProducer(new KeyValueRecordProducer(category, new SequenceLongSupplier(100L), keyValueMap));
+        printProducer(new KeyValueRecordProducer(category, Suppliers.sequenceAsLong(100L), keyValueMap));
         printProducer(new KeyValueRecordProducer(category, TextRecords.recordIdSequence(), keyValueMap,
                 Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
@@ -86,7 +86,7 @@ public final class ExamplesProducer {
 
         printProducer(new ValueRecordProducer(values));
         printProducer(new ValueRecordProducer(category, values));
-        printProducer(new ValueRecordProducer(category, new SequenceLongSupplier(100L), values));
+        printProducer(new ValueRecordProducer(category, Suppliers.sequenceAsLong(100L), values));
         printProducer(new ValueRecordProducer(category, TextRecords.recordIdSequence(), values,
                 i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
