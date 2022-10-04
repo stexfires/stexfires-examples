@@ -204,8 +204,8 @@ public final class ExamplesFilter {
 
         printFilter("constructor",
                 new SupplierFilter<>(() -> false));
-        printFilter("booleanSupplier",
-                SupplierFilter.booleanSupplier(() -> true));
+        printFilter("primitiveBooleanSupplier",
+                SupplierFilter.primitiveBooleanSupplier(() -> true));
         printFilter("random",
                 SupplierFilter.random(50));
         printFilter("pattern",

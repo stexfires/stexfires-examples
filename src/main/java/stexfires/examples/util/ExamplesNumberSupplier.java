@@ -67,9 +67,9 @@ public final class ExamplesNumberSupplier {
 
         Random random = new Random();
 
-        printStream("randomPrimitiveInteger",
+        printStream("randomPrimitiveInt",
                 IntStream.generate(
-                        RandomNumberSuppliers.randomPrimitiveInteger(random, 10, 100)));
+                        RandomNumberSuppliers.randomPrimitiveInt(random, 10, 100)));
         printStream("randomInteger",
                 Stream.generate(
                         RandomNumberSuppliers.randomInteger(random, Integer.MIN_VALUE, Integer.MAX_VALUE)));
@@ -112,9 +112,9 @@ public final class ExamplesNumberSupplier {
 
         Random random = new Random();
 
-        printStream("primitiveIntegerSelection Array",
+        printStream("primitiveIntSelection Array",
                 IntStream.generate(
-                        RandomNumberSuppliers.primitiveIntegerSelection(random, 42, 23, 1024)));
+                        RandomNumberSuppliers.primitiveIntSelection(random, 42, 23, 1024)));
         printStream("integerSelection List",
                 Stream.generate(
                         RandomNumberSuppliers.integerSelection(random, List.of(42, 23, 1024))));
