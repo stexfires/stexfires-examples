@@ -33,6 +33,7 @@ import stexfires.record.modifier.SortModifier;
 import stexfires.record.modifier.UnaryGroupModifier;
 import stexfires.record.modifier.UnpivotModifier;
 import stexfires.util.SortNulls;
+import stexfires.util.function.NumberPredicates;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,7 +45,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static stexfires.record.modifier.GroupModifier.*;
-import static stexfires.util.NumberComparisonType.LESS_THAN;
 
 @SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesModifier {
@@ -175,7 +175,7 @@ public final class ExamplesModifier {
         printModifierOneValueRecordGroup("constructor CategoryMessage; size < 4; aggregateToValues",
                 new GroupModifier<>(
                         groupByMessage(new CategoryMessage<>()),
-                        havingSize(LESS_THAN.intPredicate(4)),
+                        havingSize(NumberPredicates.PrimitiveIntPredicates.lessThan(4)),
                         aggregateToValues(
                                 messageOfFirstElement(new CategoryMessage<>()),
                                 list -> list.stream().map(ValueRecord::value).collect(Collectors.toList())

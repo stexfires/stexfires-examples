@@ -20,9 +20,8 @@ import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.message.CategoryMessage;
-import stexfires.util.NumberCheckType;
-import stexfires.util.NumberComparisonType;
 import stexfires.util.Strings;
+import stexfires.util.function.NumberPredicates;
 import stexfires.util.function.StringPredicates;
 
 import java.util.Collections;
@@ -160,10 +159,10 @@ public final class ExamplesFilter {
 
         printFilter("constructor",
                 new RecordIdFilter<>(value -> value == 1L));
-        printFilter("compare",
-                RecordIdFilter.compare(NumberComparisonType.GREATER_THAN, 2L));
-        printFilter("check",
-                RecordIdFilter.check(NumberCheckType.EVEN));
+        printFilter("constructor greaterThan 2",
+                new RecordIdFilter<>(NumberPredicates.PrimitiveLongPredicates.greaterThan(2L)));
+        printFilter("constructor even",
+                new RecordIdFilter<>(NumberPredicates.PrimitiveLongPredicates.even()));
         printFilter("equalTo",
                 RecordIdFilter.equalTo(1L));
         printFilter("isNotNull",
@@ -183,10 +182,10 @@ public final class ExamplesFilter {
 
         printFilter("constructor",
                 new SizeFilter<>(value -> value == 0));
-        printFilter("compare",
-                SizeFilter.compare(NumberComparisonType.GREATER_THAN, 2));
-        printFilter("check",
-                SizeFilter.check(NumberCheckType.ODD));
+        printFilter("constructor greaterThan 2",
+                new SizeFilter<>(NumberPredicates.PrimitiveIntPredicates.greaterThan(2)));
+        printFilter("constructor even",
+                new SizeFilter<>(NumberPredicates.PrimitiveIntPredicates.odd()));
         printFilter("equalTo",
                 SizeFilter.equalTo(1));
         printFilter("isEmpty",

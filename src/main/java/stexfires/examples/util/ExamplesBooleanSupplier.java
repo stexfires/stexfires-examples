@@ -1,7 +1,6 @@
 package stexfires.examples.util;
 
-import stexfires.util.NumberCheckType;
-import stexfires.util.NumberComparisonType;
+import stexfires.util.function.NumberPredicates;
 import stexfires.util.function.RandomBooleanSupplier;
 import stexfires.util.function.RepeatingPatternBooleanSupplier;
 import stexfires.util.function.SwitchingBooleanSupplier;
@@ -123,6 +122,14 @@ public final class ExamplesBooleanSupplier {
                 Stream.generate(
                         new SwitchingBooleanSupplier(Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, i -> i == 2)));
 
+        printStream("Switching: Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, even",
+                Stream.generate(
+                        new SwitchingBooleanSupplier(Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, NumberPredicates.PrimitiveIntPredicates.even())));
+
+        printStream("Switching: Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, multipleOf 3",
+                Stream.generate(
+                        new SwitchingBooleanSupplier(Boolean.FALSE, SwitchingBooleanSupplier.DEFAULT_START_INDEX, NumberPredicates.PrimitiveIntPredicates.multipleOf(3))));
+
         printStream("Switching: onlyOnce at index 3",
                 Stream.generate(
                         SwitchingBooleanSupplier.onlyOnce(false, 3)));
@@ -130,14 +137,6 @@ public final class ExamplesBooleanSupplier {
         printStream("Switching: everyTime",
                 Stream.generate(
                         SwitchingBooleanSupplier.everyTime(false)));
-
-        printStream("Switching: EVEN",
-                Stream.generate(
-                        SwitchingBooleanSupplier.check(true, NumberCheckType.EVEN)));
-
-        printStream("Switching: MULTIPLE_OF 3",
-                Stream.generate(
-                        SwitchingBooleanSupplier.compare(true, NumberComparisonType.MULTIPLE_OF, 3)));
 
         printBoolean("Switching: everyTime primitive boolean",
                 SwitchingBooleanSupplier.everyTime(true).asPrimitiveBooleanSupplier().getAsBoolean());
