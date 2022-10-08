@@ -324,6 +324,7 @@ public final class ExampleStringFunction {
         printUnaryOperator(StringUnaryOperators.toEmpty(), "toEmpty");
         printUnaryOperator(StringUnaryOperators.emptyToNull(), "emptyToNull");
         printUnaryOperator(StringUnaryOperators.nullToEmpty(), "nullToEmpty");
+        printUnaryOperator(StringUnaryOperators.nullToConstant("***"), "nullToConstant ***");
         printUnaryOperator(StringUnaryOperators.trimToNull(), "trimToNull");
         printUnaryOperator(StringUnaryOperators.trimToEmpty(), "trimToEmpty");
         printUnaryOperator(StringUnaryOperators.strip(), "strip");
