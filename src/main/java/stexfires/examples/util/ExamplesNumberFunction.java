@@ -3,6 +3,9 @@ package stexfires.examples.util;
 import stexfires.util.function.NumberPredicates.BigIntegerPredicates;
 import stexfires.util.function.NumberPredicates.PrimitiveIntPredicates;
 import stexfires.util.function.NumberPredicates.PrimitiveLongPredicates;
+import stexfires.util.function.NumberToStringFunctions.BigIntegerToStringFunctions;
+import stexfires.util.function.NumberToStringFunctions.PrimitiveIntToStringFunctions;
+import stexfires.util.function.NumberToStringFunctions.PrimitiveLongToStringFunctions;
 import stexfires.util.function.NumberUnaryOperators.BigIntegerUnaryOperators;
 import stexfires.util.function.NumberUnaryOperators.PrimitiveIntUnaryOperators;
 import stexfires.util.function.NumberUnaryOperators.PrimitiveLongUnaryOperators;
@@ -11,8 +14,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.function.IntUnaryOperator;
+import java.util.function.LongFunction;
 import java.util.function.LongPredicate;
 import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
@@ -157,6 +164,10 @@ public final class ExamplesNumberFunction {
         System.out.println(" " + (result != null ? result.toString() : "<NULL>") + " <-- " + value + (exceptionMessage != null ? " " + exceptionMessage : ""));
     }
 
+    private static void printResult(String result, Number value, String exceptionMessage) {
+        System.out.println(" " + (result != null ? result : "<NULL>") + " <-- " + value + (exceptionMessage != null ? " " + exceptionMessage : ""));
+    }
+
     private static void testPrimitiveIntPredicate(String methodName, IntPredicate predicate, String parameter) {
         printMethodInfo("PrimitiveIntPredicates", methodName, parameter);
 
@@ -247,6 +258,51 @@ public final class ExamplesNumberFunction {
         }
     }
 
+    private static void applyPrimitiveIntToStringFunction(String methodName, IntFunction<String> function, String parameter) {
+        printMethodInfo("PrimitiveIntToStringFunctions", methodName, parameter);
+
+        for (int value : INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = function.apply(value);
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+    }
+
+    private static void applyPrimitiveLongToStringFunction(String methodName, LongFunction<String> function, String parameter) {
+        printMethodInfo("PrimitiveLongToStringFunctions", methodName, parameter);
+
+        for (long value : LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = function.apply(value);
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+    }
+
+    private static void applyBigIntegerToStringFunction(String methodName, Function<BigInteger, String> function, String parameter) {
+        printMethodInfo("BigIntegerToStringFunctions", methodName, parameter);
+
+        for (BigInteger value : BIG_INTEGER_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = function.apply(value);
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+    }
+
     private static void showPrimitiveIntPredicates() {
         System.out.println("-showPrimitiveIntPredicates---");
 
@@ -307,6 +363,45 @@ public final class ExamplesNumberFunction {
         }
     }
 
+    private static void showPrimitiveIntToStringFunctions() {
+        System.out.println("-showPrimitiveIntToStringFunctions---");
+
+        applyPrimitiveIntToStringFunction("binary", PrimitiveIntToStringFunctions.binary(), null);
+        applyPrimitiveIntToStringFunction("decimal", PrimitiveIntToStringFunctions.decimal(), null);
+        applyPrimitiveIntToStringFunction("hex", PrimitiveIntToStringFunctions.hex(), null);
+        applyPrimitiveIntToStringFunction("octal", PrimitiveIntToStringFunctions.octal(), null);
+
+        applyPrimitiveIntToStringFunction("formatted", PrimitiveIntToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyPrimitiveIntToStringFunction("constant", PrimitiveIntToStringFunctions.constant("***"), "***");
+        applyPrimitiveIntToStringFunction("supplier", PrimitiveIntToStringFunctions.supplier(() -> "#"), "-> #");
+    }
+
+    private static void showPrimitiveLongToStringFunctions() {
+        System.out.println("-showPrimitiveLongToStringFunctions---");
+
+        applyPrimitiveLongToStringFunction("binary", PrimitiveLongToStringFunctions.binary(), null);
+        applyPrimitiveLongToStringFunction("decimal", PrimitiveLongToStringFunctions.decimal(), null);
+        applyPrimitiveLongToStringFunction("hex", PrimitiveLongToStringFunctions.hex(), null);
+        applyPrimitiveLongToStringFunction("octal", PrimitiveLongToStringFunctions.octal(), null);
+
+        applyPrimitiveLongToStringFunction("formatted", PrimitiveLongToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyPrimitiveLongToStringFunction("constant", PrimitiveLongToStringFunctions.constant("***"), "***");
+        applyPrimitiveLongToStringFunction("supplier", PrimitiveLongToStringFunctions.supplier(() -> "#"), "-> #");
+    }
+
+    private static void showBigIntegerToStringFunctions() {
+        System.out.println("-showBigIntegerToStringFunctions---");
+
+        applyBigIntegerToStringFunction("binary", BigIntegerToStringFunctions.binary(), null);
+        applyBigIntegerToStringFunction("decimal", BigIntegerToStringFunctions.decimal(), null);
+        applyBigIntegerToStringFunction("hex", BigIntegerToStringFunctions.hex(), null);
+        applyBigIntegerToStringFunction("octal", BigIntegerToStringFunctions.octal(), null);
+
+        applyBigIntegerToStringFunction("formatted", BigIntegerToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyBigIntegerToStringFunction("constant", BigIntegerToStringFunctions.constant("***"), "***");
+        applyBigIntegerToStringFunction("supplier", BigIntegerToStringFunctions.supplier(() -> "#"), "-> #");
+    }
+
     public static void main(String... args) {
         showPrimitiveIntPredicates();
         showPrimitiveLongPredicates();
@@ -314,6 +409,9 @@ public final class ExamplesNumberFunction {
         showPrimitiveIntUnaryOperators();
         showPrimitiveLongUnaryOperators();
         showBigIntegerUnaryOperators();
+        showPrimitiveIntToStringFunctions();
+        showPrimitiveLongToStringFunctions();
+        showBigIntegerToStringFunctions();
     }
 
 }
