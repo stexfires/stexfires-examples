@@ -19,6 +19,7 @@ import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
+import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
 import stexfires.record.message.CategoryMessage;
 import stexfires.util.Strings;
 import stexfires.util.function.NumberPredicates;
@@ -142,6 +143,8 @@ public final class ExamplesFilter {
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
+        printFilter("mapAndFilter",
+                RecordFilter.mapAndFilter(new ToValueFieldRecordMapper<>(0), TextFilter.isNotNull(0)));
         printFilter("concatAnd",
                 RecordFilter.concatAnd(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatAnd Stream",
