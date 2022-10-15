@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator", "SpellCheckingInspection", "MagicNumber"})
 public final class ExampleStringFunction {
@@ -233,7 +234,9 @@ public final class ExampleStringFunction {
         printStringPredicates(StringPredicates.applyFunctionAndTest(String::length, length -> length > 2 && length < 6), "applyFunctionAndTest");
 
         printStringPredicates(StringPredicates.concatAnd(StringPredicates.isNullOrEmpty(), StringPredicates.isNullOrBlank()), "concatAnd");
+        printStringPredicates(StringPredicates.concatAnd(Stream.of(StringPredicates.isNotNull(), StringPredicates.letterOrDigit(), StringPredicates.digit(), StringPredicates.length(s -> s < 4))), "concatAnd Stream");
         printStringPredicates(StringPredicates.concatOr(StringPredicates.isEmpty(), StringPredicates.isBlank()), "concatOr");
+        printStringPredicates(StringPredicates.concatOr(Stream.of(StringPredicates.digit(), StringPredicates.letter(), StringPredicates.length(s -> s > 4))), "concatOr Stream");
 
         printStringPredicates(StringPredicates.isNullOr(StringPredicates.isBlank()), "isNullOr");
         printStringPredicates(StringPredicates.isNotNullAnd(StringPredicates.isBlank()), "isNotNullAnd");

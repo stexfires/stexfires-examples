@@ -144,8 +144,12 @@ public final class ExamplesFilter {
 
         printFilter("concatAnd",
                 RecordFilter.concatAnd(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8)));
+        printFilter("concatAnd Stream",
+                RecordFilter.concatAnd(Stream.of(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8))));
         printFilter("concatOr",
                 RecordFilter.concatOr(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class)));
+        printFilter("concatOr Stream",
+                RecordFilter.concatOr(Stream.of(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class))));
         printFilter("and",
                 ClassFilter.equalTo(ManyFieldsRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
