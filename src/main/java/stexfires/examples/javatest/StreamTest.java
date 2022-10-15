@@ -12,21 +12,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"MagicNumber", "ResultOfMethodCallIgnored", "UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class StreamTest {
 
     private StreamTest() {
     }
 
-    private static Stream<String> generateTestStream() {
-        return Stream.of("This ", "is ", "a ", "test ", "stream.");
+    private static Stream<String> generateStringStream() {
+        return Stream.of("This ", "stream ", "is ", "a ", "test ", "stream ", ".");
+    }
+
+    private static IntStream generateIntStream() {
+        return IntStream.of(42, 23, 7, 42, 999);
     }
 
     private static void showIntStreamRange() {
         System.out.println("-showIntStreamRange---");
         System.out.println("range[10,15[");
         IntStream.range(10, 15).forEachOrdered(System.out::println);
-        System.out.println("range[10,15]");
+        System.out.println("rangeClosed[10,15]");
         IntStream.rangeClosed(10, 15).forEachOrdered(System.out::println);
     }
 
@@ -36,12 +40,20 @@ public final class StreamTest {
         Stream.iterate(1, n -> n + 1).limit(3L).forEachOrdered(System.out::println);
         System.out.println("n*2");
         Stream.iterate(2, n -> n * 2).limit(3L).forEachOrdered(System.out::println);
+        System.out.println("concat '*'");
+        Stream.iterate("*", s -> s + "*").limit(3L).forEachOrdered(System.out::println);
+        System.out.println("switch Boolean");
+        Stream.iterate(Boolean.FALSE, b -> !b).limit(3L).forEachOrdered(System.out::println);
+        System.out.println("IntStream with predicate");
+        IntStream.iterate(10, i -> i < 20, i -> i + 1).forEachOrdered(System.out::println);
     }
 
     private static void showStreamGenerate() {
         System.out.println("-showStreamGenerate---");
         System.out.println("constant");
-        Stream.generate(() -> 1).limit(3L).forEachOrdered(System.out::println);
+        Stream.generate(() -> "*").limit(3L).forEachOrdered(System.out::println);
+        System.out.println("IntStream constant");
+        IntStream.generate(() -> 1).limit(3L).forEachOrdered(System.out::println);
         System.out.println("random");
         Stream.generate(Math::random).limit(3L).forEachOrdered(System.out::println);
         System.out.println("Atomic increment");
@@ -50,13 +62,13 @@ public final class StreamTest {
 
     private static void showPeekAndParallel() {
         System.out.println("-showPeekAndParallel---");
-        System.out.println("peek: ");
-        generateTestStream().peek(System.out::print).count();
+        System.out.println("peek:");
+        System.out.println(" -> " + generateStringStream().peek(System.out::print).toList());
         System.out.println();
-        System.out.println("parallel peek: ");
-        generateTestStream().parallel().peek(System.out::print).count();
+        System.out.println("parallel peek:");
+        System.out.println(" -> " + generateStringStream().parallel().peek(System.out::print).toList());
         System.out.println();
-        System.out.println("many peeks");
+        System.out.println("many peeks:");
         Stream.of("AA", "B", "AA", "CC")
               .peek(p -> System.out.println("1. " + p))
               .distinct()
@@ -68,33 +80,36 @@ public final class StreamTest {
 
     private static void showCount() {
         System.out.println("-showCount---");
-        System.out.println("Count stream elements: " + generateTestStream().count());
+        System.out.println("Count stream elements: " + generateStringStream().count());
     }
 
     private static void showFind() {
         System.out.println("-showFind---");
-        System.out.println("findFirst: " + generateTestStream().findFirst());
-        System.out.println("parallel findFirst: " + generateTestStream().parallel().findFirst());
-        System.out.println("findAny: " + generateTestStream().findAny());
-        System.out.println("parallel findAny: " + generateTestStream().parallel().findAny());
+        System.out.println("findFirst: " + generateStringStream().findFirst());
+        System.out.println("parallel findFirst: " + generateStringStream().parallel().findFirst());
+        System.out.println("findAny: " + generateStringStream().findAny());
+        System.out.println("parallel findAny: " + generateStringStream().parallel().findAny());
     }
 
     private static void showBuilder() {
         System.out.println("-showBuilder---");
-        Stream.builder().add("This ").add("is ").add("a ").add("test ").add("stream.").build().forEachOrdered(System.out::print);
+        Stream.builder().add("This ").add("is ").add("a ").add("test ").add("stream.").build().forEachOrdered(System.out::println);
+        System.out.println();
+        IntStream.builder().add(42).add(23).build().forEachOrdered(System.out::println);
         System.out.println();
     }
 
     private static void showJoining() {
         System.out.println("-showJoining---");
-        System.out.println(generateTestStream().collect(Collectors.joining()));
-        System.out.println(generateTestStream().collect(Collectors.joining("-")));
+        System.out.println(generateStringStream().collect(Collectors.joining()));
+        System.out.println(generateStringStream().collect(Collectors.joining("-")));
     }
 
     private static void showReduce() {
         System.out.println("-showReduce---");
         System.out.println(new SplittableRandom().ints(10L, 1, 10)
                                                  .reduce(Integer::sum).orElse(0));
+        System.out.println(generateIntStream().reduce(Integer::max).orElse(0));
     }
 
     private static void showSplittableRandom() {
@@ -116,8 +131,10 @@ public final class StreamTest {
 
     private static void showConcat() {
         System.out.println("-showConcat---");
-        Stream.concat(generateTestStream(), generateTestStream())
+        Stream.concat(generateStringStream(), generateStringStream())
               .forEachOrdered(System.out::println);
+        IntStream.concat(generateIntStream(), generateIntStream())
+                 .forEachOrdered(System.out::println);
     }
 
     private static void showModification() {
@@ -151,6 +168,7 @@ public final class StreamTest {
         System.out.println();
     }
 
+    @SuppressWarnings("SimplifyStreamApiCallChains")
     private static void showCharacteristics() {
         System.out.println("-showCharacteristics---");
         String strA = "a";
@@ -161,6 +179,7 @@ public final class StreamTest {
         list1.add(strA);
         Stream<String> streamList1 = list1.stream();
         Stream<String> streamList2 = List.copyOf(list1).stream();
+        Stream<String> streamList3 = List.of("a", "b", "c").stream();
 
         // Single
         Stream<String> streamSingle1 = Stream.of(strA);
@@ -178,6 +197,7 @@ public final class StreamTest {
         // Spliterator
         Spliterator<String> spList1 = streamList1.spliterator();
         Spliterator<String> spList2 = streamList2.spliterator();
+        Spliterator<String> spList3 = streamList3.spliterator();
 
         Spliterator<String> spSingle1 = streamSingle1.spliterator();
 
@@ -191,6 +211,7 @@ public final class StreamTest {
         Map<String, Spliterator<String>> spliterators = new TreeMap<>();
         spliterators.put("spList1  ", spList1);
         spliterators.put("spList2  ", spList2);
+        spliterators.put("spList3  ", spList3);
         spliterators.put("spSingle1", spSingle1);
         spliterators.put("spArray1 ", spArray1);
         spliterators.put("spArray2 ", spArray2);
@@ -201,6 +222,7 @@ public final class StreamTest {
         System.out.println("Spliterator Overview");
         System.out.println("spList1   " + spList1.characteristics() + " " + spList1.estimateSize() + " " + spList1.getExactSizeIfKnown() + " " + spList1);
         System.out.println("spList2   " + spList2.characteristics() + " " + spList2.estimateSize() + " " + spList2.getExactSizeIfKnown() + " " + spList2);
+        System.out.println("spList3   " + spList3.characteristics() + " " + spList3.estimateSize() + " " + spList3.getExactSizeIfKnown() + " " + spList3);
         System.out.println("spSingle1 " + spSingle1.characteristics() + " " + spSingle1.estimateSize() + " " + spSingle1.getExactSizeIfKnown() + " " + spSingle1);
         System.out.println("spArray1  " + spArray1.characteristics() + " " + spArray1.estimateSize() + " " + spArray1.getExactSizeIfKnown() + " " + spArray1);
         System.out.println("spArray2  " + spArray2.characteristics() + " " + spArray2.estimateSize() + " " + spArray2.getExactSizeIfKnown() + " " + spArray2);
@@ -236,6 +258,42 @@ public final class StreamTest {
         spliterators.entrySet().stream().filter(e -> e.getValue().hasCharacteristics(Spliterator.SUBSIZED)).map(Map.Entry::getKey).forEachOrdered(System.out::println);
     }
 
+    private static void showDistinct() {
+        System.out.println("-showDistinct---");
+        generateStringStream().distinct().forEachOrdered(System.out::println);
+        generateIntStream().distinct().forEachOrdered(System.out::println);
+    }
+
+    private static void showSkipAndLimit() {
+        System.out.println("-showSkipAndLimit---");
+        generateStringStream().skip(1L).limit(2L).forEachOrdered(System.out::println);
+        generateIntStream().skip(1L).limit(2L).forEachOrdered(System.out::println);
+    }
+
+    private static void showMath() {
+        System.out.println("-showMath---");
+        System.out.println(generateIntStream().count());
+        System.out.println(generateIntStream().sum());
+        System.out.println(generateIntStream().min().orElse(0));
+        System.out.println(generateIntStream().average().orElse(0));
+        System.out.println(generateIntStream().max().orElse(0));
+        System.out.println(generateIntStream().summaryStatistics());
+    }
+
+    @SuppressWarnings("UnnecessaryToStringCall")
+    private static void showConvert() {
+        System.out.println("-showConvert---");
+        System.out.println(generateStringStream().toString());
+        System.out.println(Arrays.toString(generateStringStream().toArray()));
+        System.out.println(generateStringStream().toList());
+
+        System.out.println(generateIntStream().toString());
+        System.out.println(generateIntStream().boxed().toString());
+        System.out.println(Arrays.toString(generateIntStream().toArray()));
+        System.out.println(Arrays.toString(generateIntStream().asDoubleStream().toArray()));
+        System.out.println(Arrays.toString(generateIntStream().asLongStream().toArray()));
+    }
+
     public static void main(String... args) {
         showIntStreamRange();
         showStreamIterate();
@@ -250,6 +308,10 @@ public final class StreamTest {
         showConcat();
         showModification();
         showCharacteristics();
+        showDistinct();
+        showSkipAndLimit();
+        showMath();
+        showConvert();
     }
 
 }
