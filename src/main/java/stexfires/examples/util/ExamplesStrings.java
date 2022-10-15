@@ -3,9 +3,10 @@ package stexfires.examples.util;
 import stexfires.util.Strings;
 
 import java.math.BigInteger;
+import java.util.Locale;
 import java.util.stream.Stream;
 
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator"})
 public final class ExamplesStrings {
 
     private ExamplesStrings() {
@@ -156,6 +157,33 @@ public final class ExamplesStrings {
         Strings.printLines(Strings.stream("a", null, "c"));
     }
 
+    private static void showStringsSplit() {
+        System.out.println("-showStringsSplit---");
+
+        System.out.println(Strings.collect(Strings.splitTextByLines("First line\nSecond Line\nThird line")));
+        System.out.println(Strings.collect(Strings.splitTextByChars("ABC\uD83D\uDE00o\u0308A\u030a")));
+        System.out.println(Strings.collect(Strings.splitTextByCodePoints("ABC\uD83D\uDE00o\u0308A\u030a")));
+
+        System.out.println(Strings.collect(Strings.splitTextByRegex("ABC-def--GHI-", "-", -1)));
+        System.out.println(Strings.collect(Strings.splitTextByRegex("ABC-def--GHI-", "-", 0)));
+        System.out.println(Strings.collect(Strings.splitTextByRegex("ABC-def--GHI-", "-", 2)));
+
+        System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghi", 3)));
+        System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghij", 3)));
+        System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghijk", 3)));
+    }
+
+    private static void showStringsBreak() {
+        System.out.println("-showStringsBreak---");
+
+        String text = "Hello world! This is a sentence. Is this also a sentence? He said: \"Hello world\".\nSpecial characters: \uD83D\uDE00, o\u0308, A\u030a.";
+
+        System.out.println(Strings.collect(Strings.breakTextBySentence(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.breakTextByWord(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.breakTextByLine(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.breakTextByCharacter(text, Locale.ENGLISH)));
+    }
+
     public static void main(String... args) {
         showStringsMisc();
         showStringsList();
@@ -168,6 +196,8 @@ public final class ExamplesStrings {
         showStringsJoin();
         showStringsPrintLine();
         showStringsPrintLines();
+        showStringsSplit();
+        showStringsBreak();
     }
 
 }
