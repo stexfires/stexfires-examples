@@ -7,6 +7,7 @@ import stexfires.record.filter.CategoryFilter;
 import stexfires.record.filter.ClassFilter;
 import stexfires.record.filter.ConstantFilter;
 import stexfires.record.filter.IsValidIndexFilter;
+import stexfires.record.filter.MappingFilter;
 import stexfires.record.filter.MessageFilter;
 import stexfires.record.filter.NotNullFilter;
 import stexfires.record.filter.RecordFilter;
@@ -109,6 +110,13 @@ public final class ExamplesFilter {
                 new IsValidIndexFilter<>(1));
     }
 
+    private static void showMappingFilter() {
+        System.out.println("-showMappingFilter---");
+
+        printFilter("constructor",
+                new MappingFilter<>(new ToValueFieldRecordMapper<>(0), TextFilter.isNotNull(0)));
+    }
+
     private static void showMessageFilter() {
         System.out.println("-showMessageFilter---");
 
@@ -143,8 +151,6 @@ public final class ExamplesFilter {
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
-        printFilter("mapAndFilter",
-                RecordFilter.mapAndFilter(new ToValueFieldRecordMapper<>(0), TextFilter.isNotNull(0)));
         printFilter("concatAnd",
                 RecordFilter.concatAnd(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatAnd Stream",
@@ -260,6 +266,7 @@ public final class ExamplesFilter {
         showClassFilter();
         showConstantFilter();
         showIsValidIndexFilter();
+        showMappingFilter();
         showMessageFilter();
         showNotNullFilter();
         showRecordFilter();
