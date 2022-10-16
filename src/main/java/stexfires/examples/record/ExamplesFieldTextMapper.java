@@ -2,8 +2,8 @@ package stexfires.examples.record;
 
 import stexfires.record.TextField;
 import stexfires.record.TextFields;
-import stexfires.record.mapper.field.AddPostfixFieldTextMapper;
 import stexfires.record.mapper.field.AddPrefixFieldTextMapper;
+import stexfires.record.mapper.field.AddSuffixFieldTextMapper;
 import stexfires.record.mapper.field.ConditionalFieldTextMapper;
 import stexfires.record.mapper.field.ConstantFieldTextMapper;
 import stexfires.record.mapper.field.FieldTextMapper;
@@ -44,10 +44,10 @@ public final class ExamplesFieldTextMapper {
         Strings.printLine(TextFields.mapToTexts(generateStream(), fieldTextMapper), Strings.DEFAULT_DELIMITER);
     }
 
-    private static void showAddPostfixFieldValueMapper() {
-        System.out.println("-showAddPostfixFieldValueMapper---");
+    private static void showAddSuffixFieldValueMapper() {
+        System.out.println("-showAddSuffixFieldValueMapper---");
 
-        printMapper("constructor", new AddPostfixFieldTextMapper("-postfix"));
+        printMapper("constructor", new AddSuffixFieldTextMapper("-suffix"));
     }
 
     private static void showAddPrefixFieldValueMapper() {
@@ -141,7 +141,7 @@ public final class ExamplesFieldTextMapper {
     }
 
     public static void main(String... args) {
-        showAddPostfixFieldValueMapper();
+        showAddSuffixFieldValueMapper();
         showAddPrefixFieldValueMapper();
         showConditionalFieldValueMapper();
         showConstantFieldValueMapper();
