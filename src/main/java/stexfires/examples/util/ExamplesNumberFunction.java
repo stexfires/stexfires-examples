@@ -13,6 +13,7 @@ import stexfires.util.function.NumberUnaryOperators.PrimitiveLongUnaryOperators;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -369,6 +370,7 @@ public final class ExamplesNumberFunction {
         applyPrimitiveIntToStringFunction("binary", PrimitiveIntToStringFunctions.binary(), null);
         applyPrimitiveIntToStringFunction("decimal", PrimitiveIntToStringFunctions.decimal(), null);
         applyPrimitiveIntToStringFunction("hex", PrimitiveIntToStringFunctions.hex(), null);
+        applyPrimitiveIntToStringFunction("hexFormat", PrimitiveIntToStringFunctions.hexFormat(HexFormat.ofDelimiter(" ").withPrefix("#").withUpperCase()), "space delimiter, prefix #, uppercase");
         applyPrimitiveIntToStringFunction("octal", PrimitiveIntToStringFunctions.octal(), null);
 
         applyPrimitiveIntToStringFunction("formatted", PrimitiveIntToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
@@ -382,6 +384,7 @@ public final class ExamplesNumberFunction {
         applyPrimitiveLongToStringFunction("binary", PrimitiveLongToStringFunctions.binary(), null);
         applyPrimitiveLongToStringFunction("decimal", PrimitiveLongToStringFunctions.decimal(), null);
         applyPrimitiveLongToStringFunction("hex", PrimitiveLongToStringFunctions.hex(), null);
+        applyPrimitiveLongToStringFunction("hexFormat", PrimitiveLongToStringFunctions.hexFormat(HexFormat.ofDelimiter(" ").withPrefix("#").withUpperCase()), "space delimiter, prefix #, uppercase");
         applyPrimitiveLongToStringFunction("octal", PrimitiveLongToStringFunctions.octal(), null);
 
         applyPrimitiveLongToStringFunction("formatted", PrimitiveLongToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
@@ -395,6 +398,7 @@ public final class ExamplesNumberFunction {
         applyBigIntegerToStringFunction("binary", BigIntegerToStringFunctions.binary(), null);
         applyBigIntegerToStringFunction("decimal", BigIntegerToStringFunctions.decimal(), null);
         applyBigIntegerToStringFunction("hex", BigIntegerToStringFunctions.hex(), null);
+        applyBigIntegerToStringFunction("hexFormat", BigIntegerToStringFunctions.hexFormat(HexFormat.ofDelimiter(" ").withPrefix("#").withUpperCase()), "space delimiter, prefix #, uppercase");
         applyBigIntegerToStringFunction("octal", BigIntegerToStringFunctions.octal(), null);
 
         applyBigIntegerToStringFunction("formatted", BigIntegerToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
