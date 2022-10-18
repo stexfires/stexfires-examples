@@ -374,8 +374,9 @@ public final class ExampleStringFunction {
         printUnaryOperator(StringUnaryOperators.charAt(0, "*"), "charAt 0");
         printUnaryOperator(StringUnaryOperators.charAt(4, "*"), "charAt 4");
         printUnaryOperator(StringUnaryOperators.charAt(5, Suppliers.sequenceAsString(0L)), "charAt 5 sequenceAsString");
-        printUnaryOperator(StringUnaryOperators.format(Locale.ENGLISH, "*", 1), "format with Locale");
-        printUnaryOperator(StringUnaryOperators.format(null, "*", 2), "format without Locale");
+        printUnaryOperator(StringUnaryOperators.formattedWithArguments(Locale.ENGLISH, "*", 1), "formattedWithArguments with Locale");
+        printUnaryOperator(StringUnaryOperators.formattedWithArguments(null, "***", 222), "formattedWithArguments without Locale");
+        printUnaryOperator(StringUnaryOperators.formatAsArgument(null, "%2s"), "formatAsArgument without Locale and format '%2s'");
         printUnaryOperator(StringUnaryOperators.substring(2), "substring 2");
         printUnaryOperator(StringUnaryOperators.substring(2, 4), "substring 2 4");
         printUnaryOperator(StringUnaryOperators.removeFromStart(2), "removeFromStart 2");
