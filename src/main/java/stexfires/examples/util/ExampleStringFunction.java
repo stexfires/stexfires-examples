@@ -8,6 +8,7 @@ import stexfires.util.function.Suppliers;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -385,6 +386,8 @@ public final class ExampleStringFunction {
         printUnaryOperator(StringUnaryOperators.keepFromEnd(2), "keepFromEnd 2");
         printUnaryOperator(StringUnaryOperators.padStart("<->", 5), "padStart 5");
         printUnaryOperator(StringUnaryOperators.padEnd("<->", 5), "padEnd 5");
+        printUnaryOperator(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8), "encodeBase64");
+        printUnaryOperator(StringUnaryOperators.concat(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8), StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.UTF_8)), "encodeBase64 and decodeBase64");
     }
 
     public static void main(String... args) {
