@@ -3,6 +3,7 @@ package stexfires.examples.util;
 import stexfires.util.function.NumberPredicates.BigIntegerPredicates;
 import stexfires.util.function.NumberPredicates.PrimitiveIntPredicates;
 import stexfires.util.function.NumberPredicates.PrimitiveLongPredicates;
+import stexfires.util.function.NumberToNumberFunctions;
 import stexfires.util.function.NumberToStringFunctions.BigIntegerToStringFunctions;
 import stexfires.util.function.NumberToStringFunctions.PrimitiveIntToStringFunctions;
 import stexfires.util.function.NumberToStringFunctions.PrimitiveLongToStringFunctions;
@@ -29,9 +30,13 @@ import java.util.function.UnaryOperator;
 @SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesNumberFunction {
 
-    private static final int[] INT_VALUES = new int[]{
+    private static final int[] PRIMITIVE_INT_VALUES = new int[]{
             Integer.MIN_VALUE,
             Integer.MIN_VALUE + 1,
+            Short.MIN_VALUE - 1,
+            Short.MIN_VALUE,
+            Byte.MIN_VALUE - 1,
+            Byte.MIN_VALUE,
             -12,
             -10,
             -4,
@@ -45,13 +50,21 @@ public final class ExamplesNumberFunction {
             4,
             10,
             12,
+            Byte.MAX_VALUE,
+            Byte.MAX_VALUE + 1,
+            Short.MAX_VALUE,
+            Short.MAX_VALUE + 1,
+            65_535,
+            65_536,
             Integer.MAX_VALUE - 1,
             Integer.MAX_VALUE
     };
 
-    private static final long[] LONG_VALUES = new long[]{
+    private static final long[] PRIMITIVE_LONG_VALUES = new long[]{
             Long.MIN_VALUE,
             Long.MIN_VALUE + 1L,
+            Integer.MIN_VALUE - 1L,
+            Integer.MIN_VALUE,
             -12L,
             -10L,
             -4L,
@@ -65,6 +78,8 @@ public final class ExamplesNumberFunction {
             4L,
             10L,
             12L,
+            Integer.MAX_VALUE,
+            Integer.MAX_VALUE + 1L,
             Long.MAX_VALUE - 1L,
             Long.MAX_VALUE
     };
@@ -75,8 +90,9 @@ public final class ExamplesNumberFunction {
     static {
         List<BigInteger> values = new ArrayList<>();
         values.add(new BigInteger("-9999999999999999999999"));
-        values.add(new BigInteger("-9223372036854775808"));
+        values.add(BigInteger.valueOf(Long.MIN_VALUE).subtract(BigInteger.ONE));
         values.add(BigInteger.valueOf(Long.MIN_VALUE));
+        values.add(BigInteger.valueOf(Integer.MIN_VALUE).subtract(BigInteger.ONE));
         values.add(BigInteger.valueOf(Integer.MIN_VALUE));
         values.add(BigInteger.valueOf(-12L));
         values.add(BigInteger.valueOf(-10L));
@@ -99,9 +115,18 @@ public final class ExamplesNumberFunction {
         values.add(BigInteger.valueOf(10L));
         values.add(BigInteger.TEN);
         values.add(BigInteger.valueOf(12L));
+        values.add(BigInteger.valueOf(Byte.MAX_VALUE));
+        values.add(BigInteger.valueOf(Byte.MAX_VALUE).add(BigInteger.ONE));
+        values.add(BigInteger.valueOf(255L));
+        values.add(BigInteger.valueOf(256L));
+        values.add(BigInteger.valueOf(Short.MAX_VALUE));
+        values.add(BigInteger.valueOf(Short.MAX_VALUE).add(BigInteger.ONE));
+        values.add(BigInteger.valueOf(65535L));
+        values.add(BigInteger.valueOf(65536L));
         values.add(BigInteger.valueOf(Integer.MAX_VALUE));
+        values.add(BigInteger.valueOf(Integer.MAX_VALUE).add(BigInteger.ONE));
         values.add(BigInteger.valueOf(Long.MAX_VALUE));
-        values.add(new BigInteger("9223372036854775807"));
+        values.add(BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.ONE));
         values.add(new BigInteger("9999999999999999999999"));
         values.add(null);
         BIG_INTEGER_VALUES = Collections.unmodifiableList(values);
@@ -172,7 +197,7 @@ public final class ExamplesNumberFunction {
     private static void testPrimitiveIntPredicate(String methodName, IntPredicate predicate, String parameter) {
         printMethodInfo("PrimitiveIntPredicates", methodName, parameter);
 
-        for (int value : INT_VALUES) {
+        for (int value : PRIMITIVE_INT_VALUES) {
             Boolean result = null;
             String exceptionMessage = null;
             try {
@@ -187,7 +212,7 @@ public final class ExamplesNumberFunction {
     private static void testPrimitiveLongPredicate(String methodName, LongPredicate predicate, String parameter) {
         printMethodInfo("PrimitiveLongPredicates", methodName, parameter);
 
-        for (long value : LONG_VALUES) {
+        for (long value : PRIMITIVE_LONG_VALUES) {
             Boolean result = null;
             String exceptionMessage = null;
             try {
@@ -217,7 +242,7 @@ public final class ExamplesNumberFunction {
     private static void applyPrimitiveIntUnaryOperator(String methodName, IntUnaryOperator operator, String parameter) {
         printMethodInfo("PrimitiveIntUnaryOperators", methodName, parameter);
 
-        for (int value : INT_VALUES) {
+        for (int value : PRIMITIVE_INT_VALUES) {
             Number result = null;
             String exceptionMessage = null;
             try {
@@ -232,7 +257,7 @@ public final class ExamplesNumberFunction {
     private static void applyPrimitiveLongUnaryOperator(String methodName, LongUnaryOperator operator, String parameter) {
         printMethodInfo("PrimitiveLongUnaryOperators", methodName, parameter);
 
-        for (long value : LONG_VALUES) {
+        for (long value : PRIMITIVE_LONG_VALUES) {
             Number result = null;
             String exceptionMessage = null;
             try {
@@ -262,7 +287,7 @@ public final class ExamplesNumberFunction {
     private static void applyPrimitiveIntToStringFunction(String methodName, IntFunction<String> function, String parameter) {
         printMethodInfo("PrimitiveIntToStringFunctions", methodName, parameter);
 
-        for (int value : INT_VALUES) {
+        for (int value : PRIMITIVE_INT_VALUES) {
             String result = null;
             String exceptionMessage = null;
             try {
@@ -277,7 +302,7 @@ public final class ExamplesNumberFunction {
     private static void applyPrimitiveLongToStringFunction(String methodName, LongFunction<String> function, String parameter) {
         printMethodInfo("PrimitiveLongToStringFunctions", methodName, parameter);
 
-        for (long value : LONG_VALUES) {
+        for (long value : PRIMITIVE_LONG_VALUES) {
             String result = null;
             String exceptionMessage = null;
             try {
@@ -309,7 +334,7 @@ public final class ExamplesNumberFunction {
 
         testPrimitiveIntPredicate("zero", PrimitiveIntPredicates.zero(), null);
 
-        for (int parameter : INT_VALUES) {
+        for (int parameter : PRIMITIVE_INT_VALUES) {
             testPrimitiveIntPredicate("lessThan", PrimitiveIntPredicates.lessThan(parameter), String.valueOf(parameter));
         }
     }
@@ -319,7 +344,7 @@ public final class ExamplesNumberFunction {
 
         testPrimitiveLongPredicate("zero", PrimitiveLongPredicates.zero(), null);
 
-        for (long parameter : LONG_VALUES) {
+        for (long parameter : PRIMITIVE_LONG_VALUES) {
             testPrimitiveLongPredicate("lessThan", PrimitiveLongPredicates.lessThan(parameter), String.valueOf(parameter));
         }
     }
@@ -339,7 +364,7 @@ public final class ExamplesNumberFunction {
 
         applyPrimitiveIntUnaryOperator("toZero", PrimitiveIntUnaryOperators.toZero(), null);
 
-        for (int parameter : INT_VALUES) {
+        for (int parameter : PRIMITIVE_INT_VALUES) {
             applyPrimitiveIntUnaryOperator("addExact", PrimitiveIntUnaryOperators.addExact(parameter), String.valueOf(parameter));
         }
     }
@@ -349,7 +374,7 @@ public final class ExamplesNumberFunction {
 
         applyPrimitiveLongUnaryOperator("toZero", PrimitiveLongUnaryOperators.toZero(), null);
 
-        for (long parameter : LONG_VALUES) {
+        for (long parameter : PRIMITIVE_LONG_VALUES) {
             applyPrimitiveLongUnaryOperator("addExact", PrimitiveLongUnaryOperators.addExact(parameter), String.valueOf(parameter));
         }
     }
@@ -406,6 +431,241 @@ public final class ExamplesNumberFunction {
         applyBigIntegerToStringFunction("supplier", BigIntegerToStringFunctions.supplier(() -> "#"), "-> #");
     }
 
+    private static void showNumberToNumberFunctions() {
+        System.out.println("-showNumberToNumberFunctions---");
+
+        // Primitive int
+        System.out.println("---primitiveIntToInteger");
+        for (int value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveIntToInteger().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveIntToPrimitiveLong");
+        for (int value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveIntToPrimitiveLong().applyAsLong(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveIntToLong");
+        for (int value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveIntToLong().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveIntToBigInteger");
+        for (int value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveIntToBigInteger().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+
+        // Integer
+        System.out.println("---integerToPrimitiveInt");
+        for (Integer value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.integerToPrimitiveInt(0).applyAsInt(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---integerToPrimitiveLong");
+        for (Integer value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.integerToPrimitiveLong(0L).applyAsLong(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---integerToLong");
+        for (Integer value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.integerToLong(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---integerToBigInteger");
+        for (Integer value : PRIMITIVE_INT_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.integerToBigInteger(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+
+        // Primitive long
+        System.out.println("---primitiveLongToPrimitiveInt");
+        for (long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveLongToPrimitiveInt().applyAsInt(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveLongToInteger");
+        for (long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveLongToInteger().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveLongToLong");
+        for (long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveLongToLong().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---primitiveLongToBigInteger");
+        for (long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.primitiveLongToBigInteger().apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+
+        // Long
+        System.out.println("---longToPrimitiveInt");
+        for (Long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.longToPrimitiveInt(0).applyAsInt(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---longToInteger");
+        for (Long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.longToInteger(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---longToPrimitiveLong");
+        for (Long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.longToPrimitiveLong(0L).applyAsLong(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---longToBigInteger");
+        for (Long value : PRIMITIVE_LONG_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.longToBigInteger(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+
+        // BigInteger
+        System.out.println("---bigIntegerToPrimitiveInt");
+        for (BigInteger value : BIG_INTEGER_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.bigIntegerToPrimitiveInt(0).applyAsInt(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---bigIntegerToPrimitiveLong");
+        for (BigInteger value : BIG_INTEGER_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.bigIntegerToPrimitiveLong(0).applyAsLong(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---bigIntegerToInteger");
+        for (BigInteger value : BIG_INTEGER_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.bigIntegerToInteger(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+        System.out.println("---bigIntegerToLong");
+        for (BigInteger value : BIG_INTEGER_VALUES) {
+            String result = null;
+            String exceptionMessage = null;
+            try {
+                result = String.valueOf(NumberToNumberFunctions.bigIntegerToLong(null).apply(value));
+            } catch (ArithmeticException e) {
+                exceptionMessage = e.getMessage();
+            }
+            printResult(result, value, exceptionMessage);
+        }
+
+    }
+
     public static void main(String... args) {
         showPrimitiveIntPredicates();
         showPrimitiveLongPredicates();
@@ -416,6 +676,7 @@ public final class ExamplesNumberFunction {
         showPrimitiveIntToStringFunctions();
         showPrimitiveLongToStringFunctions();
         showBigIntegerToStringFunctions();
+        showNumberToNumberFunctions();
     }
 
 }
