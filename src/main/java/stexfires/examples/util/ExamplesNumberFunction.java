@@ -379,6 +379,8 @@ public final class ExamplesNumberFunction {
 
         applyPrimitiveIntUnaryOperator("toZero", PrimitiveIntUnaryOperators.toZero(), null);
 
+        applyPrimitiveIntUnaryOperator("digitSum", PrimitiveIntUnaryOperators.digitSum(), null);
+
         for (int parameter : PRIMITIVE_INT_VALUES) {
             applyPrimitiveIntUnaryOperator("addExact", PrimitiveIntUnaryOperators.addExact(parameter), String.valueOf(parameter));
         }
@@ -389,6 +391,8 @@ public final class ExamplesNumberFunction {
 
         applyPrimitiveLongUnaryOperator("toZero", PrimitiveLongUnaryOperators.toZero(), null);
 
+        applyPrimitiveLongUnaryOperator("digitSum", PrimitiveLongUnaryOperators.digitSum(), null);
+
         for (long parameter : PRIMITIVE_LONG_VALUES) {
             applyPrimitiveLongUnaryOperator("addExact", PrimitiveLongUnaryOperators.addExact(parameter), String.valueOf(parameter));
         }
@@ -398,6 +402,8 @@ public final class ExamplesNumberFunction {
         System.out.println("-showBigIntegerUnaryOperators---");
 
         applyBigIntegerUnaryOperator("toZero", BigIntegerUnaryOperators.toZero(), null);
+
+        applyBigIntegerUnaryOperator("digitSum", BigIntegerUnaryOperators.digitSum(), null);
 
         for (BigInteger parameter : BIG_INTEGER_PARAMETER) {
             applyBigIntegerUnaryOperator("add", BigIntegerUnaryOperators.add(parameter), String.valueOf(parameter));
