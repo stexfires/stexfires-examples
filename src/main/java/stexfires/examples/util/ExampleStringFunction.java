@@ -1,5 +1,6 @@
 package stexfires.examples.util;
 
+import stexfires.util.StringComparators;
 import stexfires.util.Strings;
 import stexfires.util.function.StringPredicates;
 import stexfires.util.function.StringUnaryOperators;
@@ -16,6 +17,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator", "SpellCheckingInspection", "MagicNumber"})
@@ -141,7 +143,11 @@ public final class ExampleStringFunction {
         values.add("lo wo");
         values.add("world!");
         values.add("!");
+        values.add("Special characters: \uD83D\uDE00, o\u0308, A\u030a.");
         values.add("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.");
+        values.add("Dorothy lived in the midst of the great Kansas prairies, with Uncle Henry, who was a farmer, and Aunt Em, who was the farmer's wife. "
+                + "Their house was small, for the lumber to build it had to be carried by wagon many miles. "
+                + "There were four walls, a floor and a roof, which made one room; and this room contained a rusty looking cooking stove, a cupboard for the dishes, a table, three or four chairs, and the beds. ");
 
         // indent
         //noinspection TextBlockMigration
@@ -388,6 +394,44 @@ public final class ExampleStringFunction {
         printUnaryOperator(StringUnaryOperators.padEnd("<->", 5), "padEnd 5");
         printUnaryOperator(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8), "encodeBase64");
         printUnaryOperator(StringUnaryOperators.concat(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8), StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.UTF_8)), "encodeBase64 and decodeBase64");
+
+        Function<String, Stream<String>> splitterFunction = s -> Strings.splitTextByCharacterBreaks(s, Locale.ENGLISH);
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListRemoveAll(List.of("a", "A", "1", "e", "\n", "\r", "\r\n", "\t", "\\", " ")), "")), "splitCollect modifyAndJoinCollector modifyListRemoveAll");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListRemoveIf(StringPredicates.countCodePoints(2).or(StringPredicates.length(2))), "")), "splitCollect modifyAndJoinCollector modifyListRemoveIf");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListReplaceAll("e", "(E)"), "")), "splitCollect modifyAndJoinCollector modifyListReplaceAll");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListReplaceAll(StringUnaryOperators.duplicate()), "")), "splitCollect modifyAndJoinCollector modifyListReplaceAll");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListRetainAll(List.of("a", "A", "e", "E", "0", "1")), "")), "splitCollect modifyAndJoinCollector modifyListRetainAll");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListReverse(), "")), "splitCollect modifyAndJoinCollector modifyListReverse");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListRotate(5), "")), "splitCollect modifyAndJoinCollector modifyListRotate");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListShuffle(), "")), "splitCollect modifyAndJoinCollector modifyListShuffle");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListSort(StringComparators.compareToIgnoreCase()), "")), "splitCollect modifyAndJoinCollector modifyListSort");
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Strings.modifyAndJoinCollector(Strings.modifyListSwap(2, 5), "")), "splitCollect modifyAndJoinCollector modifyListSwap");
+
+        printUnaryOperator(StringUnaryOperators.splitCollect(splitterFunction, Collectors.joining("-")), "splitCollect joining");
+        printUnaryOperator(StringUnaryOperators.splitFilterCollect(splitterFunction, StringPredicates.alphabetic(), Collectors.joining("-")), "splitFilterCollect alphabetic joining");
+        printUnaryOperator(StringUnaryOperators.splitMapCollect(splitterFunction, StringUnaryOperators.lowerCase(Locale.ENGLISH), Collectors.joining("-")), "splitMapCollect lowerCase joining");
+
+        printUnaryOperator(StringUnaryOperators.splitMapCollect(
+                text -> Strings.splitTextBySentenceBreaks(text, Locale.ENGLISH),
+                StringUnaryOperators.conditionalOperator(
+                        StringPredicates.isNullOrBlank().negate()
+                                        .and(StringPredicates.length(len -> len > 3))
+                                        .and(StringPredicates.anyCodePointMatch(Character::isLetter, false)),
+                        StringUnaryOperators.concat(
+                                StringUnaryOperators.splitMapCollect(
+                                        sentence -> Strings.splitTextByWordBreaks(sentence, Locale.ENGLISH),
+                                        StringUnaryOperators.conditionalOperator(
+                                                StringPredicates.isNullOrBlank().negate()
+                                                                .and(StringPredicates.length(len -> len > 3))
+                                                                .and(StringPredicates.allCodePointsMatch(Character::isLetter, false)),
+                                                StringUnaryOperators.splitCollect(
+                                                        word -> Strings.splitTextByCharacterBreaks(word, Locale.ENGLISH),
+                                                        Strings.modifyAndJoinCollector(Strings.modifyListShuffle(), "")),
+                                                StringUnaryOperators.identity()),
+                                        Collectors.joining()),
+                                StringUnaryOperators.suffix("\n")),
+                        StringUnaryOperators.identity()),
+                Collectors.joining()), "complex combination: splitMapCollect, splitCollect, conditionalOperator, concat, ...");
     }
 
     public static void main(String... args) {
