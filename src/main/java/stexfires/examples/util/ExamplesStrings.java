@@ -3,7 +3,10 @@ package stexfires.examples.util;
 import stexfires.util.Strings;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator"})
@@ -157,10 +160,25 @@ public final class ExamplesStrings {
         Strings.printLines(Strings.stream("a", null, "c"));
     }
 
+    private static void showStringsModifyList() {
+        System.out.println("-showStringsModifyList---");
+
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListRemoveAll(List.of("a", "e")), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListRemoveIf("e"::equalsIgnoreCase), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListReplaceAll("a", "A"), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListReplaceAll(s -> s + s), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListRetainAll(List.of("a", "e")), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListReverse(), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListRotate(2), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListShuffle(), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListSort(String::compareToIgnoreCase), "-")));
+        System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListSwap(2, 4), "-")));
+    }
+
     private static void showStringsSplit() {
         System.out.println("-showStringsSplit---");
 
-        System.out.println(Strings.collect(Strings.splitTextByLines("First line\nSecond Line\nThird line")));
+        System.out.println(Strings.collect(Strings.splitTextByLines("First line\nSecond Line\r\nThird line")));
         System.out.println(Strings.collect(Strings.splitTextByChars("ABC\uD83D\uDE00o\u0308A\u030a")));
         System.out.println(Strings.collect(Strings.splitTextByCodePoints("ABC\uD83D\uDE00o\u0308A\u030a")));
 
@@ -171,17 +189,32 @@ public final class ExamplesStrings {
         System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghi", 3)));
         System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghij", 3)));
         System.out.println(Strings.collect(Strings.splitTextByLength("abcdefghijk", 3)));
-    }
-
-    private static void showStringsBreak() {
-        System.out.println("-showStringsBreak---");
 
         String text = "Hello world! This is a sentence. Is this also a sentence? He said: \"Hello world\".\nSpecial characters: \uD83D\uDE00, o\u0308, A\u030a.";
 
-        System.out.println(Strings.collect(Strings.breakTextBySentence(text, Locale.ENGLISH)));
-        System.out.println(Strings.collect(Strings.breakTextByWord(text, Locale.ENGLISH)));
-        System.out.println(Strings.collect(Strings.breakTextByLine(text, Locale.ENGLISH)));
-        System.out.println(Strings.collect(Strings.breakTextByCharacter(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.splitTextBySentenceBreaks(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.splitTextByWordBreaks(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.splitTextByLineBreaks(text, Locale.ENGLISH)));
+        System.out.println(Strings.collect(Strings.splitTextByCharacterBreaks(text, Locale.ENGLISH)));
+    }
+
+    private static void showStringsSplitFunction() {
+        System.out.println("-showStringsSplitFunction---");
+
+        String text = "Hello world! This is a sentence. Is this also a sentence? He said: \"Hello world\".\nSpecial characters: \uD83D\uDE00, o\u0308, A\u030a.";
+
+        Function<String, String> mapFunction = s -> "(" + s + ")";
+
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByLinesFunction()).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByCharsFunction()).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByCodePointsFunction()).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByRegexFunction(Strings.REGEX_WHITESPACE, 0)).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByLengthFunction(3)).map(mapFunction).collect(Collectors.joining()));
+
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextBySentenceBreaksFunction(Locale.ENGLISH)).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByWordBreaksFunction(Locale.ENGLISH)).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByLineBreaksFunction(Locale.ENGLISH)).map(mapFunction).collect(Collectors.joining()));
+        System.out.println(Stream.of(text).flatMap(Strings.splitTextByCharacterBreaksFunction(Locale.ENGLISH)).map(mapFunction).collect(Collectors.joining()));
     }
 
     public static void main(String... args) {
@@ -196,8 +229,9 @@ public final class ExamplesStrings {
         showStringsJoin();
         showStringsPrintLine();
         showStringsPrintLines();
+        showStringsModifyList();
         showStringsSplit();
-        showStringsBreak();
+        showStringsSplitFunction();
     }
 
 }
