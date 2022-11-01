@@ -334,6 +334,10 @@ public final class ExamplesNumberFunction {
 
         testPrimitiveIntPredicate("zero", PrimitiveIntPredicates.zero(), null);
 
+        testPrimitiveIntPredicate("rangeOfByte", PrimitiveIntPredicates.rangeOfByte(), null);
+        testPrimitiveIntPredicate("rangeOfShort", PrimitiveIntPredicates.rangeOfShort(), null);
+        testPrimitiveIntPredicate("rangeOfCharacter", PrimitiveIntPredicates.rangeOfCharacter(), null);
+
         for (int parameter : PRIMITIVE_INT_VALUES) {
             testPrimitiveIntPredicate("lessThan", PrimitiveIntPredicates.lessThan(parameter), String.valueOf(parameter));
         }
@@ -344,6 +348,11 @@ public final class ExamplesNumberFunction {
 
         testPrimitiveLongPredicate("zero", PrimitiveLongPredicates.zero(), null);
 
+        testPrimitiveLongPredicate("rangeOfByte", PrimitiveLongPredicates.rangeOfByte(), null);
+        testPrimitiveLongPredicate("rangeOfShort", PrimitiveLongPredicates.rangeOfShort(), null);
+        testPrimitiveLongPredicate("rangeOfCharacter", PrimitiveLongPredicates.rangeOfCharacter(), null);
+        testPrimitiveLongPredicate("rangeOfInteger", PrimitiveLongPredicates.rangeOfInteger(), null);
+
         for (long parameter : PRIMITIVE_LONG_VALUES) {
             testPrimitiveLongPredicate("lessThan", PrimitiveLongPredicates.lessThan(parameter), String.valueOf(parameter));
         }
@@ -353,6 +362,12 @@ public final class ExamplesNumberFunction {
         System.out.println("-showBigIntegerPredicates---");
 
         testBigIntegerPredicate("zero", BigIntegerPredicates.zero(), null);
+
+        testBigIntegerPredicate("rangeOfByte", BigIntegerPredicates.rangeOfByte(), null);
+        testBigIntegerPredicate("rangeOfShort", BigIntegerPredicates.rangeOfShort(), null);
+        testBigIntegerPredicate("rangeOfCharacter", BigIntegerPredicates.rangeOfCharacter(), null);
+        testBigIntegerPredicate("rangeOfInteger", BigIntegerPredicates.rangeOfInteger(), null);
+        testBigIntegerPredicate("rangeOfLong", BigIntegerPredicates.rangeOfLong(), null);
 
         for (BigInteger parameter : BIG_INTEGER_PARAMETER) {
             testBigIntegerPredicate("lessThan", BigIntegerPredicates.lessThan(parameter), String.valueOf(parameter));
@@ -667,15 +682,19 @@ public final class ExamplesNumberFunction {
     }
 
     public static void main(String... args) {
+        // Predicates
         showPrimitiveIntPredicates();
         showPrimitiveLongPredicates();
         showBigIntegerPredicates();
+        // UnaryOperators
         showPrimitiveIntUnaryOperators();
         showPrimitiveLongUnaryOperators();
         showBigIntegerUnaryOperators();
+        // ToStringFunctions
         showPrimitiveIntToStringFunctions();
         showPrimitiveLongToStringFunctions();
         showBigIntegerToStringFunctions();
+        // ToNumberFunctions
         showNumberToNumberFunctions();
     }
 
