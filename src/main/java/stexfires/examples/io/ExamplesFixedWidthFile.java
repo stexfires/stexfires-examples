@@ -62,6 +62,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
         FixedWidthFile fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+                null, null,
                 20, true,
                 Alignment.START, '_',
                 fieldSpecs,
@@ -71,6 +72,7 @@ public final class ExamplesFixedWidthFile {
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26));
         FixedWidthFile fixedWidthFileAppend1 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+                null, null,
                 30, true,
                 Alignment.START, ' ',
                 fieldSpecsAppend1,
@@ -80,6 +82,7 @@ public final class ExamplesFixedWidthFile {
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1));
         FixedWidthFile fixedWidthFileAppend2 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+                null, null,
                 1, true,
                 Alignment.START, '_',
                 fieldSpecsAppend2,
@@ -112,6 +115,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
         FixedWidthFile fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+                null, null,
                 20, false,
                 Alignment.START, ' ',
                 fieldSpecs,

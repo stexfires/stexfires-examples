@@ -57,7 +57,8 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        SimpleDelimitedFile simpleDelimitedFile = new SimpleDelimitedFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+        SimpleDelimitedFile simpleDelimitedFile = new SimpleDelimitedFileSpec(StandardCharsets.UTF_8,
+                CodingErrorAction.REPORT, null, null,
                 ",",
                 fieldSpecs,
                 0, 0,

@@ -85,7 +85,7 @@ public final class ExamplesConfigFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        ConfigFile file = new ConfigFileSpec(ISO_8859_1.charset(), CodingErrorAction.REPORT,
+        ConfigFile file = new ConfigFileSpec(ISO_8859_1.charset(), CodingErrorAction.REPORT, null, null,
                 ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
                 lineSeparator).file(path);
 

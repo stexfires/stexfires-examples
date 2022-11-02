@@ -46,7 +46,7 @@ public final class ExamplesCombinedFile {
     private static void test1(Path pathConfig, Path pathSingle, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        ConfigFile configFile = new ConfigFileSpec(UTF_8.charset(), CodingErrorAction.REPORT,
+        ConfigFile configFile = new ConfigFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
                 lineSeparator).file(pathConfig);
 

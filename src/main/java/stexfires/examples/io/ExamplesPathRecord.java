@@ -96,6 +96,7 @@ public final class ExamplesPathRecord {
                 .write(
                         StandardCharsets.ISO_8859_1,
                         CodingErrorAction.REPORT,
+                        null,
                         "\t",
                         fieldSpecs,
                         lineSeparator)
