@@ -9,6 +9,8 @@ import stexfires.io.singlevalue.SingleValueProducer;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
+import stexfires.record.impl.KeyValueCommentFieldsRecord;
+import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
@@ -61,8 +63,9 @@ public final class ExamplesSingleValueFile {
                 new ValueFieldRecord("\u20AC \u0178"),
                 new ValueFieldRecord("\u00A6 \u00BC \u00B4 \u00B8"),
                 new ValueFieldRecord("\u007E \u007F \u0080 \u009F \u00A0"),
+                new ValueFieldRecord("\uD83D\uDE00, o\u0308, A\u030a"),
                 new ValueFieldRecord("äÄáß@{[²µ^°1234567890ß\"§$%&/()?`+*'-_.,;<>|~"),
-
+                new KeyValueCommentFieldsRecord("Category", 0L, "Key", "Value", "Comment"),
                 new ValueFieldRecord("End---")
         );
     }
@@ -71,7 +74,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test1---");
 
         SingleValueFile singleValueFile = new SingleValueFileSpec(
-                US_ASCII.charset(), CodingErrorAction.REPORT,
+                US_ASCII.charset(), CodingErrorAction.REPORT, null, null,
                 true, 0, 0,
                 lineSeparator, false).file(path);
 
@@ -81,6 +84,8 @@ public final class ExamplesSingleValueFile {
         RecordFiles.writeFile(new ValueFieldRecord(""), singleValueFile, StandardOpenOption.APPEND);
         RecordFiles.writeFile(new ValueFieldRecord(null), singleValueFile, StandardOpenOption.APPEND);
         RecordFiles.writeFile(new ValueFieldRecord("4. Test"), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new KeyValueFieldsRecord("Key", "5. Test"), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new KeyValueCommentFieldsRecord("Key", "6. Test", "Comment"), singleValueFile, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);
@@ -93,7 +98,7 @@ public final class ExamplesSingleValueFile {
         SingleValueFile singleValueFileWrite = SingleValueFileSpec
                 .write(
                         ISO_8859_1.charset(),
-                        CodingErrorAction.REPLACE,
+                        CodingErrorAction.REPLACE, "?",
                         lineSeparator,
                         true)
                 .file(path);
@@ -101,7 +106,7 @@ public final class ExamplesSingleValueFile {
         SingleValueFile singleValueFileRead = SingleValueFileSpec
                 .read(
                         US_ASCII.charset(),
-                        CodingErrorAction.REPLACE,
+                        CodingErrorAction.REPLACE, "?",
                         false,
                         1, 1)
                 .file(path);
@@ -119,7 +124,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test3---");
 
         SingleValueFile singleValueFile = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT,
+                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 false, 0, 0,
                 lineSeparator, false).file(path);
 
@@ -137,7 +142,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test4---");
 
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT,
+                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 false, 0, 0,
                 lineSeparator, false);
 
@@ -159,7 +164,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test5---");
 
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT,
+                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 false, 0, 0,
                 lineSeparator, false);
 

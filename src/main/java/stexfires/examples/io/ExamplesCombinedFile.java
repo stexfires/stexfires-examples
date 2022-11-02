@@ -51,7 +51,7 @@ public final class ExamplesCombinedFile {
                 lineSeparator).file(pathConfig);
 
         SingleValueFile singleValueFile = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT,
+                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 true, 0, 0,
                 lineSeparator, true).file(pathSingle);
 

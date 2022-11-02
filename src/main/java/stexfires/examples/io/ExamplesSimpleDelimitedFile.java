@@ -79,7 +79,7 @@ public final class ExamplesSimpleDelimitedFile {
         SingleValueFile singleValueFileWrite = SingleValueFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        CodingErrorAction.REPORT,
+                        CodingErrorAction.REPORT, null,
                         lineSeparator,
                         false)
                 .file(path);
