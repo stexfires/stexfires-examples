@@ -30,13 +30,13 @@ public final class ExamplesHtmlTableFile {
 
         List<HtmlTableFieldSpec> fieldSpecs = new ArrayList<>();
         fieldSpecs.add(new HtmlTableFieldSpec("property & property"));
-        fieldSpecs.add(new HtmlTableFieldSpec());
+        fieldSpecs.add(new HtmlTableFieldSpec(null));
         fieldSpecs.add(new HtmlTableFieldSpec("<section>"));
         var file = HtmlTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        fieldSpecs,
                         lineSeparator,
+                        fieldSpecs,
                         "<!DOCTYPE html>" + lineSeparator
                                 + "<html>" + lineSeparator
                                 + "<head>" + lineSeparator
@@ -88,8 +88,8 @@ public final class ExamplesHtmlTableFile {
         var file = HtmlTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        fieldSpecs,
                         lineSeparator,
+                        fieldSpecs,
                         "<!DOCTYPE html>" + lineSeparator
                                 + "<html>" + lineSeparator
                                 + "<head>" + lineSeparator
