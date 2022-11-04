@@ -3,7 +3,6 @@ package stexfires.examples.io;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;
-import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
 import stexfires.record.TextRecordStreams;
@@ -73,10 +72,11 @@ public final class ExamplesSingleValueFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        SingleValueFile singleValueFile = new SingleValueFileSpec(
+        SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
                 US_ASCII.charset(), CodingErrorAction.REPORT, null, null,
                 true, 0, 0,
-                lineSeparator, false).file(path);
+                lineSeparator, false);
+        var singleValueFile = singleValueFileSpec.file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -95,21 +95,21 @@ public final class ExamplesSingleValueFile {
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test2---");
 
-        SingleValueFile singleValueFileWrite = SingleValueFileSpec
-                .write(
-                        ISO_8859_1.charset(),
-                        CodingErrorAction.REPLACE, "?",
-                        lineSeparator,
-                        true)
-                .file(path);
+        var singleValueFileWrite =
+                SingleValueFileSpec
+                        .write(ISO_8859_1.charset(),
+                                CodingErrorAction.REPLACE, "?",
+                                lineSeparator,
+                                true)
+                        .file(path);
 
-        SingleValueFile singleValueFileRead = SingleValueFileSpec
-                .read(
-                        US_ASCII.charset(),
-                        CodingErrorAction.REPLACE, "?",
-                        false,
-                        1, 1)
-                .file(path);
+        var singleValueFileRead =
+                SingleValueFileSpec
+                        .read(US_ASCII.charset(),
+                                CodingErrorAction.REPLACE, "?",
+                                false,
+                                1, 1)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -123,10 +123,11 @@ public final class ExamplesSingleValueFile {
     private static void test3(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test3---");
 
-        SingleValueFile singleValueFile = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                false, 0, 0,
-                lineSeparator, false).file(path);
+        var singleValueFile =
+                new SingleValueFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
+                        false, 0, 0,
+                        lineSeparator, false)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -137,7 +138,6 @@ public final class ExamplesSingleValueFile {
         RecordFiles.logFile(singleValueFile, new SystemOutLogger<>());
     }
 
-    @SuppressWarnings("OverlyBroadThrowsClause")
     private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test4---");
 
@@ -145,16 +145,17 @@ public final class ExamplesSingleValueFile {
                 UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 false, 0, 0,
                 lineSeparator, false);
+        var singleValueFile = singleValueFileSpec.file(path);
 
         // Write
         System.out.println("write: " + path);
-        try (SingleValueConsumer singleValueConsumer = singleValueFileSpec.consumer(new FileOutputStream(path.toFile()))) {
+        try (var singleValueConsumer = singleValueFile.openConsumer()) {
             RecordIOStreams.write(generateStream(), singleValueConsumer);
         }
 
         // Read / log
         System.out.println("read/log: " + path);
-        try (SingleValueProducer singleValueProducer = singleValueFileSpec.producer(new FileInputStream(path.toFile()))) {
+        try (var singleValueProducer = singleValueFile.openProducer()) {
             RecordIOStreams.log(singleValueProducer, new SystemOutLogger<>());
         }
     }

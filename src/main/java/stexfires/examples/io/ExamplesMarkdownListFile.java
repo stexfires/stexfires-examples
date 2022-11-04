@@ -1,7 +1,6 @@
 package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
-import stexfires.io.markdown.list.MarkdownListFile;
 import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecordStreams;
@@ -26,7 +25,7 @@ public final class ExamplesMarkdownListFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test1---");
 
-        MarkdownListFile file = MarkdownListFileSpec
+        var file = MarkdownListFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         lineSeparator,
@@ -51,7 +50,7 @@ public final class ExamplesMarkdownListFile {
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test2---");
 
-        MarkdownListFile file = MarkdownListFileSpec
+        var file = MarkdownListFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         lineSeparator,

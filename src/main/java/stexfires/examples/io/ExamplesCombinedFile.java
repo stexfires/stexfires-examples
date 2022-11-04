@@ -3,10 +3,8 @@ package stexfires.examples.io;
 import stexfires.io.RecordFiles;
 import stexfires.io.combined.CombinedReadableRecordFile;
 import stexfires.io.combined.CombinedWritableRecordFile;
-import stexfires.io.config.ConfigFile;
 import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
-import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.KeyValueRecord;
 import stexfires.record.ValueRecord;
@@ -46,11 +44,11 @@ public final class ExamplesCombinedFile {
     private static void test1(Path pathConfig, Path pathSingle, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        ConfigFile configFile = new ConfigFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
+        var configFile = new ConfigFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
                 lineSeparator).file(pathConfig);
 
-        SingleValueFile singleValueFile = new SingleValueFileSpec(
+        var singleValueFile = new SingleValueFileSpec(
                 UTF_8.charset(), CodingErrorAction.REPORT, null, null,
                 true, 0, 0,
                 lineSeparator, true).file(pathSingle);

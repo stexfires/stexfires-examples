@@ -1,7 +1,6 @@
 package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
-import stexfires.io.config.ConfigFile;
 import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
 import stexfires.record.TextRecord;
@@ -85,7 +84,7 @@ public final class ExamplesConfigFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        ConfigFile file = new ConfigFileSpec(ISO_8859_1.charset(), CodingErrorAction.REPORT, null, null,
+        var file = new ConfigFileSpec(ISO_8859_1.charset(), CodingErrorAction.REPORT, null, null,
                 ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
                 lineSeparator).file(path);
 

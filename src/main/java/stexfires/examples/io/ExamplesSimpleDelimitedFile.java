@@ -2,9 +2,7 @@ package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
-import stexfires.io.delimited.simple.SimpleDelimitedFile;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
-import stexfires.io.singlevalue.SingleValueFile;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;
@@ -57,7 +55,7 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        SimpleDelimitedFile simpleDelimitedFile = new SimpleDelimitedFileSpec(StandardCharsets.UTF_8,
+        var simpleDelimitedFile = new SimpleDelimitedFileSpec(StandardCharsets.UTF_8,
                 CodingErrorAction.REPORT, null, null,
                 ",",
                 fieldSpecs,
@@ -77,7 +75,7 @@ public final class ExamplesSimpleDelimitedFile {
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test2---");
 
-        SingleValueFile singleValueFileWrite = SingleValueFileSpec
+        var singleValueFileWrite = SingleValueFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         CodingErrorAction.REPORT, null,
@@ -107,7 +105,7 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        SimpleDelimitedFile simpleDelimitedFile = SimpleDelimitedFileSpec
+        var simpleDelimitedFile = SimpleDelimitedFileSpec
                 .read(StandardCharsets.UTF_8,
                         ",",
                         fieldSpecs,

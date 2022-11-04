@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
-import stexfires.io.markdown.table.MarkdownTableFile;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
@@ -42,7 +41,7 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec(null, 7));
         fieldSpecs.add(new MarkdownTableFieldSpec("", 7));
         fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7));
-        MarkdownTableFile file = MarkdownTableFileSpec
+        var file = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         fieldSpecs,
@@ -79,7 +78,7 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("A", 5));
         fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.CENTER));
-        MarkdownTableFile file = MarkdownTableFileSpec
+        var file = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         fieldSpecs,
@@ -106,7 +105,7 @@ public final class ExamplesMarkdownTableFile {
 
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
         fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10));
-        MarkdownTableFile file2 = MarkdownTableFileSpec
+        var file2 = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         fieldSpecs2,

@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
 import stexfires.io.fixedwidth.FixedWidthFieldSpec;
-import stexfires.io.fixedwidth.FixedWidthFile;
 import stexfires.io.fixedwidth.FixedWidthFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
@@ -61,7 +60,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        FixedWidthFile fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+        var fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 20, true,
                 Alignment.START, '_',
@@ -71,7 +70,7 @@ public final class ExamplesFixedWidthFile {
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26));
-        FixedWidthFile fixedWidthFileAppend1 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+        var fixedWidthFileAppend1 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 30, true,
                 Alignment.START, ' ',
@@ -81,7 +80,7 @@ public final class ExamplesFixedWidthFile {
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1));
-        FixedWidthFile fixedWidthFileAppend2 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+        var fixedWidthFileAppend2 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 1, true,
                 Alignment.START, '_',
@@ -114,7 +113,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        FixedWidthFile fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
+        var fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 20, false,
                 Alignment.START, ' ',
@@ -141,8 +140,8 @@ public final class ExamplesFixedWidthFile {
         }
 
         try {
-            test1(Path.of(args[0], "FixedWidthFile_1.txt"), LineSeparator.systemLineSeparator());
-            test2(Path.of(args[0], "FixedWidthFile_2.txt"), LineSeparator.systemLineSeparator());
+            test1(Path.of(args[0], "var _1.txt"), LineSeparator.systemLineSeparator());
+            test2(Path.of(args[0], "var _2.txt"), LineSeparator.systemLineSeparator());
         } catch (ProducerException | IOException | ConsumerException e) {
             e.printStackTrace();
         }

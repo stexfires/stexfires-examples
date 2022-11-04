@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
 import stexfires.io.html.table.HtmlTableFieldSpec;
-import stexfires.io.html.table.HtmlTableFile;
 import stexfires.io.html.table.HtmlTableFileSpec;
 import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecordStreams;
@@ -33,7 +32,7 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec("property & property"));
         fieldSpecs.add(new HtmlTableFieldSpec());
         fieldSpecs.add(new HtmlTableFieldSpec("<section>"));
-        HtmlTableFile file = HtmlTableFileSpec
+        var file = HtmlTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         fieldSpecs,
@@ -86,7 +85,7 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec("A"));
         fieldSpecs.add(new HtmlTableFieldSpec("B"));
         fieldSpecs.add(new HtmlTableFieldSpec("C"));
-        HtmlTableFile file = HtmlTableFileSpec
+        var file = HtmlTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
                         fieldSpecs,

@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
-import stexfires.io.delimited.simple.SimpleDelimitedFile;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
 import stexfires.io.path.DosPathRecord;
 import stexfires.io.path.PathRecord;
@@ -92,7 +91,7 @@ public final class ExamplesPathRecord {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
-        SimpleDelimitedFile file = SimpleDelimitedFileSpec
+        var file = SimpleDelimitedFileSpec
                 .write(
                         StandardCharsets.ISO_8859_1,
                         CodingErrorAction.REPORT,
