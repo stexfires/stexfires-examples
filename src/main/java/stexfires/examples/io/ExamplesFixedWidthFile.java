@@ -56,7 +56,7 @@ public final class ExamplesFixedWidthFile {
         System.out.println("-test1---");
 
         List<FixedWidthFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new FixedWidthFieldSpec(0, 1));
+        fieldSpecs.add(new FixedWidthFieldSpec(0, 1, null, null));
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
@@ -69,7 +69,7 @@ public final class ExamplesFixedWidthFile {
                 false, lineSeparator).file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
-        fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26));
+        fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
         var fixedWidthFileAppend1 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 30, true,
@@ -79,7 +79,7 @@ public final class ExamplesFixedWidthFile {
                 false, lineSeparator).file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
-        fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1));
+        fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
         var fixedWidthFileAppend2 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
                 null, null,
                 1, true,
@@ -109,7 +109,7 @@ public final class ExamplesFixedWidthFile {
         System.out.println("-test2---");
 
         List<FixedWidthFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new FixedWidthFieldSpec(0, 1));
+        fieldSpecs.add(new FixedWidthFieldSpec(0, 1, null, null));
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
