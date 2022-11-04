@@ -52,11 +52,14 @@ public final class WikiTesting {
 
     private static MarkdownTableFileSpec createTableConsumerFileSpec(String title) {
         List<MarkdownTableFieldSpec> fieldSpecsConsumer = new ArrayList<>();
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(TITLE_NAME, TITLE_MIN_WIDTH));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(LINK_NAME, LINK_MIN_WIDTH));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(TITLE_NAME, TITLE_MIN_WIDTH, null));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec(LINK_NAME, LINK_MIN_WIDTH, null));
         return MarkdownTableFileSpec.write(StandardCharsets.UTF_8,
+                LineSeparator.CR_LF,
                 fieldSpecsConsumer,
-                LineSeparator.CR_LF, Alignment.START, title, "");
+                title,
+                "",
+                Alignment.START);
     }
 
     private static MarkdownListFileSpec createListConsumerFileSpec(String title) {

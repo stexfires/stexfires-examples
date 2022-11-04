@@ -29,8 +29,8 @@ public final class ExamplesMarkdownTableFile {
         System.out.println("-test1---");
 
         List<MarkdownTableFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new MarkdownTableFieldSpec("A", 5));
-        fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6));
+        fieldSpecs.add(new MarkdownTableFieldSpec("A", 5, null));
+        fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.END));
         fieldSpecs.add(new MarkdownTableFieldSpec("S5", 5, Alignment.START));
         fieldSpecs.add(new MarkdownTableFieldSpec("C5", 5, Alignment.CENTER));
@@ -38,17 +38,17 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("S6", 6, Alignment.START));
         fieldSpecs.add(new MarkdownTableFieldSpec("C6", 6, Alignment.CENTER));
         fieldSpecs.add(new MarkdownTableFieldSpec("E6", 6, Alignment.END));
-        fieldSpecs.add(new MarkdownTableFieldSpec(null, 7));
-        fieldSpecs.add(new MarkdownTableFieldSpec("", 7));
-        fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7));
+        fieldSpecs.add(new MarkdownTableFieldSpec(null, 7, null));
+        fieldSpecs.add(new MarkdownTableFieldSpec("", 7, null));
+        fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7, null));
         var file = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        fieldSpecs,
                         lineSeparator,
-                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT,
+                        fieldSpecs,
                         "Header",
-                        "Footer"
+                        "Footer",
+                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT
                 )
                 .file(path);
 
@@ -75,14 +75,15 @@ public final class ExamplesMarkdownTableFile {
         System.out.println("-test2---");
 
         List<MarkdownTableFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new MarkdownTableFieldSpec("A", 5));
-        fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6));
+        fieldSpecs.add(new MarkdownTableFieldSpec("A", 5, null));
+        fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.CENTER));
         var file = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        fieldSpecs,
-                        lineSeparator)
+                        lineSeparator,
+                        fieldSpecs
+                )
                 .file(path);
 
         // Write
@@ -104,15 +105,16 @@ public final class ExamplesMarkdownTableFile {
         RecordFiles.writeFile(stream, file);
 
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
-        fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10));
+        fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10, null));
         var file2 = MarkdownTableFileSpec
                 .write(
                         StandardCharsets.UTF_8,
-                        fieldSpecs2,
                         lineSeparator,
-                        Alignment.START,
+                        fieldSpecs2,
                         lineSeparator.string(2) + "Header second table",
-                        "Footer second table")
+                        "Footer second table",
+                        Alignment.START
+                )
                 .file(path);
 
         // Write

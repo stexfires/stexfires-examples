@@ -173,8 +173,9 @@ public final class CharacterTest {
 
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
                 StandardCharsets.UTF_8,
-                fieldSpecsConsumer,
-                LineSeparator.CR_LF);
+                LineSeparator.CR_LF,
+                fieldSpecsConsumer
+        );
 
         try (MarkdownTableConsumer consumer = consumerFileSpec.consumer(new FileOutputStream(outputFile))) {
             RecordIOStreams.write(recordStream, consumer);
