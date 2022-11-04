@@ -44,14 +44,28 @@ public final class ExamplesCombinedFile {
     private static void test1(Path pathConfig, Path pathSingle, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var configFile = new ConfigFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
-                lineSeparator).file(pathConfig);
+        var configFile =
+                new ConfigFileSpec(
+                        UTF_8.charset(),
+                        CodingErrorAction.REPORT,
+                        null,
+                        null,
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
+                        lineSeparator)
+                        .file(pathConfig);
 
-        var singleValueFile = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                true, 0, 0,
-                lineSeparator, true).file(pathSingle);
+        var singleValueFile =
+                new SingleValueFileSpec(
+                        UTF_8.charset(),
+                        CodingErrorAction.REPORT,
+                        null,
+                        null,
+                        lineSeparator,
+                        true,
+                        0,
+                        0,
+                        true)
+                        .file(pathSingle);
 
         // Write
         System.out.println("write: " + pathConfig + " " + pathSingle);

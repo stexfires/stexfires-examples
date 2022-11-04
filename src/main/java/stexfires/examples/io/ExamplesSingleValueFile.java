@@ -72,11 +72,18 @@ public final class ExamplesSingleValueFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                US_ASCII.charset(), CodingErrorAction.REPORT, null, null,
-                true, 0, 0,
-                lineSeparator, false);
-        var singleValueFile = singleValueFileSpec.file(path);
+        var singleValueFile =
+                new SingleValueFileSpec(
+                        US_ASCII.charset(),
+                        CodingErrorAction.REPORT,
+                        null,
+                        null,
+                        lineSeparator,
+                        true,
+                        0,
+                        0,
+                        false)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -96,19 +103,21 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test2---");
 
         var singleValueFileWrite =
-                SingleValueFileSpec
-                        .write(ISO_8859_1.charset(),
-                                CodingErrorAction.REPLACE, "?",
-                                lineSeparator,
-                                true)
-                        .file(path);
+                SingleValueFileSpec.write(ISO_8859_1.charset(),
+                                           CodingErrorAction.REPLACE,
+                                           "?",
+                                           lineSeparator,
+                                           true)
+                                   .file(path);
 
         var singleValueFileRead =
                 SingleValueFileSpec
                         .read(US_ASCII.charset(),
-                                CodingErrorAction.REPLACE, "?",
+                                CodingErrorAction.REPLACE,
+                                "?",
                                 false,
-                                1, 1)
+                                1,
+                                1)
                         .file(path);
 
         // Write
@@ -124,9 +133,16 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test3---");
 
         var singleValueFile =
-                new SingleValueFileSpec(UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                        false, 0, 0,
-                        lineSeparator, false)
+                new SingleValueFileSpec(
+                        UTF_8.charset(),
+                        CodingErrorAction.REPORT,
+                        null,
+                        null,
+                        lineSeparator,
+                        false,
+                        0,
+                        0,
+                        false)
                         .file(path);
 
         // Write
@@ -141,11 +157,18 @@ public final class ExamplesSingleValueFile {
     private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test4---");
 
-        SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                false, 0, 0,
-                lineSeparator, false);
-        var singleValueFile = singleValueFileSpec.file(path);
+        var singleValueFile =
+                new SingleValueFileSpec(
+                        UTF_8.charset(),
+                        CodingErrorAction.REPORT,
+                        null,
+                        null,
+                        lineSeparator,
+                        false,
+                        0,
+                        0,
+                        false)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -165,9 +188,15 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test5---");
 
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                UTF_8.charset(), CodingErrorAction.REPORT, null, null,
-                false, 0, 0,
-                lineSeparator, false);
+                UTF_8.charset(),
+                CodingErrorAction.REPORT,
+                null,
+                null,
+                lineSeparator,
+                false,
+                0,
+                0,
+                false);
 
         // Write
         System.out.println("write: " + path);
