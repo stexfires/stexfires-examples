@@ -12,11 +12,11 @@ import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -84,9 +84,12 @@ public final class ExamplesConfigFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var file = new ConfigFileSpec(ISO_8859_1.charset(), CodingErrorAction.REPORT, null, null,
-                ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
-                lineSeparator).file(path);
+        var file =
+                new ConfigFileSpec(
+                        CharsetCoding.reportingErrors(ISO_8859_1),
+                        lineSeparator,
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);

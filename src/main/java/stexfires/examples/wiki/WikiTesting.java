@@ -17,6 +17,7 @@ import stexfires.record.mapper.TextsMapper;
 import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
@@ -24,7 +25,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public final class WikiTesting {
         List<SimpleDelimitedFieldSpec> fieldSpecsProducer = new ArrayList<>();
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
-        return SimpleDelimitedFileSpec.read(StandardCharsets.UTF_8,
+        return SimpleDelimitedFileSpec.read(CharsetCoding.UTF_8_REPORTING,
                 "\t",
                 fieldSpecsProducer,
                 0, 0, true, true);
@@ -54,17 +54,21 @@ public final class WikiTesting {
         List<MarkdownTableFieldSpec> fieldSpecsConsumer = new ArrayList<>();
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec(TITLE_NAME, TITLE_MIN_WIDTH, null));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec(LINK_NAME, LINK_MIN_WIDTH, null));
-        return MarkdownTableFileSpec.write(StandardCharsets.UTF_8,
+        return MarkdownTableFileSpec.write(CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
-                fieldSpecsConsumer,
                 title,
                 "",
+                fieldSpecsConsumer,
                 Alignment.START);
     }
 
     private static MarkdownListFileSpec createListConsumerFileSpec(String title) {
-        return MarkdownListFileSpec.write(StandardCharsets.UTF_8, LineSeparator.CR_LF,
-                title, "", MarkdownListFileSpec.DEFAULT_BULLET_POINT, true);
+        return MarkdownListFileSpec.write(CharsetCoding.UTF_8_REPORTING,
+                LineSeparator.CR_LF,
+                title,
+                "",
+                MarkdownListFileSpec.DEFAULT_BULLET_POINT,
+                true);
     }
 
     @SuppressWarnings("ConstantConditions")

@@ -8,11 +8,11 @@ import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.util.Alignment;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -41,16 +41,15 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec(null, 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("", 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7, null));
-        var file = MarkdownTableFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        fieldSpecs,
-                        "Header",
-                        "Footer",
-                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT
-                )
-                .file(path);
+        var file =
+                MarkdownTableFileSpec.write(
+                                             CharsetCoding.UTF_8_REPORTING,
+                                             lineSeparator,
+                                             "Header",
+                                             "Footer",
+                                             fieldSpecs,
+                                             MarkdownTableFileSpec.DEFAULT_ALIGNMENT)
+                                     .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -78,13 +77,12 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("A", 5, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.CENTER));
-        var file = MarkdownTableFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        fieldSpecs
-                )
-                .file(path);
+        var file =
+                MarkdownTableFileSpec.write(
+                                             CharsetCoding.UTF_8_REPORTING,
+                                             lineSeparator,
+                                             fieldSpecs)
+                                     .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -106,16 +104,15 @@ public final class ExamplesMarkdownTableFile {
 
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
         fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10, null));
-        var file2 = MarkdownTableFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        fieldSpecs2,
-                        lineSeparator.string(2) + "Header second table",
-                        "Footer second table",
-                        Alignment.START
-                )
-                .file(path);
+        var file2 =
+                MarkdownTableFileSpec.write(
+                                             CharsetCoding.UTF_8_REPORTING,
+                                             lineSeparator,
+                                             lineSeparator.string(2) + "Header second table",
+                                             "Footer second table",
+                                             fieldSpecs2,
+                                             Alignment.START)
+                                     .file(path);
 
         // Write
         System.out.println("write APPEND: " + path);

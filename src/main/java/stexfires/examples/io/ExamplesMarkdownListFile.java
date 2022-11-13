@@ -8,11 +8,11 @@ import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -25,16 +25,15 @@ public final class ExamplesMarkdownListFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var file = MarkdownListFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        "Header ValueFieldRecord",
-                        "Footer ValueFieldRecord",
-                        MarkdownListFileSpec.BulletPoint.NUMBER,
-                        true
-                )
-                .file(path);
+        var file =
+                MarkdownListFileSpec.write(
+                                            CharsetCoding.UTF_8_REPORTING,
+                                            lineSeparator,
+                                            "Header ValueFieldRecord",
+                                            "Footer ValueFieldRecord",
+                                            MarkdownListFileSpec.BulletPoint.NUMBER,
+                                            true)
+                                    .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -50,16 +49,15 @@ public final class ExamplesMarkdownListFile {
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test2---");
 
-        var file = MarkdownListFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        "Header KeyValueFieldsRecord",
-                        "Footer KeyValueFieldsRecord",
-                        MarkdownListFileSpec.BulletPoint.STAR,
-                        false
-                )
-                .file(path);
+        var file =
+                MarkdownListFileSpec.write(
+                                            CharsetCoding.UTF_8_REPORTING,
+                                            lineSeparator,
+                                            "Header KeyValueFieldsRecord",
+                                            "Footer KeyValueFieldsRecord",
+                                            MarkdownListFileSpec.BulletPoint.STAR,
+                                            false)
+                                    .file(path);
 
         // Write
         System.out.println("write: " + path);

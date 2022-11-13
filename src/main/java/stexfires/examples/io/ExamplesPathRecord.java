@@ -10,11 +10,11 @@ import stexfires.io.path.PathType;
 import stexfires.io.path.PathTypeFilter;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.consumer.ConsumerException;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -91,15 +91,13 @@ public final class ExamplesPathRecord {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
-        var file = SimpleDelimitedFileSpec
-                .write(
-                        StandardCharsets.ISO_8859_1,
-                        CodingErrorAction.REPORT,
-                        null,
-                        "\t",
-                        fieldSpecs,
-                        lineSeparator)
-                .file(path.resolve("PathRecord_1.csv"));
+        var file =
+                SimpleDelimitedFileSpec.write(
+                                               CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
+                                               lineSeparator,
+                                               "\t",
+                                               fieldSpecs)
+                                       .file(path.resolve("PathRecord_1.csv"));
 
         try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecords(path)) {
             RecordFiles.writeFile(pathStream, file);

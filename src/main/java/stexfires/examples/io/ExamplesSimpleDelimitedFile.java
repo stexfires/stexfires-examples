@@ -12,12 +12,11 @@ import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +54,17 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        var simpleDelimitedFile = new SimpleDelimitedFileSpec(StandardCharsets.UTF_8,
-                CodingErrorAction.REPORT, null, null,
-                ",",
-                fieldSpecs,
-                0, 0,
-                false, false,
-                lineSeparator).file(path);
+        var simpleDelimitedFile =
+                new SimpleDelimitedFileSpec(
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        ",",
+                        fieldSpecs,
+                        0,
+                        0,
+                        false,
+                        false)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -75,13 +78,12 @@ public final class ExamplesSimpleDelimitedFile {
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test2---");
 
-        var singleValueFileWrite = SingleValueFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        CodingErrorAction.REPORT, null,
-                        lineSeparator,
-                        false)
-                .file(path);
+        var singleValueFileWrite =
+                SingleValueFileSpec.write(
+                                           CharsetCoding.UTF_8_REPORTING,
+                                           lineSeparator,
+                                           false)
+                                   .file(path);
 
         // Write
         System.out.println("write (prepare read with SingleValueFile): " + path);
@@ -105,12 +107,16 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        var simpleDelimitedFile = SimpleDelimitedFileSpec
-                .read(StandardCharsets.UTF_8,
-                        ",",
-                        fieldSpecs,
-                        2, 1, true, true)
-                .file(path);
+        var simpleDelimitedFile =
+                SimpleDelimitedFileSpec.read(
+                                               CharsetCoding.UTF_8_REPORTING,
+                                               ",",
+                                               fieldSpecs,
+                                               2,
+                                               1,
+                                               true,
+                                               true)
+                                       .file(path);
 
         // Read / log
         System.out.println("read/log: " + path);

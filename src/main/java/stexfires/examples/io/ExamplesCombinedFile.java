@@ -12,16 +12,14 @@ import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.stream.Stream;
-
-import static stexfires.util.CommonCharsetNames.UTF_8;
 
 @SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber"})
 public final class ExamplesCombinedFile {
@@ -46,20 +44,14 @@ public final class ExamplesCombinedFile {
 
         var configFile =
                 new ConfigFileSpec(
-                        UTF_8.charset(),
-                        CodingErrorAction.REPORT,
-                        null,
-                        null,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
-                        lineSeparator)
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER)
                         .file(pathConfig);
 
         var singleValueFile =
                 new SingleValueFileSpec(
-                        UTF_8.charset(),
-                        CodingErrorAction.REPORT,
-                        null,
-                        null,
+                        CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         true,
                         0,

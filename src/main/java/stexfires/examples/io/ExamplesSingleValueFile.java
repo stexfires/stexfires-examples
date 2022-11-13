@@ -13,20 +13,19 @@ import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.producer.ProducerException;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.Stream;
 
 import static stexfires.util.CommonCharsetNames.ISO_8859_1;
 import static stexfires.util.CommonCharsetNames.US_ASCII;
-import static stexfires.util.CommonCharsetNames.UTF_8;
 
 @SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr"})
 public final class ExamplesSingleValueFile {
@@ -74,10 +73,7 @@ public final class ExamplesSingleValueFile {
 
         var singleValueFile =
                 new SingleValueFileSpec(
-                        US_ASCII.charset(),
-                        CodingErrorAction.REPORT,
-                        null,
-                        null,
+                        CharsetCoding.reportingErrors(US_ASCII),
                         lineSeparator,
                         true,
                         0,
@@ -103,22 +99,19 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test2---");
 
         var singleValueFileWrite =
-                SingleValueFileSpec.write(ISO_8859_1.charset(),
-                                           CodingErrorAction.REPLACE,
-                                           "?",
+                SingleValueFileSpec.write(
+                                           CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
                                            lineSeparator,
                                            true)
                                    .file(path);
 
         var singleValueFileRead =
-                SingleValueFileSpec
-                        .read(US_ASCII.charset(),
-                                CodingErrorAction.REPLACE,
-                                "?",
-                                false,
-                                1,
-                                1)
-                        .file(path);
+                SingleValueFileSpec.read(
+                                           CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
+                                           false,
+                                           1,
+                                           1)
+                                   .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -134,10 +127,7 @@ public final class ExamplesSingleValueFile {
 
         var singleValueFile =
                 new SingleValueFileSpec(
-                        UTF_8.charset(),
-                        CodingErrorAction.REPORT,
-                        null,
-                        null,
+                        CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         false,
                         0,
@@ -159,10 +149,7 @@ public final class ExamplesSingleValueFile {
 
         var singleValueFile =
                 new SingleValueFileSpec(
-                        UTF_8.charset(),
-                        CodingErrorAction.REPORT,
-                        null,
-                        null,
+                        CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         false,
                         0,
@@ -188,10 +175,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test5---");
 
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
-                UTF_8.charset(),
-                CodingErrorAction.REPORT,
-                null,
-                null,
+                CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
                 false,
                 0,

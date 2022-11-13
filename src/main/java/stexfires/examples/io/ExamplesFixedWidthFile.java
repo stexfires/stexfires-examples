@@ -14,12 +14,11 @@ import stexfires.record.message.JoinedTextsMessage;
 import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -74,35 +73,45 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        var fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
-                null, null,
-                20, true,
-                Alignment.START, '_',
-                fieldSpecs,
-                1, 0, true,
-                true, lineSeparator).file(path);
+        var fixedWidthFile =
+                new FixedWidthFileSpec(
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        20,
+                        true,
+                        Alignment.START,
+                        '_',
+                        fieldSpecs,
+                        1,
+                        0,
+                        true,
+                        true)
+                        .file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
         var fixedWidthFileAppend1 =
-                FixedWidthFileSpec.write(StandardCharsets.UTF_8,
+                FixedWidthFileSpec.write(
+                                          CharsetCoding.UTF_8_REPORTING,
+                                          lineSeparator,
                                           30,
                                           true,
                                           Alignment.START,
                                           ' ',
-                                          fieldSpecsAppend1,
-                                          lineSeparator)
+                                          fieldSpecsAppend1)
                                   .file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
         var fixedWidthFileAppend2 =
-                FixedWidthFileSpec.write(StandardCharsets.UTF_8,
-                                          1, true,
+                FixedWidthFileSpec.write(
+                                          CharsetCoding.UTF_8_REPORTING,
+                                          lineSeparator,
+                                          1,
+                                          true,
                                           Alignment.START,
                                           '_',
-                                          fieldSpecsAppend2,
-                                          lineSeparator)
+                                          fieldSpecsAppend2)
                                   .file(path);
 
         // Write
@@ -131,13 +140,20 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        var fixedWidthFile = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
-                null, null,
-                20, false,
-                Alignment.START, ' ',
-                fieldSpecs,
-                0, 0, false,
-                false, lineSeparator).file(path);
+        var fixedWidthFile =
+                new FixedWidthFileSpec(
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        20,
+                        false,
+                        Alignment.START,
+                        ' ',
+                        fieldSpecs,
+                        0,
+                        0,
+                        false,
+                        false)
+                        .file(path);
 
         // Write
         System.out.println("write: " + path);

@@ -9,11 +9,11 @@ import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.mapper.AddTextMapper;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +32,22 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec("property & property"));
         fieldSpecs.add(new HtmlTableFieldSpec(null));
         fieldSpecs.add(new HtmlTableFieldSpec("<section>"));
-        var file = HtmlTableFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        fieldSpecs,
-                        "<!DOCTYPE html>" + lineSeparator
-                                + "<html>" + lineSeparator
-                                + "<head>" + lineSeparator
-                                + "  <meta charset=\"UTF-8\"/>" + lineSeparator
-                                + "  <style>table, th, td { border: 1px solid black; }</style>" + lineSeparator
-                                + "</head>" + lineSeparator
-                                + "<body>" + lineSeparator
-                                + "  <h1>Header</h1>",
-                        "</body>" + lineSeparator + "</html>",
-                        "  "
-                )
-                .file(path);
+        var file =
+                HtmlTableFileSpec.write(
+                                         CharsetCoding.UTF_8_REPORTING,
+                                         lineSeparator,
+                                         "<!DOCTYPE html>" + lineSeparator
+                                                 + "<html>" + lineSeparator
+                                                 + "<head>" + lineSeparator
+                                                 + "  <meta charset=\"UTF-8\"/>" + lineSeparator
+                                                 + "  <style>table, th, td { border: 1px solid black; }</style>" + lineSeparator
+                                                 + "</head>" + lineSeparator
+                                                 + "<body>" + lineSeparator
+                                                 + "  <h1>Header</h1>",
+                                         "</body>" + lineSeparator + "</html>",
+                                         fieldSpecs,
+                                         "  ")
+                                 .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -85,23 +84,22 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec("A"));
         fieldSpecs.add(new HtmlTableFieldSpec("B"));
         fieldSpecs.add(new HtmlTableFieldSpec("C"));
-        var file = HtmlTableFileSpec
-                .write(
-                        StandardCharsets.UTF_8,
-                        lineSeparator,
-                        fieldSpecs,
-                        "<!DOCTYPE html>" + lineSeparator
-                                + "<html>" + lineSeparator
-                                + "<head>" + lineSeparator
-                                + "  <meta charset=\"UTF-8\"/>" + lineSeparator
-                                + "  <style>table, th, td { border: 1px solid black; }</style>" + lineSeparator
-                                + "</head>" + lineSeparator
-                                + "<body>" + lineSeparator
-                                + "  <h1>Header</h1>",
-                        "</body>" + lineSeparator + "</html>",
-                        "  "
-                )
-                .file(path);
+        var file =
+                HtmlTableFileSpec.write(
+                                         CharsetCoding.UTF_8_REPORTING,
+                                         lineSeparator,
+                                         "<!DOCTYPE html>" + lineSeparator
+                                                 + "<html>" + lineSeparator
+                                                 + "<head>" + lineSeparator
+                                                 + "  <meta charset=\"UTF-8\"/>" + lineSeparator
+                                                 + "  <style>table, th, td { border: 1px solid black; }</style>" + lineSeparator
+                                                 + "</head>" + lineSeparator
+                                                 + "<body>" + lineSeparator
+                                                 + "  <h1>Header</h1>",
+                                         "</body>" + lineSeparator + "</html>",
+                                         fieldSpecs,
+                                         "  ")
+                                 .file(path);
 
         // Write
         System.out.println("write: " + path);

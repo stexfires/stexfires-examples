@@ -10,6 +10,7 @@ import stexfires.record.filter.RecordFilter;
 import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.util.Alignment;
+import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 import stexfires.util.function.StringPredicates;
 
@@ -17,7 +18,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.Character.UnicodeBlock;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -172,7 +172,7 @@ public final class CharacterTest {
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 20, Alignment.START));
 
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
-                StandardCharsets.UTF_8,
+                CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
                 fieldSpecsConsumer
         );
