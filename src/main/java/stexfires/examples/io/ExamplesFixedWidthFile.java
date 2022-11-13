@@ -10,6 +10,8 @@ import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.message.JoinedTextsMessage;
+import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.Alignment;
 import stexfires.util.LineSeparator;
@@ -32,6 +34,7 @@ public final class ExamplesFixedWidthFile {
 
     private static Stream<TextRecord> generateStream1() {
         return Stream.of(
+                new ManyFieldsRecord(null, -1L, "######", "######", "######", "######"),
                 new ManyFieldsRecord(null, 0L, "a", "1", "AAAA", "ä", "zu viele Werte"),
                 new ManyFieldsRecord(null, 1L, "b", "2", "BB", "€µ"),
                 new ManyFieldsRecord(null, 2L, "c", "3", "C", ""),
@@ -39,7 +42,11 @@ public final class ExamplesFixedWidthFile {
                 new ManyFieldsRecord(null, 4L, "e", "05", "eEEEEEEEEEEEEEEEEEe"),
                 new ManyFieldsRecord(null, 5L),
                 new ManyFieldsRecord(null, 6L, null, null, null, null),
-                new ManyFieldsRecord(null, 7L, "", "", "", "")
+                new ManyFieldsRecord(null, 7L, "", "", "", ""),
+                new ManyFieldsRecord(null, 8L, " ", " ", " ", " "),
+                new ManyFieldsRecord(null, 9L, ".", ".", ".", "."),
+                new ManyFieldsRecord(null, 10L, "-", "-", "-", "-"),
+                new ManyFieldsRecord(null, 11L, "_", "_", "_", "_")
         );
     }
 
@@ -47,7 +54,14 @@ public final class ExamplesFixedWidthFile {
         return Stream.of(
                 new ValueFieldRecord("abcdefghijklmnopqrstuvwxyz"),
                 new ValueFieldRecord(""),
+                new ValueFieldRecord(" "),
+                new ValueFieldRecord("                                                      "),
                 new ValueFieldRecord("_"),
+                new ValueFieldRecord("______________________________________________________"),
+                new ValueFieldRecord("."),
+                new ValueFieldRecord("......................................................"),
+                new ValueFieldRecord("-"),
+                new ValueFieldRecord("------------------------------------------------------"),
                 new ValueFieldRecord("_...------_____##___")
         );
     }
@@ -65,28 +79,31 @@ public final class ExamplesFixedWidthFile {
                 20, true,
                 Alignment.START, '_',
                 fieldSpecs,
-                0, 0, true,
-                false, lineSeparator).file(path);
+                1, 0, true,
+                true, lineSeparator).file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
-        var fixedWidthFileAppend1 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
-                null, null,
-                30, true,
-                Alignment.START, ' ',
-                fieldSpecsAppend1,
-                0, 0, true,
-                false, lineSeparator).file(path);
+        var fixedWidthFileAppend1 =
+                FixedWidthFileSpec.write(StandardCharsets.UTF_8,
+                                          30,
+                                          true,
+                                          Alignment.START,
+                                          ' ',
+                                          fieldSpecsAppend1,
+                                          lineSeparator)
+                                  .file(path);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
-        var fixedWidthFileAppend2 = new FixedWidthFileSpec(StandardCharsets.UTF_8, CodingErrorAction.REPORT,
-                null, null,
-                1, true,
-                Alignment.START, '_',
-                fieldSpecsAppend2,
-                0, 0, true,
-                false, lineSeparator).file(path);
+        var fixedWidthFileAppend2 =
+                FixedWidthFileSpec.write(StandardCharsets.UTF_8,
+                                          1, true,
+                                          Alignment.START,
+                                          '_',
+                                          fieldSpecsAppend2,
+                                          lineSeparator)
+                                  .file(path);
 
         // Write
         System.out.println("write: " + path);
@@ -102,7 +119,8 @@ public final class ExamplesFixedWidthFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(fixedWidthFile, new SystemOutLogger<>());
+        RecordFiles.logFile(fixedWidthFile, new SystemOutLogger<>(
+                new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]")));
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -127,7 +145,8 @@ public final class ExamplesFixedWidthFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(fixedWidthFile, new SystemOutLogger<>());
+        RecordFiles.logFile(fixedWidthFile, new SystemOutLogger<>(
+                new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]")));
     }
 
     public static void main(String... args) {
@@ -140,8 +159,8 @@ public final class ExamplesFixedWidthFile {
         }
 
         try {
-            test1(Path.of(args[0], "var _1.txt"), LineSeparator.systemLineSeparator());
-            test2(Path.of(args[0], "var _2.txt"), LineSeparator.systemLineSeparator());
+            test1(Path.of(args[0], "FixedWidthFile_1.txt"), LineSeparator.systemLineSeparator());
+            test2(Path.of(args[0], "FixedWidthFile_2.txt"), LineSeparator.systemLineSeparator());
         } catch (ProducerException | IOException | ConsumerException e) {
             e.printStackTrace();
         }
