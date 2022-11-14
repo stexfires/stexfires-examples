@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;
@@ -75,6 +76,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.reportingErrors(US_ASCII),
                         lineSeparator,
+                        null,
+                        null,
                         true,
                         0,
                         0,
@@ -102,6 +105,8 @@ public final class ExamplesSingleValueFile {
                 SingleValueFileSpec.write(
                                            CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
                                            lineSeparator,
+                                           RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                           RecordFileSpec.DEFAULT_TEXT_AFTER,
                                            true)
                                    .file(path);
 
@@ -129,10 +134,12 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        "Header---",
+                        "Footer---",
                         false,
-                        0,
-                        0,
-                        false)
+                        1,
+                        1,
+                        true)
                         .file(path);
 
         // Write
@@ -151,6 +158,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        RecordFileSpec.DEFAULT_TEXT_AFTER,
                         false,
                         0,
                         0,
@@ -177,6 +186,8 @@ public final class ExamplesSingleValueFile {
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
+                RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                RecordFileSpec.DEFAULT_TEXT_AFTER,
                 false,
                 0,
                 0,

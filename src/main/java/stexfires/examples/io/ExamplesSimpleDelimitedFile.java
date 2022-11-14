@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
@@ -82,6 +83,8 @@ public final class ExamplesSimpleDelimitedFile {
                 SingleValueFileSpec.write(
                                            CharsetCoding.UTF_8_REPORTING,
                                            lineSeparator,
+                                           RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                           RecordFileSpec.DEFAULT_TEXT_AFTER,
                                            false)
                                    .file(path);
 

@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.combined.CombinedReadableRecordFile;
 import stexfires.io.combined.CombinedWritableRecordFile;
@@ -53,6 +54,8 @@ public final class ExamplesCombinedFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        RecordFileSpec.DEFAULT_TEXT_AFTER,
                         true,
                         0,
                         0,
