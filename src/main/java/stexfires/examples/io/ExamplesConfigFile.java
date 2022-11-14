@@ -38,12 +38,14 @@ public final class ExamplesConfigFile {
 
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
+                new ManyFieldsRecord("Section000", 0L, "", "value0"),
                 new KeyValueFieldsRecord("", 1L, "property1", "value1"),
                 new KeyValueFieldsRecord("    ", 2L, "property2", "value2"),
                 new KeyValueFieldsRecord(null, 3L, "property3", "value3"),
                 new KeyValueFieldsRecord(LineSeparator.LF.string(), 4L, "property4", "value4"),
                 new KeyValueFieldsRecord("\t", 5L, "property5", "value5"),
                 new KeyValueFieldsRecord(LineSeparator.CR_LF.string(), 6L, "property6", "value6"),
+                new KeyValueFieldsRecord("", 7L, "property7", "ä ö ü ß µ ÷"),
 
                 TextRecords.empty(),
 
