@@ -11,7 +11,10 @@ import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
+import stexfires.record.logger.RecordLogger;
 import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.message.JoinedTextsMessage;
+import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
@@ -27,6 +30,10 @@ import java.util.stream.Stream;
 public final class ExamplesSimpleDelimitedFile {
 
     private ExamplesSimpleDelimitedFile() {
+    }
+
+    private static RecordLogger<TextRecord> formattedSystemOutLogger() {
+        return new SystemOutLogger<>(new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]"));
     }
 
     private static Stream<TextRecord> generateStream() {
@@ -73,7 +80,7 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(simpleDelimitedFile, new SystemOutLogger<>());
+        RecordFiles.logFile(simpleDelimitedFile, formattedSystemOutLogger());
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -123,7 +130,7 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(simpleDelimitedFile, new SystemOutLogger<>());
+        RecordFiles.logFile(simpleDelimitedFile, formattedSystemOutLogger());
     }
 
     public static void main(String... args) {

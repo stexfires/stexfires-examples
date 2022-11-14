@@ -8,10 +8,14 @@ import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.KeyValueRecord;
+import stexfires.record.TextRecord;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.logger.RecordLogger;
 import stexfires.record.logger.SystemOutLogger;
+import stexfires.record.message.JoinedTextsMessage;
+import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
@@ -26,6 +30,10 @@ import java.util.stream.Stream;
 public final class ExamplesCombinedFile {
 
     private ExamplesCombinedFile() {
+    }
+
+    private static RecordLogger<TextRecord> formattedSystemOutLogger() {
+        return new SystemOutLogger<>(new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]"));
     }
 
     private static Stream<KeyValueRecord> generateStream() {
@@ -70,7 +78,7 @@ public final class ExamplesCombinedFile {
         // Read / log
         System.out.println("read/log: " + pathConfig + " " + pathSingle);
         CombinedReadableRecordFile<ValueRecord> combinedFileRead = new CombinedReadableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.logFile(combinedFileRead, new SystemOutLogger<>());
+        RecordFiles.logFile(combinedFileRead, formattedSystemOutLogger());
     }
 
     public static void main(String... args) {
