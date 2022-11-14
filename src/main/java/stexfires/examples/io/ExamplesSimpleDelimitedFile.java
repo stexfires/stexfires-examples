@@ -40,7 +40,7 @@ public final class ExamplesSimpleDelimitedFile {
         return Stream.of(
                 new ManyFieldsRecord(null, 0L, "a", "0", "AAAA", "ä"),
                 new ManyFieldsRecord(null, 1L, "b", "1", "BB", "€"),
-                new ManyFieldsRecord(null, 2L, "c", "2", "C", ""),
+                new ManyFieldsRecord(null, 2L, "c", "2", "\uD83D\uDE00o\u0308", ""),
                 new ManyFieldsRecord(null, 3L, "d", "3.33", "dDDDDd", null),
                 new ManyFieldsRecord(null, 4L, "e", "004", "eEEEEEEEEEEEEEEEEEe", "    "),
                 new ManyFieldsRecord(null, 5L, "f", null, "    ", "fff"),
@@ -66,9 +66,11 @@ public final class ExamplesSimpleDelimitedFile {
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        "Column0,Column1,Column2,Column3",
+                        RecordFileSpec.DEFAULT_TEXT_AFTER,
                         ",",
                         fieldSpecs,
-                        0,
+                        1,
                         0,
                         false,
                         false)

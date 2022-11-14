@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
@@ -95,6 +96,8 @@ public final class ExamplesPathRecord {
                 SimpleDelimitedFileSpec.write(
                                                CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
                                                lineSeparator,
+                                               RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                               RecordFileSpec.DEFAULT_TEXT_AFTER,
                                                "\t",
                                                fieldSpecs)
                                        .file(path.resolve("PathRecord_1.csv"));
