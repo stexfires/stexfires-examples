@@ -16,6 +16,9 @@ import stexfires.record.mapper.impl.ToKeyValueFieldsRecordMapper;
 import stexfires.record.mapper.impl.ToManyFieldsRecordMapper;
 import stexfires.record.mapper.impl.ToTwoFieldsRecordMapper;
 import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
+import stexfires.record.message.JoinedTextsMessage;
+import stexfires.record.message.ShortMessage;
+import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
 
 import java.util.stream.Stream;
@@ -45,54 +48,59 @@ public final class ExamplesToMapper {
 
     private static void printRecordMapper(String title, RecordMapper<TextRecord, ? extends TextRecord> recordMapper) {
         System.out.println("--" + title);
-        TextRecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>());
+        TextRecordStreams.mapAndConsume(generateStream(), recordMapper, new SystemOutConsumer<>(new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]")));
     }
 
-    private static void showToEmptyMapper() {
-        System.out.println("-showToEmptyMapper---");
+    private static void showToEmptyRecordMapper() {
+        System.out.println("-showToEmptyRecordMapper---");
 
         printRecordMapper("constructor", new ToEmptyRecordMapper<>());
     }
 
-    private static void showToKeyValueMapper() {
-        System.out.println("-showToKeyValueMapper---");
+    private static void showToKeyValueCommentFieldsRecordMapper() {
+        System.out.println("-showToKeyValueCommentFieldsRecordMapper---");
 
-        printRecordMapper("constructor (0, 1, missing key)", new ToKeyValueFieldsRecordMapper<>(0, 1, "missing key"));
+        printRecordMapper("constructor (0, 1, 3)", new ToKeyValueCommentFieldsRecordMapper<>(
+                new TextMessage<>(0, "missing key"),
+                new TextMessage<>(1),
+                new TextMessage<>(3)));
     }
 
-    private static void showToKeyValueCommentMapper() {
-        System.out.println("-showToKeyValueCommentMapper---");
+    private static void showToKeyValueFieldsRecordMapper() {
+        System.out.println("-showToKeyValueFieldsRecordMapper---");
 
-        printRecordMapper("constructor (0, 1, missing key)", new ToKeyValueCommentFieldsRecordMapper<>(0, 1, 3, "missing key"));
+        printRecordMapper("constructor (0, 1)", new ToKeyValueFieldsRecordMapper<>(
+                new TextMessage<>(0, "missing key"),
+                new TextMessage<>(1)));
     }
 
-    private static void showToPairMapper() {
-        System.out.println("-showToPairMapper---");
-
-        printRecordMapper("constructor", new ToTwoFieldsRecordMapper<>(0, 1));
-        printRecordMapper("constructor (2, 0)", new ToTwoFieldsRecordMapper<>(2, 0));
-    }
-
-    private static void showToSingleMapper() {
-        System.out.println("-showToSingleMapper---");
-
-        printRecordMapper("constructor", new ToValueFieldRecordMapper<>(0));
-        printRecordMapper("constructor (2)", new ToValueFieldRecordMapper<>(2));
-    }
-
-    private static void showToStandardMapper() {
-        System.out.println("-showToStandardMapper---");
+    private static void showToManyFieldsRecordMapper() {
+        System.out.println("-showToManyFieldsRecordMapper---");
 
         printRecordMapper("constructor", new ToManyFieldsRecordMapper<>());
     }
 
+    private static void showToTwoFieldsRecordMapper() {
+        System.out.println("-showToTwoFieldsRecordMapper---");
+
+        printRecordMapper("constructor (0, 1", new ToTwoFieldsRecordMapper<>(new TextMessage<>(0), new TextMessage<>(1)));
+        printRecordMapper("constructor (2, 0)", new ToTwoFieldsRecordMapper<>(new TextMessage<>(2), new TextMessage<>(0)));
+    }
+
+    private static void showToValueFieldRecordMapper() {
+        System.out.println("-showToValueFieldRecordMapper---");
+
+        printRecordMapper("constructor (0)", new ToValueFieldRecordMapper<>(new TextMessage<>(0)));
+        printRecordMapper("constructor (2)", new ToValueFieldRecordMapper<>(new TextMessage<>(2)));
+    }
+
     public static void main(String... args) {
-        showToEmptyMapper();
-        showToKeyValueMapper();
-        showToKeyValueCommentMapper();
-        showToPairMapper();
-        showToSingleMapper();
-        showToStandardMapper();
+        showToEmptyRecordMapper();
+        showToKeyValueCommentFieldsRecordMapper();
+        showToKeyValueFieldsRecordMapper();
+        showToManyFieldsRecordMapper();
+        showToTwoFieldsRecordMapper();
+        showToValueFieldRecordMapper();
     }
 
 }
