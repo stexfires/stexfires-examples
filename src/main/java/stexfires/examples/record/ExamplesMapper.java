@@ -32,7 +32,7 @@ import stexfires.util.Strings;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -93,7 +93,7 @@ public final class ExamplesMapper {
         printMapper("textAt", AddTextMapper.textAt(2));
         printMapper("textAtOrElse", AddTextMapper.textAtOrElse(2, "missing value"));
         printMapper("fieldAtOrElse", AddTextMapper.fieldAtOrElse(2, new AddPrefixFieldTextMapper("new: "), "missing value"));
-        printMapper("fileName", AddTextMapper.fileName(Paths.get("").toAbsolutePath()));
+        printMapper("fileName", AddTextMapper.fileName(Path.of("").toAbsolutePath()));
     }
 
     private static void showCategoryMapper() {
@@ -116,7 +116,7 @@ public final class ExamplesMapper {
         printMapper("textAt", CategoryMapper.textAt(2));
         printMapper("textAtOrElse", CategoryMapper.textAtOrElse(2, "missing value"));
         printMapper("fieldAtOrElse", CategoryMapper.fieldAtOrElse(2, new AddPrefixFieldTextMapper("new: "), "missing value"));
-        printMapper("fileName", CategoryMapper.fileName(Paths.get("").toAbsolutePath()));
+        printMapper("fileName", CategoryMapper.fileName(Path.of("").toAbsolutePath()));
     }
 
     private static void showConditionalMapper() {
