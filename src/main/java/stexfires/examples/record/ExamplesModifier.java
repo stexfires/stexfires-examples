@@ -146,8 +146,8 @@ public final class ExamplesModifier {
                 new DistinctModifier<>(new CategoryMessage<>()));
         printModifierOneValueRecord("constructor recordId",
                 new DistinctModifier<>(new RecordIdMessage<>()));
-        printModifierOneValueRecord("constructor value",
-                new DistinctModifier<>(new TextMessage<>(ValueFieldRecord.VALUE_INDEX)));
+        printModifierOneValueRecord("constructor valueField",
+                new DistinctModifier<>(new TextMessage<>(ValueRecord::valueField)));
         printModifierOneValueRecord("constructor CompareMessageBuilder",
                 new DistinctModifier<>(new CompareMessageBuilder().category().texts()));
     }
@@ -241,7 +241,7 @@ public final class ExamplesModifier {
         System.out.println("-showMapModifier---");
 
         printModifierOneValueRecord("constructor ToTwoFieldsRecordMapper",
-                new MapModifier<>(new ToTwoFieldsRecordMapper<>(ValueFieldRecord.VALUE_INDEX, ValueFieldRecord.VALUE_INDEX)));
+                new MapModifier<>(new ToTwoFieldsRecordMapper<>(ValueRecord::value, ValueRecord::value)));
     }
 
     private static void showPivotModifier() {
