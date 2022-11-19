@@ -102,7 +102,7 @@ public final class ExamplesConfigFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true, Locale.ENGLISH), file);
+        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), file);
 
         // Read / log
         System.out.println("read/log: " + path);

@@ -73,7 +73,7 @@ public final class ExamplesCombinedFile {
         // Write
         System.out.println("write: " + pathConfig + " " + pathSingle);
         CombinedWritableRecordFile<KeyValueRecord> combinedFileWrite = new CombinedWritableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(0, 1, true, Locale.ENGLISH), combinedFileWrite);
+        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), combinedFileWrite);
 
         // Read / log
         System.out.println("read/log: " + pathConfig + " " + pathSingle);
