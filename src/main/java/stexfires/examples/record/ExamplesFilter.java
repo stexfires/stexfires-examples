@@ -22,6 +22,7 @@ import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
 import stexfires.record.message.CategoryMessage;
+import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
 import stexfires.util.function.NumberPredicates;
 import stexfires.util.function.StringPredicates;
@@ -114,7 +115,7 @@ public final class ExamplesFilter {
         System.out.println("-showMappingFilter---");
 
         printFilter("constructor",
-                new MappingFilter<>(new ToValueFieldRecordMapper<>(0), TextFilter.isNotNull(0)));
+                new MappingFilter<>(new ToValueFieldRecordMapper<>(new TextMessage<>(0)), TextFilter.isNotNull(0)));
     }
 
     private static void showMessageFilter() {

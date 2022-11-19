@@ -198,7 +198,7 @@ public final class ExamplesMapper {
 
         printMapper("concat 2", RecordMapper.concat(
                 CategoryMapper.constantNull(),
-                new ToValueFieldRecordMapper<>(1)));
+                new ToValueFieldRecordMapper<>(new TextMessage<>(1))));
         printMapperValueRecord("concat 3", RecordMapper.concat(
                 CategoryMapper.categoryOrElse("missing category"),
                 RecordIdMapper.primitiveLongSupplier(Suppliers.sequenceAsPrimitiveLong(1000L)),
@@ -206,7 +206,7 @@ public final class ExamplesMapper {
         printMapper("compose",
                 CategoryMapper.constantNull().compose(AddTextMapper.constant("new value")));
         printMapper("andThen",
-                new ToValueFieldRecordMapper<>(0).andThen(AddTextMapper.constant("new value")));
+                new ToValueFieldRecordMapper<>(new TextMessage<>(0)).andThen(AddTextMapper.constant("new value")));
     }
 
     private static void showSupplierMapper() {
