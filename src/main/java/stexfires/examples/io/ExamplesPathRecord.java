@@ -22,18 +22,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber"})
 public final class ExamplesPathRecord {
 
     private ExamplesPathRecord() {
     }
 
-    private static void test1(Path path, LineSeparator lineSeparator) throws IOException {
-        System.out.println("-test1---");
+    private static DosPathRecord createAndLogNewDosPathRecord(String pathAsString) {
+        System.out.println("---createAndLogNewDosPathRecord---");
+        Path path = Path.of(pathAsString);
+        System.out.println("pathAsString       : " + pathAsString);
+        System.out.println("Path toString      : " + path);
+        System.out.println("Path normalize     : " + path.normalize());
+        System.out.println("Path toAbsolutePath: " + path.toAbsolutePath());
 
-        System.out.println("---newDosPathRecord---");
-        DosPathRecord pathRecord = PathRecords.newDosPathRecord(path);
+        DosPathRecord pathRecord = PathRecords.newDosPathRecordNoFollowLinks(path);
         System.out.println(pathRecord);
+        System.out.println(pathRecord.category());
+        System.out.println(pathRecord.recordId());
+        System.out.println(pathRecord.hasRecordId());
+        System.out.println(pathRecord.isNotEmpty());
+        System.out.println(pathRecord.isEmpty());
+        System.out.println(pathRecord.size());
+        System.out.println(pathRecord.isValidIndex(-1) + " " + pathRecord.isValidIndex(0) + " " + pathRecord.isValidIndex(7) + " " + pathRecord.isValidIndex(8) + " " + pathRecord.isValidIndex(13) + " " + pathRecord.isValidIndex(14));
         System.out.println(pathRecord.pathType());
         System.out.println(pathRecord.fileName());
         System.out.println(pathRecord.fileNameAsOptional());
@@ -45,6 +56,7 @@ public final class ExamplesPathRecord {
         System.out.println(pathRecord.creationTime());
         System.out.println(pathRecord.lastModifiedTime());
         System.out.println(pathRecord.lastAccessTime());
+        System.out.println(pathRecord.isAbsolute());
         System.out.println(pathRecord.isArchive());
         System.out.println(pathRecord.isReadOnly());
         System.out.println(pathRecord.isHidden());
@@ -52,23 +64,32 @@ public final class ExamplesPathRecord {
         System.out.println(pathRecord.fileExtension());
         System.out.println(pathRecord.fileExtensionAsOptional());
 
-        System.out.println("---listDosPathRecords printLines---");
-        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecords(path)) {
+        return pathRecord;
+    }
+
+    private static void test1(String pathAsString) throws IOException {
+        System.out.println("-test1---");
+
+        DosPathRecord pathRecord = createAndLogNewDosPathRecord(pathAsString);
+        Path path = Path.of(pathAsString);
+
+        System.out.println("---listDosPathRecordsFollowLinks printLines---");
+        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsFollowLinks(path)) {
             TextRecordStreams.printLines(pathStream);
         }
 
-        System.out.println("---listDosPathRecords collect---");
-        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecords(path)) {
-            System.out.println(TextRecordStreams.collect(pathStream));
-        }
-
-        System.out.println("---listDosPathRecords joinMessages fileName---");
-        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecords(path)) {
+        System.out.println("---listDosPathRecordsNoFollowLinks joinMessages fileName---");
+        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsNoFollowLinks(path)) {
             System.out.println(TextRecordStreams.joinMessages(pathStream, PathRecord::fileName, ", "));
         }
 
-        System.out.println("---walkPathRecords printLines filter---");
-        try (Stream<PathRecord> pathStream = PathRecords.walkPathRecords(path)) {
+        System.out.println("---walkDosPathRecordsNoFollowLinks printLines Parent 2 filter---");
+        try (Stream<DosPathRecord> pathStream = PathRecords.walkDosPathRecordsNoFollowLinks(path.getParent(), 2)) {
+            TextRecordStreams.printLines(pathStream.filter(new PathTypeFilter<>(PathType.DIRECTORY).negate()::isValid));
+        }
+
+        System.out.println("---walkDosPathRecordsFollowLinks printLines Parent 2 filter---");
+        try (Stream<DosPathRecord> pathStream = PathRecords.walkDosPathRecordsFollowLinks(path.getParent(), 2)) {
             TextRecordStreams.printLines(pathStream.filter(new PathTypeFilter<>(PathType.DIRECTORY).negate()::isValid));
         }
 
@@ -77,7 +98,7 @@ public final class ExamplesPathRecord {
         while (parentDosPathRecord != null) {
             System.out.println(parentDosPathRecord);
             parentDosPathRecord = parentDosPathRecord.parentAsOptional()
-                                                     .map(PathRecords::newDosPathRecord)
+                                                     .map(PathRecords::newDosPathRecordNoFollowLinks)
                                                      .orElse(null);
         }
     }
@@ -91,20 +112,43 @@ public final class ExamplesPathRecord {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
+        fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
         var file =
                 SimpleDelimitedFileSpec.write(
                                                CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
                                                lineSeparator,
-                                               RecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                               "File name,Path,Parent,Path name count,File size",
                                                RecordFileSpec.DEFAULT_TEXT_AFTER,
-                                               "\t",
+                                               ",",
                                                fieldSpecs)
                                        .file(path.resolve("PathRecord_1.csv"));
 
-        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecords(path)) {
+        try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsFollowLinks(path)) {
             RecordFiles.writeFile(pathStream, file);
         }
+    }
+
+    private static void test3() {
+        System.out.println("-test3---");
+
+        createAndLogNewDosPathRecord("");
+
+        createAndLogNewDosPathRecord("..");
+
+        createAndLogNewDosPathRecord(".");
+        createAndLogNewDosPathRecord("./");
+        createAndLogNewDosPathRecord(".\\");
+
+        createAndLogNewDosPathRecord("/.");
+        createAndLogNewDosPathRecord("\\.");
+
+        createAndLogNewDosPathRecord("/");
+        createAndLogNewDosPathRecord("\\");
+
+        createAndLogNewDosPathRecord("C:");
+        createAndLogNewDosPathRecord("C:/");
+        createAndLogNewDosPathRecord("C:\\");
     }
 
     public static void main(String... args) {
@@ -117,8 +161,9 @@ public final class ExamplesPathRecord {
         }
 
         try {
-            test1(Path.of(args[0]), LineSeparator.systemLineSeparator());
+            test1(args[0]);
             test2(Path.of(args[0]), LineSeparator.systemLineSeparator());
+            test3();
         } catch (ConsumerException | IOException e) {
             e.printStackTrace();
         }
