@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator", "SpellCheckingInspection", "MagicNumber"})
-public final class ExampleStringFunction {
+public final class ExamplesStringFunction {
 
     @SuppressWarnings("StaticCollection")
     private static final List<String> VALUES;
@@ -173,7 +173,7 @@ public final class ExampleStringFunction {
         VALUES = Collections.unmodifiableList(values);
     }
 
-    private ExampleStringFunction() {
+    private ExamplesStringFunction() {
     }
 
     private static String generateLengthString(String value) {
