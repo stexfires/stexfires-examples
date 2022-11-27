@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.examples.record.RecordSystemOutUtil;
 import stexfires.io.RecordFiles;
 import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
@@ -10,10 +11,6 @@ import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
-import stexfires.record.logger.RecordLogger;
-import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.message.JoinedTextsMessage;
-import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
@@ -30,10 +27,6 @@ import static stexfires.util.CommonCharsetNames.ISO_8859_1;
 public final class ExamplesConfigFile {
 
     private ExamplesConfigFile() {
-    }
-
-    private static RecordLogger<TextRecord> formattedSystemOutLogger() {
-        return new SystemOutLogger<>(new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]"));
     }
 
     private static Stream<TextRecord> generateStream() {
@@ -106,7 +99,7 @@ public final class ExamplesConfigFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(file, formattedSystemOutLogger());
+        RecordFiles.logFile(file, RecordSystemOutUtil.RECORD_LOGGER);
     }
 
     public static void main(String... args) {

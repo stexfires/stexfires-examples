@@ -1,22 +1,18 @@
 package stexfires.examples.io;
 
+import stexfires.examples.record.RecordSystemOutUtil;
 import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
-import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueCommentFieldsRecord;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
-import stexfires.record.logger.RecordLogger;
-import stexfires.record.logger.SystemOutLogger;
-import stexfires.record.message.JoinedTextsMessage;
-import stexfires.record.message.ShortMessage;
 import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
@@ -36,10 +32,6 @@ import static stexfires.util.CommonCharsetNames.US_ASCII;
 public final class ExamplesSingleValueFile {
 
     private ExamplesSingleValueFile() {
-    }
-
-    private static RecordLogger<TextRecord> formattedSystemOutLogger() {
-        return new SystemOutLogger<>(new ShortMessage<>().append(" [", new JoinedTextsMessage<>(", ")).append("]"));
     }
 
     private static Stream<ValueRecord> generateStream() {
@@ -103,7 +95,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFile, formattedSystemOutLogger());
+        RecordFiles.logFile(singleValueFile, RecordSystemOutUtil.RECORD_LOGGER);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -132,7 +124,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFileRead, formattedSystemOutLogger());
+        RecordFiles.logFile(singleValueFileRead, RecordSystemOutUtil.RECORD_LOGGER);
     }
 
     private static void test3(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -156,7 +148,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFile, formattedSystemOutLogger());
+        RecordFiles.logFile(singleValueFile, RecordSystemOutUtil.RECORD_LOGGER);
     }
 
     private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -183,7 +175,7 @@ public final class ExamplesSingleValueFile {
         // Read / log
         System.out.println("read/log: " + path);
         try (var singleValueProducer = singleValueFile.openProducer()) {
-            RecordIOStreams.log(singleValueProducer, formattedSystemOutLogger());
+            RecordIOStreams.log(singleValueProducer, RecordSystemOutUtil.RECORD_LOGGER);
         }
     }
 
@@ -210,7 +202,7 @@ public final class ExamplesSingleValueFile {
         // Read / log
         System.out.println("read/log: " + path);
         try (SingleValueProducer singleValueProducer = singleValueFileSpec.producer(new FileInputStream(path.toFile()))) {
-            RecordIOStreams.log(singleValueProducer, formattedSystemOutLogger());
+            RecordIOStreams.log(singleValueProducer, RecordSystemOutUtil.RECORD_LOGGER);
         }
     }
 
