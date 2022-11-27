@@ -70,7 +70,7 @@ public final class ExamplesCombinedFile {
         // Read / log
         System.out.println("read/log: " + pathConfig + " " + pathSingle);
         CombinedReadableRecordFile<ValueRecord> combinedFileRead = new CombinedReadableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.logFile(combinedFileRead, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(combinedFileRead, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     public static void main(String... args) {

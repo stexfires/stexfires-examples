@@ -95,7 +95,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(singleValueFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -124,7 +124,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFileRead, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(singleValueFileRead, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     private static void test3(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -148,7 +148,7 @@ public final class ExamplesSingleValueFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(singleValueFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(singleValueFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -175,7 +175,7 @@ public final class ExamplesSingleValueFile {
         // Read / log
         System.out.println("read/log: " + path);
         try (var singleValueProducer = singleValueFile.openProducer()) {
-            RecordIOStreams.log(singleValueProducer, RecordSystemOutUtil.RECORD_LOGGER);
+            RecordIOStreams.readAndConsume(singleValueProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
     }
 
@@ -202,7 +202,7 @@ public final class ExamplesSingleValueFile {
         // Read / log
         System.out.println("read/log: " + path);
         try (SingleValueProducer singleValueProducer = singleValueFileSpec.producer(new FileInputStream(path.toFile()))) {
-            RecordIOStreams.log(singleValueProducer, RecordSystemOutUtil.RECORD_LOGGER);
+            RecordIOStreams.readAndConsume(singleValueProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
     }
 

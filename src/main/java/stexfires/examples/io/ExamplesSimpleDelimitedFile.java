@@ -75,7 +75,7 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -125,7 +125,7 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     public static void main(String... args) {

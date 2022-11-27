@@ -99,7 +99,7 @@ public final class ExamplesConfigFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(file, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(file, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     public static void main(String... args) {

@@ -135,7 +135,7 @@ public final class ExamplesFixedWidthFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(fixedWidthFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(fixedWidthFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -169,7 +169,7 @@ public final class ExamplesFixedWidthFile {
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.logFile(fixedWidthFile, RecordSystemOutUtil.RECORD_LOGGER);
+        RecordFiles.readFile(fixedWidthFile, RecordSystemOutUtil.RECORD_CONSUMER);
     }
 
     public static void main(String... args) {
