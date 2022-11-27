@@ -10,7 +10,6 @@ import stexfires.record.consumer.AppendableConsumer;
 import stexfires.record.consumer.CollectionConsumer;
 import stexfires.record.consumer.ConditionalConsumer;
 import stexfires.record.consumer.DispatcherConsumer;
-import stexfires.record.consumer.LoggerConsumer;
 import stexfires.record.consumer.MapConsumer;
 import stexfires.record.consumer.NullConsumer;
 import stexfires.record.consumer.PrintStreamConsumer;
@@ -26,7 +25,6 @@ import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
-import stexfires.record.logger.SystemOutLogger;
 import stexfires.record.message.SizeMessage;
 
 import java.io.IOException;
@@ -177,16 +175,6 @@ public final class ExamplesConsumer {
                 DispatcherConsumer.byFilters(recordFilters, recordConsumersFilter));
     }
 
-    private static void showLoggerConsumer() {
-        System.out.println("-showLoggerConsumer---");
-
-        printConsumer("constructor",
-                new LoggerConsumer<>(new SystemOutLogger<>()));
-
-        printConsumerKeyValueRecord("constructor",
-                new LoggerConsumer<>(new SystemOutLogger<>()));
-    }
-
     private static void showMapConsumer() {
         System.out.println("-showMapConsumer---");
 
@@ -283,7 +271,6 @@ public final class ExamplesConsumer {
         showCollectionConsumer();
         showConditionalConsumer();
         showDispatcherConsumer();
-        showLoggerConsumer();
         showMapConsumer();
         showNullConsumer();
         showPrintStreamConsumer();
