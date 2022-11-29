@@ -1,7 +1,7 @@
 package stexfires.examples.io;
 
-import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
+import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
@@ -82,8 +82,8 @@ public final class ExamplesMarkdownTableFile {
                 MarkdownTableFileSpec.write(
                                              CharsetCoding.UTF_8_REPORTING,
                                              lineSeparator,
-                                             RecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                             RecordFileSpec.DEFAULT_TEXT_AFTER,
+                                             WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                             WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                                              fieldSpecs,
                                              MarkdownTableFileSpec.DEFAULT_ALIGNMENT)
                                      .file(path);

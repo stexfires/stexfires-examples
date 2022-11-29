@@ -1,9 +1,9 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
+import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.singlevalue.SingleValueConsumer;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
@@ -105,8 +105,8 @@ public final class ExamplesSingleValueFile {
                 SingleValueFileSpec.write(
                                            CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
                                            lineSeparator,
-                                           RecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                           RecordFileSpec.DEFAULT_TEXT_AFTER,
+                                           WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                                           WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                                            true)
                                    .file(path);
 
@@ -158,8 +158,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        RecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        RecordFileSpec.DEFAULT_TEXT_AFTER,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                         false,
                         0,
                         0,
@@ -186,8 +186,8 @@ public final class ExamplesSingleValueFile {
         SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
-                RecordFileSpec.DEFAULT_TEXT_BEFORE,
-                RecordFileSpec.DEFAULT_TEXT_AFTER,
+                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                 false,
                 0,
                 0,

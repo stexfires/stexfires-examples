@@ -1,6 +1,6 @@
 package stexfires.examples.javatest;
 
-import stexfires.io.RecordFileSpec;
+import stexfires.io.*;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.markdown.table.MarkdownTableConsumer;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
@@ -175,8 +175,8 @@ public final class CharacterTest {
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
                 CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
-                RecordFileSpec.DEFAULT_TEXT_BEFORE,
-                RecordFileSpec.DEFAULT_TEXT_AFTER,
+                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                 fieldSpecsConsumer,
                 MarkdownTableFileSpec.DEFAULT_ALIGNMENT
         );
