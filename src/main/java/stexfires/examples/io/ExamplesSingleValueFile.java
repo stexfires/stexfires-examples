@@ -163,13 +163,13 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        try (var singleValueConsumer = fileSpec.openConsumer(path)) {
+        try (var singleValueConsumer = fileSpec.openFileAsConsumer(path)) {
             RecordIOStreams.write(generateStream(), singleValueConsumer);
         }
 
         // Read / log
         System.out.println("read/log: " + path);
-        try (var singleValueProducer = fileSpec.openProducer(path)) {
+        try (var singleValueProducer = fileSpec.openFileAsProducer(path)) {
             RecordIOStreams.readAndConsume(singleValueProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
     }

@@ -59,16 +59,16 @@ public final class ExamplesCombinedFile {
 
         // Write
         System.out.println("write: " + pathConfig + " " + pathSingleValue);
-        try (var configConsumer = configFileSpec.openConsumer(pathConfig);
-             var singleValueConsumer = singleValueFileSpec.openConsumer(pathSingleValue);
+        try (var configConsumer = configFileSpec.openFileAsConsumer(pathConfig);
+             var singleValueConsumer = singleValueFileSpec.openFileAsConsumer(pathSingleValue);
              var combinedConsumer = new CombinedWritableRecordConsumer<>(configConsumer, singleValueConsumer)) {
             RecordIOStreams.write(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), combinedConsumer);
         }
 
         // Read / log
         System.out.println("read/log: " + pathConfig + " " + pathSingleValue);
-        try (var configProducer = configFileSpec.openProducer(pathConfig);
-             var singleValueProducer = singleValueFileSpec.openProducer(pathSingleValue);
+        try (var configProducer = configFileSpec.openFileAsProducer(pathConfig);
+             var singleValueProducer = singleValueFileSpec.openFileAsProducer(pathSingleValue);
              var combinedProducer = new CombinedReadableRecordProducer<>(configProducer, singleValueProducer)) {
             RecordIOStreams.readAndConsume(combinedProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
