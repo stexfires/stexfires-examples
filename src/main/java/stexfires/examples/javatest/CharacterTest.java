@@ -1,12 +1,12 @@
 package stexfires.examples.javatest;
 
-import stexfires.io.*;
 import stexfires.io.RecordIOStreams;
+import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.markdown.table.MarkdownTableConsumer;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
 import stexfires.record.TextRecord;
-import stexfires.record.consumer.ConsumerException;
+import stexfires.record.consumer.UncheckedConsumerException;
 import stexfires.record.filter.RecordFilter;
 import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.ManyFieldsRecord;
@@ -145,7 +145,7 @@ public final class CharacterTest {
 
     @SuppressWarnings({"MagicNumber", "OverlyBroadThrowsClause"})
     private static void writeMarkdownTableFile(File outputFile, Stream<TextRecord> recordStream)
-            throws ConsumerException, IOException {
+            throws IOException {
         Objects.requireNonNull(outputFile);
         Objects.requireNonNull(recordStream);
 
@@ -187,7 +187,7 @@ public final class CharacterTest {
     }
 
     private static void writeFilteredFile(File outputMarkdownFile, RecordFilter<TextRecord> recordFilter)
-            throws ConsumerException, IOException {
+            throws IOException {
         Objects.requireNonNull(outputMarkdownFile);
         Objects.requireNonNull(recordFilter);
 
@@ -278,7 +278,7 @@ public final class CharacterTest {
                             StringPredicates.equals(
                                     "true"
                             )));
-        } catch (ConsumerException | IOException e) {
+        } catch (IOException | UncheckedConsumerException e) {
             System.out.println("Cannot generate MarkdownTable file! " + e.getMessage());
         }
     }

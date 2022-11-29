@@ -25,15 +25,14 @@ public final class ExamplesMarkdownListFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var file =
+        var fileSpec =
                 MarkdownListFileSpec.write(
-                                            CharsetCoding.UTF_8_REPORTING,
-                                            lineSeparator,
-                                            "Header ValueFieldRecord",
-                                            "Footer ValueFieldRecord",
-                                            MarkdownListFileSpec.BulletPoint.NUMBER,
-                                            true)
-                                    .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        "Header ValueFieldRecord",
+                        "Footer ValueFieldRecord",
+                        MarkdownListFileSpec.BulletPoint.NUMBER,
+                        true);
 
         // Write
         System.out.println("write: " + path);
@@ -43,21 +42,20 @@ public final class ExamplesMarkdownListFile {
                 new ValueFieldRecord(null),
                 new ValueFieldRecord("d")
         );
-        RecordFiles.writeFile(stream, file);
+        RecordFiles.writeFile(stream, fileSpec, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
         System.out.println("-test2---");
 
-        var file =
+        var fileSpec =
                 MarkdownListFileSpec.write(
-                                            CharsetCoding.UTF_8_REPORTING,
-                                            lineSeparator,
-                                            "Header KeyValueFieldsRecord",
-                                            "Footer KeyValueFieldsRecord",
-                                            MarkdownListFileSpec.BulletPoint.STAR,
-                                            false)
-                                    .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        "Header KeyValueFieldsRecord",
+                        "Footer KeyValueFieldsRecord",
+                        MarkdownListFileSpec.BulletPoint.STAR,
+                        false);
 
         // Write
         System.out.println("write: " + path);
@@ -67,7 +65,7 @@ public final class ExamplesMarkdownListFile {
                 new KeyValueFieldsRecord("key3", null),
                 new KeyValueFieldsRecord("key4", "value4")
         );
-        RecordFiles.writeFile(stream, file);
+        RecordFiles.writeFile(stream, fileSpec, path);
     }
 
     public static void main(String... args) {

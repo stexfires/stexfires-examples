@@ -42,15 +42,14 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec(null, 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("", 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7, null));
-        var file =
+        var fileSpec =
                 MarkdownTableFileSpec.write(
-                                             CharsetCoding.UTF_8_REPORTING,
-                                             lineSeparator,
-                                             "Header",
-                                             "Footer",
-                                             fieldSpecs,
-                                             MarkdownTableFileSpec.DEFAULT_ALIGNMENT)
-                                     .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        "Header",
+                        "Footer",
+                        fieldSpecs,
+                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT);
 
         // Write
         System.out.println("write: " + path);
@@ -68,7 +67,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord(),
                 new ManyFieldsRecord("b", "|", "a|b|c")
         );
-        RecordFiles.writeFile(stream, file);
+        RecordFiles.writeFile(stream, fileSpec, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -78,15 +77,14 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("A", 5, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.CENTER));
-        var file =
+        var fileSpec =
                 MarkdownTableFileSpec.write(
-                                             CharsetCoding.UTF_8_REPORTING,
-                                             lineSeparator,
-                                             WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                             WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                                             fieldSpecs,
-                                             MarkdownTableFileSpec.DEFAULT_ALIGNMENT)
-                                     .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        fieldSpecs,
+                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT);
 
         // Write
         System.out.println("write: " + path);
@@ -104,19 +102,18 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord(),
                 new ManyFieldsRecord("b", "|", "a|b|c")
         );
-        RecordFiles.writeFile(stream, file);
+        RecordFiles.writeFile(stream, fileSpec, path);
 
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
         fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10, null));
-        var file2 =
+        var fileSpec2 =
                 MarkdownTableFileSpec.write(
-                                             CharsetCoding.UTF_8_REPORTING,
-                                             lineSeparator,
-                                             lineSeparator.string(2) + "Header second table",
-                                             "Footer second table",
-                                             fieldSpecs2,
-                                             Alignment.START)
-                                     .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        lineSeparator.string(2) + "Header second table",
+                        "Footer second table",
+                        fieldSpecs2,
+                        Alignment.START);
 
         // Write
         System.out.println("write APPEND: " + path);
@@ -124,7 +121,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord("a"),
                 new ManyFieldsRecord("b")
         );
-        RecordFiles.writeFile(stream2, file2, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(stream2, fileSpec2, path, StandardOpenOption.APPEND);
     }
 
     public static void main(String... args) {

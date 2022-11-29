@@ -1,18 +1,15 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.RecordFiles;
+import stexfires.io.RecordIOStreams;
 import stexfires.io.WritableRecordFileSpec;
-import stexfires.io.combined.CombinedReadableRecordFile;
-import stexfires.io.combined.CombinedWritableRecordFile;
+import stexfires.io.combined.CombinedReadableRecordProducer;
+import stexfires.io.combined.CombinedWritableRecordConsumer;
 import stexfires.io.config.ConfigFileSpec;
 import stexfires.io.config.ConfigModifier;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.KeyValueRecord;
-import stexfires.record.ValueRecord;
-import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
-import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
@@ -40,17 +37,16 @@ public final class ExamplesCombinedFile {
         );
     }
 
-    private static void test1(Path pathConfig, Path pathSingle, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
+    private static void test1(Path pathConfig, Path pathSingleValue, LineSeparator lineSeparator) throws IOException {
         System.out.println("-test1---");
 
-        var configFile =
+        var configFileSpec =
                 new ConfigFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER)
-                        .file(pathConfig);
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER);
 
-        var singleValueFile =
+        var singleValueFileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -59,18 +55,23 @@ public final class ExamplesCombinedFile {
                         true,
                         0,
                         0,
-                        true)
-                        .file(pathSingle);
+                        true);
 
         // Write
-        System.out.println("write: " + pathConfig + " " + pathSingle);
-        CombinedWritableRecordFile<KeyValueRecord> combinedFileWrite = new CombinedWritableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), combinedFileWrite);
+        System.out.println("write: " + pathConfig + " " + pathSingleValue);
+        try (var configConsumer = configFileSpec.openConsumer(pathConfig);
+             var singleValueConsumer = singleValueFileSpec.openConsumer(pathSingleValue);
+             var combinedConsumer = new CombinedWritableRecordConsumer<>(configConsumer, singleValueConsumer)) {
+            RecordIOStreams.write(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), combinedConsumer);
+        }
 
         // Read / log
-        System.out.println("read/log: " + pathConfig + " " + pathSingle);
-        CombinedReadableRecordFile<ValueRecord> combinedFileRead = new CombinedReadableRecordFile<>(configFile, singleValueFile);
-        RecordFiles.readFile(combinedFileRead, RecordSystemOutUtil.RECORD_CONSUMER);
+        System.out.println("read/log: " + pathConfig + " " + pathSingleValue);
+        try (var configProducer = configFileSpec.openProducer(pathConfig);
+             var singleValueProducer = singleValueFileSpec.openProducer(pathSingleValue);
+             var combinedProducer = new CombinedReadableRecordProducer<>(configProducer, singleValueProducer)) {
+            RecordIOStreams.readAndConsume(combinedProducer, RecordSystemOutUtil.RECORD_CONSUMER);
+        }
     }
 
     public static void main(String... args) {
@@ -86,7 +87,7 @@ public final class ExamplesCombinedFile {
             test1(Path.of(args[0], "Combined_ConfigFile_1.ini"),
                     Path.of(args[0], "Combined_SingleValueFile_1.txt"),
                     LineSeparator.systemLineSeparator());
-        } catch (ProducerException | ConsumerException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

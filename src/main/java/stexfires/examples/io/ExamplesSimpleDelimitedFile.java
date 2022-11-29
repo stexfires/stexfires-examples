@@ -55,7 +55,7 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        var simpleDelimitedFile =
+        var fileSpec =
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -66,29 +66,27 @@ public final class ExamplesSimpleDelimitedFile {
                         1,
                         0,
                         false,
-                        false)
-                        .file(path);
+                        false);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), simpleDelimitedFile);
+        RecordFiles.writeFile(generateStream(), fileSpec, path);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test2---");
 
-        var singleValueFileWrite =
+        var singleValueFileWriteSpec =
                 SingleValueFileSpec.write(
-                                           CharsetCoding.UTF_8_REPORTING,
-                                           lineSeparator,
-                                           WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                           WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                                           false)
-                                   .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        false);
 
         // Write
         System.out.println("write (prepare read with SingleValueFile): " + path);
@@ -106,26 +104,25 @@ public final class ExamplesSimpleDelimitedFile {
                 new ValueFieldRecord(" , , ,"),
                 new ValueFieldRecord("Footer")
         );
-        RecordFiles.writeFile(oneValueRecordStream, singleValueFileWrite);
+        RecordFiles.writeFile(oneValueRecordStream, singleValueFileWriteSpec, path);
 
         List<SimpleDelimitedFieldSpec> fieldSpecs = new ArrayList<>();
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        var simpleDelimitedFile =
+        var simpleDelimitedFileSpec =
                 SimpleDelimitedFileSpec.read(
-                                               CharsetCoding.UTF_8_REPORTING,
-                                               ",",
-                                               fieldSpecs,
-                                               2,
-                                               1,
-                                               true,
-                                               true)
-                                       .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        ",",
+                        fieldSpecs,
+                        2,
+                        1,
+                        true,
+                        true);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(simpleDelimitedFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(simpleDelimitedFileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     public static void main(String... args) {

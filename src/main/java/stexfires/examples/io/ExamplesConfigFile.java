@@ -86,20 +86,19 @@ public final class ExamplesConfigFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var file =
+        var fileSpec =
                 new ConfigFileSpec(
                         CharsetCoding.reportingErrors(ISO_8859_1),
                         lineSeparator,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER)
-                        .file(path);
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), file);
+        RecordFiles.writeFile(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), fileSpec, path);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(file, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     public static void main(String... args) {

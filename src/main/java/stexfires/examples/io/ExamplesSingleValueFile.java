@@ -72,7 +72,7 @@ public final class ExamplesSingleValueFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var singleValueFile =
+        var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.reportingErrors(US_ASCII),
                         lineSeparator,
@@ -81,56 +81,53 @@ public final class ExamplesSingleValueFile {
                         true,
                         0,
                         0,
-                        false)
-                        .file(path);
+                        false);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(new ValueFieldRecord("1. Test"), singleValueFile);
-        RecordFiles.writeFile(new ValueFieldRecord(""), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new ValueFieldRecord(null), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new ValueFieldRecord("4. Test"), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new KeyValueFieldsRecord("Key", "5. Test"), singleValueFile, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new KeyValueCommentFieldsRecord("Key", "6. Test", "Comment"), singleValueFile, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new ValueFieldRecord("1. Test"), fileSpec, path);
+        RecordFiles.writeFile(new ValueFieldRecord(""), fileSpec, path, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new ValueFieldRecord(null), fileSpec, path, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new ValueFieldRecord("4. Test"), fileSpec, path, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new KeyValueFieldsRecord("Key", "5. Test"), fileSpec, path, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(new KeyValueCommentFieldsRecord("Key", "6. Test", "Comment"), fileSpec, path, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(singleValueFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test2---");
 
-        var singleValueFileWrite =
+        var fileSpecWrite =
                 SingleValueFileSpec.write(
-                                           CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
-                                           lineSeparator,
-                                           WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                           WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                                           true)
-                                   .file(path);
+                        CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
+                        lineSeparator,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        true);
 
-        var singleValueFileRead =
+        var fileSpecRead =
                 SingleValueFileSpec.read(
-                                           CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
-                                           false,
-                                           1,
-                                           1)
-                                   .file(path);
+                        CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
+                        false,
+                        1,
+                        1);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), singleValueFileWrite);
+        RecordFiles.writeFile(generateStream(), fileSpecWrite, path);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(singleValueFileRead, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpecRead, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     private static void test3(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test3---");
 
-        var singleValueFile =
+        var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -139,22 +136,21 @@ public final class ExamplesSingleValueFile {
                         false,
                         1,
                         1,
-                        true)
-                        .file(path);
+                        true);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), singleValueFile);
+        RecordFiles.writeFile(generateStream(), fileSpec, path);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(singleValueFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
-    private static void test4(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
+    private static void test4(Path path, LineSeparator lineSeparator) throws IOException {
         System.out.println("-test4---");
 
-        var singleValueFile =
+        var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -163,27 +159,26 @@ public final class ExamplesSingleValueFile {
                         false,
                         0,
                         0,
-                        false)
-                        .file(path);
+                        false);
 
         // Write
         System.out.println("write: " + path);
-        try (var singleValueConsumer = singleValueFile.openConsumer()) {
+        try (var singleValueConsumer = fileSpec.openConsumer(path)) {
             RecordIOStreams.write(generateStream(), singleValueConsumer);
         }
 
         // Read / log
         System.out.println("read/log: " + path);
-        try (var singleValueProducer = singleValueFile.openProducer()) {
+        try (var singleValueProducer = fileSpec.openProducer(path)) {
             RecordIOStreams.readAndConsume(singleValueProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
     }
 
     @SuppressWarnings("OverlyBroadThrowsClause")
-    private static void test5(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
+    private static void test5(Path path, LineSeparator lineSeparator) throws IOException {
         System.out.println("-test5---");
 
-        SingleValueFileSpec singleValueFileSpec = new SingleValueFileSpec(
+        var fileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
                 WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
@@ -195,13 +190,13 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        try (SingleValueConsumer singleValueConsumer = singleValueFileSpec.consumer(new FileOutputStream(path.toFile()))) {
+        try (SingleValueConsumer singleValueConsumer = fileSpec.consumer(new FileOutputStream(path.toFile()))) {
             RecordIOStreams.write(TextRecordStreams.empty(), singleValueConsumer);
         }
 
         // Read / log
         System.out.println("read/log: " + path);
-        try (SingleValueProducer singleValueProducer = singleValueFileSpec.producer(new FileInputStream(path.toFile()))) {
+        try (SingleValueProducer singleValueProducer = fileSpec.producer(new FileInputStream(path.toFile()))) {
             RecordIOStreams.readAndConsume(singleValueProducer, RecordSystemOutUtil.RECORD_CONSUMER);
         }
     }

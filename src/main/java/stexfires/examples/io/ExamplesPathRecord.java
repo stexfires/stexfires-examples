@@ -114,18 +114,17 @@ public final class ExamplesPathRecord {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
-        var file =
+        var fileSpec =
                 SimpleDelimitedFileSpec.write(
-                                               CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
-                                               lineSeparator,
-                                               "File name,Path,Parent,Path name count,File size",
-                                               WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                                               ",",
-                                               fieldSpecs)
-                                       .file(path.resolve("PathRecord_1.csv"));
+                        CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
+                        lineSeparator,
+                        "File name,Path,Parent,Path name count,File size",
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        ",",
+                        fieldSpecs);
 
         try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsFollowLinks(path)) {
-            RecordFiles.writeFile(pathStream, file);
+            RecordFiles.writeFile(pathStream, fileSpec, path.resolve("PathRecord_1.csv"));
         }
     }
 

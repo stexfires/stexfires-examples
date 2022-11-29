@@ -74,7 +74,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        var fixedWidthFile =
+        var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -88,54 +88,51 @@ public final class ExamplesFixedWidthFile {
                         1,
                         1,
                         true,
-                        true)
-                        .file(path);
+                        true);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
-        var fixedWidthFileAppend1 =
+        var fileSpecAppend1 =
                 FixedWidthFileSpec.write(
-                                          CharsetCoding.UTF_8_REPORTING,
-                                          lineSeparator,
-                                          WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                          WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                                          30,
-                                          true,
-                                          Alignment.START,
-                                          ' ',
-                                          fieldSpecsAppend1)
-                                  .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        30,
+                        true,
+                        Alignment.START,
+                        ' ',
+                        fieldSpecsAppend1);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
-        var fixedWidthFileAppend2 =
+        var fileSpecAppend2 =
                 FixedWidthFileSpec.write(
-                                          CharsetCoding.UTF_8_REPORTING,
-                                          lineSeparator,
-                                          WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                                          "*******************************************************",
-                                          1,
-                                          true,
-                                          Alignment.START,
-                                          '_',
-                                          fieldSpecsAppend2)
-                                  .file(path);
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        "*******************************************************",
+                        1,
+                        true,
+                        Alignment.START,
+                        '_',
+                        fieldSpecsAppend2);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream1(), fixedWidthFile);
+        RecordFiles.writeFile(generateStream1(), fileSpec, path);
 
         // Write
         System.out.println("write APPEND: " + path);
-        RecordFiles.writeFile(generateStream2(), fixedWidthFileAppend1, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(generateStream2(), fileSpecAppend1, path, StandardOpenOption.APPEND);
 
         // Write
         System.out.println("write APPEND: " + path);
-        RecordFiles.writeFile(generateStream2(), fixedWidthFileAppend2, StandardOpenOption.APPEND);
+        RecordFiles.writeFile(generateStream2(), fileSpecAppend2, path, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(fixedWidthFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
@@ -146,7 +143,7 @@ public final class ExamplesFixedWidthFile {
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
-        var fixedWidthFile =
+        var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
@@ -160,16 +157,15 @@ public final class ExamplesFixedWidthFile {
                         0,
                         0,
                         false,
-                        false)
-                        .file(path);
+                        false);
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(TextRecordStreams.concat(generateStream1(), generateStream2()), fixedWidthFile);
+        RecordFiles.writeFile(TextRecordStreams.concat(generateStream1(), generateStream2()), fileSpec, path);
 
         // Read / log
         System.out.println("read/log: " + path);
-        RecordFiles.readFile(fixedWidthFile, RecordSystemOutUtil.RECORD_CONSUMER);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     public static void main(String... args) {
