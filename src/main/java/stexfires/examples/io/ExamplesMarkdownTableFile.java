@@ -67,7 +67,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord(),
                 new ManyFieldsRecord("b", "|", "a|b|c")
         );
-        RecordFiles.writeFile(stream, fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -102,7 +102,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord(),
                 new ManyFieldsRecord("b", "|", "a|b|c")
         );
-        RecordFiles.writeFile(stream, fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
 
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
         fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10, null));
@@ -121,7 +121,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord("a"),
                 new ManyFieldsRecord("b")
         );
-        RecordFiles.writeFile(stream2, fileSpec2, path, StandardOpenOption.APPEND);
+        RecordFiles.writeStreamIntoFile(fileSpec2, stream2, path, StandardOpenOption.APPEND);
     }
 
     public static void main(String... args) {

@@ -70,7 +70,7 @@ public final class ExamplesSimpleDelimitedFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, generateStream(), path);
 
         // Read / log
         System.out.println("read/log: " + path);
@@ -104,7 +104,7 @@ public final class ExamplesSimpleDelimitedFile {
                 new ValueFieldRecord(" , , ,"),
                 new ValueFieldRecord("Footer")
         );
-        RecordFiles.writeFile(oneValueRecordStream, singleValueFileWriteSpec, path);
+        RecordFiles.writeStreamIntoFile(singleValueFileWriteSpec, oneValueRecordStream, path);
 
         List<SimpleDelimitedFieldSpec> fieldSpecs = new ArrayList<>();
         fieldSpecs.add(new SimpleDelimitedFieldSpec());

@@ -42,7 +42,7 @@ public final class ExamplesMarkdownListFile {
                 new ValueFieldRecord(null),
                 new ValueFieldRecord("d")
         );
-        RecordFiles.writeFile(stream, fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -65,7 +65,7 @@ public final class ExamplesMarkdownListFile {
                 new KeyValueFieldsRecord("key3", null),
                 new KeyValueFieldsRecord("key4", "value4")
         );
-        RecordFiles.writeFile(stream, fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
 
     public static void main(String... args) {

@@ -124,7 +124,7 @@ public final class ExamplesPathRecord {
                         fieldSpecs);
 
         try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsFollowLinks(path)) {
-            RecordFiles.writeFile(pathStream, fileSpec, path.resolve("PathRecord_1.csv"));
+            RecordFiles.writeStreamIntoFile(fileSpec, pathStream, path.resolve("PathRecord_1.csv"));
         }
     }
 

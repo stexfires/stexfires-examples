@@ -85,12 +85,12 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(new ValueFieldRecord("1. Test"), fileSpec, path);
-        RecordFiles.writeFile(new ValueFieldRecord(""), fileSpec, path, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new ValueFieldRecord(null), fileSpec, path, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new ValueFieldRecord("4. Test"), fileSpec, path, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new KeyValueFieldsRecord("Key", "5. Test"), fileSpec, path, StandardOpenOption.APPEND);
-        RecordFiles.writeFile(new KeyValueCommentFieldsRecord("Key", "6. Test", "Comment"), fileSpec, path, StandardOpenOption.APPEND);
+        RecordFiles.writeRecordIntoFile(fileSpec, new ValueFieldRecord("1. Test"), path);
+        RecordFiles.writeRecordIntoFile(fileSpec, new ValueFieldRecord(""), path, StandardOpenOption.APPEND);
+        RecordFiles.writeRecordIntoFile(fileSpec, new ValueFieldRecord(null), path, StandardOpenOption.APPEND);
+        RecordFiles.writeRecordIntoFile(fileSpec, new ValueFieldRecord("4. Test"), path, StandardOpenOption.APPEND);
+        RecordFiles.writeRecordIntoFile(fileSpec, new KeyValueFieldsRecord("Key", "5. Test"), path, StandardOpenOption.APPEND);
+        RecordFiles.writeRecordIntoFile(fileSpec, new KeyValueCommentFieldsRecord("Key", "6. Test", "Comment"), path, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);
@@ -117,7 +117,7 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), fileSpecWrite, path);
+        RecordFiles.writeStreamIntoFile(fileSpecWrite, generateStream(), path);
 
         // Read / log
         System.out.println("read/log: " + path);
@@ -140,7 +140,7 @@ public final class ExamplesSingleValueFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream(), fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, generateStream(), path);
 
         // Read / log
         System.out.println("read/log: " + path);

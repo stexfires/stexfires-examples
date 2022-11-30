@@ -73,7 +73,7 @@ public final class ExamplesHtmlTableFile {
                 new KeyValueFieldsRecord("Section2", 10L, "property6", "value6/section2"),
                 new KeyValueFieldsRecord(lineSeparator.string(), 13L, "property13", "value13")
         );
-        RecordFiles.writeFile(stream.map(AddTextMapper.category()::map), fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream.map(AddTextMapper.category()::map), path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -109,7 +109,7 @@ public final class ExamplesHtmlTableFile {
                 new ManyFieldsRecord(Stream.of("A4", "B4", "C4", "D4", "E4")),
                 new ManyFieldsRecord()
         );
-        RecordFiles.writeFile(stream, fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
 
     public static void main(String... args) {

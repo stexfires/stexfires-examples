@@ -120,15 +120,15 @@ public final class ExamplesFixedWidthFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(generateStream1(), fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, generateStream1(), path);
 
         // Write
         System.out.println("write APPEND: " + path);
-        RecordFiles.writeFile(generateStream2(), fileSpecAppend1, path, StandardOpenOption.APPEND);
+        RecordFiles.writeStreamIntoFile(fileSpecAppend1, generateStream2(), path, StandardOpenOption.APPEND);
 
         // Write
         System.out.println("write APPEND: " + path);
-        RecordFiles.writeFile(generateStream2(), fileSpecAppend2, path, StandardOpenOption.APPEND);
+        RecordFiles.writeStreamIntoFile(fileSpecAppend2, generateStream2(), path, StandardOpenOption.APPEND);
 
         // Read / log
         System.out.println("read/log: " + path);
@@ -161,7 +161,7 @@ public final class ExamplesFixedWidthFile {
 
         // Write
         System.out.println("write: " + path);
-        RecordFiles.writeFile(TextRecordStreams.concat(generateStream1(), generateStream2()), fileSpec, path);
+        RecordFiles.writeStreamIntoFile(fileSpec, TextRecordStreams.concat(generateStream1(), generateStream2()), path);
 
         // Read / log
         System.out.println("read/log: " + path);
