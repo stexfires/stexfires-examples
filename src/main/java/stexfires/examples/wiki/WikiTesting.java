@@ -83,7 +83,7 @@ public final class WikiTesting {
                 r -> "[" + r.textAt(1).replace("http://", "").replace("https://", "")
                         + "]" + "(" + r.textAt(1) + ")");
 
-        RecordIOStreams.convert(producer, mapper, consumer);
+        RecordIOStreams.transferMapped(producer, consumer, mapper);
     }
 
     private static void convertToMarkdownList(String title, SimpleDelimitedProducer producer,
@@ -95,7 +95,7 @@ public final class WikiTesting {
                                                                           r -> "[" + r.textAt(0) + "]" + "(" + r.textAt(1) + ")")
                                                                   .andThen(new ToValueFieldRecordMapper<>(new TextMessage<>(0)));
 
-        RecordIOStreams.convert(producer, mapper, consumer);
+        RecordIOStreams.transferMapped(producer, consumer, mapper);
     }
 
     @SuppressWarnings("OverlyBroadCatchBlock")

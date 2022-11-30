@@ -182,7 +182,7 @@ public final class CharacterTest {
         );
 
         try (MarkdownTableConsumer consumer = consumerFileSpec.consumer(new FileOutputStream(outputFile))) {
-            RecordIOStreams.write(recordStream, consumer);
+            RecordIOStreams.writeStream(consumer, recordStream);
         }
     }
 

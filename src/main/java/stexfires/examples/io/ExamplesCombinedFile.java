@@ -62,7 +62,8 @@ public final class ExamplesCombinedFile {
         try (var configConsumer = configFileSpec.openFileAsConsumer(pathConfig);
              var singleValueConsumer = singleValueFileSpec.openFileAsConsumer(pathSingleValue);
              var combinedConsumer = new CombinedWritableRecordConsumer<>(configConsumer, singleValueConsumer)) {
-            RecordIOStreams.write(generateStream(), new ConfigModifier<>(Locale.ENGLISH, 0, 1, true), combinedConsumer);
+            RecordIOStreams.writeStream(combinedConsumer,
+                    new ConfigModifier<KeyValueRecord>(Locale.ENGLISH, 0, 1, true).modify(generateStream()));
         }
 
         // Read / log

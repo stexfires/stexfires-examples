@@ -164,7 +164,7 @@ public final class ExamplesSingleValueFile {
         // Write
         System.out.println("write: " + path);
         try (var singleValueConsumer = fileSpec.openFileAsConsumer(path)) {
-            RecordIOStreams.write(generateStream(), singleValueConsumer);
+            RecordIOStreams.writeStream(singleValueConsumer, generateStream());
         }
 
         // Read / log
@@ -191,7 +191,7 @@ public final class ExamplesSingleValueFile {
         // Write
         System.out.println("write: " + path);
         try (SingleValueConsumer singleValueConsumer = fileSpec.consumer(new FileOutputStream(path.toFile()))) {
-            RecordIOStreams.write(TextRecordStreams.empty(), singleValueConsumer);
+            RecordIOStreams.writeStream(singleValueConsumer, TextRecordStreams.empty());
         }
 
         // Read / log
