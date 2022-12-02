@@ -388,6 +388,8 @@ public final class ExamplesStringFunction {
         printUnaryOperator(StringUnaryOperators.substring(2, 4), "substring 2 4");
         printUnaryOperator(StringUnaryOperators.removeFromStart(2), "removeFromStart 2");
         printUnaryOperator(StringUnaryOperators.removeFromEnd(2), "removeFromEnd 2");
+        printUnaryOperator(StringUnaryOperators.removeStringFromStart("a"), "removeStringFromStart a");
+        printUnaryOperator(StringUnaryOperators.removeStringFromEnd("c"), "removeStringFromEnd c");
         printUnaryOperator(StringUnaryOperators.keepFromStart(2), "keepFromStart 2");
         printUnaryOperator(StringUnaryOperators.keepFromEnd(2), "keepFromEnd 2");
         printUnaryOperator(StringUnaryOperators.padStart("<->", 5), "padStart 5");
