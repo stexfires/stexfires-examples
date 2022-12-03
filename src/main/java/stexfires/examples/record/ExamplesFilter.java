@@ -24,12 +24,14 @@ import stexfires.record.mapper.impl.ToValueFieldRecordMapper;
 import stexfires.record.message.CategoryMessage;
 import stexfires.record.message.TextMessage;
 import stexfires.util.Strings;
+import stexfires.util.function.BooleanUnaryOperator;
 import stexfires.util.function.NumberPredicates;
 import stexfires.util.function.StringPredicates;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -152,6 +154,12 @@ public final class ExamplesFilter {
     private static void showRecordFilter() {
         System.out.println("-showRecordFilter---");
 
+        Predicate<TextRecord> predicate = record -> false;
+        printFilter("ofPredicate",
+                RecordFilter.ofPredicate(predicate));
+        Function<TextRecord, Boolean> function = record -> false;
+        printFilter("ofFunction",
+                RecordFilter.ofFunction(function));
         printFilter("concatAnd",
                 RecordFilter.concatAnd(ClassFilter.equalTo(ManyFieldsRecord.class), SizeFilter.equalTo(8)));
         printFilter("concatAnd Stream",
@@ -160,12 +168,16 @@ public final class ExamplesFilter {
                 RecordFilter.concatOr(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class)));
         printFilter("concatOr Stream",
                 RecordFilter.concatOr(Stream.of(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class))));
+        printFilter("not",
+                RecordFilter.not(ClassFilter.equalTo(ManyFieldsRecord.class)));
         printFilter("and",
                 ClassFilter.equalTo(ManyFieldsRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
                 SizeFilter.equalTo(1).negate());
         printFilter("or",
                 ClassFilter.equalTo(ManyFieldsRecord.class).or(ClassFilter.equalTo(KeyValueFieldsRecord.class)));
+        printFilter("andThen NOT",
+                ClassFilter.equalTo(ManyFieldsRecord.class).andThen(BooleanUnaryOperator.NOT()));
     }
 
     private static void showRecordIdFilter() {
