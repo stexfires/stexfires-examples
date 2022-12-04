@@ -33,7 +33,7 @@ public final class ExamplesIO {
     private ExamplesIO() {
     }
 
-    private static void showRead() throws IOException, UncheckedProducerException {
+    private static void showRead() throws UncheckedProducerException {
         System.out.println("-showRead---");
 
         var fileSpec = SingleValueFileSpec.read(
