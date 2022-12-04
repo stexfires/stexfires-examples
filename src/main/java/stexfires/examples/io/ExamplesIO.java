@@ -7,6 +7,7 @@ import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.UncheckedConsumerException;
+import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.mapper.CategoryMapper;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 import static stexfires.examples.record.RecordSystemOutUtil.RECORD_CONSUMER;
 import static stexfires.examples.record.RecordSystemOutUtil.printlnOptionalRecord;
+import static stexfires.examples.record.RecordSystemOutUtil.printlnRecord;
 import static stexfires.examples.record.RecordSystemOutUtil.printlnRecordList;
 import static stexfires.io.RecordIOStreams.*;
 
@@ -143,6 +145,13 @@ public final class ExamplesIO {
                     writeRecord(stringWritableRecordConsumer, keyValueFieldsRecord10)
                             .consumedString(true));
         }
+
+        System.out.println("---writeStreamIntoRecord");
+        printlnRecord(writeStreamIntoRecord(
+                fileSpecCompact,
+                true,
+                TextRecordStreams.filter(listValueRecords.stream(),
+                        TextFilter.isNotNull(ValueRecord::valueField))));
     }
 
     public static void main(String... args) {
