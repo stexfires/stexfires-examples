@@ -24,12 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber"})
+@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber", "SpellCheckingInspection"})
 public final class ExamplesFixedWidthFile {
 
     private ExamplesFixedWidthFile() {
     }
 
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
     private static Stream<TextRecord> generateStream1() {
         return Stream.of(
                 new ManyFieldsRecord(null, -1L, "######", "######", "######", "######"),

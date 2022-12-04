@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "HardcodedLineSeparator", "SpellCheckingInspection"})
 public final class ExamplesStrings {
 
     private ExamplesStrings() {
@@ -175,6 +175,7 @@ public final class ExamplesStrings {
         System.out.println(Strings.stream("a", "b", "c", "d", "e", "f", "E", "e").collect(Strings.modifyAndJoinCollector(Strings.modifyListSwap(2, 4), "-")));
     }
 
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
     private static void showStringsSplit() {
         System.out.println("-showStringsSplit---");
 
@@ -198,6 +199,7 @@ public final class ExamplesStrings {
         System.out.println(Strings.collect(Strings.splitTextByCharacterBreaks(text, Locale.ENGLISH)));
     }
 
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
     private static void showStringsSplitFunction() {
         System.out.println("-showStringsSplitFunction---");
 

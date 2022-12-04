@@ -23,12 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber"})
+@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber", "SpellCheckingInspection"})
 public final class ExamplesSimpleDelimitedFile {
 
     private ExamplesSimpleDelimitedFile() {
     }
 
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
     private static Stream<TextRecord> generateStream() {
         return Stream.of(
                 new ManyFieldsRecord(null, 0L, "a", "0", "AAAA", "ä"),

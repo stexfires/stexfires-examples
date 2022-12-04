@@ -32,6 +32,7 @@ import java.util.List;
 @SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class WikiTesting {
 
+    @SuppressWarnings("SpellCheckingInspection")
     private static final String RESOURCE_PATH = "stexfires/examples/wiki/";
     private static final int TITLE_MIN_WIDTH = 100;
     private static final int LINK_MIN_WIDTH = 200;
@@ -72,7 +73,7 @@ public final class WikiTesting {
                 true);
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings("DataFlowIssue")
     private static void convertToMarkdownTable(String title, SimpleDelimitedProducer producer,
                                                OutputStream outputStream)
             throws ProducerException, ConsumerException, IOException {

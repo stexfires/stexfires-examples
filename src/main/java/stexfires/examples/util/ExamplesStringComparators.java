@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class ExamplesStringComparators {
 
     private ExamplesStringComparators() {
     }
 
-    @SuppressWarnings("StaticCollection")
+    @SuppressWarnings({"StaticCollection", "UnnecessaryUnicodeEscape"})
     private static final List<String> STRING_VALUES = List.of(
             "!",
             "0",

@@ -34,6 +34,7 @@ public final class ExamplesSingleValueFile {
     private ExamplesSingleValueFile() {
     }
 
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
     private static Stream<ValueRecord> generateStream() {
         return Stream.of(
                 new ValueFieldRecord("Start---"),
