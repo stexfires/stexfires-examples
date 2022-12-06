@@ -26,6 +26,7 @@ import stexfires.record.message.ShortMessage;
 import stexfires.record.message.SizeMessage;
 import stexfires.record.message.SupplierMessage;
 import stexfires.record.message.TextMessage;
+import stexfires.record.message.ToIdentityStringMessage;
 import stexfires.record.message.ToStringMessage;
 import stexfires.util.Strings;
 import stexfires.util.function.Suppliers;
@@ -234,6 +235,15 @@ public final class ExamplesMessage {
                 new SupplierMessage<>(Suppliers.sequenceAsString(0L)));
     }
 
+    private static void showToIdentityStringMessage() {
+        System.out.println("-showToIdentityStringMessage---");
+
+        printMessage("constructor",
+                new ToIdentityStringMessage<>());
+        printMessageKeyValueRecord("constructor KeyValueFieldsRecord",
+                new ToIdentityStringMessage<>());
+    }
+
     private static void showToStringMessage() {
         System.out.println("-showToStringMessage---");
 
@@ -283,6 +293,7 @@ public final class ExamplesMessage {
         showShortMessage();
         showSizeMessage();
         showSupplierMessage();
+        showToIdentityStringMessage();
         showToStringMessage();
         showValueMessage();
     }
