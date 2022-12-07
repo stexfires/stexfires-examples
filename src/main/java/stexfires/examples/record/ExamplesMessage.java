@@ -199,6 +199,8 @@ public final class ExamplesMessage {
                 new RecordIdMessage<>());
         printMessage("constructor prefix missingRecordIdMessage",
                 new RecordIdMessage<>("", "-"));
+        printMessage("constructor prefix missingRecordIdMessage",
+                new RecordIdMessage<>(null, null));
         printMessageKeyValueRecord("constructor prefix missingRecordIdMessage KeyValueFieldsRecord",
                 new RecordIdMessage<>(RecordIdMessage.DEFAULT_PREFIX, "-"));
     }
