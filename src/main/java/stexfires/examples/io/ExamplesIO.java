@@ -83,6 +83,10 @@ public final class ExamplesIO {
 
         System.out.println("---producer(sourceString) readAndConsume");
         readAndConsume(fileSpec.producer(sourceString), RECORD_CONSUMER);
+
+        System.out.println("---readFromString andCollect");
+        printlnRecordList(
+                readFromString(fileSpec, sourceString, andCollect(Collectors.toList())));
     }
 
     private static void showWrite() throws IOException, UncheckedConsumerException {
