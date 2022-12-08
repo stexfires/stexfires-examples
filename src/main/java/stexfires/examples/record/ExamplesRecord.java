@@ -31,17 +31,20 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println("commentField:              " + record.commentField());
             System.out.println("comment:                   " + record.comment());
             System.out.println("commentIndex:              " + record.commentIndex());
             System.out.println("commentAsOptional:         " + record.commentAsOptional());
+            System.out.println("commentAsStream:           " + Strings.join(record.commentAsStream()));
             System.out.println("withComment:               " + record.withComment("new comment"));
             System.out.println();
         }
@@ -50,17 +53,20 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println("commentField:              " + record.commentField());
             System.out.println("comment:                   " + record.comment());
             System.out.println("commentIndex:              " + record.commentIndex());
             System.out.println("commentAsOptional:         " + record.commentAsOptional());
+            System.out.println("commentAsStream:           " + Strings.join(record.commentAsStream()));
             System.out.println("withComment:               " + record.withComment("new comment"));
             System.out.println();
         }
@@ -69,17 +75,20 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println("commentField:              " + record.commentField());
             System.out.println("comment:                   " + record.comment());
             System.out.println("commentIndex:              " + record.commentIndex());
             System.out.println("commentAsOptional:         " + record.commentAsOptional());
+            System.out.println("commentAsStream:           " + Strings.join(record.commentAsStream()));
             System.out.println("withComment:               " + record.withComment("new comment"));
             System.out.println();
         }
@@ -93,12 +102,14 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }
@@ -107,12 +118,14 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }
@@ -121,12 +134,14 @@ public final class ExamplesRecord {
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
+            System.out.println("keyAsStream:               " + Strings.join(record.keyAsStream()));
             System.out.println("keyIndex:                  " + record.keyIndex());
             System.out.println("withKey:                   " + record.withKey("newKey"));
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }
@@ -187,6 +202,7 @@ public final class ExamplesRecord {
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }
@@ -197,6 +213,7 @@ public final class ExamplesRecord {
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }
@@ -207,6 +224,7 @@ public final class ExamplesRecord {
             System.out.println("value:                     " + record.value());
             System.out.println("valueIndex:                " + record.valueIndex());
             System.out.println("valueAsOptional:           " + record.valueAsOptional());
+            System.out.println("valueAsStream:             " + Strings.join(record.valueAsStream()));
             System.out.println("withValue:                 " + record.withValue("new value"));
             System.out.println();
         }

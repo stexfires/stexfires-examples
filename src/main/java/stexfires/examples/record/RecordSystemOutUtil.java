@@ -10,6 +10,7 @@ import stexfires.record.message.JoinedTextsMessage;
 import stexfires.record.message.NullSafeMessage;
 import stexfires.record.message.RecordMessage;
 import stexfires.record.message.ShortMessage;
+import stexfires.util.Strings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,6 +68,8 @@ public final class RecordSystemOutUtil {
         System.out.println("listOfFields:              " + record.listOfFields());
         System.out.println("listOfFieldsReversed:      " + record.listOfFieldsReversed());
         System.out.println("streamOfFields:            " + TextFields.collectFields(record.streamOfFields()));
+        System.out.println("streamOfTexts:             " + Strings.join(record.streamOfTexts()));
+        System.out.println("streamOfTextsAsOptional:   " + Strings.join(record.streamOfTextsAsOptional().flatMap(Optional::stream)));
         System.out.println("category:                  " + record.category());
         System.out.println("hasCategory:               " + record.hasCategory());
         System.out.println("categoryAsOptional:        " + record.categoryAsOptional());
