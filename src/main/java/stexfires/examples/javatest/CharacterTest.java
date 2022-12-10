@@ -175,8 +175,8 @@ public final class CharacterTest {
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
                 CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
-                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                 fieldSpecsConsumer,
                 MarkdownTableFileSpec.DEFAULT_ALIGNMENT
         );

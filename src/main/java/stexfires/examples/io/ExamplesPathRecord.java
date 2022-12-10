@@ -1,7 +1,6 @@
 package stexfires.examples.io;
 
 import stexfires.io.RecordFiles;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
 import stexfires.io.path.DosPathRecord;
@@ -119,7 +118,7 @@ public final class ExamplesPathRecord {
                         CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
                         lineSeparator,
                         "File name,Path,Parent,Path name count,File size",
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         ",",
                         fieldSpecs);
 

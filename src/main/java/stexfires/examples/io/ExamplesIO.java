@@ -1,7 +1,6 @@
 package stexfires.examples.io;
 
 import stexfires.io.StringWritableRecordConsumer;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
@@ -107,8 +106,8 @@ public final class ExamplesIO {
                 CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.LF,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                 true);
 
         ValueFieldRecord valueFieldRecord1 = new ValueFieldRecord("category_ValueFieldRecord", 1L, "value_ValueFieldRecord");

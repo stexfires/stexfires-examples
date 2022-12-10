@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
 import stexfires.io.RecordFiles;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
 import stexfires.io.singlevalue.SingleValueFileSpec;
@@ -61,7 +60,7 @@ public final class ExamplesSimpleDelimitedFile {
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         "Column0,Column1,Column2,Column3",
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         ",",
                         fieldSpecs,
                         1,
@@ -86,8 +85,8 @@ public final class ExamplesSimpleDelimitedFile {
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         false);
 
         // Write

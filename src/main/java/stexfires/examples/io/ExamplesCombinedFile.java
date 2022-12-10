@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
 import stexfires.io.RecordIOStreams;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.combined.CombinedReadableRecordProducer;
 import stexfires.io.combined.CombinedWritableRecordConsumer;
 import stexfires.io.config.ConfigFileSpec;
@@ -50,7 +49,7 @@ public final class ExamplesCombinedFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, true,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, true,
                         SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
                         0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
                 );

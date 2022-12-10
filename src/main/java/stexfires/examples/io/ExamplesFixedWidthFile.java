@@ -2,7 +2,6 @@ package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
 import stexfires.io.RecordFiles;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.fixedwidth.FixedWidthFieldSpec;
 import stexfires.io.fixedwidth.FixedWidthFileSpec;
 import stexfires.record.TextRecord;
@@ -79,8 +78,8 @@ public final class ExamplesFixedWidthFile {
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         20,
                         true,
                         Alignment.START,
@@ -97,8 +96,8 @@ public final class ExamplesFixedWidthFile {
                 FixedWidthFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         30,
                         true,
                         Alignment.START,
@@ -111,7 +110,7 @@ public final class ExamplesFixedWidthFile {
                 FixedWidthFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         "*******************************************************",
                         1,
                         true,
@@ -148,8 +147,8 @@ public final class ExamplesFixedWidthFile {
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         20,
                         false,
                         Alignment.START,
