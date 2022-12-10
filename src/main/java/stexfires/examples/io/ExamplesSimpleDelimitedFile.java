@@ -58,7 +58,9 @@ public final class ExamplesSimpleDelimitedFile {
         var fileSpec =
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        ",", 1, 0, false, false, lineSeparator,
+                        ",",
+                        0, 1, 0, false, false,
+                        lineSeparator,
                         "Column0,Column1,Column2,Column3",
                         SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         fieldSpecs
@@ -80,7 +82,7 @@ public final class ExamplesSimpleDelimitedFile {
                 SingleValueFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX, lineSeparator,
-                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        "!!!Example for skip!!!",
                         SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         false);
 
@@ -110,7 +112,9 @@ public final class ExamplesSimpleDelimitedFile {
                 SimpleDelimitedFileSpec.read(
                         CharsetCoding.UTF_8_REPORTING,
                         ",",
-                        2, 1, true, true, fieldSpecs
+                        1, 2, 1,
+                        true, true,
+                        fieldSpecs
                 );
 
         // Read / log

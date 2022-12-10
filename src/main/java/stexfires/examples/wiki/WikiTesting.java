@@ -47,7 +47,9 @@ public final class WikiTesting {
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
         return SimpleDelimitedFileSpec.read(CharsetCoding.UTF_8_REPORTING,
                 "\t",
-                0, 0, true, true, fieldSpecsProducer
+                0, 0, 0,
+                true, true,
+                fieldSpecsProducer
         );
     }
 

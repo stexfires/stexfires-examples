@@ -127,8 +127,9 @@ public final class ExamplesContainer {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
-        SimpleDelimitedFileSpec fileSpec = new SimpleDelimitedFileSpec(CharsetCoding.UTF_8_REPORTING, ";", 0, 0, false, false, LineSeparator.LF,
-                null, null,
+        SimpleDelimitedFileSpec fileSpec = new SimpleDelimitedFileSpec(CharsetCoding.UTF_8_REPORTING, ";",
+                0, 0, 0, false, false,
+                LineSeparator.LF, null, null,
                 fieldSpecs
         );
 
