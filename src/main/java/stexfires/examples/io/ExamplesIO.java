@@ -41,7 +41,7 @@ public final class ExamplesIO {
         var fileSpec = SingleValueFileSpec.read(
                 CharsetCoding.UTF_8_REPORTING,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
+                SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
                 true,
                 1,
                 0);

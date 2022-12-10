@@ -77,14 +77,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.reportingErrors(US_ASCII),
                         lineSeparator,
-                        " - ",
-                        null,
-                        null,
-                        false,
-                        false,
-                        0,
-                        0,
-                        false);
+                        null, null, false, false, false, 0, 0, " - "
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -117,7 +111,7 @@ public final class ExamplesSingleValueFile {
                 SingleValueFileSpec.read(
                         CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                        SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
                         false,
                         1,
                         1);
@@ -138,14 +132,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                        "Header---",
-                        "Footer---",
-                        SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
-                        false,
-                        1,
-                        1,
-                        true);
+                        "Header---", "Footer---", true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 1, 1, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -163,14 +151,8 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                        WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                        SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
-                        false,
-                        0,
-                        0,
-                        false);
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -192,14 +174,8 @@ public final class ExamplesSingleValueFile {
         var fileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
-                SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
-                WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
-                SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
-                false,
-                0,
-                0,
-                false);
+                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+        );
 
         // Write
         System.out.println("write: " + path);
