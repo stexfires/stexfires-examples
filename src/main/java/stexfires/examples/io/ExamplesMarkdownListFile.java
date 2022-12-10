@@ -1,5 +1,6 @@
 package stexfires.examples.io;
 
+import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.list.MarkdownListFileSpec;
 import stexfires.record.KeyValueRecord;
@@ -27,10 +28,10 @@ public final class ExamplesMarkdownListFile {
 
         var fileSpec =
                 MarkdownListFileSpec.write(
-                        CharsetCoding.UTF_8_REPORTING,
+                        RecordFileSpec.DEFAULT_CHARSET_CODING,
                         lineSeparator,
-                        "Header ValueFieldRecord",
-                        "Footer ValueFieldRecord",
+                        MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         MarkdownListFileSpec.BulletPoint.NUMBER,
                         true);
 
@@ -38,9 +39,10 @@ public final class ExamplesMarkdownListFile {
         System.out.println("write: " + path);
         Stream<ValueRecord> stream = TextRecordStreams.of(
                 new ValueFieldRecord("a"),
-                new ValueFieldRecord("b"),
+                new ValueFieldRecord(" b "),
                 new ValueFieldRecord(null),
-                new ValueFieldRecord("d")
+                new ValueFieldRecord("   "),
+                new ValueFieldRecord("e")
         );
         RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
@@ -61,9 +63,10 @@ public final class ExamplesMarkdownListFile {
         System.out.println("write: " + path);
         Stream<KeyValueRecord> stream = TextRecordStreams.of(
                 new KeyValueFieldsRecord("key1", "value1"),
-                new KeyValueFieldsRecord("key2", "value2"),
+                new KeyValueFieldsRecord("key2", " value2 "),
                 new KeyValueFieldsRecord("key3", null),
-                new KeyValueFieldsRecord("key4", "value4")
+                new KeyValueFieldsRecord("key4", "   "),
+                new KeyValueFieldsRecord("key4", "value5")
         );
         RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
