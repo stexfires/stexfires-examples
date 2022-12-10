@@ -50,8 +50,10 @@ public final class ExamplesCombinedFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                         WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
                         WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
+                        SingleValueFileSpec.DEFAULT_TRIM_TO_EMPTY,
                         true,
                         0,
                         0,

@@ -85,6 +85,7 @@ public final class ExamplesSimpleDelimitedFile {
                 SingleValueFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                         WritableRecordFileSpec.DEFAULT_TEXT_BEFORE,
                         WritableRecordFileSpec.DEFAULT_TEXT_AFTER,
                         false);
