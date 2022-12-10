@@ -77,31 +77,20 @@ public final class ExamplesFixedWidthFile {
         var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
+                        20, true, Alignment.START, '_', 1, 1, true, true, lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        20,
-                        true,
-                        Alignment.START,
-                        '_',
-                        fieldSpecs,
-                        1,
-                        1,
-                        true,
-                        true);
+                        fieldSpecs
+                );
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
         var fileSpecAppend1 =
                 FixedWidthFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
+                        30, true, Alignment.START, ' ', lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        30,
-                        true,
-                        Alignment.START,
-                        ' ',
                         fieldSpecsAppend1);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
@@ -109,13 +98,9 @@ public final class ExamplesFixedWidthFile {
         var fileSpecAppend2 =
                 FixedWidthFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
+                        1, true, Alignment.START, '_', lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         "*******************************************************",
-                        1,
-                        true,
-                        Alignment.START,
-                        '_',
                         fieldSpecsAppend2);
 
         // Write
@@ -146,18 +131,11 @@ public final class ExamplesFixedWidthFile {
         var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
+                        20, false, Alignment.START, ' ', 0, 0, false, false, lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        20,
-                        false,
-                        Alignment.START,
-                        ' ',
-                        fieldSpecs,
-                        0,
-                        0,
-                        false,
-                        false);
+                        fieldSpecs
+                );
 
         // Write
         System.out.println("write: " + path);

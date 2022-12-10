@@ -47,8 +47,8 @@ public final class ExamplesMarkdownTableFile {
                         lineSeparator,
                         "Header",
                         "Footer",
-                        fieldSpecs,
-                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT);
+                        MarkdownTableFileSpec.DEFAULT_CONSUMER_ALIGNMENT, fieldSpecs
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -82,8 +82,8 @@ public final class ExamplesMarkdownTableFile {
                         lineSeparator,
                         MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        fieldSpecs,
-                        MarkdownTableFileSpec.DEFAULT_ALIGNMENT);
+                        MarkdownTableFileSpec.DEFAULT_CONSUMER_ALIGNMENT, fieldSpecs
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -111,8 +111,8 @@ public final class ExamplesMarkdownTableFile {
                         lineSeparator,
                         lineSeparator.string(2) + "Header second table",
                         "Footer second table",
-                        fieldSpecs2,
-                        Alignment.START);
+                        Alignment.START, fieldSpecs2
+                );
 
         // Write
         System.out.println("write APPEND: " + path);

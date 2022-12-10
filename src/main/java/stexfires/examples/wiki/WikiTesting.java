@@ -47,8 +47,8 @@ public final class WikiTesting {
         fieldSpecsProducer.add(new SimpleDelimitedFieldSpec());
         return SimpleDelimitedFileSpec.read(CharsetCoding.UTF_8_REPORTING,
                 "\t",
-                fieldSpecsProducer,
-                0, 0, true, true);
+                0, 0, true, true, fieldSpecsProducer
+        );
     }
 
     private static MarkdownTableFileSpec createTableConsumerFileSpec(String title) {
@@ -59,8 +59,8 @@ public final class WikiTesting {
                 LineSeparator.CR_LF,
                 title,
                 "",
-                fieldSpecsConsumer,
-                Alignment.START);
+                Alignment.START, fieldSpecsConsumer
+        );
     }
 
     private static MarkdownListFileSpec createListConsumerFileSpec(String title) {
@@ -68,7 +68,7 @@ public final class WikiTesting {
                 LineSeparator.CR_LF,
                 title,
                 "",
-                MarkdownListFileSpec.DEFAULT_BULLET_POINT,
+                MarkdownListFileSpec.DEFAULT_CONSUMER_BULLET_POINT,
                 true);
     }
 

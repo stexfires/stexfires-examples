@@ -116,10 +116,9 @@ public final class ExamplesPathRecord {
         var fileSpec =
                 SimpleDelimitedFileSpec.write(
                         CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
-                        lineSeparator,
+                        ",", lineSeparator,
                         "File name,Path,Parent,Path name count,File size",
                         SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        ",",
                         fieldSpecs);
 
         try (Stream<DosPathRecord> pathStream = PathRecords.listDosPathRecordsFollowLinks(path)) {

@@ -89,8 +89,8 @@ public final class ExamplesConfigFile {
         var fileSpec =
                 new ConfigFileSpec(
                         CharsetCoding.reportingErrors(ISO_8859_1),
-                        lineSeparator,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER);
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER, lineSeparator
+                );
 
         // Write
         System.out.println("write: " + path);

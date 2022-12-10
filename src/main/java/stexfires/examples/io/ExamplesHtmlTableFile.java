@@ -45,8 +45,8 @@ public final class ExamplesHtmlTableFile {
                                 + "<body>" + lineSeparator
                                 + "  <h1>Header</h1>",
                         "</body>" + lineSeparator + "</html>",
-                        fieldSpecs,
-                        "  ");
+                        "  ", fieldSpecs
+                );
 
         // Write
         System.out.println("write: " + path);
@@ -96,8 +96,8 @@ public final class ExamplesHtmlTableFile {
                                 + "<body>" + lineSeparator
                                 + "  <h1>Header</h1>",
                         "</body>" + lineSeparator + "</html>",
-                        fieldSpecs,
-                        "  ");
+                        "  ", fieldSpecs
+                );
 
         // Write
         System.out.println("write: " + path);

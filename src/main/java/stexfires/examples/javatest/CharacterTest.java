@@ -1,7 +1,6 @@
 package stexfires.examples.javatest;
 
 import stexfires.io.RecordIOStreams;
-import stexfires.io.WritableRecordFileSpec;
 import stexfires.io.markdown.table.MarkdownTableConsumer;
 import stexfires.io.markdown.table.MarkdownTableFieldSpec;
 import stexfires.io.markdown.table.MarkdownTableFileSpec;
@@ -177,8 +176,7 @@ public final class CharacterTest {
                 LineSeparator.CR_LF,
                 MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                 MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                fieldSpecsConsumer,
-                MarkdownTableFileSpec.DEFAULT_ALIGNMENT
+                MarkdownTableFileSpec.DEFAULT_CONSUMER_ALIGNMENT, fieldSpecsConsumer
         );
 
         try (MarkdownTableConsumer consumer = consumerFileSpec.consumer(new FileOutputStream(outputFile))) {

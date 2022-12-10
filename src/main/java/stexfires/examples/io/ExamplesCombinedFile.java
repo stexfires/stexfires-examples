@@ -42,16 +42,14 @@ public final class ExamplesCombinedFile {
         var configFileSpec =
                 new ConfigFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER);
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER, lineSeparator
+                );
 
         var singleValueFileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        lineSeparator,
-                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, true,
-                        SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
-                        0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, true, lineSeparator,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, true
                 );
 
         // Write

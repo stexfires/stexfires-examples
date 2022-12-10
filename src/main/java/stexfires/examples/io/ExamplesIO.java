@@ -40,11 +40,9 @@ public final class ExamplesIO {
         var fileSpec = SingleValueFileSpec.read(
                 CharsetCoding.UTF_8_REPORTING,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
-                true,
-                SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
-                1,
-                0);
+                SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 1, 0, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
+                true
+        );
 
         String sourceString = "###Value####\na\nb\n\nd\n";
         CategoryMapper<ValueRecord> categoryMapper = CategoryMapper.constant("new_category");
@@ -96,16 +94,14 @@ public final class ExamplesIO {
 
         var fileSpec = SingleValueFileSpec.write(
                 CharsetCoding.UTF_8_REPORTING,
-                LineSeparator.LF,
-                SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                SingleValueFileSpec.DEFAULT_LINE_PREFIX, LineSeparator.LF,
                 "###Value###",
                 "######",
                 false);
 
         var fileSpecCompact = SingleValueFileSpec.write(
                 CharsetCoding.UTF_8_REPORTING,
-                LineSeparator.LF,
-                SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                SingleValueFileSpec.DEFAULT_LINE_PREFIX, LineSeparator.LF,
                 SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                 SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                 true);

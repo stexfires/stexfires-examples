@@ -127,11 +127,10 @@ public final class ExamplesContainer {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
-        SimpleDelimitedFileSpec fileSpec = new SimpleDelimitedFileSpec(CharsetCoding.UTF_8_REPORTING, LineSeparator.LF,
+        SimpleDelimitedFileSpec fileSpec = new SimpleDelimitedFileSpec(CharsetCoding.UTF_8_REPORTING, ";", 0, 0, false, false, LineSeparator.LF,
                 null, null,
-                ";", fieldSpecs,
-                0, 0,
-                false, false);
+                fieldSpecs
+        );
 
         RecordContainer container = new RecordContainerMedium();
 
