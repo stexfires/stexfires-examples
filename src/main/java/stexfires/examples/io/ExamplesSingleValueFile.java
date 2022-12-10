@@ -77,7 +77,7 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.reportingErrors(US_ASCII),
                         lineSeparator,
-                        null, null, false, false, false, 0, 0, " - "
+                        null, null, false, false, false, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, " - "
                 );
 
         // Write
@@ -114,7 +114,8 @@ public final class ExamplesSingleValueFile {
                         SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
                         false,
                         1,
-                        1);
+                        2,
+                        3);
 
         // Write
         System.out.println("write: " + path);
@@ -132,7 +133,7 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        "Header---", "Footer---", true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 1, 1, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                        "Header---", "Footer---", true, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 1, 1, SingleValueFileSpec.DEFAULT_LINE_PREFIX
                 );
 
         // Write
@@ -151,7 +152,7 @@ public final class ExamplesSingleValueFile {
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                        WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
                 );
 
         // Write
@@ -174,7 +175,7 @@ public final class ExamplesSingleValueFile {
         var fileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 lineSeparator,
-                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
+                WritableRecordFileSpec.DEFAULT_TEXT_BEFORE, WritableRecordFileSpec.DEFAULT_TEXT_AFTER, false, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_LINE_PREFIX
         );
 
         // Write

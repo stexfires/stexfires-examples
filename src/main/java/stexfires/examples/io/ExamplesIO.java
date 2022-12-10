@@ -43,6 +43,7 @@ public final class ExamplesIO {
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                 SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
                 true,
+                SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
                 1,
                 0);
 
