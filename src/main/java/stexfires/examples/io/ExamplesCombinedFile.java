@@ -42,7 +42,12 @@ public final class ExamplesCombinedFile {
         var configFileSpec =
                 new ConfigFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER, lineSeparator
+                        ConfigFileSpec.DEFAULT_VALUE_DELIMITER,
+                        ConfigFileSpec.DEFAULT_COMMENT_LINE_PREFIX,
+                        lineSeparator,
+                        ConfigFileSpec.DEFAULT_CONSUMER_SEPARATE_CATEGORIES_BY_LINE,
+                        ConfigFileSpec.DEFAULT_CONSUMER_SEPARATE_BY_WHITESPACE,
+                        ConfigFileSpec.DEFAULT_CONSUMER_COMMENT_LINES_BEFORE
                 );
 
         var singleValueFileSpec =
@@ -58,7 +63,8 @@ public final class ExamplesCombinedFile {
              var singleValueConsumer = singleValueFileSpec.openFileAsConsumer(pathSingleValue);
              var combinedConsumer = new CombinedWritableRecordConsumer<>(configConsumer, singleValueConsumer)) {
             RecordIOStreams.writeStream(combinedConsumer,
-                    new ConfigModifier<KeyValueRecord>(Locale.ENGLISH, 0, 1, true).modify(generateStream()));
+                    new ConfigModifier<KeyValueRecord>(ConfigModifier.categoryTrimAndUppercase(Locale.ENGLISH),
+                            true, true, 0, 1).modify(generateStream()));
         }
 
         // Read / log
