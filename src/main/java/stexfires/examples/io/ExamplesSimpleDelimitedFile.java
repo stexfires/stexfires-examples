@@ -43,7 +43,8 @@ public final class ExamplesSimpleDelimitedFile {
                 new ManyFieldsRecord(null, 9L, "j", "9", "k", "l", "m", "n", "o"),
                 TextRecords.empty(),
                 new ManyFieldsRecord(null, 11L),
-                new ManyFieldsRecord(null, 12L, "---")
+                new ManyFieldsRecord(null, 12L, "---"),
+                new ManyFieldsRecord(null, 13L, "z", "z", "z", "z")
         );
     }
 
@@ -58,11 +59,12 @@ public final class ExamplesSimpleDelimitedFile {
         var fileSpec =
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        ",",
-                        0, 1, 0, false, false,
+                        SimpleDelimitedFileSpec.FIELD_DELIMITER_COMMA,
+                        0, 1, 1,
+                        false, false,
                         lineSeparator,
                         "Column0,Column1,Column2,Column3",
-                        SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
+                        "Column0,Column1,Column2,Column3",
                         fieldSpecs
                 );
 
@@ -81,7 +83,8 @@ public final class ExamplesSimpleDelimitedFile {
         var singleValueFileWriteSpec =
                 SingleValueFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, lineSeparator,
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                        lineSeparator,
                         "!!!Example for skip!!!",
                         SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         false);
@@ -93,11 +96,13 @@ public final class ExamplesSimpleDelimitedFile {
                 new ValueFieldRecord("------"),
                 new ValueFieldRecord("A1"),
                 new ValueFieldRecord(""),
+                new ValueFieldRecord(null),
                 new ValueFieldRecord(" "),
                 new ValueFieldRecord("B1,B2"),
                 new ValueFieldRecord(","),
                 new ValueFieldRecord(" , "),
                 new ValueFieldRecord("C1,C2,C3,"),
+                new ValueFieldRecord(",,D3"),
                 new ValueFieldRecord(",,,"),
                 new ValueFieldRecord(" , , ,"),
                 new ValueFieldRecord("Footer")
@@ -111,7 +116,7 @@ public final class ExamplesSimpleDelimitedFile {
         var simpleDelimitedFileSpec =
                 SimpleDelimitedFileSpec.read(
                         CharsetCoding.UTF_8_REPORTING,
-                        ",",
+                        SimpleDelimitedFileSpec.FIELD_DELIMITER_COMMA,
                         1, 2, 1,
                         true, true,
                         fieldSpecs
