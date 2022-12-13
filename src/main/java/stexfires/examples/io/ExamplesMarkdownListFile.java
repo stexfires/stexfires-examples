@@ -29,10 +29,10 @@ public final class ExamplesMarkdownListFile {
         var fileSpec =
                 MarkdownListFileSpec.write(
                         RecordFileSpec.DEFAULT_CHARSET_CODING,
+                        MarkdownListFileSpec.BulletPoint.NUMBER,
                         lineSeparator,
                         MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                        MarkdownListFileSpec.BulletPoint.NUMBER,
                         true);
 
         // Write
@@ -53,10 +53,10 @@ public final class ExamplesMarkdownListFile {
         var fileSpec =
                 MarkdownListFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
+                        MarkdownListFileSpec.BulletPoint.STAR,
                         lineSeparator,
                         "Header KeyValueFieldsRecord",
                         "Footer KeyValueFieldsRecord",
-                        MarkdownListFileSpec.BulletPoint.STAR,
                         false);
 
         // Write
