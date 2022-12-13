@@ -51,11 +51,6 @@ public final class ExamplesSimpleDelimitedFile {
     private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        List<SimpleDelimitedFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        fieldSpecs.add(new SimpleDelimitedFieldSpec());
-        fieldSpecs.add(new SimpleDelimitedFieldSpec());
         var fileSpec =
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
@@ -65,7 +60,7 @@ public final class ExamplesSimpleDelimitedFile {
                         lineSeparator,
                         "Column0,Column1,Column2,Column3",
                         "Column0,Column1,Column2,Column3",
-                        fieldSpecs
+                        SimpleDelimitedFileSpec.newFieldSpecs(4)
                 );
 
         // Write
