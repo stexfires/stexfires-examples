@@ -67,10 +67,10 @@ public final class WikiTesting {
 
     private static MarkdownListFileSpec createListConsumerFileSpec(String title) {
         return MarkdownListFileSpec.write(CharsetCoding.UTF_8_REPORTING,
+                MarkdownListFileSpec.DEFAULT_BULLET_POINT,
                 LineSeparator.CR_LF,
                 title,
                 "",
-                MarkdownListFileSpec.DEFAULT_CONSUMER_BULLET_POINT,
                 true);
     }
 

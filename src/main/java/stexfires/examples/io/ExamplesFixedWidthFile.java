@@ -77,7 +77,10 @@ public final class ExamplesFixedWidthFile {
         var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        20, true, Alignment.START, '_', 1, 1, true, true, lineSeparator,
+                        20, true, Alignment.START, '_',
+                        FixedWidthFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        1, 1, true, true,
+                        lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         fieldSpecs
@@ -131,7 +134,10 @@ public final class ExamplesFixedWidthFile {
         var fileSpec =
                 new FixedWidthFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        20, false, Alignment.START, ' ', 0, 0, false, false, lineSeparator,
+                        20, false, Alignment.START, ' ',
+                        FixedWidthFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        0, 0, false, false,
+                        lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         fieldSpecs
