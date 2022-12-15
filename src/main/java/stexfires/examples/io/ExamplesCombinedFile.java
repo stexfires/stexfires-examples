@@ -53,8 +53,15 @@ public final class ExamplesCombinedFile {
         var singleValueFileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, true, lineSeparator,
-                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, true
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                        0, 0,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_VALUE_TO_EMPTY,
+                        true,
+                        lineSeparator,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
+                        true
                 );
 
         // Write

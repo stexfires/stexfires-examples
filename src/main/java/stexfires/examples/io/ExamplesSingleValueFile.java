@@ -1,6 +1,7 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
+import stexfires.io.ProducerReadLineHandling;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
 import stexfires.io.singlevalue.SingleValueConsumer;
@@ -39,11 +40,16 @@ public final class ExamplesSingleValueFile {
                 new ValueFieldRecord("Start---"),
 
                 new ValueFieldRecord("A"),
-                new ValueFieldRecord(null),
+                new ValueFieldRecord(" \t "),
                 new ValueFieldRecord("C"),
-                new ValueFieldRecord(""),
                 new ValueFieldRecord("    "),
-                new ValueFieldRecord("F"),
+                new ValueFieldRecord("E"),
+                new ValueFieldRecord(" "),
+                new ValueFieldRecord("G"),
+                new ValueFieldRecord(""),
+                new ValueFieldRecord("I"),
+                new ValueFieldRecord(null),
+                new ValueFieldRecord("K"),
                 new ValueFieldRecord("//value1"),
                 new ValueFieldRecord("value2 value2 value2"),
                 new ValueFieldRecord(" value3 "),
@@ -75,8 +81,15 @@ public final class ExamplesSingleValueFile {
         var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.reportingErrors(US_ASCII),
-                        " - ", SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, false, false, lineSeparator,
-                        null, null, false
+                        " - ",
+                        SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                        0, 0,
+                        false,
+                        false,
+                        lineSeparator,
+                        null, null,
+                        false
                 );
 
         // Write
@@ -100,7 +113,8 @@ public final class ExamplesSingleValueFile {
         var fileSpecWrite =
                 SingleValueFileSpec.write(
                         CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, lineSeparator,
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                        lineSeparator,
                         SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         true);
@@ -109,7 +123,10 @@ public final class ExamplesSingleValueFile {
                 SingleValueFileSpec.read(
                         CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
-                        1, 2, 3, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY,
+                        1,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                        2, 3,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_VALUE_TO_EMPTY,
                         false
                 );
 
@@ -128,8 +145,15 @@ public final class ExamplesSingleValueFile {
         var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 1, 1, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, lineSeparator,
-                        "Header---", "Footer---", true
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                        1, 1,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_VALUE_TO_EMPTY,
+                        false,
+                        lineSeparator,
+                        "Header---", "Footer---",
+                        true
                 );
 
         // Write
@@ -147,8 +171,15 @@ public final class ExamplesSingleValueFile {
         var fileSpec =
                 new SingleValueFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
-                        SingleValueFileSpec.DEFAULT_LINE_PREFIX, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, lineSeparator,
-                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, false
+                        SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                        ProducerReadLineHandling.SKIP_EMPTY_LINE,
+                        0, 0,
+                        SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_VALUE_TO_EMPTY,
+                        false,
+                        lineSeparator,
+                        SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
+                        false
                 );
 
         // Write
@@ -170,8 +201,15 @@ public final class ExamplesSingleValueFile {
 
         var fileSpec = new SingleValueFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
-                SingleValueFileSpec.DEFAULT_LINE_PREFIX, SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES, 0, 0, SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_TO_EMPTY, false, lineSeparator,
-                SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER, false
+                SingleValueFileSpec.DEFAULT_LINE_PREFIX,
+                SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
+                SingleValueFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                0, 0,
+                SingleValueFileSpec.DEFAULT_PRODUCER_TRIM_VALUE_TO_EMPTY,
+                false,
+                lineSeparator,
+                SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE, SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
+                false
         );
 
         // Write
