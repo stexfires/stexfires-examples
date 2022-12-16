@@ -111,7 +111,7 @@ public final class ExamplesSingleValueFile {
         System.out.println("-test2---");
 
         var fileSpecWrite =
-                SingleValueFileSpec.write(
+                SingleValueFileSpec.consumerFileSpec(
                         CharsetCoding.replacingErrors(ISO_8859_1, "?", "?"),
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                         lineSeparator,
@@ -120,7 +120,7 @@ public final class ExamplesSingleValueFile {
                         true);
 
         var fileSpecRead =
-                SingleValueFileSpec.read(
+                SingleValueFileSpec.producerFileSpec(
                         CharsetCoding.replacingErrors(US_ASCII, "?", "?"),
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                         1,

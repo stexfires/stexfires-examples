@@ -31,7 +31,7 @@ public final class ExamplesMarkdownListFile {
         System.out.println("-test1---");
 
         var fileSpecWrite =
-                MarkdownListFileSpec.write(
+                MarkdownListFileSpec.consumerFileSpec(
                         RecordFileSpec.DEFAULT_CHARSET_CODING,
                         MarkdownListMarker.ORDERED_PARENTHESIS,
                         lineSeparator,
@@ -39,7 +39,7 @@ public final class ExamplesMarkdownListFile {
                         MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         true);
         var fileSpecRead =
-                MarkdownListFileSpec.read(
+                MarkdownListFileSpec.producerFileSpec(
                         RecordFileSpec.DEFAULT_CHARSET_CODING,
                         MarkdownListMarker.ORDERED_PERIOD,
                         0,
@@ -66,7 +66,7 @@ public final class ExamplesMarkdownListFile {
         System.out.println("-test2---");
 
         var fileSpec =
-                MarkdownListFileSpec.write(
+                MarkdownListFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         MarkdownListMarker.BULLET_PLUS_SIGN,
                         lineSeparator,

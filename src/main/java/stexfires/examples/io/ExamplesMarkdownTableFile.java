@@ -42,7 +42,7 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("", 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7, null));
         var fileSpec =
-                MarkdownTableFileSpec.write(
+                MarkdownTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         "Header",
@@ -77,7 +77,7 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.CENTER));
         var fileSpec =
-                MarkdownTableFileSpec.write(
+                MarkdownTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
@@ -106,7 +106,7 @@ public final class ExamplesMarkdownTableFile {
         List<MarkdownTableFieldSpec> fieldSpecs2 = new ArrayList<>();
         fieldSpecs2.add(new MarkdownTableFieldSpec("Column", 10, null));
         var fileSpec2 =
-                MarkdownTableFileSpec.write(
+                MarkdownTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         lineSeparator.string(2) + "Header second table",

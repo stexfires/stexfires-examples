@@ -33,7 +33,7 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec(null));
         fieldSpecs.add(new HtmlTableFieldSpec("<section>"));
         var fileSpec =
-                HtmlTableFileSpec.write(
+                HtmlTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         "<!DOCTYPE html>" + lineSeparator
@@ -84,7 +84,7 @@ public final class ExamplesHtmlTableFile {
         fieldSpecs.add(new HtmlTableFieldSpec("B"));
         fieldSpecs.add(new HtmlTableFieldSpec("C"));
         var fileSpec =
-                HtmlTableFileSpec.write(
+                HtmlTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
                         "<!DOCTYPE html>" + lineSeparator

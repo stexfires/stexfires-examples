@@ -37,7 +37,7 @@ public final class ExamplesIO {
     private static void showRead() throws UncheckedProducerException {
         System.out.println("-showRead---");
 
-        var fileSpec = SingleValueFileSpec.read(
+        var fileSpec = SingleValueFileSpec.producerFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                 SingleValueFileSpec.DEFAULT_PRODUCER_SKIP_FIRST_LINES,
@@ -94,14 +94,14 @@ public final class ExamplesIO {
     private static void showWrite() throws IOException, UncheckedConsumerException {
         System.out.println("-showWrite---");
 
-        var fileSpec = SingleValueFileSpec.write(
+        var fileSpec = SingleValueFileSpec.consumerFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX, LineSeparator.LF,
                 "###Value###",
                 "######",
                 false);
 
-        var fileSpecCompact = SingleValueFileSpec.write(
+        var fileSpecCompact = SingleValueFileSpec.consumerFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 SingleValueFileSpec.DEFAULT_LINE_PREFIX, LineSeparator.LF,
                 SingleValueFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,

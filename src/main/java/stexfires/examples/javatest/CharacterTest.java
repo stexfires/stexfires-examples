@@ -174,7 +174,7 @@ public final class CharacterTest {
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Name", 10, Alignment.START));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 20, Alignment.START));
 
-        MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.write(
+        MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.consumerFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
                 MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,

@@ -79,7 +79,7 @@ public final class ExamplesSimpleDelimitedFile {
         System.out.println("-test2---");
 
         var singleValueFileWriteSpec =
-                SingleValueFileSpec.write(
+                SingleValueFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         SingleValueFileSpec.DEFAULT_LINE_PREFIX,
                         lineSeparator,
@@ -112,7 +112,7 @@ public final class ExamplesSimpleDelimitedFile {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
         var simpleDelimitedFileSpec =
-                SimpleDelimitedFileSpec.read(
+                SimpleDelimitedFileSpec.producerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         SimpleDelimitedFileSpec.FIELD_DELIMITER_COMMA,
                         1,

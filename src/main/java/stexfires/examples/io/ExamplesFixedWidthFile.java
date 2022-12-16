@@ -89,7 +89,7 @@ public final class ExamplesFixedWidthFile {
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
         fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
         var fileSpecAppend1 =
-                FixedWidthFileSpec.write(
+                FixedWidthFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         30, true, Alignment.START, ' ', lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
@@ -99,7 +99,7 @@ public final class ExamplesFixedWidthFile {
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
         fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
         var fileSpecAppend2 =
-                FixedWidthFileSpec.write(
+                FixedWidthFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         1, true, Alignment.START, '_', lineSeparator,
                         FixedWidthFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,

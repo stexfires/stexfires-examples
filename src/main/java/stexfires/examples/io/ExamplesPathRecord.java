@@ -114,7 +114,7 @@ public final class ExamplesPathRecord {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
         var fileSpec =
-                SimpleDelimitedFileSpec.write(
+                SimpleDelimitedFileSpec.consumerFileSpec(
                         CharsetCoding.reportingErrors(StandardCharsets.ISO_8859_1),
                         ",", lineSeparator,
                         "File name,Path,Parent,Path name count,File size",
