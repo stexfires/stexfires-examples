@@ -128,7 +128,9 @@ public final class ExamplesContainer {
         fieldSpecs.add(new SimpleDelimitedFieldSpec());
 
         SimpleDelimitedFileSpec fileSpec = new SimpleDelimitedFileSpec(CharsetCoding.UTF_8_REPORTING, ";",
-                0, 0, 0, false, false,
+                0,
+                SimpleDelimitedFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                0, 0, false,
                 LineSeparator.LF, null, null,
                 fieldSpecs
         );

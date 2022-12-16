@@ -1,14 +1,18 @@
 package stexfires.examples.io;
 
+import stexfires.examples.record.RecordSystemOutUtil;
+import stexfires.io.ProducerReadLineHandling;
 import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.list.MarkdownListFileSpec;
+import stexfires.io.markdown.list.MarkdownListMarker;
 import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
 import stexfires.record.consumer.ConsumerException;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
+import stexfires.record.producer.ProducerException;
 import stexfires.util.CharsetCoding;
 import stexfires.util.LineSeparator;
 
@@ -23,18 +27,25 @@ public final class ExamplesMarkdownListFile {
     private ExamplesMarkdownListFile() {
     }
 
-    private static void test1(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
+    private static void test1(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
         System.out.println("-test1---");
 
-        var fileSpec =
+        var fileSpecWrite =
                 MarkdownListFileSpec.write(
                         RecordFileSpec.DEFAULT_CHARSET_CODING,
-                        MarkdownListFileSpec.BulletPoint.NUMBER,
+                        MarkdownListMarker.ORDERED_PARENTHESIS,
                         lineSeparator,
                         MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
                         MarkdownListFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
                         true);
-
+        var fileSpecRead =
+                MarkdownListFileSpec.read(
+                        RecordFileSpec.DEFAULT_CHARSET_CODING,
+                        MarkdownListMarker.ORDERED_PERIOD,
+                        0,
+                        ProducerReadLineHandling.NO_HANDLING,
+                        0, 0,
+                        false, false);
         // Write
         System.out.println("write: " + path);
         Stream<ValueRecord> stream = TextRecordStreams.of(
@@ -44,7 +55,11 @@ public final class ExamplesMarkdownListFile {
                 new ValueFieldRecord("   "),
                 new ValueFieldRecord("e")
         );
-        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
+        RecordFiles.writeStreamIntoFile(fileSpecWrite, stream, path);
+
+        // Read / log
+        System.out.println("read/log: " + path);
+        RecordFiles.readAndConsumeFile(fileSpecRead, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
     private static void test2(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
@@ -53,7 +68,7 @@ public final class ExamplesMarkdownListFile {
         var fileSpec =
                 MarkdownListFileSpec.write(
                         CharsetCoding.UTF_8_REPORTING,
-                        MarkdownListFileSpec.BulletPoint.STAR,
+                        MarkdownListMarker.BULLET_PLUS_SIGN,
                         lineSeparator,
                         "Header KeyValueFieldsRecord",
                         "Footer KeyValueFieldsRecord",
@@ -83,7 +98,7 @@ public final class ExamplesMarkdownListFile {
         try {
             test1(Path.of(args[0], "MarkdownListFile_1.md"), LineSeparator.systemLineSeparator());
             test2(Path.of(args[0], "MarkdownListFile_2.md"), LineSeparator.systemLineSeparator());
-        } catch (ConsumerException | IOException e) {
+        } catch (ProducerException | ConsumerException | IOException e) {
             e.printStackTrace();
         }
     }

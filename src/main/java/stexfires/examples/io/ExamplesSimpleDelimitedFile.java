@@ -1,6 +1,7 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
+import stexfires.io.ProducerReadLineHandling;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
@@ -55,8 +56,10 @@ public final class ExamplesSimpleDelimitedFile {
                 new SimpleDelimitedFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         SimpleDelimitedFileSpec.FIELD_DELIMITER_COMMA,
-                        0, 1, 1,
-                        false, false,
+                        0,
+                        SimpleDelimitedFileSpec.DEFAULT_PRODUCER_READ_LINE_HANDLING,
+                        1, 1,
+                        false,
                         lineSeparator,
                         "Column0,Column1,Column2,Column3",
                         "Column0,Column1,Column2,Column3",
@@ -112,8 +115,10 @@ public final class ExamplesSimpleDelimitedFile {
                 SimpleDelimitedFileSpec.read(
                         CharsetCoding.UTF_8_REPORTING,
                         SimpleDelimitedFileSpec.FIELD_DELIMITER_COMMA,
-                        1, 2, 1,
-                        true, true,
+                        1,
+                        ProducerReadLineHandling.SKIP_BLANK_LINE,
+                        2, 1,
+                        true,
                         fieldSpecs
                 );
 
