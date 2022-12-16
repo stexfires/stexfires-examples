@@ -60,7 +60,7 @@ public final class ExamplesProducer {
     private static void showKeyValueProducer() {
         System.out.println("-showKeyValueProducer---");
 
-        Map<String, Integer> keyValueMap = new HashMap<>();
+        Map<String, Integer> keyValueMap = HashMap.newHashMap(3);
         keyValueMap.put("A", 1);
         keyValueMap.put("B", 2);
         keyValueMap.put("C", null);

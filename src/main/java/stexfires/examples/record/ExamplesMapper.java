@@ -169,7 +169,7 @@ public final class ExamplesMapper {
                 recordId -> recordId == null ? null : AddTextMapper.recordId(),
                 new IdentityMapper<>()));
 
-        Map<String, RecordMapper<? super TextRecord, TextRecord>> recordMapperMap = new HashMap<>();
+        Map<String, RecordMapper<? super TextRecord, TextRecord>> recordMapperMap = HashMap.newHashMap(3);
         recordMapperMap.put("value1", AddTextMapper.constant("lookup value1"));
         recordMapperMap.put("value2", AddTextMapper.constant("lookup value2"));
         recordMapperMap.put("key", AddTextMapper.constant("lookup key"));
