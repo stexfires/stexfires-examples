@@ -1,7 +1,7 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.ProducerReadLineHandling;
+import stexfires.io.producer.ProducerReadLineHandling;
 import stexfires.io.RecordFileSpec;
 import stexfires.io.RecordFiles;
 import stexfires.io.markdown.list.MarkdownListFileSpec;

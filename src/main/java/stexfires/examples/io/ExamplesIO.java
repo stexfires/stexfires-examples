@@ -1,6 +1,6 @@
 package stexfires.examples.io;
 
-import stexfires.io.StringWritableRecordConsumer;
+import stexfires.io.consumer.StringWritableRecordConsumer;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.ValueRecord;
