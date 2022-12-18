@@ -12,6 +12,7 @@ import stexfires.util.function.NumberUnaryOperators.PrimitiveIntUnaryOperators;
 import stexfires.util.function.NumberUnaryOperators.PrimitiveLongUnaryOperators;
 
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HexFormat;
@@ -52,10 +53,14 @@ public final class ExamplesNumberFunction {
             12,
             Byte.MAX_VALUE,
             Byte.MAX_VALUE + 1,
+            1_000,
+            10_000,
             Short.MAX_VALUE,
             Short.MAX_VALUE + 1,
             65_535,
             65_536,
+            100_000,
+            1_000_000,
             Integer.MAX_VALUE - 1,
             Integer.MAX_VALUE
     };
@@ -78,6 +83,10 @@ public final class ExamplesNumberFunction {
             4L,
             10L,
             12L,
+            1_000L,
+            10_000L,
+            100_000L,
+            1_000_000L,
             Integer.MAX_VALUE,
             Integer.MAX_VALUE + 1L,
             Long.MAX_VALUE - 1L,
@@ -119,10 +128,14 @@ public final class ExamplesNumberFunction {
         values.add(BigInteger.valueOf(Byte.MAX_VALUE).add(BigInteger.ONE));
         values.add(BigInteger.valueOf(255L));
         values.add(BigInteger.valueOf(256L));
+        values.add(BigInteger.valueOf(1_000L));
+        values.add(BigInteger.valueOf(10_000L));
         values.add(BigInteger.valueOf(Short.MAX_VALUE));
         values.add(BigInteger.valueOf(Short.MAX_VALUE).add(BigInteger.ONE));
         values.add(BigInteger.valueOf(65535L));
         values.add(BigInteger.valueOf(65536L));
+        values.add(BigInteger.valueOf(100_000L));
+        values.add(BigInteger.valueOf(1_000_000L));
         values.add(BigInteger.valueOf(Integer.MAX_VALUE));
         values.add(BigInteger.valueOf(Integer.MAX_VALUE).add(BigInteger.ONE));
         values.add(BigInteger.valueOf(Long.MAX_VALUE));
@@ -420,6 +433,8 @@ public final class ExamplesNumberFunction {
         applyPrimitiveIntToStringFunction("octal", PrimitiveIntToStringFunctions.octal(), null);
 
         applyPrimitiveIntToStringFunction("formatted", PrimitiveIntToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyPrimitiveIntToStringFunction("numberFormat", PrimitiveIntToStringFunctions.numberFormat(NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT)), "Compact US Short");
+        applyPrimitiveIntToStringFunction("numberFormat", PrimitiveIntToStringFunctions.numberFormat(NumberFormat.getIntegerInstance(Locale.GERMANY)), "Integer GERMANY");
         applyPrimitiveIntToStringFunction("constant", PrimitiveIntToStringFunctions.constant("***"), "***");
         applyPrimitiveIntToStringFunction("supplier", PrimitiveIntToStringFunctions.supplier(() -> "#"), "-> #");
     }
@@ -434,6 +449,8 @@ public final class ExamplesNumberFunction {
         applyPrimitiveLongToStringFunction("octal", PrimitiveLongToStringFunctions.octal(), null);
 
         applyPrimitiveLongToStringFunction("formatted", PrimitiveLongToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyPrimitiveLongToStringFunction("numberFormat", PrimitiveLongToStringFunctions.numberFormat(NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT)), "Compact US Short");
+        applyPrimitiveLongToStringFunction("numberFormat", PrimitiveLongToStringFunctions.numberFormat(NumberFormat.getIntegerInstance(Locale.GERMANY)), "Integer GERMANY");
         applyPrimitiveLongToStringFunction("constant", PrimitiveLongToStringFunctions.constant("***"), "***");
         applyPrimitiveLongToStringFunction("supplier", PrimitiveLongToStringFunctions.supplier(() -> "#"), "-> #");
     }
@@ -448,6 +465,8 @@ public final class ExamplesNumberFunction {
         applyBigIntegerToStringFunction("octal", BigIntegerToStringFunctions.octal(), null);
 
         applyBigIntegerToStringFunction("formatted", BigIntegerToStringFunctions.formatted(Locale.GERMANY, "%05d"), "%05d");
+        applyBigIntegerToStringFunction("numberFormat", BigIntegerToStringFunctions.numberFormat(NumberFormat.getCompactNumberInstance(Locale.US, NumberFormat.Style.SHORT)), "Compact US Short");
+        applyBigIntegerToStringFunction("numberFormat", BigIntegerToStringFunctions.numberFormat(NumberFormat.getIntegerInstance(Locale.GERMANY)), "Integer GERMANY");
         applyBigIntegerToStringFunction("constant", BigIntegerToStringFunctions.constant("***"), "***");
         applyBigIntegerToStringFunction("supplier", BigIntegerToStringFunctions.supplier(() -> "#"), "-> #");
     }
