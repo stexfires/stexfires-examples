@@ -1,5 +1,9 @@
 package stexfires.examples.javatest;
 
+import stexfires.record.TextRecord;
+import stexfires.record.TextRecordStreams;
+import stexfires.record.impl.ManyFieldsRecord;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -297,6 +301,36 @@ public final class StreamTest {
         System.out.println(Arrays.toString(generateIntStream().asLongStream().toArray()));
     }
 
+    private static void showMapMulti() {
+        System.out.println("-showMapMulti---");
+
+        Stream<TextRecord> recordStream = TextRecordStreams.of(new ManyFieldsRecord("a", "b"), new ManyFieldsRecord("c", "d"), new ManyFieldsRecord("e", "f", "g"), new ManyFieldsRecord(), new ManyFieldsRecord("h"));
+        System.out.println(
+                recordStream.<String>mapMulti((record, consumer) -> {
+                    // If the record contains multiple text field, the first and last texts are returned.
+                    if (record.size() >= 2) {
+                        consumer.accept(record.firstText());
+                        consumer.accept(record.lastText());
+                    }
+                }).toList());
+    }
+
+    private static void showFlatMap() {
+        System.out.println("-showFlatMap---");
+
+        String[][] array = new String[][]{{"a", "b"}, {"c", "d"}, {"e", "f", "g"}, {}, {"h"}};
+
+        System.out.println(
+                Stream.of(array)
+                      .flatMap(Stream::of)
+                      .toList());
+
+        Stream<TextRecord> recordStream = TextRecordStreams.of(new ManyFieldsRecord("a", "b"), new ManyFieldsRecord("c", "d"), new ManyFieldsRecord("e", "f", "g"), new ManyFieldsRecord(), new ManyFieldsRecord("h"));
+        System.out.println(
+                recordStream.flatMap(TextRecord::streamOfTexts)
+                            .toList());
+    }
+
     public static void main(String... args) {
         showIntStreamRange();
         showStreamIterate();
@@ -315,6 +349,8 @@ public final class StreamTest {
         showSkipAndLimit();
         showMath();
         showConvert();
+        showMapMulti();
+        showFlatMap();
     }
 
 }
