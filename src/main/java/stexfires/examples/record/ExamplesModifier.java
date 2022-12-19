@@ -176,14 +176,14 @@ public final class ExamplesModifier {
                 new GroupModifier<>(
                         groupByMessage(new CategoryMessage<>()),
                         havingSize(NumberPredicates.PrimitiveIntPredicates.lessThan(4)),
-                        aggregateToValues(
+                        aggregateToTexts(
                                 messageOfFirstElement(new CategoryMessage<>()),
                                 list -> list.stream().map(ValueRecord::value).collect(Collectors.toList())
                         )));
         printModifierOneValueRecordGroup("constructor category; aggregateToValuesWithMessage",
                 new GroupModifier<>(
                         groupByCategory(),
-                        aggregateToValuesWithMessage(
+                        aggregateToTextsWithMessage(
                                 new CategoryMessage<>(),
                                 TextMessage.value()
                         )));
@@ -191,17 +191,17 @@ public final class ExamplesModifier {
         printModifierManyValuesRecord("constructor category; aggregateToValues maxValuesNullsFirst",
                 new GroupModifier<>(
                         groupByCategory(),
-                        aggregateToValues(
+                        aggregateToTexts(
                                 categoryOfFirstElement(),
-                                maxValuesNullsFirst("<missing value>")
+                                maxTextNullsFirst("<missing value>")
                         )));
 
         printModifierManyValuesRecord("constructor category; aggregateToValues minValuesNullsLast",
                 new GroupModifier<>(
                         groupByCategory(),
-                        aggregateToValues(
+                        aggregateToTexts(
                                 categoryOfFirstElement(),
-                                minValuesNullsLast(null)
+                                minTextNullsLast(null)
                         )));
 
         printModifierOneValueRecord("constructor valueField; aggregateToValue category",
