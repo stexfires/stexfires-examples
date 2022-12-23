@@ -30,7 +30,7 @@ public final class ExamplesMarkdownTableFile {
 
         List<MarkdownTableFieldSpec> fieldSpecs = new ArrayList<>();
         fieldSpecs.add(new MarkdownTableFieldSpec("A", 5, null));
-        fieldSpecs.add(new MarkdownTableFieldSpec("B|B", 6, null));
+        fieldSpecs.add(new MarkdownTableFieldSpec("BB", 6, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("C", 10, Alignment.END));
         fieldSpecs.add(new MarkdownTableFieldSpec("S5", 5, Alignment.START));
         fieldSpecs.add(new MarkdownTableFieldSpec("C5", 5, Alignment.CENTER));
@@ -38,16 +38,13 @@ public final class ExamplesMarkdownTableFile {
         fieldSpecs.add(new MarkdownTableFieldSpec("S6", 6, Alignment.START));
         fieldSpecs.add(new MarkdownTableFieldSpec("C6", 6, Alignment.CENTER));
         fieldSpecs.add(new MarkdownTableFieldSpec("E6", 6, Alignment.END));
-        fieldSpecs.add(new MarkdownTableFieldSpec(null, 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec("", 7, null));
         fieldSpecs.add(new MarkdownTableFieldSpec(" ", 7, null));
         var fileSpec =
                 MarkdownTableFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
                         lineSeparator,
-                        "Header",
-                        "Footer",
-                        MarkdownTableFileSpec.DEFAULT_CONSUMER_ALIGNMENT, fieldSpecs
+                        fieldSpecs
                 );
 
         // Write
@@ -64,7 +61,7 @@ public final class ExamplesMarkdownTableFile {
                 new ManyFieldsRecord(""),
                 new ManyFieldsRecord(null, 1L, null, null),
                 new ManyFieldsRecord(),
-                new ManyFieldsRecord("b", "|", "a|b|c")
+                new ManyFieldsRecord("b", "", "abc")
         );
         RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
     }
@@ -123,6 +120,39 @@ public final class ExamplesMarkdownTableFile {
         RecordFiles.writeStreamIntoFile(fileSpec2, stream2, path, StandardOpenOption.APPEND);
     }
 
+    private static void test3(Path path, LineSeparator lineSeparator) throws ConsumerException, IOException {
+        System.out.println("-test3---");
+
+        List<MarkdownTableFieldSpec> fieldSpecs = new ArrayList<>();
+        fieldSpecs.add(new MarkdownTableFieldSpec("A"));
+        fieldSpecs.add(new MarkdownTableFieldSpec("BB", Alignment.START));
+        fieldSpecs.add(new MarkdownTableFieldSpec("C", Alignment.CENTER));
+        fieldSpecs.add(new MarkdownTableFieldSpec("DD", Alignment.CENTER));
+        fieldSpecs.add(new MarkdownTableFieldSpec("E", Alignment.END));
+        fieldSpecs.add(new MarkdownTableFieldSpec("FF", 8, Alignment.END));
+        var fileSpec =
+                MarkdownTableFileSpec.consumerFileSpec(
+                        CharsetCoding.UTF_8_REPORTING,
+                        lineSeparator,
+                        fieldSpecs
+                );
+
+        // Write
+        System.out.println("write: " + path);
+        Stream<TextRecord> stream = TextRecordStreams.of(
+                new ManyFieldsRecord(),
+                new ManyFieldsRecord("category", 0L, null, null, null, null, null, null),
+                new ManyFieldsRecord("", "", "", "", "", ""),
+                new ManyFieldsRecord("a", "b", "c", "d", "0", "0.00"),
+                new ManyFieldsRecord("aa", "bb", "cc", "dd", "10", "10.00"),
+                new ManyFieldsRecord("aaa", "bbb", "ccc", "ddd", "100", "100.00"),
+                new ManyFieldsRecord("aaaa", "bbbb", "cccc", "dddd", "1000", "1000.00"),
+                new ManyFieldsRecord("aaaaa", "bbbbb", "ccccc", "ddddd", "10000", "10000.00")
+
+        );
+        RecordFiles.writeStreamIntoFile(fileSpec, stream, path);
+    }
+
     public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
@@ -135,6 +165,7 @@ public final class ExamplesMarkdownTableFile {
         try {
             test1(Path.of(args[0], "MarkdownTableFile_1.md"), LineSeparator.systemLineSeparator());
             test2(Path.of(args[0], "MarkdownTableFile_2.md"), LineSeparator.systemLineSeparator());
+            test3(Path.of(args[0], "MarkdownTableFile_3.md"), LineSeparator.systemLineSeparator());
         } catch (ConsumerException | IOException e) {
             e.printStackTrace();
         }
