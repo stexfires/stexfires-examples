@@ -127,6 +127,32 @@ public final class ExamplesSimpleDelimitedFile {
         RecordFiles.readAndConsumeFile(simpleDelimitedFileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
     }
 
+    private static void test3(Path path, LineSeparator lineSeparator) throws ProducerException, ConsumerException, IOException {
+        System.out.println("-test3---");
+
+        var fileSpec =
+                new SimpleDelimitedFileSpec(
+                        CharsetCoding.UTF_8_REPORTING,
+                        SimpleDelimitedFileSpec.FIELD_DELIMITER_CHARACTER_TABULATION,
+                        0,
+                        ProducerReadLineHandling.THROW_EXCEPTION_ON_EMPTY_LINE,
+                        0, 0,
+                        true,
+                        lineSeparator,
+                        SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
+                        SimpleDelimitedFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
+                        SimpleDelimitedFileSpec.newFieldSpecs(7)
+                );
+
+        // Write
+        System.out.println("write: " + path);
+        RecordFiles.writeStreamIntoFile(fileSpec, generateStream(), path);
+
+        // Read / log
+        System.out.println("read/log: " + path);
+        RecordFiles.readAndConsumeFile(fileSpec, RecordSystemOutUtil.RECORD_CONSUMER, path);
+    }
+
     public static void main(String... args) {
         if (args.length != 1) {
             throw new IllegalArgumentException("Missing valid output directory parameter!");
@@ -139,6 +165,7 @@ public final class ExamplesSimpleDelimitedFile {
         try {
             test1(Path.of(args[0], "SimpleDelimitedFile_1.csv"), LineSeparator.systemLineSeparator());
             test2(Path.of(args[0], "SimpleDelimitedFile_2.csv"), LineSeparator.systemLineSeparator());
+            test3(Path.of(args[0], "SimpleDelimitedFile_3.csv"), LineSeparator.systemLineSeparator());
         } catch (ProducerException | ConsumerException | IOException e) {
             e.printStackTrace();
         }
