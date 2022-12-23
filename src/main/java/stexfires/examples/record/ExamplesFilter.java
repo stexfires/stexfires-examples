@@ -170,6 +170,15 @@ public final class ExamplesFilter {
                 RecordFilter.concatOr(Stream.of(ClassFilter.equalTo(ManyFieldsRecord.class), ClassFilter.equalTo(KeyValueFieldsRecord.class))));
         printFilter("not",
                 RecordFilter.not(ClassFilter.equalTo(ManyFieldsRecord.class)));
+        printFilter("isEmpty",
+                RecordFilter.isEmpty());
+        printFilter("isNotEmpty",
+                RecordFilter.isNotEmpty());
+        printFilter("hasCategory",
+                RecordFilter.hasCategory());
+        printFilter("hasRecordId",
+                RecordFilter.hasRecordId());
+
         printFilter("and",
                 ClassFilter.equalTo(ManyFieldsRecord.class).and(SizeFilter.equalTo(8)));
         printFilter("negate",
