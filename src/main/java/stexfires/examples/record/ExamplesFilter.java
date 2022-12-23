@@ -216,6 +216,8 @@ public final class ExamplesFilter {
                 SizeFilter.equalTo(1));
         printFilter("isEmpty",
                 SizeFilter.isEmpty());
+        printFilter("isNotEmpty",
+                SizeFilter.isNotEmpty());
         printFilter("containedIn Collection",
                 SizeFilter.containedIn(Collections.singletonList(2)));
         printFilter("containedIn Array",
