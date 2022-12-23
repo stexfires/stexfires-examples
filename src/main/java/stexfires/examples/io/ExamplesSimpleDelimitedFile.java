@@ -1,10 +1,10 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.producer.ProducerReadLineHandling;
 import stexfires.io.RecordFiles;
 import stexfires.io.delimited.simple.SimpleDelimitedFieldSpec;
 import stexfires.io.delimited.simple.SimpleDelimitedFileSpec;
+import stexfires.io.producer.ProducerReadLineHandling;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecords;

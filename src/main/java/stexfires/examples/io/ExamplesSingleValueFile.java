@@ -1,9 +1,9 @@
 package stexfires.examples.io;
 
 import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.producer.ProducerReadLineHandling;
 import stexfires.io.RecordFiles;
 import stexfires.io.RecordIOStreams;
+import stexfires.io.producer.ProducerReadLineHandling;
 import stexfires.io.singlevalue.SingleValueConsumer;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.io.singlevalue.SingleValueProducer;
