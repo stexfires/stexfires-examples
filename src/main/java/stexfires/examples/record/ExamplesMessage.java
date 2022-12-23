@@ -208,6 +208,13 @@ public final class ExamplesMessage {
     private static void showRecordMessage() {
         System.out.println("-showRecordMessage---");
 
+        printMessage("category",
+                RecordMessage.category());
+        printMessage("firstText",
+                RecordMessage.firstText());
+        printMessage("lastText",
+                RecordMessage.lastText());
+
         printMessage("prepend / append",
                 new SizeMessage<>().prepend("Size:").append(" RecordId:").append(new RecordIdMessage<>()));
     }
