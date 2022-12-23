@@ -32,9 +32,9 @@ public final class CharacterTest {
 
     private static final String MISSING = "-----";
     private static final String NOT_PRINTABLE = "-----";
-    private static final int INDEX_MIRRORED = 6;
-    private static final int INDEX_TYPE = 14;
-    private static final int INDEX_BLOCK = 15;
+    private static final int INDEX_MIRRORED = 7;
+    private static final int INDEX_TYPE = 15;
+    private static final int INDEX_BLOCK = 16;
 
     private CharacterTest() {
     }
@@ -123,6 +123,7 @@ public final class CharacterTest {
                 Integer.toHexString(codePoint),
                 codePointAsPrintableString,
                 String.valueOf(Character.charCount(codePoint)),
+                Character.getName(codePoint),
                 String.valueOf(Character.isDefined(codePoint)),
                 String.valueOf(Character.isValidCodePoint(codePoint)),
                 String.valueOf(Character.isMirrored(codePoint)),
@@ -135,7 +136,6 @@ public final class CharacterTest {
                 String.valueOf(Character.getNumericValue(codePoint)),
                 convertTypeIntoString(characterType),
                 block,
-                Character.getName(codePoint),
                 convertDirectionalityIntoString(Character.getDirectionality(codePoint))
         );
     }
@@ -152,11 +152,13 @@ public final class CharacterTest {
         Objects.requireNonNull(recordStream);
 
         List<MarkdownTableFieldSpec> fieldSpecsConsumer = new ArrayList<>();
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Decimal", 7, Alignment.END));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Hex", 5, Alignment.END));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Char", 5, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Decimal", Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Hex", Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Char", Alignment.START));
 
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Count", 5, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Count", Alignment.END));
+
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Name", 75, Alignment.START));
 
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Def?", 7, Alignment.START));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Valid?", 7, Alignment.START));
@@ -166,20 +168,17 @@ public final class CharacterTest {
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Letter?", 7, Alignment.START));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Space?", 7, Alignment.START));
         fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Digit?", 7, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Digit", 6, Alignment.END));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("NumVal", 9, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Digit", 7, Alignment.END));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("NumVal", 10, Alignment.END));
 
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Type", 10, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Block", 10, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Name", 10, Alignment.START));
-        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 20, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Type", 30, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Block", 45, Alignment.START));
+        fieldSpecsConsumer.add(new MarkdownTableFieldSpec("Directionality", 45, Alignment.START));
 
         MarkdownTableFileSpec consumerFileSpec = MarkdownTableFileSpec.consumerFileSpec(
                 CharsetCoding.UTF_8_REPORTING,
                 LineSeparator.CR_LF,
-                MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_BEFORE,
-                MarkdownTableFileSpec.DEFAULT_CONSUMER_TEXT_AFTER,
-                MarkdownTableFileSpec.DEFAULT_CONSUMER_ALIGNMENT, fieldSpecsConsumer
+                fieldSpecsConsumer
         );
 
         try (MarkdownTableConsumer consumer = consumerFileSpec.consumer(new FileOutputStream(outputFile))) {
