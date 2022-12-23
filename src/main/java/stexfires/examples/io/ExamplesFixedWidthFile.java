@@ -70,7 +70,7 @@ public final class ExamplesFixedWidthFile {
         System.out.println("-test1---");
 
         List<FixedWidthFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new FixedWidthFieldSpec(0, 1, null, null));
+        fieldSpecs.add(new FixedWidthFieldSpec(0, 1));
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
@@ -87,7 +87,7 @@ public final class ExamplesFixedWidthFile {
                 );
 
         List<FixedWidthFieldSpec> fieldSpecsAppend1 = new ArrayList<>();
-        fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26, null, null));
+        fieldSpecsAppend1.add(new FixedWidthFieldSpec(0, 26));
         var fileSpecAppend1 =
                 FixedWidthFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
@@ -97,7 +97,7 @@ public final class ExamplesFixedWidthFile {
                         fieldSpecsAppend1);
 
         List<FixedWidthFieldSpec> fieldSpecsAppend2 = new ArrayList<>();
-        fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1, null, null));
+        fieldSpecsAppend2.add(new FixedWidthFieldSpec(0, 1));
         var fileSpecAppend2 =
                 FixedWidthFileSpec.consumerFileSpec(
                         CharsetCoding.UTF_8_REPORTING,
@@ -127,7 +127,7 @@ public final class ExamplesFixedWidthFile {
         System.out.println("-test2---");
 
         List<FixedWidthFieldSpec> fieldSpecs = new ArrayList<>();
-        fieldSpecs.add(new FixedWidthFieldSpec(0, 1, null, null));
+        fieldSpecs.add(new FixedWidthFieldSpec(0, 1));
         fieldSpecs.add(new FixedWidthFieldSpec(1, 3, Alignment.END, '.'));
         fieldSpecs.add(new FixedWidthFieldSpec(4, 6, Alignment.CENTER, '-'));
         fieldSpecs.add(new FixedWidthFieldSpec(15, 2, null, '#'));
