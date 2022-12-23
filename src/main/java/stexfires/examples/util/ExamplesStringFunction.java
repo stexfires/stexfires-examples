@@ -268,8 +268,10 @@ public final class ExamplesStringFunction {
         printStringPredicates(StringPredicates.isNotNull(), "isNotNull");
         printStringPredicates(StringPredicates.isEmpty(), "isEmpty");
         printStringPredicates(StringPredicates.isNullOrEmpty(), "isNullOrEmpty");
+        printStringPredicates(StringPredicates.isNotNullAndNotEmpty(), "isNotNullAndNotEmpty");
         printStringPredicates(StringPredicates.isBlank(), "isBlank");
         printStringPredicates(StringPredicates.isNullOrBlank(), "isNullOrBlank");
+        printStringPredicates(StringPredicates.isNotNullAndNotBlank(), "isNotNullAndNotBlank");
 
         printStringPredicates(StringPredicates.equals(null), "equals null");
         printStringPredicates(StringPredicates.equals(""), "equals empty");
