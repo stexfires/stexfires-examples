@@ -38,6 +38,7 @@ public final class ExamplesNumberDataType {
         testFormat(-1, new IntegerDataTypeFormatter(NumberFormat.getIntegerInstance(Locale.GERMANY), () -> "NULL"));
         testFormat(Integer.MAX_VALUE, new IntegerDataTypeFormatter(NumberFormat.getIntegerInstance(Locale.GERMANY), () -> "NULL"));
         testFormat(Integer.MIN_VALUE, new IntegerDataTypeFormatter(NumberFormat.getIntegerInstance(Locale.GERMANY), () -> "NULL"));
+        testFormat(Integer.MIN_VALUE, new IntegerDataTypeFormatter(NumberFormat.getPercentInstance(Locale.GERMANY), () -> "NULL"));
 
         System.out.println("---IntegerDataTypeParser");
         testParse(null, new IntegerDataTypeParser(NumberFormat.getIntegerInstance(Locale.GERMANY), null, null));
