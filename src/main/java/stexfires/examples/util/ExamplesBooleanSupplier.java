@@ -3,6 +3,7 @@ package stexfires.examples.util;
 import stexfires.util.function.NumberPredicates;
 import stexfires.util.function.RandomBooleanSupplier;
 import stexfires.util.function.RepeatingPatternBooleanSupplier;
+import stexfires.util.function.Suppliers;
 import stexfires.util.function.SwitchingBooleanSupplier;
 
 import java.util.ArrayList;
@@ -27,6 +28,25 @@ public final class ExamplesBooleanSupplier {
     private static void printBoolean(String title, boolean value) {
         System.out.println(title);
         System.out.println(value);
+    }
+
+    private static void showSuppliers() {
+        System.out.println("-showSuppliers---");
+
+        printStream("constant",
+                Stream.generate(
+                        Suppliers.constant(Boolean.TRUE)).limit(2));
+        printStream("constantNull",
+                Stream.generate(
+                        Suppliers.<Boolean>constantNull()).limit(2));
+        printBoolean("constantPrimitiveBoolean",
+                Suppliers.constantPrimitiveBoolean(true).getAsBoolean());
+
+        printStream("combine Boolean::logicalAnd",
+                Stream.generate(
+                        Suppliers.combine(() -> Boolean.TRUE, () -> Boolean.FALSE, Boolean::logicalAnd)).limit(2));
+        printBoolean("combinePrimitiveBoolean",
+                Suppliers.combinePrimitiveBoolean(() -> true, () -> false, (x, y) -> x && y).getAsBoolean());
     }
 
     private static void showRandomBooleanSupplier() {
@@ -143,6 +163,7 @@ public final class ExamplesBooleanSupplier {
     }
 
     public static void main(String... args) {
+        showSuppliers();
         showRandomBooleanSupplier();
         showRepeatingPatternBooleanSupplier();
         showSwitchingBooleanSupplier();

@@ -18,7 +18,7 @@ public final class ExamplesNumberSupplier {
     private ExamplesNumberSupplier() {
     }
 
-    private static void printStream(String title, Stream<Number> stream) {
+    private static void printStream(String title, Stream<? extends Number> stream) {
         System.out.println(title);
         stream.limit(10L).forEachOrdered(System.out::println);
     }
@@ -38,8 +38,8 @@ public final class ExamplesNumberSupplier {
         stream.limit(10L).forEachOrdered(System.out::println);
     }
 
-    private static void showSuppliers() {
-        System.out.println("-showSuppliers---");
+    private static void showSuppliersSequence() {
+        System.out.println("-showSuppliersSequence---");
 
         printStream("sequenceAsLong 1.000",
                 Stream.generate(
@@ -60,6 +60,61 @@ public final class ExamplesNumberSupplier {
         printStream("sequenceAsPrimitiveLong -1",
                 LongStream.generate(
                         Suppliers.sequenceAsPrimitiveLong(-1L)));
+    }
+
+    private static void showSuppliersConstant() {
+        System.out.println("-showSuppliersConstant---");
+
+        printStream("constant Long.MAX_VALUE",
+                Stream.generate(
+                        Suppliers.constant(Long.MAX_VALUE)).limit(2));
+        printStream("constant Integer.MAX_VALUE",
+                Stream.generate(
+                        Suppliers.constant(Integer.MAX_VALUE)).limit(2));
+        printStream("constant Double.MAX_VALUE",
+                Stream.generate(
+                        Suppliers.constant(Double.MAX_VALUE)).limit(2));
+
+        printStream("constantNull",
+                Stream.generate(
+                        Suppliers.constantNull()));
+        printStream("constantNull <Integer>",
+                Stream.generate(
+                        Suppliers.<Integer>constantNull()).limit(2));
+
+        printStream("constantPrimitiveLong Long.MAX_VALUE",
+                LongStream.generate(
+                        Suppliers.constantPrimitiveLong(Long.MAX_VALUE)).limit(2));
+        printStream("constantPrimitiveInt Integer.MAX_VALUE",
+                IntStream.generate(
+                        Suppliers.constantPrimitiveInt(Integer.MAX_VALUE)).limit(2));
+        printStream("constantPrimitiveDouble Double.MAX_VALUE",
+                DoubleStream.generate(
+                        Suppliers.constantPrimitiveDouble(Double.MAX_VALUE)).limit(2));
+    }
+
+    private static void showSuppliersCombine() {
+        System.out.println("-showSuppliersCombine---");
+
+        printStream("combine Long::sum",
+                Stream.generate(
+                        Suppliers.combine(() -> 1L, () -> 2L, Long::sum)).limit(2));
+        printStream("combine Integer::sum",
+                Stream.generate(
+                        Suppliers.combine(() -> 1, () -> 2, Integer::sum)).limit(2));
+        printStream("combine Double::sum",
+                Stream.generate(
+                        Suppliers.combine(() -> 1.0d, () -> 2.0d, Double::sum)).limit(2));
+
+        printStream("combinePrimitiveLong Long.sum",
+                LongStream.generate(
+                        Suppliers.combinePrimitiveLong(() -> 1L, () -> 2L, Long::sum)).limit(2));
+        printStream("combinePrimitiveInt Integer.sum",
+                IntStream.generate(
+                        Suppliers.combinePrimitiveInt(() -> 1, () -> 2, Integer::sum)).limit(2));
+        printStream("combinePrimitiveDouble Double.sum",
+                DoubleStream.generate(
+                        Suppliers.combinePrimitiveDouble(() -> 1.0d, () -> 2.0d, Double::sum)).limit(2));
     }
 
     private static void showRandomSupplier() {
@@ -166,7 +221,9 @@ public final class ExamplesNumberSupplier {
     }
 
     public static void main(String... args) {
-        showSuppliers();
+        showSuppliersSequence();
+        showSuppliersConstant();
+        showSuppliersCombine();
         showRandomSupplier();
         showRandomSelectionSupplier();
     }

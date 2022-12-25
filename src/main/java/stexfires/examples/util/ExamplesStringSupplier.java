@@ -23,6 +23,10 @@ public final class ExamplesStringSupplier {
     private static void showSuppliers() {
         System.out.println("-showSuppliers---");
 
+        printStream("constant", Stream.generate(Suppliers.constant("Test")).limit(2));
+        printStream("constantNull", Stream.generate(Suppliers.<String>constantNull()).limit(2));
+        printStream("combine", Stream.generate(Suppliers.combine(() -> "X", () -> "Y", (x, y) -> x + "-" + y)).limit(2));
+
         printStream("localTimeAsString", Stream.generate(Suppliers.localTimeAsString()));
         printStream("threadNameAsString", Stream.generate(Suppliers.threadNameAsString()));
         printStream("sequenceAsString 1.000", Stream.generate(Suppliers.sequenceAsString(1_000L)));
