@@ -187,10 +187,25 @@ public final class ExamplesByteArrayFunction {
         printByteArrayToObjectFunction(toBigInteger(), "toBigInteger");
     }
 
+    private static void showUnaryOperators() {
+        System.out.println("-showUnaryOperators---");
+
+        byte[] byteArrayOriginal = new byte[]{72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 32};
+
+        printByteArrayWithInfo(byteArrayOriginal, "original");
+        printByteArrayWithInfo(encodeBase64(Base64.getEncoder()).apply(byteArrayOriginal), "encodeBase64");
+        printByteArrayWithInfo(decodeBase64(Base64.getDecoder()).apply(encodeBase64(Base64.getEncoder()).apply(byteArrayOriginal)), "encodeBase64 and decodeBase64");
+        printByteArrayWithInfo(compressGZIP().apply(byteArrayOriginal), "compressGZIP");
+        printByteArrayWithInfo(decompressGZIP().apply(compressGZIP().apply(byteArrayOriginal)), "compressGZIP and decompressGZIP");
+        printByteArrayWithInfo(encodeBase64(Base64.getEncoder()).apply(compressGZIP().apply(byteArrayOriginal)), "compressGZIP and encodeBase64");
+        printByteArrayWithInfo(decompressGZIP().apply(decodeBase64(Base64.getDecoder()).apply(encodeBase64(Base64.getEncoder()).apply(compressGZIP().apply(byteArrayOriginal)))), "compressGZIP and encodeBase64 and decodeBase64 and decompressGZIP");
+    }
+
     public static void main(String... args) {
         showPredicates();
         showFromFunctions();
         showToFunctions();
+        showUnaryOperators();
     }
 
 }
