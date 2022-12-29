@@ -1,5 +1,6 @@
 package stexfires.examples.util;
 
+import stexfires.util.function.RandomBooleanSupplier;
 import stexfires.util.function.RandomStringSuppliers;
 import stexfires.util.function.Suppliers;
 
@@ -32,6 +33,9 @@ public final class ExamplesStringSupplier {
         printStream("localTimeAsString", Stream.generate(Suppliers.localTimeAsString()));
         printStream("threadNameAsString", Stream.generate(Suppliers.threadNameAsString()));
         printStream("sequenceAsString 1.000", Stream.generate(Suppliers.sequenceAsString(1_000L)));
+
+        printStream("conditional", Stream.generate(Suppliers.conditional(new RandomBooleanSupplier(60, 100).asPrimitiveBooleanSupplier(),
+                Suppliers.constant("Test"), Suppliers.constantNull())));
     }
 
     @SuppressWarnings("CharUsedInArithmeticContext")
