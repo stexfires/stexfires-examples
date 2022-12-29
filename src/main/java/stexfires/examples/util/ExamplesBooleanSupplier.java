@@ -9,6 +9,7 @@ import stexfires.util.function.SwitchingBooleanSupplier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -53,6 +54,13 @@ public final class ExamplesBooleanSupplier {
                         Suppliers.mapTo(Suppliers.constant("true"), Boolean::parseBoolean)).limit(2));
         printBoolean("mapToPrimitiveBoolean constant parseBoolean",
                 Suppliers.mapToPrimitiveBoolean(Suppliers.constant("false"), Boolean::parseBoolean).getAsBoolean());
+
+        printStream("randomSelection List",
+                Stream.generate(
+                        Suppliers.randomSelection(new Random(), List.of(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE))));
+        printStream("randomSelection Array",
+                Stream.generate(
+                        Suppliers.randomSelection(new Random(), new Boolean[]{Boolean.TRUE, Boolean.TRUE, Boolean.FALSE})));
     }
 
     private static void showRandomBooleanSupplier() {

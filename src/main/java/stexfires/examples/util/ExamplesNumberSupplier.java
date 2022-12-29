@@ -188,54 +188,53 @@ public final class ExamplesNumberSupplier {
         printStream("primitiveIntSelection Array",
                 IntStream.generate(
                         RandomNumberSuppliers.primitiveIntSelection(random, 42, 23, 1024)));
-        printStream("integerSelection List",
+        printStream("randomSelection List Integer",
                 Stream.generate(
-                        RandomNumberSuppliers.integerSelection(random, List.of(42, 23, 1024))));
-        printStream("integerSelection Array",
+                        Suppliers.randomSelection(random, List.of(42, 23, 1024))));
+        printStream("randomSelection Array Integer",
                 Stream.generate(
-                        RandomNumberSuppliers.integerSelection(random, 42, 23, 1024)));
+                        Suppliers.randomSelection(random, new Integer[]{42, 23, 1024})));
 
         printStream("primitiveLongSelection Array",
                 LongStream.generate(
                         RandomNumberSuppliers.primitiveLongSelection(random, 42L, 23L, 1024L)));
-        printStream("longSelection List",
+        printStream("randomSelection List Long",
                 Stream.generate(
-                        RandomNumberSuppliers.longSelection(random, List.of(42L, 23L, 1024L))));
-        printStream("longSelection Array",
+                        Suppliers.randomSelection(random, List.of(42L, 23L, 1024L))));
+        printStream("randomSelection Array Long",
                 Stream.generate(
-                        RandomNumberSuppliers.longSelection(random, 42L, 23L, 1024L)));
+                        Suppliers.randomSelection(random, new Long[]{42L, 23L, 1024L})));
 
         printStream("primitiveDoubleSelection Array",
                 DoubleStream.generate(
                         RandomNumberSuppliers.primitiveDoubleSelection(random, 42.0d, 23.0d, 1024.0d)));
-        printStream("doubleSelection List",
+        printStream("randomSelection List Double",
                 Stream.generate(
-                        RandomNumberSuppliers.doubleSelection(random, List.of(42.0d, 23.0d, 1024.0d))));
-        printStream("doubleSelection Array",
+                        Suppliers.randomSelection(random, List.of(42.0d, 23.0d, 1024.0d))));
+        printStream("randomSelection Array Double",
                 Stream.generate(
-                        RandomNumberSuppliers.doubleSelection(random, 42.0d, 23.0d, 1024.0d)));
+                        Suppliers.randomSelection(random, new Double[]{42.0d, 23.0d, 1024.0d})));
 
-        printStream("floatSelection List",
+        printStream("randomSelection List Float",
                 Stream.generate(
-                        RandomNumberSuppliers.floatSelection(random, List.of(42.0f, 23.0f, 1024.0f))));
-        printStream("floatSelection Array",
+                        Suppliers.randomSelection(random, List.of(42.0f, 23.0f, 1024.0f))));
+        printStream("randomSelection Array Float",
                 Stream.generate(
-                        RandomNumberSuppliers.floatSelection(random, 42.0f, 23.0f, 1024.0f)));
+                        Suppliers.randomSelection(random, new Float[]{42.0f, 23.0f, 1024.0f})));
 
-        printStream("bigIntegerSelection List",
+        printStream("randomSelection List BigInteger",
                 Stream.generate(
-                        RandomNumberSuppliers.bigIntegerSelection(random, List.of(BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L)))));
-        printStream("bigIntegerSelection Array",
+                        Suppliers.randomSelection(random, List.of(BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L)))));
+        printStream("randomSelection Array BigInteger",
                 Stream.generate(
-                        RandomNumberSuppliers.bigIntegerSelection(random, BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L))));
+                        Suppliers.randomSelection(random, new BigInteger[]{BigInteger.valueOf(42L), BigInteger.valueOf(23L), BigInteger.valueOf(1024L)})));
 
-        printStream("bigDecimalSelection List",
+        printStream("randomSelection List BigDecimal",
                 Stream.generate(
-                        RandomNumberSuppliers.bigDecimalSelection(random, List.of(BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d)))));
-        printStream("bigDecimalSelection Array",
+                        Suppliers.randomSelection(random, List.of(BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d)))));
+        printStream("randomSelection Array BigDecimal",
                 Stream.generate(
-                        RandomNumberSuppliers.bigDecimalSelection(random, BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d))));
-
+                        Suppliers.randomSelection(random, new BigDecimal[]{BigDecimal.valueOf(42.0d), BigDecimal.valueOf(23.0d), BigDecimal.valueOf(1024.0d)})));
     }
 
     public static void main(String... args) {

@@ -44,15 +44,24 @@ public final class ExamplesStringSupplier {
                 Stream.generate(
                         RandomStringSuppliers.uuid()));
 
-        printStream("stringSelection List 3",
+        printStream("randomSelection List 0",
                 Stream.generate(
-                        RandomStringSuppliers.stringSelection(random, List.of("Aaa", "Bbb", "Ccc"))));
-        printStream("stringSelection Array 3",
+                        Suppliers.randomSelection(random, List.of())));
+        printStream("randomSelection List 1",
                 Stream.generate(
-                        RandomStringSuppliers.stringSelection(random, "Aaa", "Bbb", null, "Ccc")));
-        printStream("stringSelection Array 1",
+                        Suppliers.randomSelection(random, List.of("Aaa"))));
+        printStream("randomSelection List 3",
                 Stream.generate(
-                        RandomStringSuppliers.stringSelection(random, "Aaa")));
+                        Suppliers.randomSelection(random, List.of("Aaa", "Bbb", "Ccc"))));
+        printStream("randomSelection Array 0",
+                Stream.generate(
+                        Suppliers.randomSelection(random, new String[]{})));
+        printStream("randomSelection Array 1",
+                Stream.generate(
+                        Suppliers.randomSelection(random, new String[]{"Aaa"})));
+        printStream("randomSelection Array 3",
+                Stream.generate(
+                        Suppliers.randomSelection(random, new String[]{"Aaa", "Bbb", "Ccc"})));
 
         printStream("codePointConcatenation Boundary A-z isAlphabetic",
                 Stream.generate(
