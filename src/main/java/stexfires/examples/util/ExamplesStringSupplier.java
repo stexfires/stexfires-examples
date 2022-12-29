@@ -27,10 +27,11 @@ public final class ExamplesStringSupplier {
         printStream("constantNull", Stream.generate(Suppliers.<String>constantNull()).limit(2));
         printStream("combine", Stream.generate(Suppliers.combine(() -> "X", () -> "Y", (x, y) -> x + "-" + y)).limit(2));
 
+        printStream("mapTo sequenceAsLong", Stream.generate(Suppliers.mapTo(Suppliers.sequenceAsLong(0), String::valueOf)));
+
         printStream("localTimeAsString", Stream.generate(Suppliers.localTimeAsString()));
         printStream("threadNameAsString", Stream.generate(Suppliers.threadNameAsString()));
         printStream("sequenceAsString 1.000", Stream.generate(Suppliers.sequenceAsString(1_000L)));
-
     }
 
     @SuppressWarnings("CharUsedInArithmeticContext")

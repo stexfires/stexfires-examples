@@ -117,6 +117,24 @@ public final class ExamplesNumberSupplier {
                         Suppliers.combinePrimitiveDouble(() -> 1.0d, () -> 2.0d, Double::sum)).limit(2));
     }
 
+    private static void showSuppliersMapTo() {
+        System.out.println("-showSuppliersMapTo---");
+
+        printStream("mapTo sequenceAsString Long::valueOf",
+                Stream.generate(Suppliers.mapTo(Suppliers.sequenceAsString(1), Long::valueOf)));
+        printStream("mapTo sequenceAsString Integer::valueOf",
+                Stream.generate(Suppliers.mapTo(Suppliers.sequenceAsString(1), Integer::valueOf)));
+        printStream("mapTo sequenceAsString Double::valueOf",
+                Stream.generate(Suppliers.mapTo(Suppliers.sequenceAsString(1), Double::valueOf)));
+
+        printStream("mapToPrimitiveLong sequenceAsString Long::valueOf",
+                LongStream.generate(Suppliers.mapToPrimitiveLong(Suppliers.sequenceAsString(1), Long::valueOf)));
+        printStream("mapToPrimitiveInt sequenceAsString Integer::valueOf",
+                IntStream.generate(Suppliers.mapToPrimitiveInt(Suppliers.sequenceAsString(1), Integer::valueOf)));
+        printStream("mapToPrimitiveDouble sequenceAsString Double::valueOf",
+                DoubleStream.generate(Suppliers.mapToPrimitiveDouble(Suppliers.sequenceAsString(1), Double::valueOf)));
+    }
+
     private static void showRandomSupplier() {
         System.out.println("-showRandomSupplier---");
 
@@ -224,6 +242,7 @@ public final class ExamplesNumberSupplier {
         showSuppliersSequence();
         showSuppliersConstant();
         showSuppliersCombine();
+        showSuppliersMapTo();
         showRandomSupplier();
         showRandomSelectionSupplier();
     }

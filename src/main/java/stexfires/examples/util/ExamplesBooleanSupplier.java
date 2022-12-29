@@ -47,6 +47,12 @@ public final class ExamplesBooleanSupplier {
                         Suppliers.combine(() -> Boolean.TRUE, () -> Boolean.FALSE, Boolean::logicalAnd)).limit(2));
         printBoolean("combinePrimitiveBoolean",
                 Suppliers.combinePrimitiveBoolean(() -> true, () -> false, (x, y) -> x && y).getAsBoolean());
+
+        printStream("mapTo constant parseBoolean",
+                Stream.generate(
+                        Suppliers.mapTo(Suppliers.constant("true"), Boolean::parseBoolean)).limit(2));
+        printBoolean("mapToPrimitiveBoolean constant parseBoolean",
+                Suppliers.mapToPrimitiveBoolean(Suppliers.constant("false"), Boolean::parseBoolean).getAsBoolean());
     }
 
     private static void showRandomBooleanSupplier() {
