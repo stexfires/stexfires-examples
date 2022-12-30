@@ -31,6 +31,7 @@ import stexfires.util.function.StringPredicates;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -243,7 +244,7 @@ public final class ExamplesFilter {
         printFilter("primitiveBooleanSupplier",
                 SupplierFilter.primitiveBooleanSupplier(() -> true));
         printFilter("random",
-                SupplierFilter.random(50));
+                SupplierFilter.random(50, new Random()));
         printFilter("pattern",
                 SupplierFilter.pattern(true, false, false));
     }

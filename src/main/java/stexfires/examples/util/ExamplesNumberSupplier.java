@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
+import java.util.random.RandomGenerator;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -138,52 +139,52 @@ public final class ExamplesNumberSupplier {
     private static void showRandomSupplier() {
         System.out.println("-showRandomSupplier---");
 
-        Random random = new Random();
+        RandomGenerator randomGenerator = new Random();
 
         printStream("randomPrimitiveInt",
                 IntStream.generate(
-                        RandomNumberSuppliers.randomPrimitiveInt(random, 10, 100)));
+                        RandomNumberSuppliers.randomPrimitiveInt(randomGenerator, 10, 100)));
         printStream("randomInteger",
                 Stream.generate(
-                        RandomNumberSuppliers.randomInteger(random, Integer.MIN_VALUE, Integer.MAX_VALUE)));
+                        RandomNumberSuppliers.randomInteger(randomGenerator, Integer.MIN_VALUE, Integer.MAX_VALUE)));
 
         printStream("randomPrimitiveLong",
                 LongStream.generate(
-                        RandomNumberSuppliers.randomPrimitiveLong(random, 10, 100)));
+                        RandomNumberSuppliers.randomPrimitiveLong(randomGenerator, 10, 100)));
         printStream("randomLong",
                 Stream.generate(
-                        RandomNumberSuppliers.randomLong(random, Long.MIN_VALUE, Long.MAX_VALUE)));
+                        RandomNumberSuppliers.randomLong(randomGenerator, Long.MIN_VALUE, Long.MAX_VALUE)));
 
         printStream("randomPrimitiveDouble",
                 DoubleStream.generate(
-                        RandomNumberSuppliers.randomPrimitiveDouble(random, 10.0d, 100.0d)));
+                        RandomNumberSuppliers.randomPrimitiveDouble(randomGenerator, 10.0d, 100.0d)));
         printStream("randomDouble",
                 Stream.generate(
-                        RandomNumberSuppliers.randomDouble(random, Double.MIN_VALUE, Double.MAX_VALUE)));
+                        RandomNumberSuppliers.randomDouble(randomGenerator, Double.MIN_VALUE, Double.MAX_VALUE)));
 
         printStream("randomFloat",
                 Stream.generate(
-                        RandomNumberSuppliers.randomFloat(random, Float.MIN_VALUE, Float.MAX_VALUE)));
+                        RandomNumberSuppliers.randomFloat(randomGenerator, Float.MIN_VALUE, Float.MAX_VALUE)));
         printStream("randomBigInteger",
                 Stream.generate(
-                        RandomNumberSuppliers.randomBigInteger(random, Long.MIN_VALUE, Long.MAX_VALUE)));
+                        RandomNumberSuppliers.randomBigInteger(randomGenerator, Long.MIN_VALUE, Long.MAX_VALUE)));
         printStream("randomBigDecimal",
                 Stream.generate(
-                        RandomNumberSuppliers.randomBigDecimal(random, Double.MIN_VALUE, Double.MAX_VALUE)));
+                        RandomNumberSuppliers.randomBigDecimal(randomGenerator, Double.MIN_VALUE, Double.MAX_VALUE)));
 
         printStream("randomPrimitiveDoubleGaussian",
                 DoubleStream.generate(
-                        RandomNumberSuppliers.randomPrimitiveDoubleGaussian(random, 50.0d, 10.0d)));
+                        RandomNumberSuppliers.randomPrimitiveDoubleGaussian(randomGenerator, 50.0d, 10.0d)));
         printStream("randomDoubleGaussian",
                 Stream.generate(
-                        RandomNumberSuppliers.randomDoubleGaussian(random, 50.0d, 10.0d)));
+                        RandomNumberSuppliers.randomDoubleGaussian(randomGenerator, 50.0d, 10.0d)));
 
     }
 
     private static void showRandomSelectionSupplier() {
         System.out.println("-showRandomSelectionSupplier---");
 
-        Random random = new Random();
+        RandomGenerator random = new Random();
 
         printStream("primitiveIntSelection Array",
                 IntStream.generate(

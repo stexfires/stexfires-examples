@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
+import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,59 +67,61 @@ public final class ExamplesBooleanSupplier {
     private static void showRandomBooleanSupplier() {
         System.out.println("-showRandomBooleanSupplier---");
 
+        RandomGenerator randomGenerator = new Random();
+
         printStream("Random: 101%",
                 Stream.generate(
-                        new RandomBooleanSupplier(101)));
+                        new RandomBooleanSupplier(101, randomGenerator)));
 
         printStream("Random: 100%",
                 Stream.generate(
-                        new RandomBooleanSupplier(100)));
+                        new RandomBooleanSupplier(100, randomGenerator)));
 
         printStream("Random: 90%",
                 Stream.generate(
-                        new RandomBooleanSupplier(75)));
+                        new RandomBooleanSupplier(75, randomGenerator)));
 
         printStream("Random: 50%",
                 Stream.generate(
-                        new RandomBooleanSupplier(50)));
+                        new RandomBooleanSupplier(50, randomGenerator)));
 
         printStream("Random:  1%",
                 Stream.generate(
-                        new RandomBooleanSupplier(1)));
+                        new RandomBooleanSupplier(1, randomGenerator)));
 
         printStream("Random:  0%",
                 Stream.generate(
-                        new RandomBooleanSupplier(0)));
+                        new RandomBooleanSupplier(0, randomGenerator)));
 
         printStream("Random:  -10%",
                 Stream.generate(
-                        new RandomBooleanSupplier(-10)));
+                        new RandomBooleanSupplier(-10, randomGenerator)));
 
         System.out.println("Random: 99% 1.000.000");
-        System.out.println(Stream.generate(new RandomBooleanSupplier(99))
+        System.out.println(Stream.generate(new RandomBooleanSupplier(99, randomGenerator))
                                  .limit(1_000_000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 
         System.out.println("Random: 50% 100.000");
-        System.out.println(Stream.generate(new RandomBooleanSupplier(50))
+        System.out.println(Stream.generate(new RandomBooleanSupplier(50, randomGenerator))
                                  .limit(1_000_000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 
         System.out.println("Random: 1% 1.000.000");
-        System.out.println(Stream.generate(new RandomBooleanSupplier(1))
+        System.out.println(Stream.generate(new RandomBooleanSupplier(1, randomGenerator))
                                  .limit(1_000_000L)
                                  .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
 
-        printStream("Random: 50% Seed 1L",
+        printStream("Random: 50% Random Seed 1L",
                 Stream.generate(
-                        new RandomBooleanSupplier(50, 1L)));
+                        new RandomBooleanSupplier(50, new Random(1L))));
 
-        printStream("Random: ThreadLocalRandom Seed 1L",
+        printStream("Random: 50% ThreadLocalRandom",
                 Stream.generate(
                         new RandomBooleanSupplier(50, ThreadLocalRandom.current())));
 
         printBoolean("Random: 50% primitive boolean",
-                new RandomBooleanSupplier(50).asPrimitiveBooleanSupplier().getAsBoolean());
+                new RandomBooleanSupplier(50, randomGenerator).asPrimitiveBooleanSupplier().getAsBoolean());
     }
 
     private static void showRepeatingPatternBooleanSupplier() {
