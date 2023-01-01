@@ -6,13 +6,8 @@ import stexfires.data.CharsetDataTypeFormatter;
 import stexfires.data.CharsetDataTypeParser;
 import stexfires.data.DataTypeFormatException;
 import stexfires.data.DataTypeParseException;
-import stexfires.data.EnumDataTypeFormatter;
-import stexfires.data.EnumDataTypeParser;
 import stexfires.data.LocaleDataTypeFormatter;
 import stexfires.data.LocaleDataTypeParser;
-import stexfires.util.Alignment;
-import stexfires.util.CommonCharsetNames;
-import stexfires.util.function.StringUnaryOperators;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -62,38 +57,6 @@ public final class ExamplesMiscDataType {
             return "<NULL>";
         }
         return "\"" + locale.toLanguageTag() + "\" (" + locale + " - " + locale.hashCode() + ")";
-    }
-
-    private static void testParseAlignment(String source, EnumDataTypeParser<Alignment> parser) {
-        try {
-            System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
-            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
-        }
-    }
-
-    private static void testParseCommonCharsetNames(String source, EnumDataTypeParser<CommonCharsetNames> parser) {
-        try {
-            System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
-            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
-        }
-    }
-
-    private static void testFormatAlignment(Alignment source, EnumDataTypeFormatter<Alignment> formatter) {
-        try {
-            System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
-        } catch (DataTypeFormatException e) {
-            System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
-        }
-    }
-
-    private static void testFormatCommonCharsetNames(CommonCharsetNames source, EnumDataTypeFormatter<CommonCharsetNames> formatter) {
-        try {
-            System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
-        } catch (DataTypeFormatException e) {
-            System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
-        }
     }
 
     private static void testParseCharset(String source, CharsetDataTypeParser parser) {
@@ -157,32 +120,6 @@ public final class ExamplesMiscDataType {
         testParseLocale("ja-JP-x-lvariant-JP", new LocaleDataTypeParser(null, null));
         testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", new LocaleDataTypeParser(null, null));
         testParseLocale("und", new LocaleDataTypeParser(null, null));
-
-        System.out.println("---EnumDataTypeFormatter");
-        testFormatAlignment(null, new EnumDataTypeFormatter<>(null));
-        testFormatAlignment(null, new EnumDataTypeFormatter<>(Alignment.CENTER::name));
-        testFormatAlignment(Alignment.CENTER, new EnumDataTypeFormatter<>(null));
-
-        testFormatCommonCharsetNames(null, new EnumDataTypeFormatter<>(null));
-        testFormatCommonCharsetNames(null, new EnumDataTypeFormatter<>(CommonCharsetNames.ISO_8859_1::name));
-        testFormatCommonCharsetNames(CommonCharsetNames.ISO_8859_1, new EnumDataTypeFormatter<>(null));
-
-        System.out.println("---EnumDataTypeParser");
-        testParseAlignment(null, new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseAlignment(null, new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), () -> Alignment.CENTER, null));
-        testParseAlignment("", new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseAlignment("", new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, () -> Alignment.CENTER));
-        testParseAlignment("CENTER", new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseAlignment("center", new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseAlignment("test", new EnumDataTypeParser<>(Alignment.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-
-        testParseCommonCharsetNames(null, new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseCommonCharsetNames(null, new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), () -> CommonCharsetNames.ISO_8859_1, null));
-        testParseCommonCharsetNames("", new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseCommonCharsetNames("", new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, () -> CommonCharsetNames.ISO_8859_1));
-        testParseCommonCharsetNames("ISO_8859_1", new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseCommonCharsetNames("iso_8859_1", new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
-        testParseCommonCharsetNames("test", new EnumDataTypeParser<>(CommonCharsetNames.class, StringUnaryOperators.upperCase(Locale.ENGLISH), null, null));
 
         System.out.println("---CharsetDataTypeFormatter");
         testFormatCharset(null, new CharsetDataTypeFormatter(null));
