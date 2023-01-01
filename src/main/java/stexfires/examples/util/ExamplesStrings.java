@@ -20,17 +20,17 @@ public final class ExamplesStrings {
 
         Integer ten = 10;
 
-        System.out.println(Strings.asString(null));
-        System.out.println(Strings.asString("Test"));
-        System.out.println(Strings.asString(Boolean.TRUE));
-        System.out.println(Strings.asString(BigInteger.TWO));
-        System.out.println(Strings.asString(ten));
+        System.out.println(Strings.toNullableString(null));
+        System.out.println(Strings.toNullableString("Test"));
+        System.out.println(Strings.toNullableString(Boolean.TRUE));
+        System.out.println(Strings.toNullableString(BigInteger.TWO));
+        System.out.println(Strings.toNullableString(ten));
 
-        System.out.println(Strings.asOptionalString(null));
-        System.out.println(Strings.asOptionalString("Test"));
-        System.out.println(Strings.asOptionalString(Boolean.TRUE));
-        System.out.println(Strings.asOptionalString(BigInteger.TWO));
-        System.out.println(Strings.asOptionalString(ten));
+        System.out.println(Strings.toOptionalString(null));
+        System.out.println(Strings.toOptionalString("Test"));
+        System.out.println(Strings.toOptionalString(Boolean.TRUE));
+        System.out.println(Strings.toOptionalString(BigInteger.TWO));
+        System.out.println(Strings.toOptionalString(ten));
 
         System.out.println(Strings.empty());
     }

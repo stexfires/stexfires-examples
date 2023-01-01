@@ -71,7 +71,7 @@ public final class ExamplesProducer {
         printProducer(new KeyValueRecordProducer(category, keyValueMap));
         printProducer(new KeyValueRecordProducer(category, Suppliers.sequenceAsLong(100L), keyValueMap));
         printProducer(new KeyValueRecordProducer(category, TextRecords.recordIdSequence(), keyValueMap,
-                Strings::asString, i -> i == null ? "<null>" : "#" + i.hashCode()));
+                Strings::toNullableString, i -> i == null ? "<null>" : "#" + i.hashCode()));
     }
 
     private static void showSingleProducer() {
