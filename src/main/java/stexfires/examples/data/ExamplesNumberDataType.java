@@ -86,41 +86,41 @@ public final class ExamplesNumberDataType {
         testFormat(new BigDecimal("99999999999999999999999999999999999999.99999"), new NumberDataTypeFormatter<>(bigDecimalFormat, () -> "NULL"));
 
         System.out.println("---NumberDataTypeParser");
-        testParse(null, new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse(null, new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), () -> -1, null), integerFormat);
-        testParse("", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, () -> -1), integerFormat);
-        testParse("123", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("12.345", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("a123", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("12a3", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("1,23", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("1,23", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), decimalFormat);
-        testParse("1.23", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse("-123.456", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse(String.valueOf(Integer.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse(String.valueOf(10L + Integer.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
-        testParse(String.valueOf(Long.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertIntegerFunction(), null, null), integerFormat);
+        testParse(null, new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse(null, new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, () -> -1, null), integerFormat);
+        testParse("", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, () -> -1), integerFormat);
+        testParse("123", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("12.345", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("a123", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("12a3", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("1,23", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("1,23", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toInteger, null, null), decimalFormat);
+        testParse("1.23", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse("-123.456", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse(String.valueOf(Integer.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse(String.valueOf(10L + Integer.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
+        testParse(String.valueOf(Long.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toInteger, null, null), integerFormat);
 
-        testParse(String.valueOf(Long.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertLongFunction(), null, null), integerFormat);
-        testParse("9.223.372.036.854.775.807", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertLongFunction(), null, null), integerFormat);
-        testParse("9.223.372.036.854.775.808", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertLongFunction(), null, null), integerFormat);
-        testParse("1.234,567", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("1", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("NaN", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("1.7976931348623157E308", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("179.769.313.486.231.570.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("∞", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
-        testParse("-∞", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertDoubleFunction(), null, null), decimalFormat);
+        testParse(String.valueOf(Long.MAX_VALUE), new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toLong, null, null), integerFormat);
+        testParse("9.223.372.036.854.775.807", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toLong, null, null), integerFormat);
+        testParse("9.223.372.036.854.775.808", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toLong, null, null), integerFormat);
+        testParse("1.234,567", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("1", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("NaN", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("1.7976931348623157E308", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("179.769.313.486.231.570.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000.000", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("∞", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
+        testParse("-∞", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toDouble, null, null), decimalFormat);
 
-        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser.convertBigIntegerFunction(), null, null), bigDecimalFormat);
-        testParse("9,99", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertBigIntegerFunction(), null, null), decimalFormat);
-        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser.convertBigIntegerFunction(), null, null), decimalFormat);
-        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser.convertBigIntegerFunction(), null, null), bigDecimalFormat);
+        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigInteger, null, null), bigDecimalFormat);
+        testParse("9,99", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toBigInteger, null, null), decimalFormat);
+        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(decimalFormat, NumberDataTypeParser::toBigInteger, null, null), decimalFormat);
+        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigInteger, null, null), bigDecimalFormat);
 
-        testParse("99.999", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser.convertBigDecimalFunction(), null, null), bigDecimalFormat);
-        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser.convertBigDecimalFunction(), null, null), bigDecimalFormat);
-        testParse("∞", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser.convertBigDecimalFunction(), null, null), bigDecimalFormat);
+        testParse("99.999", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
+        testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
+        testParse("∞", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
     }
 
 }
