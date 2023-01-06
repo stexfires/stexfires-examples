@@ -182,6 +182,7 @@ public final class ExamplesMiscDataType {
         testParseByteArray("4243Z", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
         testParseByteArray("Hello world!", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromStringStandard(StandardCharsets.US_ASCII), new byte[]{}));
         testParseByteArray("QkM=", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
+        testParseByteArray("--", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
     }
 
 }

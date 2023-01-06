@@ -11,6 +11,8 @@ import stexfires.util.function.StringPredicates;
 import stexfires.util.function.StringUnaryOperators;
 import stexfires.util.function.Suppliers;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Locale;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr"})
@@ -108,6 +110,16 @@ public final class ExamplesStringDataType {
         testParse("'    '", new StringDataTypeParser(null, StringUnaryOperators.conditionalOperator(StringPredicates.surroundedBy("'", "'"), StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")), StringUnaryOperators.identity()), Suppliers.constantNull(), Suppliers.constant(Strings.EMPTY)));
         testParse("''''", new StringDataTypeParser(null, StringUnaryOperators.conditionalOperator(StringPredicates.surroundedBy("'", "'"), StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")), StringUnaryOperators.identity()), Suppliers.constantNull(), Suppliers.constant(Strings.EMPTY)));
         testParse("'Test'", new StringDataTypeParser(null, StringUnaryOperators.conditionalOperator(StringPredicates.surroundedBy("'", "'"), StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")), StringUnaryOperators.identity()), Suppliers.constantNull(), Suppliers.constant(Strings.EMPTY)));
+
+        System.out.println("---StringDataTypeFormatter Base64");
+        testFormat("Test", StringDataTypeFormatter.newFormatter(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.US_ASCII)));
+        testFormat("ä ß €", StringDataTypeFormatter.newFormatter(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8)));
+
+        System.out.println("---StringDataTypeParser Base64");
+        testParse("VGVzdA==", new StringDataTypeParser(null, StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.US_ASCII), Suppliers.constantNull(), null));
+        testParse("VGVzdA==a", new StringDataTypeParser(null, StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.US_ASCII), Suppliers.constantNull(), null));
+        testParse("w6Qgw58g4oKs", new StringDataTypeParser(null, StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.US_ASCII), Suppliers.constantNull(), null));
+        testParse("w6Qgw58g4oKs", new StringDataTypeParser(null, StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.UTF_8), Suppliers.constantNull(), null));
     }
 
 }
