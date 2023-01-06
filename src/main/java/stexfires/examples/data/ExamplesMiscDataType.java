@@ -2,8 +2,6 @@ package stexfires.examples.data;
 
 import stexfires.data.BooleanDataTypeFormatter;
 import stexfires.data.BooleanDataTypeParser;
-import stexfires.data.CharsetDataTypeFormatter;
-import stexfires.data.CharsetDataTypeParser;
 import stexfires.data.DataTypeFormatException;
 import stexfires.data.DataTypeParseException;
 import stexfires.data.GenericDataTypeFormatter;
@@ -59,7 +57,7 @@ public final class ExamplesMiscDataType {
         return "\"" + locale.toLanguageTag() + "\" (" + locale + " - " + locale.hashCode() + ")";
     }
 
-    private static void testParseCharset(String source, CharsetDataTypeParser parser) {
+    private static void testParseCharset(String source, GenericDataTypeParser<Charset> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
         } catch (DataTypeParseException e) {
@@ -67,7 +65,7 @@ public final class ExamplesMiscDataType {
         }
     }
 
-    private static void testFormatCharset(Charset source, CharsetDataTypeFormatter formatter) {
+    private static void testFormatCharset(Charset source, GenericDataTypeFormatter<Charset> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -121,18 +119,18 @@ public final class ExamplesMiscDataType {
         testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
         testParseLocale("und", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
 
-        System.out.println("---CharsetDataTypeFormatter");
-        testFormatCharset(null, new CharsetDataTypeFormatter(null));
-        testFormatCharset(null, new CharsetDataTypeFormatter(StandardCharsets.ISO_8859_1::name));
-        testFormatCharset(StandardCharsets.ISO_8859_1, new CharsetDataTypeFormatter(null));
+        System.out.println("---GenericDataTypeFormatter Charset");
+        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(null));
+        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(StandardCharsets.ISO_8859_1::name));
+        testFormatCharset(StandardCharsets.ISO_8859_1, GenericDataTypeFormatter.newCharsetDataTypeFormatter(null));
 
-        System.out.println("---CharsetDataTypeParser");
-        testParseCharset(null, new CharsetDataTypeParser(null, null));
-        testParseCharset(null, new CharsetDataTypeParser(() -> StandardCharsets.ISO_8859_1, null));
-        testParseCharset("", new CharsetDataTypeParser(null, null));
-        testParseCharset("", new CharsetDataTypeParser(null, () -> StandardCharsets.ISO_8859_1));
-        testParseCharset("ISO-8859-1", new CharsetDataTypeParser(null, null));
-        testParseCharset("test", new CharsetDataTypeParser(null, null));
+        System.out.println("---GenericDataTypeParser Charset");
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(null, null));
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(() -> StandardCharsets.ISO_8859_1, null));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null, () -> StandardCharsets.ISO_8859_1));
+        testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
+        testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
     }
 
 }
