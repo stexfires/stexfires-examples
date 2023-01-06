@@ -52,6 +52,7 @@ public final class ExamplesMappingDataType {
         testParseMappingDataType("IGNORE", new MappingDataTypeParser<>(pairList, null, null));
         testParseMappingDataType("REPORT", new MappingDataTypeParser<>(pairList, null, null));
         testParseMappingDataType("REPLACE", new MappingDataTypeParser<>(pairList, null, null));
+        testParseMappingDataType("REPLACE", new MappingDataTypeParser<>(MappingDataTypePair.createPairListCodingErrorAction(), null, null));
     }
 
 }
