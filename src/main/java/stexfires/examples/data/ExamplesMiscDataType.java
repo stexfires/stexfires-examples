@@ -6,13 +6,16 @@ import stexfires.data.DataTypeFormatException;
 import stexfires.data.DataTypeParseException;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
+import stexfires.util.function.ByteArrayFunctions;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Locale;
 import java.util.Set;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber"})
 public final class ExamplesMiscDataType {
 
     private ExamplesMiscDataType() {
@@ -70,6 +73,22 @@ public final class ExamplesMiscDataType {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
             System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    private static void testParseByteArray(String source, GenericDataTypeParser<byte[]> parser) {
+        try {
+            System.out.println("Parse: \"" + source + "\". Result: " + Arrays.toString(parser.parse(source)));
+        } catch (DataTypeParseException e) {
+            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    private static void testFormatByteArray(byte[] source, GenericDataTypeFormatter<byte[]> formatter) {
+        try {
+            System.out.println("Format: \"" + Arrays.toString(source) + "\". Result: " + formatter.format(source));
+        } catch (DataTypeFormatException e) {
+            System.out.println("Format: \"" + Arrays.toString(source) + "\". Error: " + e.getMessage());
         }
     }
 
@@ -141,6 +160,28 @@ public final class ExamplesMiscDataType {
         testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
         testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null));
         testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null));
+
+        System.out.println("---GenericDataTypeFormatter byte[]");
+        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatterWithSupplier(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatterWithSupplier(ByteArrayFunctions.toHex(), () -> "<NULL>"));
+        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(new byte[]{72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toStringStandard(StandardCharsets.US_ASCII), null));
+        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toBase64(Base64.getEncoder()), null));
+
+        System.out.println("---GenericDataTypeParser byte[]");
+        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
+        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), null));
+        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), () -> new byte[]{}, null));
+        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
+        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), null));
+        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, () -> new byte[]{}));
+        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("4243", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("4243Z", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("Hello world!", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromStringStandard(StandardCharsets.US_ASCII), new byte[]{}));
+        testParseByteArray("QkM=", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
     }
 
 }
