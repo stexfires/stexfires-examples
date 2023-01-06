@@ -95,42 +95,52 @@ public final class ExamplesMiscDataType {
         testParseBoolean("test", new BooleanDataTypeParser(trueValues, falseValues, null, null));
 
         System.out.println("---GenericDataTypeFormatter Locale");
+        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
         testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatter(() -> Locale.getDefault().toLanguageTag()));
-        testFormatLocale(Locale.getDefault(), GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.GERMAN, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.GERMANY, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.ENGLISH, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.US, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.JAPAN, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(Locale.forLanguageTag("und"), GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
+        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(() -> Locale.getDefault().toLanguageTag()));
+        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatter(Locale.getDefault().toLanguageTag()));
+        testFormatLocale(Locale.getDefault(), GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.GERMAN, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.GERMANY, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.ENGLISH, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.US, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.JAPAN, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(Locale.forLanguageTag("und"), GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Locale");
-        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParser(Locale::getDefault, null));
-        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParser(null, Locale::getDefault));
-        testParseLocale("de", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("de_DE", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("de-DE", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("de-POSIX-x-URP-lvariant-Abc-Def", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("ja-JP", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("ja-JP-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
-        testParseLocale("und", GenericDataTypeParser.newLocaleDataTypeParser(null, null));
+        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParser(null));
+        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(Locale::getDefault, null));
+        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParser(null));
+        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, Locale::getDefault));
+        testParseLocale("de", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("de_DE", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("de-DE", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("de-POSIX-x-URP-lvariant-Abc-Def", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("ja-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("ja-JP-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale("und", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
 
         System.out.println("---GenericDataTypeFormatter Charset");
+        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(null));
         testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(null));
-        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(StandardCharsets.ISO_8859_1::name));
-        testFormatCharset(StandardCharsets.ISO_8859_1, GenericDataTypeFormatter.newCharsetDataTypeFormatter(null));
+        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(StandardCharsets.ISO_8859_1::name));
+        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(StandardCharsets.ISO_8859_1.name()));
+        testFormatCharset(StandardCharsets.ISO_8859_1, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Charset");
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(null, null));
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(() -> StandardCharsets.ISO_8859_1, null));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null, () -> StandardCharsets.ISO_8859_1));
-        testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
-        testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null, null));
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, null));
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(null));
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(() -> StandardCharsets.ISO_8859_1, null));
+        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, null));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, () -> StandardCharsets.ISO_8859_1));
+        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
+        testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null));
+        testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null));
     }
 
 }
