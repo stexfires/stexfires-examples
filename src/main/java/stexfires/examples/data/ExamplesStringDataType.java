@@ -38,10 +38,9 @@ public final class ExamplesStringDataType {
     public static void main(String... args) {
 
         System.out.println("---StringDataTypeFormatter NULL and EMPTY handling");
-        testFormat(null, new StringDataTypeFormatter(null, null, null));
-        testFormat(null, new StringDataTypeFormatter(null, () -> "<NULL>", null));
-        testFormat("", new StringDataTypeFormatter(null, null, null));
-        testFormat("", new StringDataTypeFormatter(null, null, () -> "<EMPTY>"));
+        testFormat(null, new StringDataTypeFormatter(null, null));
+        testFormat(null, new StringDataTypeFormatter(null, () -> "<NULL>"));
+        testFormat("", new StringDataTypeFormatter(null, null));
 
         System.out.println("---StringDataTypeParser NULL and EMPTY handling");
         testParse(null, new StringDataTypeParser(null, null, null, null));
@@ -86,11 +85,11 @@ public final class ExamplesStringDataType {
         testParse("ä ä ß s ss", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
 
         System.out.println("---StringDataTypeFormatter surround");
-        testFormat(null, new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''"), Suppliers.constant("''")));
-        testFormat("", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''"), Suppliers.constant("''")));
-        testFormat("    ", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''"), Suppliers.constant("''")));
-        testFormat("''", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''"), Suppliers.constant("''")));
-        testFormat("Test", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''"), Suppliers.constant("''")));
+        testFormat(null, new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
+        testFormat("", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
+        testFormat("    ", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
+        testFormat("''", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
+        testFormat("Test", new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
 
         System.out.println("---StringDataTypeParser surroundedBy strict");
         testParse(null, new StringDataTypeParser(StringPredicates.surroundedBy("'", "'"), StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")), StringDataTypeParser.THROW_ERROR_FOR_NULL, StringDataTypeParser.THROW_ERROR_FOR_EMPTY));
