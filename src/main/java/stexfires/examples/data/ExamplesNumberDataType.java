@@ -1,7 +1,11 @@
 package stexfires.examples.data;
 
 import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParseException;
+import stexfires.data.DataTypeParser;
+import stexfires.data.GenericDataTypeFormatter;
+import stexfires.data.GenericDataTypeParser;
 import stexfires.data.NumberDataTypeFormatter;
 import stexfires.data.NumberDataTypeParser;
 
@@ -17,7 +21,7 @@ public final class ExamplesNumberDataType {
     private ExamplesNumberDataType() {
     }
 
-    private static <T extends Number> void testFormat(T source, NumberDataTypeFormatter<T> formatter) {
+    private static <T extends Number> void testFormat(T source, DataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -25,7 +29,7 @@ public final class ExamplesNumberDataType {
         }
     }
 
-    private static <T extends Number> void testParse(String source, NumberDataTypeParser<T> parser, NumberFormat formatter) {
+    private static <T extends Number> void testParse(String source, DataTypeParser<T> parser, NumberFormat formatter) {
         try {
             T parseResult = parser.parse(source);
             String formattedResult = null;
@@ -121,6 +125,32 @@ public final class ExamplesNumberDataType {
         testParse("99.999", new NumberDataTypeParser<>(integerFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
         testParse("99.999.999.999.999.999.999.999.999.999.999.999.999,99999", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
         testParse("∞", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
+
+        System.out.println("---GenericDataTypeFormatter");
+        testFormat(Long.MAX_VALUE, GenericDataTypeFormatter.newLongRadixDataType(16, null));
+        testFormat(Long.MIN_VALUE, GenericDataTypeFormatter.newLongRadixDataType(16, null));
+        testFormat(Integer.MAX_VALUE, GenericDataTypeFormatter.newIntegerRadixDataType(16, null));
+        testFormat(Integer.MIN_VALUE, GenericDataTypeFormatter.newIntegerRadixDataType(16, null));
+        testFormat(Short.MAX_VALUE, GenericDataTypeFormatter.newShortRadixDataType(16, null));
+        testFormat(Short.MIN_VALUE, GenericDataTypeFormatter.newShortRadixDataType(16, null));
+        testFormat(Byte.MAX_VALUE, GenericDataTypeFormatter.newByteRadixDataType(16, null));
+        testFormat(Byte.MIN_VALUE, GenericDataTypeFormatter.newByteRadixDataType(16, null));
+        testFormat(1234.5678d, GenericDataTypeFormatter.newDoubleDataType(null));
+        testFormat(BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.TWO), GenericDataTypeFormatter.newBigIntegerRadixDataType(16, null));
+
+        System.out.println("---GenericDataTypeParser");
+        testParse("7fffffffffffffff", GenericDataTypeParser.newLongRadixDataType(16, null, null), integerFormat);
+        testParse("-8000000000000000", GenericDataTypeParser.newLongRadixDataType(16, null, null), integerFormat);
+        testParse("7fffffff", GenericDataTypeParser.newIntegerRadixDataType(16, null, null), integerFormat);
+        testParse("-80000000", GenericDataTypeParser.newIntegerRadixDataType(16, null, null), integerFormat);
+        testParse("7fff", GenericDataTypeParser.newShortRadixDataType(16, null, null), integerFormat);
+        testParse("-8000", GenericDataTypeParser.newShortRadixDataType(16, null, null), integerFormat);
+        testParse("7f", GenericDataTypeParser.newByteRadixDataType(16, null, null), integerFormat);
+        testParse("-80", GenericDataTypeParser.newByteRadixDataType(16, null, null), integerFormat);
+        testParse("1234.5678", GenericDataTypeParser.newDoubleDataType(null, null), integerFormat);
+        testParse("   111222333444555666777888999   ", GenericDataTypeParser.newDoubleDataType(null, null), decimalFormat);
+        testParse("   .111222333444555666777888999   ", GenericDataTypeParser.newDoubleDataType(null, null), decimalFormat);
+        testParse("fffffffffffffffe", GenericDataTypeParser.newBigIntegerRadixDataType(16, null, null), bigDecimalFormat);
     }
 
 }
