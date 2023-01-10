@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr"})
+@SuppressWarnings({"MagicNumber", "UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class ExamplesNumberDataType {
 
     private ExamplesNumberDataType() {
