@@ -89,6 +89,10 @@ public final class ExamplesIO {
         System.out.println("---readFromString andCollect");
         printlnRecordList(
                 readFromString(fileSpec, sourceString, andCollect(Collectors.toList())));
+
+        System.out.println("---newRecordDataTypeParser");
+        printlnRecord(
+                newRecordDataTypeParser(fileSpec, null, null).parse(sourceString));
     }
 
     private static void showWrite() throws IOException, UncheckedConsumerException {
@@ -131,6 +135,10 @@ public final class ExamplesIO {
                 false, valueFieldRecord3));
         System.out.println(writeRecordIntoString(fileSpec,
                 true, keyValueFieldsRecord10));
+
+        System.out.println("---newRecordDataTypeFormatter");
+        System.out.println(newRecordDataTypeFormatter(fileSpec,
+                true, null).format(valueFieldRecord1));
 
         System.out.println("---writeRecordIntoStringMessage");
         RecordMessage<ValueRecord> mapper = writeRecordIntoStringMessage(fileSpecCompact, true)
