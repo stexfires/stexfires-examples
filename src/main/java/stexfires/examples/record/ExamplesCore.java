@@ -7,6 +7,7 @@ import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -105,6 +106,37 @@ public final class ExamplesCore {
         System.out.println("-RecordStreams---");
     }
 
+    private static void showStringList() {
+        System.out.println("-showStringList---");
+
+        System.out.println(TextRecords.toStringList(TextRecords.empty()));
+        System.out.println(TextRecords.toStringList(new ValueFieldRecord("cat", 1L, "value")));
+        System.out.println(TextRecords.toStringList(new ValueFieldRecord("value")));
+        System.out.println(TextRecords.toStringList(new ValueFieldRecord(null)));
+
+        List<String> stringList0 = new ArrayList<>();
+        stringList0.add("cat");
+        stringList0.add("1");
+        stringList0.add("value");
+        RecordSystemOutUtil.printlnRecord(TextRecords.fromStringList(stringList0));
+        List<String> stringList1 = new ArrayList<>();
+        stringList1.add(null);
+        stringList1.add(null);
+        stringList1.add("value");
+        RecordSystemOutUtil.printlnRecord(TextRecords.fromStringList(stringList1));
+        List<String> stringList2 = new ArrayList<>();
+        stringList2.add(null);
+        stringList2.add(null);
+        RecordSystemOutUtil.printlnRecord(TextRecords.fromStringList(stringList2));
+        List<String> stringList3 = new ArrayList<>();
+        stringList3.add(null);
+        stringList3.add("");
+        stringList3.add("value0");
+        stringList3.add(null);
+        stringList3.add("value2");
+        RecordSystemOutUtil.printlnRecord(TextRecords.fromStringList(stringList3));
+    }
+
     public static void main(String... args) {
         showField();
         showFields();
@@ -112,6 +144,7 @@ public final class ExamplesCore {
         showRecords();
         showRecordsBuilder();
         showRecordStreams();
+        showStringList();
     }
 
 }
