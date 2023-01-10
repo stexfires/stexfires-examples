@@ -10,6 +10,7 @@ import stexfires.util.function.ByteArrayFunctions;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Locale;
@@ -69,6 +70,24 @@ public final class ExamplesMiscDataType {
     }
 
     private static void testFormatCharset(Charset source, GenericDataTypeFormatter<Charset> formatter) {
+        try {
+            System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
+        } catch (DataTypeFormatException e) {
+            System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static void testParseClass(String source, GenericDataTypeParser<Class> parser) {
+        try {
+            System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
+        } catch (DataTypeParseException e) {
+            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static void testFormatClass(Class source, GenericDataTypeFormatter<Class> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -160,6 +179,31 @@ public final class ExamplesMiscDataType {
         testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
         testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null));
         testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null));
+
+        System.out.println("---GenericDataTypeFormatter Class");
+        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatter(null));
+        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(Object.class::getName));
+        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatter(Object.class.getName()));
+        testFormatClass(Object.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+        testFormatClass(Integer.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+        testFormatClass(String.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+        testFormatClass(ArrayList.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+
+        System.out.println("---GenericDataTypeParser Class");
+        testParseClass(null, GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, null));
+        testParseClass(null, GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass(null, GenericDataTypeParser.newClassDataTypeParserWithSuppliers(() -> Object.class, null));
+        testParseClass(null, GenericDataTypeParser.newClassDataTypeParser(Object.class));
+        testParseClass("", GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, null));
+        testParseClass("", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass("", GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, () -> Object.class));
+        testParseClass("", GenericDataTypeParser.newClassDataTypeParser(Object.class));
+        testParseClass("java.lang.Object", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass("java.lang.Integer", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass("java.lang.String", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass("java.util.ArrayList", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass("test", GenericDataTypeParser.newClassDataTypeParser(null));
 
         System.out.println("---GenericDataTypeFormatter byte[]");
         testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatterWithSupplier(ByteArrayFunctions.toHex(), null));
