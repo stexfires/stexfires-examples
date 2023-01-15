@@ -29,9 +29,10 @@ import java.time.chrono.JapaneseChronology;
 import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 import java.util.Locale;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "MagicNumber"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "MagicNumber", "UseOfObsoleteDateTimeApi", "SameParameterValue"})
 public final class ExamplesTimeDataType {
 
     private ExamplesTimeDataType() {
@@ -54,7 +55,24 @@ public final class ExamplesTimeDataType {
         }
     }
 
-    private static <T extends TemporalAccessor> void testFormat(T source, DataTypeFormatter<T> formatter) {
+    private static void testParseDate(String source, DataTypeParser<Date> parser, DateTimeFormatter formatter) {
+        try {
+            Date parseResult = parser.parse(source);
+            String formattedResult = null;
+            if (parseResult != null) {
+                try {
+                    formattedResult = "\"" + formatter.format(parseResult.toInstant()) + "\" (" + parseResult.getClass().getSimpleName() + ")";
+                } catch (DateTimeException e) {
+                    formattedResult = e.getMessage();
+                }
+            }
+            System.out.println("Parse: \"" + source + "\". Result: " + formattedResult + " toString: " + parseResult);
+        } catch (DataTypeParseException e) {
+            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    private static <T> void testFormat(T source, DataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -154,6 +172,13 @@ public final class ExamplesTimeDataType {
         testParse("1.673.761.073.289", convertingDataTypeParser, instantFormatter);
         testParse("'1673761073289'", convertingDataTypeParser, instantFormatter);
         testParse("'1.673.761.073.289'", convertingDataTypeParser, instantFormatter);
+
+        System.out.println("---GenericDataTypeFormatter newDateDataTypeFormatterWithSupplier");
+        testFormat(new Date(System.currentTimeMillis()), GenericDataTypeFormatter.newDateDataTypeFormatterWithSupplier(
+                new TimeDataTypeFormatter<>(instantFormatter, null), null));
+
+        System.out.println("---GenericDataTypeParser newDateDataTypeParser");
+        testParseDate("2023-01-15T14:51:18.559Z", GenericDataTypeParser.newDateDataTypeParser(new TimeDataTypeParser<>(instantFormatter, Instant::from, null, null), null), instantFormatter);
     }
 
 }
