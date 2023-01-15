@@ -13,8 +13,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber"})
 public final class ExamplesMiscDataType {
@@ -108,6 +110,22 @@ public final class ExamplesMiscDataType {
             System.out.println("Format: \"" + Arrays.toString(source) + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
             System.out.println("Format: \"" + Arrays.toString(source) + "\". Error: " + e.getMessage());
+        }
+    }
+
+    private static <T> void testParse(String source, GenericDataTypeParser<T> parser) {
+        try {
+            System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
+        } catch (DataTypeParseException e) {
+            System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
+        }
+    }
+
+    private static <T> void testFormat(T source, GenericDataTypeFormatter<T> formatter) {
+        try {
+            System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
+        } catch (DataTypeFormatException e) {
+            System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
         }
     }
 
@@ -227,6 +245,32 @@ public final class ExamplesMiscDataType {
         testParseByteArray("Hello world!", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromStringStandard(StandardCharsets.US_ASCII), new byte[]{}));
         testParseByteArray("QkM=", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
         testParseByteArray("--", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
+
+        System.out.println("---GenericDataTypeFormatter Character");
+        testFormat('A', GenericDataTypeFormatter.newCharacterDataTypeFormatterWithSupplier(null));
+        testFormat('€', GenericDataTypeFormatter.newCharacterDataTypeFormatterWithSupplier(null));
+
+        System.out.println("---GenericDataTypeParser Character");
+        testParse("A", GenericDataTypeParser.newCharacterDataTypeParser(null));
+        testParse("€", GenericDataTypeParser.newCharacterDataTypeParser(null));
+        testParse("test", GenericDataTypeParser.newCharacterDataTypeParser(null));
+
+        System.out.println("---GenericDataTypeFormatter Currency");
+        testFormat(Currency.getInstance("EUR"), GenericDataTypeFormatter.newCurrencyDataTypeFormatterWithSupplier(null));
+        testFormat(Currency.getInstance(Locale.JAPAN), GenericDataTypeFormatter.newCurrencyDataTypeFormatterWithSupplier(null));
+
+        System.out.println("---GenericDataTypeParser Currency");
+        testParse("EUR", GenericDataTypeParser.newCurrencyDataTypeParser(null));
+        testParse("JPY", GenericDataTypeParser.newCurrencyDataTypeParser(null));
+        testParse("test", GenericDataTypeParser.newCurrencyDataTypeParser(null));
+
+        System.out.println("---GenericDataTypeFormatter UUID");
+        testFormat(UUID.randomUUID(), GenericDataTypeFormatter.newUuidDataTypeFormatterWithSupplier(null));
+        testFormat(UUID.fromString("0c9ce18d-7d41-4015-bfb4-22fca6689ab7"), GenericDataTypeFormatter.newUuidDataTypeFormatterWithSupplier(null));
+
+        System.out.println("---GenericDataTypeParser UUID");
+        testParse("0c9ce18d-7d41-4015-bfb4-22fca6689ab7", GenericDataTypeParser.newUuidDataTypeParser(null));
+        testParse("test", GenericDataTypeParser.newUuidDataTypeParser(null));
     }
 
 }
