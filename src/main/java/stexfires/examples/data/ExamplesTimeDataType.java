@@ -1,5 +1,7 @@
 package stexfires.examples.data;
 
+import stexfires.data.ConvertingDataTypeFormatter;
+import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeFormatException;
 import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParseException;
@@ -130,6 +132,28 @@ public final class ExamplesTimeDataType {
                         .compose(StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")))
                         .andThen(Instant::ofEpochMilli), instantFormatter);
 
+        System.out.println("---ConvertingDataTypeFormatter");
+        ConvertingDataTypeFormatter<Instant, Long> convertingDataTypeFormatter = new ConvertingDataTypeFormatter<>(
+                Instant::toEpochMilli,
+                new NumberDataTypeFormatter<>(NumberFormat.getIntegerInstance(Locale.GERMANY), null),
+                StringUnaryOperators.surround("'", "'"),
+                () -> "Instant is null!");
+        testFormat(null, convertingDataTypeFormatter);
+        testFormat(Instant.now(), convertingDataTypeFormatter);
+
+        System.out.println("---ConvertingDataTypeParser");
+        ConvertingDataTypeParser<Instant, Long> convertingDataTypeParser = new ConvertingDataTypeParser<>(
+                StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")),
+                new NumberDataTypeParser<>(NumberFormat.getIntegerInstance(Locale.GERMANY), NumberDataTypeParser::toLong, null, () -> 1000L * 60L * 60L * 24L),
+                Instant::ofEpochMilli,
+                () -> Instant.ofEpochMilli(1000L),
+                () -> Instant.ofEpochMilli(-1000L));
+        testParse(null, convertingDataTypeParser, instantFormatter);
+        testParse("", convertingDataTypeParser, instantFormatter);
+        testParse("''", convertingDataTypeParser, instantFormatter);
+        testParse("1.673.761.073.289", convertingDataTypeParser, instantFormatter);
+        testParse("'1673761073289'", convertingDataTypeParser, instantFormatter);
+        testParse("'1.673.761.073.289'", convertingDataTypeParser, instantFormatter);
     }
 
 }
