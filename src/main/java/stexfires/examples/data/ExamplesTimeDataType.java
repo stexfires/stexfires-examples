@@ -6,9 +6,13 @@ import stexfires.data.DataTypeParseException;
 import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
+import stexfires.data.NumberDataTypeFormatter;
+import stexfires.data.NumberDataTypeParser;
 import stexfires.data.TimeDataTypeFormatter;
 import stexfires.data.TimeDataTypeParser;
+import stexfires.util.function.StringUnaryOperators;
 
+import java.text.NumberFormat;
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -108,6 +112,19 @@ public final class ExamplesTimeDataType {
         System.out.println("---GenericDataTypeFormatter newInstantEpochSecondDataTypeParser newInstantEpochMilliDataTypeParser");
         testParse("1673760570", GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
         testParse("1673761073289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
+
+        System.out.println("---compose andThen NumberDataTypeFormatter toEpochMilli surround");
+        testFormat(Instant.now(),
+                new NumberDataTypeFormatter<Long>(NumberFormat.getIntegerInstance(Locale.GERMANY), null)
+                        .compose(Instant::toEpochMilli)
+                        .andThen(StringUnaryOperators.surround("'", "'")));
+
+        System.out.println("---compose andThen NumberDataTypeParser removeStringFromStart removeStringFromEnd ofEpochMilli");
+        testParse("'1.673.761.073.289'",
+                new NumberDataTypeParser<>(NumberFormat.getIntegerInstance(Locale.GERMANY), NumberDataTypeParser::toLong, null, null)
+                        .compose(StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")))
+                        .andThen(Instant::ofEpochMilli), instantFormatter);
+
     }
 
 }
