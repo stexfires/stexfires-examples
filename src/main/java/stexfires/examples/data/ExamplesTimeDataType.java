@@ -110,8 +110,13 @@ public final class ExamplesTimeDataType {
         testFormat(Instant.now(), GenericDataTypeFormatter.newInstantEpochMilliDataTypeFormatter(null));
 
         System.out.println("---GenericDataTypeFormatter newInstantEpochSecondDataTypeParser newInstantEpochMilliDataTypeParser");
+        testParse(null, GenericDataTypeParser.newInstantEpochSecondDataTypeParserWithSuppliers(Instant::now, null), instantFormatter);
+        testParse("", GenericDataTypeParser.newInstantEpochSecondDataTypeParserWithSuppliers(null, Instant::now), instantFormatter);
         testParse("1673760570", GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
+        testParse(String.valueOf(Long.MAX_VALUE), GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
+
         testParse("1673761073289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
+        testParse("1.673.761.073.289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
 
         System.out.println("---compose andThen NumberDataTypeFormatter toEpochMilli surround");
         testFormat(Instant.now(),
