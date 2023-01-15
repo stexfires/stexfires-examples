@@ -1,7 +1,11 @@
 package stexfires.examples.data;
 
 import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParseException;
+import stexfires.data.DataTypeParser;
+import stexfires.data.GenericDataTypeFormatter;
+import stexfires.data.GenericDataTypeParser;
 import stexfires.data.TimeDataTypeFormatter;
 import stexfires.data.TimeDataTypeParser;
 
@@ -27,7 +31,7 @@ public final class ExamplesTimeDataType {
     private ExamplesTimeDataType() {
     }
 
-    private static <T extends TemporalAccessor> void testParse(String source, TimeDataTypeParser<T> parser, DateTimeFormatter formatter) {
+    private static <T extends TemporalAccessor> void testParse(String source, DataTypeParser<T> parser, DateTimeFormatter formatter) {
         try {
             T parseResult = parser.parse(source);
             String formattedResult = null;
@@ -44,7 +48,7 @@ public final class ExamplesTimeDataType {
         }
     }
 
-    private static <T extends TemporalAccessor> void testFormat(T source, TimeDataTypeFormatter<T> formatter) {
+    private static <T extends TemporalAccessor> void testFormat(T source, DataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -96,6 +100,14 @@ public final class ExamplesTimeDataType {
         testParse("令和4/11/25", new TimeDataTypeParser<>(japaneseDateFormatter, JapaneseDate::from, null, null), japaneseDateFormatter);
         testParse("22:51:35", new TimeDataTypeParser<>(localTimeFormatter, LocalTime::from, null, null), localTimeFormatter);
         testParse("2022-11-25T22:51:35.1634235+01:00[Europe/Berlin]", new TimeDataTypeParser<>(zonedDateTimeFormatter, ZonedDateTime::from, null, null), zonedDateTimeFormatter);
+
+        System.out.println("---GenericDataTypeFormatter newInstantEpochSecondsDataTypeFormatter newInstantEpochMilliDataTypeFormatter");
+        testFormat(Instant.now(), GenericDataTypeFormatter.newInstantEpochSecondDataTypeFormatter(null));
+        testFormat(Instant.now(), GenericDataTypeFormatter.newInstantEpochMilliDataTypeFormatter(null));
+
+        System.out.println("---GenericDataTypeFormatter newInstantEpochSecondDataTypeParser newInstantEpochMilliDataTypeParser");
+        testParse("1673760570", GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
+        testParse("1673761073289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
     }
 
 }
