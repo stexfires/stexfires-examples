@@ -2,12 +2,20 @@ package stexfires.examples.data;
 
 import stexfires.data.BooleanDataTypeFormatter;
 import stexfires.data.BooleanDataTypeParser;
+import stexfires.data.ConvertingDataTypeFormatter;
+import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParseException;
+import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
 import stexfires.util.function.ByteArrayFunctions;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -18,7 +26,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber"})
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber", "CallToPrintStackTrace"})
 public final class ExamplesMiscDataType {
 
     private ExamplesMiscDataType() {
@@ -113,7 +121,7 @@ public final class ExamplesMiscDataType {
         }
     }
 
-    private static <T> void testParse(String source, GenericDataTypeParser<T> parser) {
+    private static <T> void testParse(String source, DataTypeParser<T> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
         } catch (DataTypeParseException e) {
@@ -121,7 +129,7 @@ public final class ExamplesMiscDataType {
         }
     }
 
-    private static <T> void testFormat(T source, GenericDataTypeFormatter<T> formatter) {
+    private static <T> void testFormat(T source, DataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
         } catch (DataTypeFormatException e) {
@@ -271,6 +279,84 @@ public final class ExamplesMiscDataType {
         System.out.println("---GenericDataTypeParser UUID");
         testParse("0c9ce18d-7d41-4015-bfb4-22fca6689ab7", GenericDataTypeParser.newUuidDataTypeParser(null));
         testParse("test", GenericDataTypeParser.newUuidDataTypeParser(null));
+
+        System.out.println("---GenericDataTypeFormatter URI");
+        try {
+            testFormat(new URI("https://abcd.efgh.ijkl/"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+
+            testFormat(new URI("http://www.example.com:1080/docs/resource1.html#chapter1"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("mailto:java-net@www.example.com"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("news:comp.lang.java"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("urn:isbn:096139210x"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("http://example.com/languages/java/"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("sample/a/index.html#28"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("../../demo/b/index.html"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("file:///~/calendar"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+        } catch (URISyntaxException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("---GenericDataTypeParser URI");
+        testParse("https://abcd.efgh.ijkl/", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f", GenericDataTypeParser.newUriDataTypeParser(true, null));
+
+        testParse("http://www.example.com:1080/docs/resource1.html#chapter1", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("mailto:java-net@www.example.com", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("news:comp.lang.java", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("urn:isbn:096139210x", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("http://example.com/languages/java/", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("sample/a/index.html#28", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("../../demo/b/index.html", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("file:///~/calendar", GenericDataTypeParser.newUriDataTypeParser(true, null));
+
+        testParse("   ", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("ä:ä//ä:ä?ä   ", GenericDataTypeParser.newUriDataTypeParser(true, null));
+
+        System.out.println("---ConvertingDataTypeFormatter formatterConverterUrlToUri");
+        try {
+            DataTypeFormatter<URL> dataTypeFormatter = new ConvertingDataTypeFormatter<>(
+                    ConvertingDataTypeFormatter.formatterConverterUrlToUri(),
+                    GenericDataTypeFormatter.newUriDataTypeFormatter(true, null),
+                    null,
+                    null);
+
+            testFormat(new URI("https://abcd.efgh.ijkl/").toURL(), dataTypeFormatter);
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f").toURL(), dataTypeFormatter);
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f").toURL(), dataTypeFormatter);
+
+            testFormat(new URI("http://www.example.com:1080/docs/resource1.html#chapter1").toURL(), dataTypeFormatter);
+            testFormat(new URI("mailto:java-net@www.example.com").toURL(), dataTypeFormatter);
+            testFormat(new URI("http://example.com/languages/java/").toURL(), dataTypeFormatter);
+            testFormat(new URI("file:///~/calendar").toURL(), dataTypeFormatter);
+        } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("---ConvertingDataTypeParser parserConverterUriToUrl");
+        DataTypeParser<URL> urlDataTypeParser = new ConvertingDataTypeParser<>(
+                null,
+                GenericDataTypeParser.newUriDataTypeParser(true, null),
+                ConvertingDataTypeParser.parserConverterUriToUrl(),
+                null,
+                null);
+        testParse("https://abcd.efgh.ijkl/", urlDataTypeParser);
+        testParse("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f", urlDataTypeParser);
+        testParse("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f", urlDataTypeParser);
+
+        testParse("http://www.example.com:1080/docs/resource1.html#chapter1", urlDataTypeParser);
+        testParse("mailto:java-net@www.example.com", urlDataTypeParser);
+        testParse("news:comp.lang.java", urlDataTypeParser);
+        testParse("urn:isbn:096139210x", urlDataTypeParser);
+        testParse("http://example.com/languages/java/", urlDataTypeParser);
+        testParse("sample/a/index.html#28", urlDataTypeParser);
+        testParse("../../demo/b/index.html", urlDataTypeParser);
+        testParse("file:///~/calendar", urlDataTypeParser);
+
+        testParse("   ", urlDataTypeParser);
+        testParse("ä:ä//ä:ä?ä   ", urlDataTypeParser);
     }
 
 }
