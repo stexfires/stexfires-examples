@@ -12,12 +12,15 @@ import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
 import stexfires.util.function.ByteArrayFunctions;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -357,6 +360,40 @@ public final class ExamplesMiscDataType {
 
         testParse("   ", urlDataTypeParser);
         testParse("ä:ä//ä:ä?ä   ", urlDataTypeParser);
+
+        System.out.println("---GenericDataTypeFormatter Path");
+        testFormat(Path.of("."), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
+        testFormat(Path.of("C:\\folder\\file.txt"), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
+        testFormat(Path.of("../../folder/"), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
+
+        System.out.println("---GenericDataTypeParser Path");
+        testParse(".", GenericDataTypeParser.newPathDataTypeParser(null));
+        testParse("C:\\folder\\file.txt", GenericDataTypeParser.newPathDataTypeParser(null));
+        testParse("../../folder/", GenericDataTypeParser.newPathDataTypeParser(null));
+        testParse(" ", GenericDataTypeParser.newPathDataTypeParser(null));
+
+        try {
+            System.out.println("---GenericDataTypeFormatter InetAddress");
+            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
+            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
+            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
+            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+
+            System.out.println("---GenericDataTypeParser InetAddress");
+            testParse("127.0.0.1", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+            testParse("localhost", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+            testParse("137.254.56.25", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+            testParse("java.net", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+            testParse(".", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
 }
