@@ -28,6 +28,9 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+import static stexfires.data.DataTypeConverters.URI_to_URL;
+import static stexfires.data.DataTypeConverters.URL_to_URI;
+
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber", "CallToPrintStackTrace"})
 public final class ExamplesMiscDataType {
 
@@ -320,7 +323,7 @@ public final class ExamplesMiscDataType {
         System.out.println("---ConvertingDataTypeFormatter formatterConverterUrlToUri");
         try {
             DataTypeFormatter<URL> dataTypeFormatter = new ConvertingDataTypeFormatter<>(
-                    ConvertingDataTypeFormatter.formatterConverterUrlToUri(),
+                    URL_to_URI(),
                     GenericDataTypeFormatter.newUriDataTypeFormatter(true, null),
                     null,
                     null);
@@ -341,7 +344,7 @@ public final class ExamplesMiscDataType {
         DataTypeParser<URL> urlDataTypeParser = new ConvertingDataTypeParser<>(
                 null,
                 GenericDataTypeParser.newUriDataTypeParser(true, null),
-                ConvertingDataTypeParser.parserConverterUriToUrl(),
+                URI_to_URL(),
                 null,
                 null);
         testParse("https://abcd.efgh.ijkl/", urlDataTypeParser);
