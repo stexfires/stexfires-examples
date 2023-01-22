@@ -1,7 +1,6 @@
 package stexfires.examples.data;
 
 import stexfires.data.DataTypeConverterException;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.MappingDataTypeFormatter;
 import stexfires.data.MappingDataTypePair;
 import stexfires.data.MappingDataTypeParser;
@@ -19,7 +18,7 @@ public final class ExamplesMappingDataType {
     private static <T> void testParseMappingDataType(String source, MappingDataTypeParser<T> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }

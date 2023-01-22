@@ -6,7 +6,6 @@ import stexfires.data.ConvertingDataTypeFormatter;
 import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeFormatter;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
@@ -38,7 +37,7 @@ public final class ExamplesMiscDataType {
     private static void testParseBoolean(String source, BooleanDataTypeParser parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -46,7 +45,7 @@ public final class ExamplesMiscDataType {
     private static void testParseLocale(String source, GenericDataTypeParser<Locale> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + localeAsString(parser.parse(source)));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -77,7 +76,7 @@ public final class ExamplesMiscDataType {
     private static void testParseCharset(String source, GenericDataTypeParser<Charset> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -94,7 +93,7 @@ public final class ExamplesMiscDataType {
     private static void testParseClass(String source, GenericDataTypeParser<Class> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -111,7 +110,7 @@ public final class ExamplesMiscDataType {
     private static void testParseByteArray(String source, GenericDataTypeParser<byte[]> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + Arrays.toString(parser.parse(source)));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -127,7 +126,7 @@ public final class ExamplesMiscDataType {
     private static <T> void testParse(String source, DataTypeParser<T> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }

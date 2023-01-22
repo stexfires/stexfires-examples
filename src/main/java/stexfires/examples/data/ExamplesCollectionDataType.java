@@ -3,7 +3,6 @@ package stexfires.examples.data;
 import stexfires.data.CollectionDataTypeFormatter;
 import stexfires.data.CollectionDataTypeParser;
 import stexfires.data.DataTypeConverterException;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
 import stexfires.data.StringDataTypeFormatter;
@@ -51,7 +50,7 @@ public final class ExamplesCollectionDataType {
             } else {
                 System.out.println("Parse: \"" + source + "\". Result: " + parseResult.size() + " " + parseResult);
             }
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }

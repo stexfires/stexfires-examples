@@ -1,7 +1,6 @@
 package stexfires.examples.data;
 
 import stexfires.data.DataTypeConverterException;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.EnumDataTypeFormatter;
 import stexfires.data.EnumDataTypeParser;
 import stexfires.util.Alignment;
@@ -30,7 +29,7 @@ public final class ExamplesEnumDataType {
     private static <T extends Enum<T>> void testParse(String source, EnumDataTypeParser<T> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }

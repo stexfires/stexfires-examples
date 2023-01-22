@@ -4,7 +4,6 @@ import stexfires.data.ConvertingDataTypeFormatter;
 import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeFormatter;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
@@ -50,7 +49,7 @@ public final class ExamplesTimeDataType {
                 }
             }
             System.out.println("Parse: \"" + source + "\". Result: " + formattedResult + " toString: " + parseResult);
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
@@ -67,7 +66,7 @@ public final class ExamplesTimeDataType {
                 }
             }
             System.out.println("Parse: \"" + source + "\". Result: " + formattedResult + " toString: " + parseResult);
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }

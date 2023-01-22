@@ -2,7 +2,6 @@ package stexfires.examples.data;
 
 import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeFormatter;
-import stexfires.data.DataTypeParseException;
 import stexfires.data.DataTypeParser;
 import stexfires.data.StringDataTypeFormatter;
 import stexfires.data.StringDataTypeParser;
@@ -24,7 +23,7 @@ public final class ExamplesStringDataType {
     private static void testParse(String source, DataTypeParser<String> parser) {
         try {
             System.out.println("Parse: \"" + source + "\". Result: " + parser.parse(source));
-        } catch (DataTypeParseException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Parse: \"" + source + "\". Error: " + e.getMessage());
         }
     }
