@@ -2,7 +2,7 @@ package stexfires.examples.data;
 
 import stexfires.data.CollectionDataTypeFormatter;
 import stexfires.data.CollectionDataTypeParser;
-import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeParseException;
 import stexfires.data.GenericDataTypeFormatter;
 import stexfires.data.GenericDataTypeParser;
@@ -36,7 +36,7 @@ public final class ExamplesCollectionDataType {
             } else {
                 System.out.println("Format: " + source.size() + " " + source + ". Result: " + formatResult);
             }
-        } catch (DataTypeFormatException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Format: " + source + ". Error: " + e.getMessage());
         }
     }

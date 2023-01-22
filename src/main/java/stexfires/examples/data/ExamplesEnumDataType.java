@@ -1,6 +1,6 @@
 package stexfires.examples.data;
 
-import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeParseException;
 import stexfires.data.EnumDataTypeFormatter;
 import stexfires.data.EnumDataTypeParser;
@@ -22,7 +22,7 @@ public final class ExamplesEnumDataType {
     private static <T extends Enum<T>> void testFormat(T source, EnumDataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
-        } catch (DataTypeFormatException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
         }
     }

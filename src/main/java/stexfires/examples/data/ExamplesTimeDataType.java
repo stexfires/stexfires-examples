@@ -2,7 +2,7 @@ package stexfires.examples.data;
 
 import stexfires.data.ConvertingDataTypeFormatter;
 import stexfires.data.ConvertingDataTypeParser;
-import stexfires.data.DataTypeFormatException;
+import stexfires.data.DataTypeConverterException;
 import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParseException;
 import stexfires.data.DataTypeParser;
@@ -75,7 +75,7 @@ public final class ExamplesTimeDataType {
     private static <T> void testFormat(T source, DataTypeFormatter<T> formatter) {
         try {
             System.out.println("Format: \"" + source + "\". Result: " + formatter.format(source));
-        } catch (DataTypeFormatException e) {
+        } catch (DataTypeConverterException e) {
             System.out.println("Format: \"" + source + "\". Error: " + e.getMessage());
         }
     }
