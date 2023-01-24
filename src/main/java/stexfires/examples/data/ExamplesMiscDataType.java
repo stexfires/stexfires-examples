@@ -164,167 +164,167 @@ public final class ExamplesMiscDataType {
         testParseBoolean("test", new BooleanDataTypeParser(trueValues, falseValues, null, null));
 
         System.out.println("---GenericDataTypeFormatter Locale");
-        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatter(null));
-        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(() -> Locale.getDefault().toLanguageTag()));
-        testFormatLocale(null, GenericDataTypeFormatter.newLocaleDataTypeFormatter(Locale.getDefault().toLanguageTag()));
-        testFormatLocale(Locale.getDefault(), GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.GERMAN, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.GERMANY, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.ENGLISH, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.US, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.JAPAN, GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
-        testFormatLocale(Locale.forLanguageTag("und"), GenericDataTypeFormatter.newLocaleDataTypeFormatterWithSupplier(null));
+        testFormatLocale(null, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(null, GenericDataTypeFormatter.forLocale(null));
+        testFormatLocale(null, GenericDataTypeFormatter.forLocaleWithSupplier(() -> Locale.getDefault().toLanguageTag()));
+        testFormatLocale(null, GenericDataTypeFormatter.forLocale(Locale.getDefault().toLanguageTag()));
+        testFormatLocale(Locale.getDefault(), GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.GERMAN, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.GERMANY, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.ENGLISH, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.US, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.JAPAN, GenericDataTypeFormatter.forLocaleWithSupplier(null));
+        testFormatLocale(Locale.forLanguageTag("und"), GenericDataTypeFormatter.forLocaleWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Locale");
-        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParser(null));
-        testParseLocale(null, GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(Locale::getDefault, null));
-        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParser(null));
-        testParseLocale("", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, Locale::getDefault));
-        testParseLocale("de", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("de_DE", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("de-DE", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("de-POSIX-x-URP-lvariant-Abc-Def", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("ja-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("ja-JP-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
-        testParseLocale("und", GenericDataTypeParser.newLocaleDataTypeParserWithSuppliers(null, null));
+        testParseLocale(null, GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale(null, GenericDataTypeParser.forLocale(null));
+        testParseLocale(null, GenericDataTypeParser.forLocaleWithSuppliers(Locale::getDefault, null));
+        testParseLocale("", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("", GenericDataTypeParser.forLocale(null));
+        testParseLocale("", GenericDataTypeParser.forLocaleWithSuppliers(null, Locale::getDefault));
+        testParseLocale("de", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("de_DE", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("de-DE", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("de-POSIX-x-URP-lvariant-Abc-Def", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("ja-JP", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("ja-JP-x-lvariant-JP", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("ja-JP-u-ca-japanese-x-lvariant-JP", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
+        testParseLocale("und", GenericDataTypeParser.forLocaleWithSuppliers(null, null));
 
         System.out.println("---GenericDataTypeFormatter Charset");
-        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(null));
-        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(null));
-        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(StandardCharsets.ISO_8859_1::name));
-        testFormatCharset(null, GenericDataTypeFormatter.newCharsetDataTypeFormatter(StandardCharsets.ISO_8859_1.name()));
-        testFormatCharset(StandardCharsets.ISO_8859_1, GenericDataTypeFormatter.newCharsetDataTypeFormatterWithSupplier(null));
+        testFormatCharset(null, GenericDataTypeFormatter.forCharsetWithSupplier(null));
+        testFormatCharset(null, GenericDataTypeFormatter.forCharset(null));
+        testFormatCharset(null, GenericDataTypeFormatter.forCharsetWithSupplier(StandardCharsets.ISO_8859_1::name));
+        testFormatCharset(null, GenericDataTypeFormatter.forCharset(StandardCharsets.ISO_8859_1.name()));
+        testFormatCharset(StandardCharsets.ISO_8859_1, GenericDataTypeFormatter.forCharsetWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Charset");
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, null));
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(null));
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(() -> StandardCharsets.ISO_8859_1, null));
-        testParseCharset(null, GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, null));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(null));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParserWithSuppliers(null, () -> StandardCharsets.ISO_8859_1));
-        testParseCharset("", GenericDataTypeParser.newCharsetDataTypeParser(StandardCharsets.ISO_8859_1));
-        testParseCharset("ISO-8859-1", GenericDataTypeParser.newCharsetDataTypeParser(null));
-        testParseCharset("test", GenericDataTypeParser.newCharsetDataTypeParser(null));
+        testParseCharset(null, GenericDataTypeParser.forCharsetWithSuppliers(null, null));
+        testParseCharset(null, GenericDataTypeParser.forCharset(null));
+        testParseCharset(null, GenericDataTypeParser.forCharsetWithSuppliers(() -> StandardCharsets.ISO_8859_1, null));
+        testParseCharset(null, GenericDataTypeParser.forCharset(StandardCharsets.ISO_8859_1));
+        testParseCharset("", GenericDataTypeParser.forCharsetWithSuppliers(null, null));
+        testParseCharset("", GenericDataTypeParser.forCharset(null));
+        testParseCharset("", GenericDataTypeParser.forCharsetWithSuppliers(null, () -> StandardCharsets.ISO_8859_1));
+        testParseCharset("", GenericDataTypeParser.forCharset(StandardCharsets.ISO_8859_1));
+        testParseCharset("ISO-8859-1", GenericDataTypeParser.forCharset(null));
+        testParseCharset("test", GenericDataTypeParser.forCharset(null));
 
         System.out.println("---GenericDataTypeFormatter Class");
-        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
-        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatter(null));
-        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(Object.class::getName));
-        testFormatClass(null, GenericDataTypeFormatter.newClassDataTypeFormatter(Object.class.getName()));
-        testFormatClass(Object.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
-        testFormatClass(Integer.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
-        testFormatClass(String.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
-        testFormatClass(ArrayList.class, GenericDataTypeFormatter.newClassDataTypeFormatterWithSupplier(null));
+        testFormatClass(null, GenericDataTypeFormatter.forClassWithSupplier(null));
+        testFormatClass(null, GenericDataTypeFormatter.forClass(null));
+        testFormatClass(null, GenericDataTypeFormatter.forClassWithSupplier(Object.class::getName));
+        testFormatClass(null, GenericDataTypeFormatter.forClass(Object.class.getName()));
+        testFormatClass(Object.class, GenericDataTypeFormatter.forClassWithSupplier(null));
+        testFormatClass(Integer.class, GenericDataTypeFormatter.forClassWithSupplier(null));
+        testFormatClass(String.class, GenericDataTypeFormatter.forClassWithSupplier(null));
+        testFormatClass(ArrayList.class, GenericDataTypeFormatter.forClassWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Class");
-        testParseClass(null, GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, null));
-        testParseClass(null, GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass(null, GenericDataTypeParser.newClassDataTypeParserWithSuppliers(() -> Object.class, null));
-        testParseClass(null, GenericDataTypeParser.newClassDataTypeParser(Object.class));
-        testParseClass("", GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, null));
-        testParseClass("", GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass("", GenericDataTypeParser.newClassDataTypeParserWithSuppliers(null, () -> Object.class));
-        testParseClass("", GenericDataTypeParser.newClassDataTypeParser(Object.class));
-        testParseClass("java.lang.Object", GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass("java.lang.Integer", GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass("java.lang.String", GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass("java.util.ArrayList", GenericDataTypeParser.newClassDataTypeParser(null));
-        testParseClass("test", GenericDataTypeParser.newClassDataTypeParser(null));
+        testParseClass(null, GenericDataTypeParser.forClassWithSuppliers(null, null));
+        testParseClass(null, GenericDataTypeParser.forClass(null));
+        testParseClass(null, GenericDataTypeParser.forClassWithSuppliers(() -> Object.class, null));
+        testParseClass(null, GenericDataTypeParser.forClass(Object.class));
+        testParseClass("", GenericDataTypeParser.forClassWithSuppliers(null, null));
+        testParseClass("", GenericDataTypeParser.forClass(null));
+        testParseClass("", GenericDataTypeParser.forClassWithSuppliers(null, () -> Object.class));
+        testParseClass("", GenericDataTypeParser.forClass(Object.class));
+        testParseClass("java.lang.Object", GenericDataTypeParser.forClass(null));
+        testParseClass("java.lang.Integer", GenericDataTypeParser.forClass(null));
+        testParseClass("java.lang.String", GenericDataTypeParser.forClass(null));
+        testParseClass("java.util.ArrayList", GenericDataTypeParser.forClass(null));
+        testParseClass("test", GenericDataTypeParser.forClass(null));
 
         System.out.println("---GenericDataTypeFormatter byte[]");
-        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatterWithSupplier(ByteArrayFunctions.toHex(), null));
-        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toHex(), null));
-        testFormatByteArray(null, GenericDataTypeFormatter.newByteArrayDataTypeFormatterWithSupplier(ByteArrayFunctions.toHex(), () -> "<NULL>"));
-        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toHex(), null));
-        testFormatByteArray(new byte[]{72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toStringStandard(StandardCharsets.US_ASCII), null));
-        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.newByteArrayDataTypeFormatter(ByteArrayFunctions.toBase64(Base64.getEncoder()), null));
+        testFormatByteArray(null, GenericDataTypeFormatter.forByteArrayWithSupplier(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(null, GenericDataTypeFormatter.forByteArray(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(null, GenericDataTypeFormatter.forByteArrayWithSupplier(ByteArrayFunctions.toHex(), () -> "<NULL>"));
+        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.forByteArray(ByteArrayFunctions.toHex(), null));
+        testFormatByteArray(new byte[]{72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33}, GenericDataTypeFormatter.forByteArray(ByteArrayFunctions.toStringStandard(StandardCharsets.US_ASCII), null));
+        testFormatByteArray(new byte[]{66, 67}, GenericDataTypeFormatter.forByteArray(ByteArrayFunctions.toBase64(Base64.getEncoder()), null));
 
         System.out.println("---GenericDataTypeParser byte[]");
-        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
-        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), null));
-        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), () -> new byte[]{}, null));
-        testParseByteArray(null, GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
-        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
-        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), null));
-        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParserWithSuppliers(ByteArrayFunctions.fromHex(), null, () -> new byte[]{}));
-        testParseByteArray("", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
-        testParseByteArray("4243", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
-        testParseByteArray("4243Z", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromHex(), new byte[]{}));
-        testParseByteArray("Hello world!", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromStringStandard(StandardCharsets.US_ASCII), new byte[]{}));
-        testParseByteArray("QkM=", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
-        testParseByteArray("--", GenericDataTypeParser.newByteArrayDataTypeParser(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
+        testParseByteArray(null, GenericDataTypeParser.forByteArrayWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
+        testParseByteArray(null, GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), null));
+        testParseByteArray(null, GenericDataTypeParser.forByteArrayWithSuppliers(ByteArrayFunctions.fromHex(), () -> new byte[]{}, null));
+        testParseByteArray(null, GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("", GenericDataTypeParser.forByteArrayWithSuppliers(ByteArrayFunctions.fromHex(), null, null));
+        testParseByteArray("", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), null));
+        testParseByteArray("", GenericDataTypeParser.forByteArrayWithSuppliers(ByteArrayFunctions.fromHex(), null, () -> new byte[]{}));
+        testParseByteArray("", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("4243", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("4243Z", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromHex(), new byte[]{}));
+        testParseByteArray("Hello world!", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromStringStandard(StandardCharsets.US_ASCII), new byte[]{}));
+        testParseByteArray("QkM=", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
+        testParseByteArray("--", GenericDataTypeParser.forByteArray(ByteArrayFunctions.fromBase64(Base64.getDecoder()), new byte[]{}));
 
         System.out.println("---GenericDataTypeFormatter Character");
-        testFormat('A', GenericDataTypeFormatter.newCharacterDataTypeFormatterWithSupplier(null));
-        testFormat('€', GenericDataTypeFormatter.newCharacterDataTypeFormatterWithSupplier(null));
+        testFormat('A', GenericDataTypeFormatter.forCharacterWithSupplier(null));
+        testFormat('€', GenericDataTypeFormatter.forCharacterWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Character");
-        testParse("A", GenericDataTypeParser.newCharacterDataTypeParser(null));
-        testParse("€", GenericDataTypeParser.newCharacterDataTypeParser(null));
-        testParse("test", GenericDataTypeParser.newCharacterDataTypeParser(null));
+        testParse("A", GenericDataTypeParser.forCharacter(null));
+        testParse("€", GenericDataTypeParser.forCharacter(null));
+        testParse("test", GenericDataTypeParser.forCharacter(null));
 
         System.out.println("---GenericDataTypeFormatter Currency");
-        testFormat(Currency.getInstance("EUR"), GenericDataTypeFormatter.newCurrencyDataTypeFormatterWithSupplier(null));
-        testFormat(Currency.getInstance(Locale.JAPAN), GenericDataTypeFormatter.newCurrencyDataTypeFormatterWithSupplier(null));
+        testFormat(Currency.getInstance("EUR"), GenericDataTypeFormatter.forCurrencyWithSupplier(null));
+        testFormat(Currency.getInstance(Locale.JAPAN), GenericDataTypeFormatter.forCurrencyWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Currency");
-        testParse("EUR", GenericDataTypeParser.newCurrencyDataTypeParser(null));
-        testParse("JPY", GenericDataTypeParser.newCurrencyDataTypeParser(null));
-        testParse("test", GenericDataTypeParser.newCurrencyDataTypeParser(null));
+        testParse("EUR", GenericDataTypeParser.forCurrency(null));
+        testParse("JPY", GenericDataTypeParser.forCurrency(null));
+        testParse("test", GenericDataTypeParser.forCurrency(null));
 
         System.out.println("---GenericDataTypeFormatter UUID");
-        testFormat(UUID.randomUUID(), GenericDataTypeFormatter.newUuidDataTypeFormatterWithSupplier(null));
-        testFormat(UUID.fromString("0c9ce18d-7d41-4015-bfb4-22fca6689ab7"), GenericDataTypeFormatter.newUuidDataTypeFormatterWithSupplier(null));
+        testFormat(UUID.randomUUID(), GenericDataTypeFormatter.forUuidWithSupplier(null));
+        testFormat(UUID.fromString("0c9ce18d-7d41-4015-bfb4-22fca6689ab7"), GenericDataTypeFormatter.forUuidWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser UUID");
-        testParse("0c9ce18d-7d41-4015-bfb4-22fca6689ab7", GenericDataTypeParser.newUuidDataTypeParser(null));
-        testParse("test", GenericDataTypeParser.newUuidDataTypeParser(null));
+        testParse("0c9ce18d-7d41-4015-bfb4-22fca6689ab7", GenericDataTypeParser.forUuid(null));
+        testParse("test", GenericDataTypeParser.forUuid(null));
 
         System.out.println("---GenericDataTypeFormatter URI");
         try {
-            testFormat(new URI("https://abcd.efgh.ijkl/"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("https://abcd.efgh.ijkl/"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
 
-            testFormat(new URI("http://www.example.com:1080/docs/resource1.html#chapter1"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("mailto:java-net@www.example.com"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("news:comp.lang.java"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("urn:isbn:096139210x"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("http://example.com/languages/java/"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("sample/a/index.html#28"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("../../demo/b/index.html"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
-            testFormat(new URI("file:///~/calendar"), GenericDataTypeFormatter.newUriDataTypeFormatterWithSupplier(true, null));
+            testFormat(new URI("http://www.example.com:1080/docs/resource1.html#chapter1"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("mailto:java-net@www.example.com"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("news:comp.lang.java"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("urn:isbn:096139210x"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("http://example.com/languages/java/"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("sample/a/index.html#28"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("../../demo/b/index.html"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
+            testFormat(new URI("file:///~/calendar"), GenericDataTypeFormatter.forUriWithSupplier(true, null));
         } catch (URISyntaxException | IllegalArgumentException e) {
             e.printStackTrace();
         }
 
         System.out.println("---GenericDataTypeParser URI");
-        testParse("https://abcd.efgh.ijkl/", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("https://abcd.efgh.ijkl/", GenericDataTypeParser.forUri(true, null));
+        testParse("https://abcd.efgh.ijkl/test?a=b&ä=äß€&d=e%20f", GenericDataTypeParser.forUri(true, null));
+        testParse("https://abcd.efgh.ijkl/test?a=b&%C3%A4=%C3%A4%C3%9F%E2%82%AC&d=e%20f", GenericDataTypeParser.forUri(true, null));
 
-        testParse("http://www.example.com:1080/docs/resource1.html#chapter1", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("mailto:java-net@www.example.com", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("news:comp.lang.java", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("urn:isbn:096139210x", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("http://example.com/languages/java/", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("sample/a/index.html#28", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("../../demo/b/index.html", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("file:///~/calendar", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("http://www.example.com:1080/docs/resource1.html#chapter1", GenericDataTypeParser.forUri(true, null));
+        testParse("mailto:java-net@www.example.com", GenericDataTypeParser.forUri(true, null));
+        testParse("news:comp.lang.java", GenericDataTypeParser.forUri(true, null));
+        testParse("urn:isbn:096139210x", GenericDataTypeParser.forUri(true, null));
+        testParse("http://example.com/languages/java/", GenericDataTypeParser.forUri(true, null));
+        testParse("sample/a/index.html#28", GenericDataTypeParser.forUri(true, null));
+        testParse("../../demo/b/index.html", GenericDataTypeParser.forUri(true, null));
+        testParse("file:///~/calendar", GenericDataTypeParser.forUri(true, null));
 
-        testParse("   ", GenericDataTypeParser.newUriDataTypeParser(true, null));
-        testParse("ä:ä//ä:ä?ä   ", GenericDataTypeParser.newUriDataTypeParser(true, null));
+        testParse("   ", GenericDataTypeParser.forUri(true, null));
+        testParse("ä:ä//ä:ä?ä   ", GenericDataTypeParser.forUri(true, null));
 
         System.out.println("---ConvertingDataTypeFormatter formatterConverterUrlToUri");
         try {
             DataTypeFormatter<URL> dataTypeFormatter = new ConvertingDataTypeFormatter<>(
                     URL_TO_URI,
-                    GenericDataTypeFormatter.newUriDataTypeFormatter(true, null),
+                    GenericDataTypeFormatter.forUri(true, null),
                     null,
                     null);
 
@@ -343,7 +343,7 @@ public final class ExamplesMiscDataType {
         System.out.println("---ConvertingDataTypeParser parserConverterUriToUrl");
         DataTypeParser<URL> urlDataTypeParser = new ConvertingDataTypeParser<>(
                 null,
-                GenericDataTypeParser.newUriDataTypeParser(true, null),
+                GenericDataTypeParser.forUri(true, null),
                 URI_TO_URL,
                 null,
                 null);
@@ -364,35 +364,35 @@ public final class ExamplesMiscDataType {
         testParse("ä:ä//ä:ä?ä   ", urlDataTypeParser);
 
         System.out.println("---GenericDataTypeFormatter Path");
-        testFormat(Path.of("."), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
-        testFormat(Path.of("C:\\folder\\file.txt"), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
-        testFormat(Path.of("../../folder/"), GenericDataTypeFormatter.newPathDataTypeFormatterWithSupplier(null));
+        testFormat(Path.of("."), GenericDataTypeFormatter.forPathWithSupplier(null));
+        testFormat(Path.of("C:\\folder\\file.txt"), GenericDataTypeFormatter.forPathWithSupplier(null));
+        testFormat(Path.of("../../folder/"), GenericDataTypeFormatter.forPathWithSupplier(null));
 
         System.out.println("---GenericDataTypeParser Path");
-        testParse(".", GenericDataTypeParser.newPathDataTypeParser(null));
-        testParse("C:\\folder\\file.txt", GenericDataTypeParser.newPathDataTypeParser(null));
-        testParse("../../folder/", GenericDataTypeParser.newPathDataTypeParser(null));
-        testParse(" ", GenericDataTypeParser.newPathDataTypeParser(null));
+        testParse(".", GenericDataTypeParser.forPath(null));
+        testParse("C:\\folder\\file.txt", GenericDataTypeParser.forPath(null));
+        testParse("../../folder/", GenericDataTypeParser.forPath(null));
+        testParse(" ", GenericDataTypeParser.forPath(null));
 
         try {
             System.out.println("---GenericDataTypeFormatter InetAddress");
-            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
-            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
-            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
-            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.newInetAddressHostAddressDataTypeFormatter(null));
-            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.newInetAddressHostNameDataTypeFormatter(null));
+            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.forInetAddressHostAddress(null));
+            testFormat(InetAddress.getLocalHost(), GenericDataTypeFormatter.forInetAddressHostName(null));
+            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.forInetAddressHostAddress(null));
+            testFormat(InetAddress.getLoopbackAddress(), GenericDataTypeFormatter.forInetAddressHostName(null));
+            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.forInetAddressHostAddress(null));
+            testFormat(InetAddress.getByName("127.0.0.1"), GenericDataTypeFormatter.forInetAddressHostName(null));
+            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.forInetAddressHostAddress(null));
+            testFormat(InetAddress.getByName("137.254.56.25"), GenericDataTypeFormatter.forInetAddressHostName(null));
+            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.forInetAddressHostAddress(null));
+            testFormat(InetAddress.getByName("java.net"), GenericDataTypeFormatter.forInetAddressHostName(null));
 
             System.out.println("---GenericDataTypeParser InetAddress");
-            testParse("127.0.0.1", GenericDataTypeParser.newInetAddressDataTypeParser(null));
-            testParse("localhost", GenericDataTypeParser.newInetAddressDataTypeParser(null));
-            testParse("137.254.56.25", GenericDataTypeParser.newInetAddressDataTypeParser(null));
-            testParse("java.net", GenericDataTypeParser.newInetAddressDataTypeParser(null));
-            testParse(".", GenericDataTypeParser.newInetAddressDataTypeParser(null));
+            testParse("127.0.0.1", GenericDataTypeParser.forInetAddress(null));
+            testParse("localhost", GenericDataTypeParser.forInetAddress(null));
+            testParse("137.254.56.25", GenericDataTypeParser.forInetAddress(null));
+            testParse("java.net", GenericDataTypeParser.forInetAddress(null));
+            testParse(".", GenericDataTypeParser.forInetAddress(null));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

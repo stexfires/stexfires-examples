@@ -83,13 +83,13 @@ public final class ExamplesCollectionDataType {
         System.out.println("---CollectionDataTypeFormatter withDelimiter integerDelimitedList");
         List<Integer> integerDelimitedList = new ArrayList<>();
         integerDelimitedList.add(42);
-        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.forInteger(10, null), null));
         integerDelimitedList.add(7);
-        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.forInteger(10, null), null));
         integerDelimitedList.add(23);
-        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.forInteger(10, null), null));
         integerDelimitedList.add(null);
-        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerDelimitedList, CollectionDataTypeFormatter.withDelimiter("; ", null, null, GenericDataTypeFormatter.forInteger(10, null), null));
 
         System.out.println("---CollectionDataTypeFormatter withLength stringLengthList");
         List<String> stringLengthList = new ArrayList<>();
@@ -110,13 +110,13 @@ public final class ExamplesCollectionDataType {
         System.out.println("---CollectionDataTypeFormatter withLength integerLengthList");
         List<Integer> integerLengthList = new ArrayList<>();
         integerLengthList.add(2);
-        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, null, null, GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, null, null, GenericDataTypeFormatter.forInteger(10, null), null));
         integerLengthList.add(8);
         integerLengthList.add(1);
         integerLengthList.add(9);
-        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, "(", ")", GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, "(", ")", GenericDataTypeFormatter.forInteger(10, null), null));
         integerLengthList.add(99);
-        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, "(", ")", GenericDataTypeFormatter.newIntegerRadixDataType(10, null), null));
+        testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, "(", ")", GenericDataTypeFormatter.forInteger(10, null), null));
 
         System.out.println("---CollectionDataTypeParser withDelimiterAsList String");
         testParse(null, CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
@@ -151,14 +151,14 @@ public final class ExamplesCollectionDataType {
         testParse("a", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
         System.out.println("---CollectionDataTypeParser withDelimiterAsList Integer");
-        testParse("", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23;", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23;", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
 
         System.out.println("---CollectionDataTypeParser withLengthAsList String");
         testParse("", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
@@ -186,7 +186,7 @@ public final class ExamplesCollectionDataType {
         testFormat(listOfList,
                 CollectionDataTypeFormatter.withDelimiter("\n", null, null,
                         CollectionDataTypeFormatter.withDelimiter(", ", "(", ")",
-                                GenericDataTypeFormatter.newIntegerRadixDataType(10, null),
+                                GenericDataTypeFormatter.forInteger(10, null),
                                 null),
                         null)
         );
@@ -197,7 +197,7 @@ public final class ExamplesCollectionDataType {
                 (7, 8, 9)""";
         testParse(listOfListString,
                 CollectionDataTypeParser.withDelimiterAsList(null, null, "\n",
-                        CollectionDataTypeParser.withDelimiterAsList("(", ")", ", ", GenericDataTypeParser.newIntegerRadixDataType(10, null, Suppliers.constantNull()),
+                        CollectionDataTypeParser.withDelimiterAsList("(", ")", ", ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()),
                                 null, Suppliers.constantNull()),
                         null, Suppliers.constantNull())
         );

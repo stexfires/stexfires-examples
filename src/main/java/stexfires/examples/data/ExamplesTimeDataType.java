@@ -128,17 +128,17 @@ public final class ExamplesTimeDataType {
         testParse("2022-11-25T22:51:35.1634235+01:00[Europe/Berlin]", new TimeDataTypeParser<>(zonedDateTimeFormatter, ZonedDateTime::from, null, null), zonedDateTimeFormatter);
 
         System.out.println("---GenericDataTypeFormatter newInstantEpochSecondsDataTypeFormatter newInstantEpochMilliDataTypeFormatter");
-        testFormat(Instant.now(), GenericDataTypeFormatter.newInstantEpochSecondDataTypeFormatter(null));
-        testFormat(Instant.now(), GenericDataTypeFormatter.newInstantEpochMilliDataTypeFormatter(null));
+        testFormat(Instant.now(), GenericDataTypeFormatter.forInstantEpochSecond(null));
+        testFormat(Instant.now(), GenericDataTypeFormatter.forInstantEpochMilli(null));
 
         System.out.println("---GenericDataTypeFormatter newInstantEpochSecondDataTypeParser newInstantEpochMilliDataTypeParser");
-        testParse(null, GenericDataTypeParser.newInstantEpochSecondDataTypeParserWithSuppliers(Instant::now, null), instantFormatter);
-        testParse("", GenericDataTypeParser.newInstantEpochSecondDataTypeParserWithSuppliers(null, Instant::now), instantFormatter);
-        testParse("1673760570", GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
-        testParse(String.valueOf(Long.MAX_VALUE), GenericDataTypeParser.newInstantEpochSecondDataTypeParser(null), instantFormatter);
+        testParse(null, GenericDataTypeParser.forInstantEpochSecondWithSuppliers(Instant::now, null), instantFormatter);
+        testParse("", GenericDataTypeParser.forInstantEpochSecondWithSuppliers(null, Instant::now), instantFormatter);
+        testParse("1673760570", GenericDataTypeParser.forInstantEpochSecond(null), instantFormatter);
+        testParse(String.valueOf(Long.MAX_VALUE), GenericDataTypeParser.forInstantEpochSecond(null), instantFormatter);
 
-        testParse("1673761073289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
-        testParse("1.673.761.073.289", GenericDataTypeParser.newInstantEpochMilliDataTypeParser(null), instantFormatter);
+        testParse("1673761073289", GenericDataTypeParser.forInstantEpochMilli(null), instantFormatter);
+        testParse("1.673.761.073.289", GenericDataTypeParser.forInstantEpochMilli(null), instantFormatter);
 
         System.out.println("---compose andThen NumberDataTypeFormatter toEpochMilli surround");
         testFormat(Instant.now(),

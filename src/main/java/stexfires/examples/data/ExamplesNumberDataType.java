@@ -126,30 +126,30 @@ public final class ExamplesNumberDataType {
         testParse("∞", new NumberDataTypeParser<>(bigDecimalFormat, NumberDataTypeParser::toBigDecimal, null, null), bigDecimalFormat);
 
         System.out.println("---GenericDataTypeFormatter");
-        testFormat(Long.MAX_VALUE, GenericDataTypeFormatter.newLongRadixDataType(16, null));
-        testFormat(Long.MIN_VALUE, GenericDataTypeFormatter.newLongRadixDataType(16, null));
-        testFormat(Integer.MAX_VALUE, GenericDataTypeFormatter.newIntegerRadixDataType(16, null));
-        testFormat(Integer.MIN_VALUE, GenericDataTypeFormatter.newIntegerRadixDataType(16, null));
-        testFormat(Short.MAX_VALUE, GenericDataTypeFormatter.newShortRadixDataType(16, null));
-        testFormat(Short.MIN_VALUE, GenericDataTypeFormatter.newShortRadixDataType(16, null));
-        testFormat(Byte.MAX_VALUE, GenericDataTypeFormatter.newByteRadixDataType(16, null));
-        testFormat(Byte.MIN_VALUE, GenericDataTypeFormatter.newByteRadixDataType(16, null));
-        testFormat(1234.5678d, GenericDataTypeFormatter.newDoubleDataType(null));
-        testFormat(BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.TWO), GenericDataTypeFormatter.newBigIntegerRadixDataType(16, null));
+        testFormat(Long.MAX_VALUE, GenericDataTypeFormatter.forLong(16, null));
+        testFormat(Long.MIN_VALUE, GenericDataTypeFormatter.forLong(16, null));
+        testFormat(Integer.MAX_VALUE, GenericDataTypeFormatter.forInteger(16, null));
+        testFormat(Integer.MIN_VALUE, GenericDataTypeFormatter.forInteger(16, null));
+        testFormat(Short.MAX_VALUE, GenericDataTypeFormatter.forShort(16, null));
+        testFormat(Short.MIN_VALUE, GenericDataTypeFormatter.forShort(16, null));
+        testFormat(Byte.MAX_VALUE, GenericDataTypeFormatter.forByte(16, null));
+        testFormat(Byte.MIN_VALUE, GenericDataTypeFormatter.forByte(16, null));
+        testFormat(1234.5678d, GenericDataTypeFormatter.forDouble(null));
+        testFormat(BigInteger.valueOf(Long.MAX_VALUE).multiply(BigInteger.TWO), GenericDataTypeFormatter.forBigInteger(16, null));
 
         System.out.println("---GenericDataTypeParser");
-        testParse("7fffffffffffffff", GenericDataTypeParser.newLongRadixDataType(16, null, null), integerFormat);
-        testParse("-8000000000000000", GenericDataTypeParser.newLongRadixDataType(16, null, null), integerFormat);
-        testParse("7fffffff", GenericDataTypeParser.newIntegerRadixDataType(16, null, null), integerFormat);
-        testParse("-80000000", GenericDataTypeParser.newIntegerRadixDataType(16, null, null), integerFormat);
-        testParse("7fff", GenericDataTypeParser.newShortRadixDataType(16, null, null), integerFormat);
-        testParse("-8000", GenericDataTypeParser.newShortRadixDataType(16, null, null), integerFormat);
-        testParse("7f", GenericDataTypeParser.newByteRadixDataType(16, null, null), integerFormat);
-        testParse("-80", GenericDataTypeParser.newByteRadixDataType(16, null, null), integerFormat);
-        testParse("1234.5678", GenericDataTypeParser.newDoubleDataType(null, null), integerFormat);
-        testParse("   111222333444555666777888999   ", GenericDataTypeParser.newDoubleDataType(null, null), decimalFormat);
-        testParse("   .111222333444555666777888999   ", GenericDataTypeParser.newDoubleDataType(null, null), decimalFormat);
-        testParse("fffffffffffffffe", GenericDataTypeParser.newBigIntegerRadixDataType(16, null, null), bigDecimalFormat);
+        testParse("7fffffffffffffff", GenericDataTypeParser.forLong(16, null, null), integerFormat);
+        testParse("-8000000000000000", GenericDataTypeParser.forLong(16, null, null), integerFormat);
+        testParse("7fffffff", GenericDataTypeParser.forInteger(16, null, null), integerFormat);
+        testParse("-80000000", GenericDataTypeParser.forInteger(16, null, null), integerFormat);
+        testParse("7fff", GenericDataTypeParser.forShort(16, null, null), integerFormat);
+        testParse("-8000", GenericDataTypeParser.forShort(16, null, null), integerFormat);
+        testParse("7f", GenericDataTypeParser.forByte(16, null, null), integerFormat);
+        testParse("-80", GenericDataTypeParser.forByte(16, null, null), integerFormat);
+        testParse("1234.5678", GenericDataTypeParser.forDouble(null, null), integerFormat);
+        testParse("   111222333444555666777888999   ", GenericDataTypeParser.forDouble(null, null), decimalFormat);
+        testParse("   .111222333444555666777888999   ", GenericDataTypeParser.forDouble(null, null), decimalFormat);
+        testParse("fffffffffffffffe", GenericDataTypeParser.forBigInteger(16, null, null), bigDecimalFormat);
     }
 
 }
