@@ -28,8 +28,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
-import static stexfires.data.DataTypeConverters.URI_to_URL;
-import static stexfires.data.DataTypeConverters.URL_to_URI;
+import static stexfires.data.DataTypeConverters.URI_TO_URL;
+import static stexfires.data.DataTypeConverters.URL_TO_URI;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection", "MagicNumber", "CallToPrintStackTrace"})
 public final class ExamplesMiscDataType {
@@ -323,7 +323,7 @@ public final class ExamplesMiscDataType {
         System.out.println("---ConvertingDataTypeFormatter formatterConverterUrlToUri");
         try {
             DataTypeFormatter<URL> dataTypeFormatter = new ConvertingDataTypeFormatter<>(
-                    URL_to_URI(),
+                    URL_TO_URI,
                     GenericDataTypeFormatter.newUriDataTypeFormatter(true, null),
                     null,
                     null);
@@ -344,7 +344,7 @@ public final class ExamplesMiscDataType {
         DataTypeParser<URL> urlDataTypeParser = new ConvertingDataTypeParser<>(
                 null,
                 GenericDataTypeParser.newUriDataTypeParser(true, null),
-                URI_to_URL(),
+                URI_TO_URL,
                 null,
                 null);
         testParse("https://abcd.efgh.ijkl/", urlDataTypeParser);

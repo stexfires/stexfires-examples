@@ -3,7 +3,6 @@ package stexfires.examples.data;
 import stexfires.data.ConvertingDataTypeFormatter;
 import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeConverterException;
-import stexfires.data.DataTypeConverters;
 import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
@@ -31,6 +30,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Locale;
+
+import static stexfires.data.DataTypeConverters.DATE_TO_INSTANT;
+import static stexfires.data.DataTypeConverters.INSTANT_TO_DATE;
 
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "MagicNumber", "UseOfObsoleteDateTimeApi", "SameParameterValue"})
 public final class ExamplesTimeDataType {
@@ -175,18 +177,19 @@ public final class ExamplesTimeDataType {
 
         System.out.println("---ConvertingDataTypeFormatter Date, Instant");
         ConvertingDataTypeFormatter<Date, Instant> convertingDataTypeFormatterDateInstant = new ConvertingDataTypeFormatter<>(
-                DataTypeConverters.Date_to_Instant(),
+                DATE_TO_INSTANT,
                 new TimeDataTypeFormatter<>(instantFormatter, null),
                 StringUnaryOperators.surround("'", "'"),
                 () -> "Instant is null!");
         testFormat(null, convertingDataTypeFormatterDateInstant);
         testFormat(new Date(System.currentTimeMillis()), convertingDataTypeFormatterDateInstant);
+        testFormat(new Date(Long.MAX_VALUE), convertingDataTypeFormatterDateInstant);
 
         System.out.println("---ConvertingDataTypeParser Date, Instant");
         ConvertingDataTypeParser<Date, Instant> convertingDataTypeParserDateInstant = new ConvertingDataTypeParser<>(
                 StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")),
                 new TimeDataTypeParser<>(instantFormatter, Instant::from, null, Instant::now),
-                DataTypeConverters.Instant_to_Date(),
+                INSTANT_TO_DATE,
                 () -> new Date(0),
                 () -> new Date(1000L * 60L * 60L));
         testParseDate(null, convertingDataTypeParserDateInstant, instantFormatter);
@@ -194,6 +197,9 @@ public final class ExamplesTimeDataType {
         testParseDate("''", convertingDataTypeParserDateInstant, instantFormatter);
         testParseDate("2023-01-24T18:56:53.038Z", convertingDataTypeParserDateInstant, instantFormatter);
         testParseDate("'2023-01-24T18:56:53.038Z'", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("'2023-01-24'", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("'+292278994-08-17T07:12:55.807Z'", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("'+392278994-08-17T07:12:55.807Z'", convertingDataTypeParserDateInstant, instantFormatter);
     }
 
 }
