@@ -3,6 +3,7 @@ package stexfires.examples.data;
 import stexfires.data.ConvertingDataTypeFormatter;
 import stexfires.data.ConvertingDataTypeParser;
 import stexfires.data.DataTypeConverterException;
+import stexfires.data.DataTypeConverters;
 import stexfires.data.DataTypeFormatter;
 import stexfires.data.DataTypeParser;
 import stexfires.data.GenericDataTypeFormatter;
@@ -149,35 +150,50 @@ public final class ExamplesTimeDataType {
                         .compose(StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")))
                         .andThen(Instant::ofEpochMilli), instantFormatter);
 
-        System.out.println("---ConvertingDataTypeFormatter");
-        ConvertingDataTypeFormatter<Instant, Long> convertingDataTypeFormatter = new ConvertingDataTypeFormatter<>(
+        System.out.println("---ConvertingDataTypeFormatter Instant, Long");
+        ConvertingDataTypeFormatter<Instant, Long> convertingDataTypeFormatterInstantLong = new ConvertingDataTypeFormatter<>(
                 Instant::toEpochMilli,
                 new NumberDataTypeFormatter<>(NumberFormat.getIntegerInstance(Locale.GERMANY), null),
                 StringUnaryOperators.surround("'", "'"),
                 () -> "Instant is null!");
-        testFormat(null, convertingDataTypeFormatter);
-        testFormat(Instant.now(), convertingDataTypeFormatter);
+        testFormat(null, convertingDataTypeFormatterInstantLong);
+        testFormat(Instant.now(), convertingDataTypeFormatterInstantLong);
 
-        System.out.println("---ConvertingDataTypeParser");
-        ConvertingDataTypeParser<Instant, Long> convertingDataTypeParser = new ConvertingDataTypeParser<>(
+        System.out.println("---ConvertingDataTypeParser Instant, Long");
+        ConvertingDataTypeParser<Instant, Long> convertingDataTypeParserInstantLong = new ConvertingDataTypeParser<>(
                 StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")),
                 new NumberDataTypeParser<>(NumberFormat.getIntegerInstance(Locale.GERMANY), NumberDataTypeParser::toLong, null, () -> 1000L * 60L * 60L * 24L),
                 Instant::ofEpochMilli,
                 () -> Instant.ofEpochMilli(1000L),
                 () -> Instant.ofEpochMilli(-1000L));
-        testParse(null, convertingDataTypeParser, instantFormatter);
-        testParse("", convertingDataTypeParser, instantFormatter);
-        testParse("''", convertingDataTypeParser, instantFormatter);
-        testParse("1.673.761.073.289", convertingDataTypeParser, instantFormatter);
-        testParse("'1673761073289'", convertingDataTypeParser, instantFormatter);
-        testParse("'1.673.761.073.289'", convertingDataTypeParser, instantFormatter);
+        testParse(null, convertingDataTypeParserInstantLong, instantFormatter);
+        testParse("", convertingDataTypeParserInstantLong, instantFormatter);
+        testParse("''", convertingDataTypeParserInstantLong, instantFormatter);
+        testParse("1.673.761.073.289", convertingDataTypeParserInstantLong, instantFormatter);
+        testParse("'1673761073289'", convertingDataTypeParserInstantLong, instantFormatter);
+        testParse("'1.673.761.073.289'", convertingDataTypeParserInstantLong, instantFormatter);
 
-        System.out.println("---GenericDataTypeFormatter newDateDataTypeFormatterWithSupplier");
-        testFormat(new Date(System.currentTimeMillis()), GenericDataTypeFormatter.newDateDataTypeFormatterWithSupplier(
-                new TimeDataTypeFormatter<>(instantFormatter, null), null));
+        System.out.println("---ConvertingDataTypeFormatter Date, Instant");
+        ConvertingDataTypeFormatter<Date, Instant> convertingDataTypeFormatterDateInstant = new ConvertingDataTypeFormatter<>(
+                DataTypeConverters.Date_to_Instant(),
+                new TimeDataTypeFormatter<>(instantFormatter, null),
+                StringUnaryOperators.surround("'", "'"),
+                () -> "Instant is null!");
+        testFormat(null, convertingDataTypeFormatterDateInstant);
+        testFormat(new Date(System.currentTimeMillis()), convertingDataTypeFormatterDateInstant);
 
-        System.out.println("---GenericDataTypeParser newDateDataTypeParser");
-        testParseDate("2023-01-15T14:51:18.559Z", GenericDataTypeParser.newDateDataTypeParser(new TimeDataTypeParser<>(instantFormatter, Instant::from, null, null), null), instantFormatter);
+        System.out.println("---ConvertingDataTypeParser Date, Instant");
+        ConvertingDataTypeParser<Date, Instant> convertingDataTypeParserDateInstant = new ConvertingDataTypeParser<>(
+                StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")),
+                new TimeDataTypeParser<>(instantFormatter, Instant::from, null, Instant::now),
+                DataTypeConverters.Instant_to_Date(),
+                () -> new Date(0),
+                () -> new Date(1000L * 60L * 60L));
+        testParseDate(null, convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("''", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("2023-01-24T18:56:53.038Z", convertingDataTypeParserDateInstant, instantFormatter);
+        testParseDate("'2023-01-24T18:56:53.038Z'", convertingDataTypeParserDateInstant, instantFormatter);
     }
 
 }
