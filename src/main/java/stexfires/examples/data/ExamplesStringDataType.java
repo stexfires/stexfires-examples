@@ -50,40 +50,40 @@ public final class ExamplesStringDataType {
         testParse("", new StringDataTypeParser(null, null, null, () -> "<EMPTY>"));
 
         System.out.println("---StringDataTypeFormatter identity");
-        testFormat(null, StringDataTypeFormatter.newIdentityFormatter());
-        testFormat("", StringDataTypeFormatter.newIdentityFormatter());
-        testFormat("Test", StringDataTypeFormatter.newIdentityFormatter());
-        testFormat("ä Ä ß s SS", StringDataTypeFormatter.newIdentityFormatter());
+        testFormat(null, StringDataTypeFormatter.identity());
+        testFormat("", StringDataTypeFormatter.identity());
+        testFormat("Test", StringDataTypeFormatter.identity());
+        testFormat("ä Ä ß s SS", StringDataTypeFormatter.identity());
 
         System.out.println("---StringDataTypeParser identity");
-        testParse(null, StringDataTypeParser.newIdentityParser());
-        testParse("", StringDataTypeParser.newIdentityParser());
-        testParse("Test", StringDataTypeParser.newIdentityParser());
-        testParse("ä Ä ß s SS", StringDataTypeParser.newIdentityParser());
+        testParse(null, StringDataTypeParser.identity());
+        testParse("", StringDataTypeParser.identity());
+        testParse("Test", StringDataTypeParser.identity());
+        testParse("ä Ä ß s SS", StringDataTypeParser.identity());
 
         System.out.println("---StringDataTypeFormatter upperCase");
-        testFormat(null, StringDataTypeFormatter.newFormatter(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testFormat("", StringDataTypeFormatter.newFormatter(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testFormat("    ", StringDataTypeFormatter.newFormatter(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testFormat("Test", StringDataTypeFormatter.newFormatter(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testFormat("ä Ä ß s SS", StringDataTypeFormatter.newFormatter(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testFormat(null, StringDataTypeFormatter.passingNull(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testFormat("", StringDataTypeFormatter.passingNull(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testFormat("    ", StringDataTypeFormatter.passingNull(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testFormat("Test", StringDataTypeFormatter.passingNull(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testFormat("ä Ä ß s SS", StringDataTypeFormatter.passingNull(StringUnaryOperators.upperCase(Locale.GERMAN)));
 
         System.out.println("---StringDataTypeParser upperCase");
-        testParse(null, StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testParse("", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testParse("    ", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testParse("test", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testParse("TEST", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
-        testParse("Ä Ä SS S SS", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse(null, StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse("", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse("    ", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse("test", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse("TEST", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
+        testParse("Ä Ä SS S SS", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.upperCase(Locale.GERMAN)));
 
         System.out.println("---StringDataTypeFormatter lowerCase");
-        testFormat("Test", StringDataTypeFormatter.newFormatter(StringUnaryOperators.lowerCase(Locale.GERMAN)));
-        testFormat("ä Ä ß s SS", StringDataTypeFormatter.newFormatter(StringUnaryOperators.lowerCase(Locale.GERMAN)));
+        testFormat("Test", StringDataTypeFormatter.passingNull(StringUnaryOperators.lowerCase(Locale.GERMAN)));
+        testFormat("ä Ä ß s SS", StringDataTypeFormatter.passingNull(StringUnaryOperators.lowerCase(Locale.GERMAN)));
 
         System.out.println("---StringDataTypeParser lowerCase");
-        testParse("test", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
-        testParse("TEST", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
-        testParse("ä ä ß s ss", StringDataTypeParser.newParserWithEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
+        testParse("test", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
+        testParse("TEST", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
+        testParse("ä ä ß s ss", StringDataTypeParser.withEqualityCheck(StringUnaryOperators.lowerCase(Locale.GERMAN)));
 
         System.out.println("---StringDataTypeFormatter surround");
         testFormat(null, new StringDataTypeFormatter(StringUnaryOperators.surround("'", "'"), Suppliers.constant("''")));
@@ -111,8 +111,8 @@ public final class ExamplesStringDataType {
         testParse("'Test'", new StringDataTypeParser(null, StringUnaryOperators.conditionalOperator(StringPredicates.surroundedBy("'", "'"), StringUnaryOperators.concat(StringUnaryOperators.removeStringFromStart("'"), StringUnaryOperators.removeStringFromEnd("'")), StringUnaryOperators.identity()), Suppliers.constantNull(), Suppliers.constant(Strings.EMPTY)));
 
         System.out.println("---StringDataTypeFormatter Base64");
-        testFormat("Test", StringDataTypeFormatter.newFormatter(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.US_ASCII)));
-        testFormat("ä ß €", StringDataTypeFormatter.newFormatter(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8)));
+        testFormat("Test", StringDataTypeFormatter.passingNull(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.US_ASCII)));
+        testFormat("ä ß €", StringDataTypeFormatter.passingNull(StringUnaryOperators.encodeBase64(Base64.getEncoder(), StandardCharsets.UTF_8)));
 
         System.out.println("---StringDataTypeParser Base64");
         testParse("VGVzdA==", new StringDataTypeParser(null, StringUnaryOperators.decodeBase64(Base64.getDecoder(), StandardCharsets.US_ASCII), Suppliers.constantNull(), null));
