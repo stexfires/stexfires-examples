@@ -92,6 +92,12 @@ public final class ExamplesIO {
 
         System.out.println("---newRecordDataTypeParser");
         printlnRecord(
+                newRecordDataTypeParser(";", "[", "]", null, null)
+                        .parse("[category_ValueFieldRecord;1;value_ValueFieldRecord]"));
+        printlnRecord(
+                newRecordDataTypeParser(", ", null, null, null, null)
+                        .parse(", , value0, value1, value2"));
+        printlnRecord(
                 newRecordDataTypeParser(fileSpec, null, null).parse(sourceString));
     }
 
@@ -137,6 +143,8 @@ public final class ExamplesIO {
                 true, keyValueFieldsRecord10));
 
         System.out.println("---newRecordDataTypeFormatter");
+        System.out.println(newRecordDataTypeFormatter(";", "[", "]", null)
+                .format(valueFieldRecord1));
         System.out.println(newRecordDataTypeFormatter(fileSpec,
                 true, null).format(valueFieldRecord1));
 
