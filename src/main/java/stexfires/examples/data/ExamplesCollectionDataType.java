@@ -119,55 +119,55 @@ public final class ExamplesCollectionDataType {
         testFormat(integerLengthList, CollectionDataTypeFormatter.withLength(1, "(", ")", GenericDataTypeFormatter.forInteger(10, null), null));
 
         System.out.println("---CollectionDataTypeParser withDelimiterAsList String");
-        testParse(null, CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse(" ", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[ ]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a, b]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a, b, c]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a, b, c, ]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a, b, c, , e]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[a, b, c, , e, ]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(null, CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[ ]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a, b]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a, b, c]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a, b, c, ]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a, b, c, , e]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[a, b, c, , e, ]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
-        testParse("[, ]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[, , ]", CollectionDataTypeParser.withDelimiterAsList("[", "]", ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[, ]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[, , ]", CollectionDataTypeParser.withDelimiterAsList(", ", "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
-        testParse("", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a, b", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a, b, c", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a, b, c, ", CollectionDataTypeParser.withDelimiterAsList(null, null, ", ", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a, b", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a, b, c", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a, b, c, ", CollectionDataTypeParser.withDelimiterAsList(", ", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
-        testParse("", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse(".", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("..", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a.", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse(".a", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse(".a.", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a.b", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("a", CollectionDataTypeParser.withDelimiterAsList(null, null, ".", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(".", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("..", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a.", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(".a", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse(".a.", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a.b", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("a", CollectionDataTypeParser.withDelimiterAsList(".", null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
         System.out.println("---CollectionDataTypeParser withDelimiterAsList Integer");
-        testParse("", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse(" ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23;", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
-        testParse("42; 7; 23; ", CollectionDataTypeParser.withDelimiterAsList(null, null, "; ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse(" ", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("; ", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23;", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
+        testParse("42; 7; 23; ", CollectionDataTypeParser.withDelimiterAsList("; ", null, null, GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()), null, Suppliers.constantNull()));
 
         System.out.println("---CollectionDataTypeParser withLengthAsList String");
-        testParse("", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("[]", CollectionDataTypeParser.withLengthAsList("[", "]", 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("H", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("He", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("Hel", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("Hello world", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
-        testParse("Hello world!", CollectionDataTypeParser.withLengthAsList(null, null, 2, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("[]", CollectionDataTypeParser.withLengthAsList(2, "[", "]", StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("H", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("He", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("Hel", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("Hello world", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
+        testParse("Hello world!", CollectionDataTypeParser.withLengthAsList(2, null, null, StringDataTypeParser.identity(), null, Suppliers.constantNull()));
 
         System.out.println("---CollectionDataTypeParser String splitTextByCodePointsFunction");
         Comparator<String> stringComparator = StringComparators.collatorComparator(Locale.GERMAN);
@@ -196,8 +196,8 @@ public final class ExamplesCollectionDataType {
                 (4, 5, 6)
                 (7, 8, 9)""";
         testParse(listOfListString,
-                CollectionDataTypeParser.withDelimiterAsList(null, null, "\n",
-                        CollectionDataTypeParser.withDelimiterAsList("(", ")", ", ", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()),
+                CollectionDataTypeParser.withDelimiterAsList("\n", null, null,
+                        CollectionDataTypeParser.withDelimiterAsList(", ", "(", ")", GenericDataTypeParser.forInteger(10, null, Suppliers.constantNull()),
                                 null, Suppliers.constantNull()),
                         null, Suppliers.constantNull())
         );
