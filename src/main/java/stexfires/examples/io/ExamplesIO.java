@@ -43,7 +43,7 @@ import static stexfires.examples.record.RecordSystemOutUtil.printlnRecord;
 import static stexfires.examples.record.RecordSystemOutUtil.printlnRecordList;
 import static stexfires.io.RecordIOStreams.*;
 
-@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber", "HardcodedLineSeparator"})
+@SuppressWarnings({"CallToPrintStackTrace", "UseOfSystemOutOrSystemErr", "MagicNumber", "HardcodedLineSeparator", "ReturnOfNull"})
 public final class ExamplesIO {
 
     private ExamplesIO() {
@@ -218,7 +218,6 @@ public final class ExamplesIO {
         return new ManyFieldsRecord("sampleCategory", 42L, "value0", "value1", "value2");
     }
 
-    @SuppressWarnings("ReturnOfNull")
     private static void showFormattedStringList() {
         System.out.println("-showFormattedStringList---");
 
@@ -242,7 +241,7 @@ public final class ExamplesIO {
         printlnRecord(fromStringList(parsedStringList));
     }
 
-    private static void showRecordContainer() throws IOException {
+    private static void showRecordContainer() {
         System.out.println("-showRecordContainer---");
 
         TextRecord record = generateRecord();
@@ -303,6 +302,32 @@ public final class ExamplesIO {
         TextRecordStreams.of(record).flatMap(splitIntoValueRecords).forEachOrdered(RECORD_CONSUMER::consume);
         TextRecordStreams.of(record).flatMap(splitIntoKeyValueRecords).forEachOrdered(RECORD_CONSUMER::consume);
         TextRecordStreams.of(record).flatMap(splitIntoKeyValueCommentRecords).forEachOrdered(RECORD_CONSUMER::consume);
+
+        System.out.println("-collect empty");
+        printlnRecord(Stream.<ValueRecord>empty().collect(
+                collectValueRecords(
+                        list -> list.stream().findFirst().map(ValueRecord::category).orElse(null),
+                        list -> list.stream().findFirst().map(ValueRecord::recordId).orElse(null))));
+        System.out.println("-collect ValueFieldRecord");
+        printlnRecord(Stream.of(new ValueFieldRecord("c", 1L, "v0")).collect(
+                collectValueRecords(
+                        list -> list.stream().findFirst().map(ValueRecord::category).orElse(null),
+                        list -> list.stream().findFirst().map(ValueRecord::recordId).orElse(null))));
+        System.out.println("-collect ValueRecord");
+        printlnRecord(TextRecordStreams.of(record).flatMap(splitIntoValueRecords).collect(
+                collectValueRecords(
+                        list -> list.stream().findFirst().map(ValueRecord::category).orElse(null),
+                        list -> list.stream().findFirst().map(ValueRecord::recordId).orElse(null))));
+        System.out.println("-collect KeyValueRecord");
+        printlnRecord(TextRecordStreams.of(record).flatMap(splitIntoKeyValueRecords).collect(
+                collectKeyValueRecords(
+                        list -> null,
+                        list -> null)));
+        System.out.println("-collect KeyValueCommentRecord");
+        printlnRecord(TextRecordStreams.of(record).flatMap(splitIntoKeyValueCommentRecords).collect(
+                collectKeyValueCommentRecords(
+                        list -> "new category",
+                        list -> list.stream().findFirst().map(ValueRecord::recordId).orElse(null))));
     }
 
     public static void main(String... args) {
