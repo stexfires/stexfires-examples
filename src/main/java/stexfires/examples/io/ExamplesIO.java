@@ -103,12 +103,6 @@ public final class ExamplesIO {
 
         System.out.println("---newRecordDataTypeParser");
         printlnRecord(
-                newRecordDataTypeParser(";", "[", "]", null, null)
-                        .parse("[category_ValueFieldRecord;1;value_ValueFieldRecord]"));
-        printlnRecord(
-                newRecordDataTypeParser(", ", null, null, null, null)
-                        .parse(", , value0, value1, value2"));
-        printlnRecord(
                 newRecordDataTypeParser(fileSpec, null, null).parse(sourceString));
     }
 
@@ -154,8 +148,6 @@ public final class ExamplesIO {
                 true, keyValueFieldsRecord10));
 
         System.out.println("---newRecordDataTypeFormatter");
-        System.out.println(newRecordDataTypeFormatter(";", "[", "]", null)
-                .format(valueFieldRecord1));
         System.out.println(newRecordDataTypeFormatter(fileSpec,
                 true, null).format(valueFieldRecord1));
 
@@ -259,6 +251,26 @@ public final class ExamplesIO {
         printlnOptionalRecord(unpackedLarge.record());
     }
 
+    private static void showRecordDataType() throws IOException {
+        System.out.println("-showRecordDataType---");
+
+        TextRecord record = generateRecord();
+
+        System.out.println(
+                newRecordDataTypeFormatter(";", "[", "]", null)
+                        .format(record));
+
+        printlnRecord(
+                newRecordDataTypeParser(";", "[", "]", null, null)
+                        .parse("[sampleCategory;42;value0;value1;value2]"));
+        printlnRecord(
+                newRecordDataTypeParser(";", "[", "]", null, null)
+                        .parse("[category_ValueFieldRecord;1;value_ValueFieldRecord]"));
+        printlnRecord(
+                newRecordDataTypeParser(", ", null, null, null, null)
+                        .parse(", , value0, value1, value2"));
+    }
+
     public static void main(String... args) {
         try {
             showRead();
@@ -266,6 +278,7 @@ public final class ExamplesIO {
             showStringList();
             showFormattedStringList();
             showRecordContainer();
+            showRecordDataType();
         } catch (IOException | UncheckedProducerException | UncheckedConsumerException e) {
             e.printStackTrace();
         }
