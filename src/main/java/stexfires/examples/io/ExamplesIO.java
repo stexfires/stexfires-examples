@@ -9,6 +9,8 @@ import stexfires.io.container.RecordContainer;
 import stexfires.io.container.RecordContainerLarge;
 import stexfires.io.container.UnpackResult;
 import stexfires.io.singlevalue.SingleValueFileSpec;
+import stexfires.record.KeyValueCommentRecord;
+import stexfires.record.KeyValueRecord;
 import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.TextRecords;
@@ -31,7 +33,9 @@ import stexfires.util.function.StringUnaryOperators;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static stexfires.examples.record.RecordSystemOutUtil.RECORD_CONSUMER;
 import static stexfires.examples.record.RecordSystemOutUtil.printlnOptionalRecord;
@@ -251,7 +255,7 @@ public final class ExamplesIO {
         printlnOptionalRecord(unpackedLarge.record());
     }
 
-    private static void showRecordDataType() throws IOException {
+    private static void showRecordDataType() {
         System.out.println("-showRecordDataType---");
 
         TextRecord record = generateRecord();
@@ -271,6 +275,36 @@ public final class ExamplesIO {
                         .parse(", , value0, value1, value2"));
     }
 
+    private static void showRecordSplitAndCollect() {
+        System.out.println("-showRecordSplitAndCollect---");
+
+        TextRecord record = generateRecord();
+
+        Function<TextRecord, Stream<ValueRecord>> splitIntoValueRecords =
+                splitIntoValueRecords(
+                        (r, f) -> r.category(),
+                        (r, f) -> r.recordId());
+        Function<TextRecord, Stream<KeyValueRecord>> splitIntoKeyValueRecords =
+                splitIntoKeyValueRecords(
+                        (r, f) -> r.category(),
+                        (r, f) -> r.recordIdAsOptional().map(id -> id * 100L + f.index()).orElse(null),
+                        (r, f) -> "key_" + f.index());
+        Function<TextRecord, Stream<KeyValueCommentRecord>> splitIntoKeyValueCommentRecords =
+                splitIntoKeyValueCommentRecords(
+                        (r, f) -> "key_" + f.index(),
+                        (r, f) -> r.getClass().getSimpleName() + " (" + f.index() + "/" + f.maxIndex() + ")");
+
+        System.out.println("-split apply");
+        splitIntoValueRecords.apply(record).forEachOrdered(RECORD_CONSUMER::consume);
+        splitIntoKeyValueRecords.apply(record).forEachOrdered(RECORD_CONSUMER::consume);
+        splitIntoKeyValueCommentRecords.apply(record).forEachOrdered(RECORD_CONSUMER::consume);
+
+        System.out.println("-split stream flatMap");
+        TextRecordStreams.of(record).flatMap(splitIntoValueRecords).forEachOrdered(RECORD_CONSUMER::consume);
+        TextRecordStreams.of(record).flatMap(splitIntoKeyValueRecords).forEachOrdered(RECORD_CONSUMER::consume);
+        TextRecordStreams.of(record).flatMap(splitIntoKeyValueCommentRecords).forEachOrdered(RECORD_CONSUMER::consume);
+    }
+
     public static void main(String... args) {
         try {
             showRead();
@@ -279,6 +313,7 @@ public final class ExamplesIO {
             showFormattedStringList();
             showRecordContainer();
             showRecordDataType();
+            showRecordSplitAndCollect();
         } catch (IOException | UncheckedProducerException | UncheckedConsumerException e) {
             e.printStackTrace();
         }
