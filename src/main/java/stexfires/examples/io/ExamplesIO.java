@@ -1,8 +1,11 @@
 package stexfires.examples.io;
 
+import stexfires.examples.record.RecordSystemOutUtil;
+import stexfires.io.RecordIOStreams;
 import stexfires.io.consumer.StringWritableRecordConsumer;
 import stexfires.io.singlevalue.SingleValueFileSpec;
 import stexfires.record.TextRecordStreams;
+import stexfires.record.TextRecords;
 import stexfires.record.ValueRecord;
 import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.UncheckedConsumerException;
@@ -19,6 +22,7 @@ import stexfires.util.SortNulls;
 import stexfires.util.function.StringUnaryOperators;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -176,10 +180,42 @@ public final class ExamplesIO {
                         TextFilter.isNotNull(ValueRecord::valueField))));
     }
 
+    private static void showStringList() {
+        System.out.println("-showStringList---");
+
+        System.out.println(RecordIOStreams.toStringList(TextRecords.empty()));
+        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord("cat", 1L, "value")));
+        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord("value")));
+        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord(null)));
+
+        List<String> stringList0 = new ArrayList<>();
+        stringList0.add("cat");
+        stringList0.add("1");
+        stringList0.add("value");
+        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList0));
+        List<String> stringList1 = new ArrayList<>();
+        stringList1.add(null);
+        stringList1.add(null);
+        stringList1.add("value");
+        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList1));
+        List<String> stringList2 = new ArrayList<>();
+        stringList2.add(null);
+        stringList2.add(null);
+        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList2));
+        List<String> stringList3 = new ArrayList<>();
+        stringList3.add(null);
+        stringList3.add("");
+        stringList3.add("value0");
+        stringList3.add(null);
+        stringList3.add("value2");
+        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList3));
+    }
+
     public static void main(String... args) {
         try {
             showRead();
             showWrite();
+            showStringList();
         } catch (IOException | UncheckedProducerException | UncheckedConsumerException e) {
             e.printStackTrace();
         }
