@@ -1,9 +1,15 @@
 package stexfires.examples.io;
 
-import stexfires.examples.record.RecordSystemOutUtil;
-import stexfires.io.RecordIOStreams;
+import stexfires.data.CollectionDataTypeFormatter;
+import stexfires.data.CollectionDataTypeParser;
+import stexfires.data.StringDataTypeFormatter;
+import stexfires.data.StringDataTypeParser;
 import stexfires.io.consumer.StringWritableRecordConsumer;
+import stexfires.io.container.RecordContainer;
+import stexfires.io.container.RecordContainerLarge;
+import stexfires.io.container.UnpackResult;
 import stexfires.io.singlevalue.SingleValueFileSpec;
+import stexfires.record.TextRecord;
 import stexfires.record.TextRecordStreams;
 import stexfires.record.TextRecords;
 import stexfires.record.ValueRecord;
@@ -11,6 +17,7 @@ import stexfires.record.comparator.RecordComparators;
 import stexfires.record.consumer.UncheckedConsumerException;
 import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.KeyValueFieldsRecord;
+import stexfires.record.impl.ManyFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.mapper.CategoryMapper;
 import stexfires.record.message.RecordMessage;
@@ -183,32 +190,73 @@ public final class ExamplesIO {
     private static void showStringList() {
         System.out.println("-showStringList---");
 
-        System.out.println(RecordIOStreams.toStringList(TextRecords.empty()));
-        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord("cat", 1L, "value")));
-        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord("value")));
-        System.out.println(RecordIOStreams.toStringList(new ValueFieldRecord(null)));
+        System.out.println(toStringList(TextRecords.empty()));
+        System.out.println(toStringList(new ValueFieldRecord("cat", 1L, "value")));
+        System.out.println(toStringList(new ValueFieldRecord("value")));
+        System.out.println(toStringList(new ValueFieldRecord(null)));
 
         List<String> stringList0 = new ArrayList<>();
         stringList0.add("cat");
         stringList0.add("1");
         stringList0.add("value");
-        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList0));
+        printlnRecord(fromStringList(stringList0));
         List<String> stringList1 = new ArrayList<>();
         stringList1.add(null);
         stringList1.add(null);
         stringList1.add("value");
-        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList1));
+        printlnRecord(fromStringList(stringList1));
         List<String> stringList2 = new ArrayList<>();
         stringList2.add(null);
         stringList2.add(null);
-        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList2));
+        printlnRecord(fromStringList(stringList2));
         List<String> stringList3 = new ArrayList<>();
         stringList3.add(null);
         stringList3.add("");
         stringList3.add("value0");
         stringList3.add(null);
         stringList3.add("value2");
-        RecordSystemOutUtil.printlnRecord(RecordIOStreams.fromStringList(stringList3));
+        printlnRecord(fromStringList(stringList3));
+    }
+
+    private static ManyFieldsRecord generateRecord() {
+        return new ManyFieldsRecord("sampleCategory", 42L, "value0", "value1", "value2");
+    }
+
+    @SuppressWarnings("ReturnOfNull")
+    private static void showFormattedStringList() {
+        System.out.println("-showFormattedStringList---");
+
+        TextRecord record = generateRecord();
+
+        // to String List
+        List<String> stringList = toStringList(generateRecord());
+        System.out.println(stringList);
+
+        // from String List
+        printlnRecord(fromStringList(stringList));
+
+        // format String List
+        String formattedStringList = CollectionDataTypeFormatter.withDelimiter(";", "[", "]", StringDataTypeFormatter.identity(), () -> null)
+                                                                .format(stringList);
+        System.out.println(formattedStringList);
+
+        // Parse String List
+        List<String> parsedStringList = CollectionDataTypeParser.withDelimiterAsList(";", "[", "]", StringDataTypeParser.identity(), () -> null, () -> null)
+                                                                .parse(formattedStringList);
+        printlnRecord(fromStringList(parsedStringList));
+    }
+
+    private static void showRecordContainer() throws IOException {
+        System.out.println("-showRecordContainer---");
+
+        TextRecord record = generateRecord();
+
+        RecordContainer recordContainerLarge = new RecordContainerLarge();
+        TextRecord packedLarge = recordContainerLarge.pack(record);
+        UnpackResult unpackedLarge = recordContainerLarge.unpack(packedLarge);
+
+        printlnRecord(packedLarge);
+        printlnOptionalRecord(unpackedLarge.record());
     }
 
     public static void main(String... args) {
@@ -216,6 +264,8 @@ public final class ExamplesIO {
             showRead();
             showWrite();
             showStringList();
+            showFormattedStringList();
+            showRecordContainer();
         } catch (IOException | UncheckedProducerException | UncheckedConsumerException e) {
             e.printStackTrace();
         }
