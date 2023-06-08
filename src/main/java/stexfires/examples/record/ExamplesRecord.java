@@ -10,7 +10,7 @@ import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.util.Strings;
 
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "MagicNumber"})
 public final class ExamplesRecord {
 
     private ExamplesRecord() {
@@ -114,7 +114,7 @@ public final class ExamplesRecord {
             System.out.println();
         }
         {
-            KeyValueRecord record = new KeyValueFieldsRecord("category", 0L, "key", "value");
+            KeyValueRecord record = new KeyValueFieldsRecord("category", 1_234_567_890L, "key", "value");
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("keyField:                  " + record.keyField());
             System.out.println("key:                       " + record.key());
@@ -153,13 +153,13 @@ public final class ExamplesRecord {
         RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord());
 
         RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord(Strings.list("value1", "value2", "value3")));
-        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 0L, Strings.list("value1", "value2", "value3")));
+        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 1_234_567_890L, Strings.list("value1", "value2", "value3")));
 
         RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord(Strings.stream("value1", "value2", "value3")));
-        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 0L, Strings.stream("value1", "value2", "value3")));
+        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 1_234_567_890L, Strings.stream("value1", "value2", "value3")));
 
         RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("value1", "value2", "value3"));
-        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 0L, "value1", "value2", "value3"));
+        RecordSystemOutUtil.printlnRecordExtended(new ManyFieldsRecord("category", 1_234_567_890L, "value1", "value2", "value3"));
         System.out.println();
     }
 
@@ -175,7 +175,7 @@ public final class ExamplesRecord {
             System.out.println();
         }
         {
-            TwoFieldsRecord record = new TwoFieldsRecord("category", 0L, "first", "second");
+            TwoFieldsRecord record = new TwoFieldsRecord("category", 1_234_567_890L, "first", "second");
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("secondField:               " + record.secondField());
             System.out.println("secondText:                " + record.secondText());
@@ -207,7 +207,7 @@ public final class ExamplesRecord {
             System.out.println();
         }
         {
-            ValueRecord record = new ValueFieldRecord("category", 0L, "value");
+            ValueRecord record = new ValueFieldRecord("category", 1_234_567_890L, "value");
             RecordSystemOutUtil.printlnRecordExtended(record);
             System.out.println("valueField:                " + record.valueField());
             System.out.println("value:                     " + record.value());
