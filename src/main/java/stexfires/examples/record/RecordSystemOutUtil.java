@@ -21,9 +21,6 @@ import java.util.stream.Stream;
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "OptionalUsedAsFieldOrParameterType"})
 public final class RecordSystemOutUtil {
 
-    private RecordSystemOutUtil() {
-    }
-
     public static final RecordMessage<TextRecord> RECORD_MESSAGE =
             new NullSafeMessage<>(
                     new ShortMessage<>()
@@ -32,6 +29,9 @@ public final class RecordSystemOutUtil {
                             .append("]"));
     public static final SystemOutLogger<TextRecord> RECORD_LOGGER = new SystemOutLogger<>(RECORD_MESSAGE);
     public static final SystemOutConsumer<TextRecord> RECORD_CONSUMER = new SystemOutConsumer<>(RECORD_MESSAGE);
+
+    private RecordSystemOutUtil() {
+    }
 
     public static void printlnRecord(@Nullable TextRecord record) {
         RECORD_LOGGER.log(record);
@@ -61,6 +61,7 @@ public final class RecordSystemOutUtil {
         System.out.println(">>>");
     }
 
+    @SuppressWarnings("UnnecessaryToStringCall")
     public static void printlnRecordExtended(@NotNull TextRecord record) {
         Objects.requireNonNull(record);
         System.out.println("RecordMessage              " + RECORD_MESSAGE.createMessage(record));
@@ -76,10 +77,13 @@ public final class RecordSystemOutUtil {
         System.out.println("categoryAsStream:          " + record.categoryAsStream().findFirst());
         System.out.println("recordId:                  " + record.recordId());
         System.out.println("hasRecordId:               " + record.hasRecordId());
-        System.out.println("recordIdAsOptionalLong:    " + record.recordIdAsOptionalLong());
         System.out.println("recordIdAsOptional:        " + record.recordIdAsOptional());
+        System.out.println("recordIdAsOptionalLong:    " + record.recordIdAsOptionalLong());
+        System.out.println("recordIdAsStream:          " + record.recordIdAsStream().findFirst());
         System.out.println("recordIdAsLongStream:      " + record.recordIdAsLongStream().findFirst());
+        System.out.println("recordIdAsString:          " + record.recordIdAsString());
         System.out.println("size:                      " + record.size());
+        System.out.println("isNotEmpty:                " + record.isNotEmpty());
         System.out.println("isEmpty:                   " + record.isEmpty());
         System.out.println("isValidIndex:              " + record.isValidIndex(0));
         System.out.println("fieldAt:                   " + record.fieldAt(0));
@@ -87,10 +91,10 @@ public final class RecordSystemOutUtil {
         System.out.println("lastField:                 " + record.lastField());
         System.out.println("textAt:                    " + record.textAt(0));
         System.out.println("textAtOrElse:              " + record.textAtOrElse(0, "else"));
-        System.out.println("valueOfFirstField:         " + record.firstText());
-        System.out.println("valueOfLastField:          " + record.lastText());
+        System.out.println("firstText:                 " + record.firstText());
+        System.out.println("lastText:                  " + record.lastText());
         System.out.println("hashCode:                  " + record.hashCode());
-        System.out.println("toString:                  " + record);
+        System.out.println("toString:                  " + record.toString());
     }
 
 }
