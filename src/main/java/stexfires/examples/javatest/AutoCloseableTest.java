@@ -1,8 +1,5 @@
 package stexfires.examples.javatest;
 
-/**
- * @author Mathias Kalb
- */
 @SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class AutoCloseableTest {
 

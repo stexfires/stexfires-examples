@@ -24,9 +24,6 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-/**
- * @author Mathias Kalb
- */
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "SpellCheckingInspection"})
 public final class CharacterTest {
 

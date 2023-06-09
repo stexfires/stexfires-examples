@@ -4,9 +4,6 @@ import java.text.CompactNumberFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-/**
- * @author Mathias Kalb
- */
 @SuppressWarnings("UseOfSystemOutOrSystemErr")
 public final class CompactNumberFormatTest {
 

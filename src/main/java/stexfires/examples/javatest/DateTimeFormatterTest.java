@@ -7,9 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * @author Mathias Kalb
- */
 @SuppressWarnings({"UseOfSystemOutOrSystemErr", "MagicNumber", "StaticCollection", "SpellCheckingInspection"})
 public final class DateTimeFormatterTest {
 

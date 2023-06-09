@@ -7,9 +7,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-/**
- * @author Mathias Kalb
- */
 @SuppressWarnings({"SpellCheckingInspection", "EmptyMethod", "ResultOfMethodCallIgnored", "Convert2MethodRef"})
 public final class FunctionalInterfacesTest {
 
