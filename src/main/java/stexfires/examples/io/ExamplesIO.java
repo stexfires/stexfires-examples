@@ -4,6 +4,8 @@ import stexfires.data.CollectionDataTypeFormatter;
 import stexfires.data.CollectionDataTypeParser;
 import stexfires.data.StringDataTypeFormatter;
 import stexfires.data.StringDataTypeParser;
+import stexfires.examples.record.RecordSystemOutUtil;
+import stexfires.io.RecordIOStreams;
 import stexfires.io.consumer.StringWritableRecordConsumer;
 import stexfires.io.container.RecordContainer;
 import stexfires.io.container.RecordContainerLarge;
@@ -20,6 +22,7 @@ import stexfires.record.consumer.UncheckedConsumerException;
 import stexfires.record.filter.TextFilter;
 import stexfires.record.impl.KeyValueFieldsRecord;
 import stexfires.record.impl.ManyFieldsRecord;
+import stexfires.record.impl.TwoFieldsRecord;
 import stexfires.record.impl.ValueFieldRecord;
 import stexfires.record.mapper.CategoryMapper;
 import stexfires.record.message.RecordMessage;
@@ -31,8 +34,12 @@ import stexfires.util.SortNulls;
 import stexfires.util.function.StringUnaryOperators;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,6 +54,25 @@ import static stexfires.io.RecordIOStreams.*;
 public final class ExamplesIO {
 
     private ExamplesIO() {
+    }
+
+    private static ManyFieldsRecord generateRecord() {
+        return new ManyFieldsRecord("sampleCategory", 42L, "value0", "value1", "value2");
+    }
+
+    private static Stream<TextRecord> generateRecordStream() {
+        return Stream.of(
+                TextRecords.empty(),
+                new ManyFieldsRecord(),
+                new ValueFieldRecord(null),
+                new ValueFieldRecord(""),
+                new ValueFieldRecord("value"),
+                new ValueFieldRecord("cat", 1_234_567_890L, "value"),
+                new TwoFieldsRecord("first", "second"),
+                new TwoFieldsRecord("cat", 1_234_567_890L, "first", "second"),
+                new ManyFieldsRecord("value0", "value1"),
+                new ManyFieldsRecord("cat", 1_234_567_890L, "value0", null, "value2", "value3")
+        );
     }
 
     private static void showRead() throws UncheckedProducerException {
@@ -183,39 +209,71 @@ public final class ExamplesIO {
                         TextFilter.isNotNull(ValueRecord::valueField))));
     }
 
-    private static void showStringList() {
-        System.out.println("-showStringList---");
+    private static void showList() {
+        System.out.println("-showList---");
 
-        System.out.println(toStringList(TextRecords.empty()));
-        System.out.println(toStringList(new ValueFieldRecord("cat", 1L, "value")));
-        System.out.println(toStringList(new ValueFieldRecord("value")));
-        System.out.println(toStringList(new ValueFieldRecord(null)));
+        System.out.println("-storeInList");
+        generateRecordStream().map(RecordIOStreams::storeInList)
+                              .forEachOrdered(System.out::println);
 
-        List<String> stringList0 = new ArrayList<>();
-        stringList0.add("cat");
-        stringList0.add("1");
-        stringList0.add("value");
-        printlnRecord(fromStringList(stringList0));
-        List<String> stringList1 = new ArrayList<>();
-        stringList1.add(null);
-        stringList1.add(null);
-        stringList1.add("value");
-        printlnRecord(fromStringList(stringList1));
-        List<String> stringList2 = new ArrayList<>();
-        stringList2.add(null);
-        stringList2.add(null);
-        printlnRecord(fromStringList(stringList2));
-        List<String> stringList3 = new ArrayList<>();
-        stringList3.add(null);
-        stringList3.add("");
-        stringList3.add("value0");
-        stringList3.add(null);
-        stringList3.add("value2");
-        printlnRecord(fromStringList(stringList3));
+        System.out.println("-restoreFromList (storeInList)");
+        generateRecordStream().map(RecordIOStreams::storeInList)
+                              .map(RecordIOStreams::restoreFromList)
+                              .forEachOrdered(RecordSystemOutUtil::printlnRecord);
+
+        System.out.println("-restoreFromList (special list)");
+        List<String> list0 = new ArrayList<>();
+        list0.add("");
+        list0.add("");
+        list0.add("value0");
+        list0.add(null);
+        list0.add("value2");
+        list0.add("");
+        printlnRecord(restoreFromList(list0));
+
+        List<String> list1 = new ArrayList<>();
+        list1.add("cat");
+        list1.add("1");
+        printlnRecord(restoreFromList(list1));
     }
 
-    private static ManyFieldsRecord generateRecord() {
-        return new ManyFieldsRecord("sampleCategory", 42L, "value0", "value1", "value2");
+    private static void showMap() {
+        System.out.println("-showMap---");
+
+        System.out.println("-storeInMap");
+        generateRecordStream().map(RecordIOStreams::storeInMap)
+                              .forEachOrdered(System.out::println);
+
+        System.out.println("-restoreFromMap (storeInMap)");
+        generateRecordStream().map(RecordIOStreams::storeInMap)
+                              .map(RecordIOStreams::restoreFromMap)
+                              .forEachOrdered(RecordSystemOutUtil::printlnRecord);
+
+        System.out.println("-restoreFromMap (special map)");
+        Map<String, Object> map0 = HashMap.newHashMap(3);
+        map0.put(CATEGORY_KEY, "");
+        map0.put(RECORD_ID_KEY, 1L);
+        map0.put(TEXTS_KEY, List.of("value0", "value1"));
+        printlnRecord(restoreFromMap(map0));
+
+        Map<String, Object> map1 = HashMap.newHashMap(3);
+        map1.put(CATEGORY_KEY, Boolean.TRUE);
+        map1.put(RECORD_ID_KEY, BigDecimal.valueOf(123.456d));
+        map1.put(TEXTS_KEY, List.of(4, 5.6f, 7.89d));
+        printlnRecord(restoreFromMap(map1));
+
+        Map<String, Object> map2 = HashMap.newHashMap(3);
+        map2.put(CATEGORY_KEY, 123);
+        map2.put(RECORD_ID_KEY, 456);
+        map2.put(TEXTS_KEY, Set.of(7, 8, 9));
+        printlnRecord(restoreFromMap(map2));
+
+        Map<String, Object> map3 = HashMap.newHashMap(3);
+        printlnRecord(restoreFromMap(map3));
+
+        Map<String, Object> map4 = HashMap.newHashMap(3);
+        map4.put(TEXTS_KEY, List.of("value"));
+        printlnRecord(restoreFromMap(map4));
     }
 
     private static void showFormattedStringList() {
@@ -224,11 +282,11 @@ public final class ExamplesIO {
         TextRecord record = generateRecord();
 
         // to String List
-        List<String> stringList = toStringList(generateRecord());
+        List<String> stringList = storeInList(generateRecord());
         System.out.println(stringList);
 
         // from String List
-        printlnRecord(fromStringList(stringList));
+        printlnRecord(restoreFromList(stringList));
 
         // format String List
         String formattedStringList = CollectionDataTypeFormatter.withDelimiter(";", "[", "]", StringDataTypeFormatter.identity(), () -> null)
@@ -238,7 +296,7 @@ public final class ExamplesIO {
         // Parse String List
         List<String> parsedStringList = CollectionDataTypeParser.withDelimiterAsList(";", "[", "]", StringDataTypeParser.identity(), () -> null, () -> null)
                                                                 .parse(formattedStringList);
-        printlnRecord(fromStringList(parsedStringList));
+        printlnRecord(restoreFromList(parsedStringList));
     }
 
     private static void showRecordContainer() {
@@ -334,7 +392,8 @@ public final class ExamplesIO {
         try {
             showRead();
             showWrite();
-            showStringList();
+            showList();
+            showMap();
             showFormattedStringList();
             showRecordContainer();
             showRecordDataType();
