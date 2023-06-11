@@ -10,17 +10,10 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains:annotations:24.0.1")
-    implementation("stexfires:stexfires:0.1.0")
-}
-
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.9.3")
-        }
-    }
+    implementation("stexfires:stexfires-util:0.1.0")
+    implementation("stexfires:stexfires-record:0.1.0")
+    implementation("stexfires:stexfires-data:0.1.0")
+    implementation("stexfires:stexfires-io:0.1.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
